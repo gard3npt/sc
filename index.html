@@ -13,7 +13,7 @@
     crossorigin="anonymous">
   </script>
 
-  <!-- icone da aba -->
+  <!-- icone da aba do browser -->
 
   <link rel="icon" href="favicon.ico">
 
@@ -48,7 +48,7 @@
       position:relative;
     }
 
-    /* Fundo */
+    /* Fundo após login */
 
     .background-letters{
       position:absolute;
@@ -60,13 +60,13 @@
       user-select:none;
       overflow:hidden;
     }
-
+    
     .background-letters img{
       width:100%;
       height:100%;
       object-fit:cover;
       object-position:center center;
-      opacity:0.25;
+      opacity:0.65;
       transform:scale(1.02);
     }
 
@@ -79,7 +79,7 @@
     @media (max-width:900px){
       .background-letters img{
         object-position:65% center;
-        opacity:0.20;
+        opacity:0.50;
       }
     }
 
@@ -109,28 +109,34 @@
       display:none;
     }
 
+    /* palavra Laboratorio do titulo*/
+
     .title{
       font-size:4rem;
       font-weight:900;
       letter-spacing:10px;
       margin-bottom:10px;
+      color: #23a05b;
+      text-shadow: 0 0 18px rgba(61, 220, 132, 0.35);
     }
 
+    /* palavra ou frase do sub-titulo*/
+
     .subtitle{
-      color:#8f98a3;
+      color:#303438;
       margin-bottom:40px;
       letter-spacing:3px;
       text-transform:uppercase;
       font-size:0.9rem;
     }
 
-    /* Secções */
+    /*titulos das secçõe departamentos etc*/
 
     .section-title{
       text-align:left;
       margin-bottom:20px;
       font-size:1.2rem;
-      color:#8f98a3;
+      color:#082d5a;
       letter-spacing:2px;
       text-transform:uppercase;
     }
@@ -213,14 +219,14 @@
       background:#2f3742;
     }
 
-    /* LOGIN */
+    /* Fundo antes da LOGIN */
 
     .login-screen{
       position:fixed;
       inset:0;
 
       background:
-        linear-gradient(rgba(18,20,23,0.75), rgba(18,20,23,0.75)),
+        linear-gradient(rgba(18,20,23,0.35), rgba(18,20,23,0.35)),
         url("SC Template_PPT.jpg");
 
       background-size:cover;
@@ -250,9 +256,11 @@
       letter-spacing:2px;
     }
 
+    /* Botão onde colocamos a cenha para login */
+
     .password-input{
       width:100%;
-      padding:16px;
+      padding:25px;
       border:none;
       border-radius:14px;
       background:#2A313A;
@@ -262,9 +270,11 @@
       outline:none;
     }
 
+    /* Botão enter para fazer login */
+
     .login-button{
       width:100%;
-      padding:16px;
+      padding:25px;
       border:none;
       border-radius:14px;
       background:#ffffff;
@@ -304,6 +314,18 @@
       font-size:0.9rem;
       border-top:1px solid rgba(255,255,255,0.05);
       z-index:1000;
+    }
+
+    .footer-note{
+      position: fixed;
+      bottom: 55px; /* fica acima do rodapé */
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #8f98a3;
+      padding: 5px 10px;
+      z-index: 999;
     }
 
     /* Mobile */
@@ -347,7 +369,7 @@
       </button>
 
       <div class="error-message" id="errorMessage">
-        Senha incorreta.
+        Se nao sabes a senha correta não podes aceder...
       </div>
 
     </div>
@@ -452,25 +474,18 @@
            SIG
         </a>
         
-        <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?e=5%3Ad8fee952aea340719050ca29a054fd99&sharingv2=true&fromShare=true&at=9&clickparams=eyAiWC1BcHBOYW1lIiA6ICJNaWNyb3NvZnQgT3V0bG9vayIsICJYLUFwcFZlcnNpb24iIDogIjE2LjAuMTkxMjcuMjAzMTQiLCAiT1MiIDogIldpbmRvd3MiIH0%3D&CID=ad76d6a1%2D9021%2De000%2D5552%2Da37c54aa5b62&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="hub-button">
-           Sharepoint 04.Actividades
-        </a>
-
         <a href="https://sumolcompal.sharepoint.com/:w:/r/sites/SIG-Operacoes/_layouts/15/Doc.aspx?sourcedoc=%7B3E28EE17-DB93-426B-9FDB-29F57BB66642%7D&file=D0203.docx&action=default&mobileredirect=true&DefaultItemOpen=1%3Fweb%3D1"
            target="_blank"
            rel="noopener noreferrer"
            class="hub-button">
-           Formulas D0203 
+           Formulas: D0203 
         </a>
 
         <a href="https://google.pt"
            target="_blank"
            rel="noopener noreferrer"
            class="hub-button">
-           adicionar 2
+           adicionar 1
         </a>
         
       </div>
@@ -571,10 +586,16 @@
 
   </div>
 
+<!-- Nota a cima do rodapé -->
+
+<div class="footer-note">
+  Nota: Alguns links apenas estão acessíveis através da rede interna da empresa.
+</div>
+
 <!-- Rodapé -->
 
   <footer>
-    © 2026 Agajota | Versão 29.05.2026
+    © 2026 Agajota | Versão 30.05.2026
   </footer>
 
   <script>
