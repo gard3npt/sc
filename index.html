@@ -66,8 +66,8 @@
       height:100%;
       object-fit:cover;
       object-position:center center;
-      opacity:0.65;
-      transform:scale(1.02);
+      opacity:100;
+      transform:scale(1.0);
     }
 
     @media (max-width:1200px){
@@ -79,22 +79,22 @@
     @media (max-width:900px){
       .background-letters img{
         object-position:65% center;
-        opacity:0.50;
+        opacity:1;
       }
     }
 
     @media (max-width:700px){
       .background-letters img{
         object-position:70% center;
-        transform:scale(1.08);
+        transform:scale(1.0);
       }
     }
 
     @media (max-width:500px){
       .background-letters img{
         object-position:75% center;
-        transform:scale(1.15);
-        opacity:0.18;
+        transform:scale(1);
+        opacity:1;
       }
     }
 
@@ -116,8 +116,9 @@
       font-weight:900;
       letter-spacing:10px;
       margin-bottom:10px;
-      color: #23a05b;
+      color: #031668ef;
       text-shadow: 0 0 18px rgba(61, 220, 132, 0.35);
+      padding:140px 25px 50px;
     }
 
     /* palavra ou frase do sub-titulo*/
@@ -151,7 +152,7 @@
     }
 
     .hub-button{
-      background:rgba(27,31,36,0.65);
+      background:rgba(27,31,36,0.75);
       border:1px solid rgba(255,255,255,0.05);
       border-radius:20px;
       padding:28px 20px;
@@ -225,10 +226,7 @@
       position:fixed;
       inset:0;
 
-      background:
-        linear-gradient(rgba(18,20,23,0.35), rgba(18,20,23,0.35)),
-        url("SC Template_PPT.jpg");
-
+      background:url("SC Template_PPT.jpg");
       background-size:cover;
       background-position:center;
 
@@ -236,18 +234,18 @@
       justify-content:center;
       align-items:center;
       z-index:999;
-    }
+      }
 
     .login-box{
-      background:rgba(27,31,36,0.90);
+      background:rgba(27, 31, 36, 0.75);
       backdrop-filter:blur(8px);
       padding:40px;
       border-radius:24px;
       width:90%;
       max-width:400px;
       text-align:center;
-      border:1px solid rgba(255,255,255,0.08);
-      box-shadow:0 15px 40px rgba(0,0,0,0.4);
+      border:1px solid rgba(255, 255, 255, 0.753);
+      box-shadow:0 15px 40px rgba(0, 0, 0, 0.781);
     }
 
     .login-box h2{
@@ -278,11 +276,11 @@
       border:none;
       border-radius:14px;
       background:#ffffff;
-      color:#121417;
+      color:#0a6cff;
       font-weight:700;
       cursor:pointer;
       transition:0.3s ease;
-      font-size:1rem;
+      font-size:1.5rem;
     }
 
     .login-button:hover{
@@ -291,10 +289,11 @@
     }
 
     .error-message{
-      color:#ff6b6b;
+      color:#f04747;
       margin-top:15px;
       display:none;
-      font-size:0.9rem;
+      font-size:1rem;
+      font-weight:700; /* negrito */
     }
 
      /* Rodapé */
@@ -305,15 +304,15 @@
       left:0;
       width:100%;
       height:50px;
-      background:rgba(0,0,0,0.55);
+      background:rgba(0, 0, 0, 0.0);
       backdrop-filter:blur(10px);
       color:#070707d8;
-      font-weight:600; /* negrito */
+      font-weight:700; /* negrito */
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:0.9rem;
-      border-top:1px solid rgba(255,255,255,0.05);
+      font-size:1rem;
+      border-top:1px solid rgb(0, 0, 0);
       z-index:1000;
     }
 
@@ -323,7 +322,7 @@
       left: 0;
       width: 100%;
       text-align: center;
-      font-size: 0.75rem;
+      font-size: 0.85rem;
       color:#000000;
       padding: 5px 10px;
       z-index: 999;
@@ -609,7 +608,7 @@
 <!-- Rodapé -->
 
   <footer>
-    © 2026 Agajota | Versão 01.06.2026
+    © 2026 Agajota | Atualizado a: 01.06.2026
   </footer>
 
   <script>
