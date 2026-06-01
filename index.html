@@ -66,7 +66,6 @@
       height:100%;
       object-fit:cover;
       object-position:center center;
-      opacity:100;
       transform:scale(1.0);
     }
 
@@ -79,25 +78,37 @@
     @media (max-width:900px){
       .background-letters img{
         object-position:65% center;
-        opacity:1;
       }
     }
 
-    @media (max-width:700px){
-      .background-letters img{
-        object-position:70% center;
-        transform:scale(1.0);
-        padding-bottom:150px;
-      }
+   @media (max-width:700px){
+
+    .background-letters img{
+      object-position:70% center;
+      transform:scale(1.0);
     }
+  }
 
     @media (max-width:500px){
+
       .background-letters img{
         object-position:75% center;
-        transform:scale(1);
-        opacity:1;
+         transform:scale(1);
       }
+
+      .container{
+         padding-bottom:180px;
+     }
+
     }
+
+    @media (max-height:600px){
+
+      .container{
+        padding-bottom:280px;
+    }
+
+  }
 
     /* Container */
 
@@ -105,11 +116,13 @@
       width:100%;
       max-width:1000px;
       padding:40px 25px;
+      padding-bottom:120px;
       z-index:2;
       text-align:center;
       display:none;
+      
     }
-
+    
     /* palavra Laboratorio do titulo*/
 
     .title{
@@ -149,7 +162,7 @@
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
       gap:28px;
-      margin-bottom:30px;
+      margin-bottom:80px;
     }
 
     .hub-button{
@@ -297,28 +310,53 @@
       font-weight:700; /* negrito */
     }
 
-     /* Rodapé */
+     /* Rodapé do Login */
 
-    footer{
-      position:fixed;
-      bottom:0;
-      left:0;
-      width:100%;
-      height:50px;
-      background:rgba(0, 0, 0, 0.0);
-      backdrop-filter:blur(10px);
-      color:#070707d8;
-      font-weight:700; /* negrito */
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:1rem;
-      border-top:1px solid rgb(0, 0, 0);
-      z-index:1000;
-    }
+.footer-login{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:50px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  color:white;
+  font-size:1rem;
+
+  background:rgba(0,0,0,0.25);
+  backdrop-filter:blur(8px);
+
+  z-index:1000;
+}
+
+/* Rodapé após Login */
+
+.footer-app{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:50px;
+
+  display:none; /* Notas escondido até fazer login */
+  justify-content:center;
+  align-items:center;
+
+  color:white;
+  font-size:1rem;
+
+  background:rgba(0,0,0,0.25);
+  backdrop-filter:blur(8px);
+
+  z-index:1000;
+}
 
     .footer-note{
       position: fixed;
+      display:none;
       bottom: 55px; /* fica acima do rodapé */
       left: 0;
       width: 100%;
@@ -602,15 +640,21 @@
 
 <!-- Nota a cima do rodapé -->
 
-<div class="footer-note">
+<div id="footerNote" class="footer-note">
   Nota: Alguns links apenas estão acessíveis através da rede interna da empresa.
 </div>
 
-<!-- Rodapé -->
+<!-- Rodapé antes do login -->
 
-  <footer>
-    © 2026 Agajota | Atualizado a: 01.06.2026
-  </footer>
+<footer id="loginFooter" class="footer-login">
+  © 2026 Agajota
+</footer>
+
+<!-- Rodapé após login -->
+
+<footer id="appFooter" class="footer-app">
+ © 2026 Agajota • Laboratório • Atualizado a: 02.06.2026
+</footer>
 
   <script>
 
@@ -625,15 +669,22 @@
 
       if(input === correctPassword){
 
-        document.getElementById("loginScreen").style.display = "none";
-        document.getElementById("mainContent").style.display = "block";
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
 
-      } else {
+    // Mostrar nota
+    document.getElementById("footerNote").style.display = "block";
 
-        error.style.display = "block";
+    // Trocar rodapés
+    document.getElementById("loginFooter").style.display = "none";
+    document.getElementById("appFooter").style.display = "flex";
 
       }
+    else{
 
+    error.style.display = "block";
+
+    }     
     }
 
     // ENTER
