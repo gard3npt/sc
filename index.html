@@ -120,13 +120,13 @@
       z-index:2;
       text-align:center;
       display:none;
-      zoom:0.8;
+      
     }
     
     /* palavra Laboratorio do titulo*/
 
     .title{
-      font-size:4rem;
+      font-size:clamp(2.5rem, 5vw, 4rem);
       font-weight:900;
       letter-spacing:10px;
       margin-bottom:10px;
@@ -172,7 +172,7 @@
       padding:28px 20px;
       text-decoration:none;
       color:white;
-      font-size:1.4rem;
+      font-size:clamp(1rem, 2vw, 1.4rem);
       font-weight:700;
       transition:0.3s ease;
       position:relative;
@@ -383,6 +383,33 @@
 
     }
 
+  .zoom-controls{
+    position:fixed;
+    top:15px;
+    right:15px;
+    z-index:2000;
+    display:none;
+    gap:5px;
+  }
+
+.zoom-controls button{
+  width:45px;
+  height:45px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:20px;
+  font-weight:bold;
+  background:rgba(27,31,36,0.85);
+  color:white;
+}
+
+.zoom-controls button:hover{
+  background:#232931;
+}
+
+
+
   </style>
 </head>
 
@@ -415,7 +442,7 @@
 
   </div>
 
-  <!-- Fundo -->
+   <!-- Fundo -->
 
   <div class="background-letters">
     <img src="SC Template_PPT.jpg" alt="Fundo Sumol Compal">
@@ -428,6 +455,14 @@
     <h1 class="title">Laboratório</h1>
 
     <p class="subtitle">Centro de atalhos</p>
+
+   <!-- botão de zoom -->
+
+  <div id="zoomControls" class="zoom-controls">
+    <button onclick="changeZoom(-5)">−</button>
+    <button id="zoomValue" onclick="resetZoom()">100%</button>
+    <button onclick="changeZoom(5)">+</button>
+  </div>
 
     <!-- DEPARTAMENTOS -->
 
@@ -476,13 +511,6 @@
          Google
       </a>
 
-      <a href="https://google.pt"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="hub-button">
-           adicionar 1
-        </a>
-
     </div>
 
     <!-- FERRAMENTAS -->
@@ -525,13 +553,6 @@
            rel="noopener noreferrer"
            class="hub-button">
            Formulas: D0203 
-        </a>
-
-        <a href="https://google.pt"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="hub-button">
-           adicionar 1
         </a>
         
       </div>
@@ -582,12 +603,6 @@
            PLMS
         </a>
         
-        <a href="https://google.pt"
-           target="_blank"
-           class="hub-button">
-           adicionar 1
-        </a>
-
       </div>
 
     </div>
@@ -626,35 +641,29 @@
            Tradutor DeepL 
         </a>
 
-        <a href="https://google.pt"
-           target="_blank"
-           class="hub-button">
-           adicionar 1
-        </a>
-
       </div>
 
     </div>
 
   </div>
 
-<!-- Nota a cima do rodapé -->
+  <!-- Nota a cima do rodapé -->
 
-<div id="footerNote" class="footer-note">
-  Nota: Alguns links apenas estão acessíveis através da rede interna da empresa.
-</div>
+  <div id="footerNote" class="footer-note">
+    Nota: Alguns links apenas estão acessíveis através da rede interna da empresa.
+  </div>
 
-<!-- Rodapé antes do login -->
+  <!-- Rodapé antes do login -->
 
-<footer id="loginFooter" class="footer-login">
-  © 2026 Agajota
-</footer>
+  <footer id="loginFooter" class="footer-login">
+    © 2026 Agajota
+  </footer>
 
-<!-- Rodapé após login -->
+  <!-- Rodapé após login -->
 
-<footer id="appFooter" class="footer-app">
- © 2026 Agajota • Laboratório • Atualizado a: 02.06.2026
-</footer>
+  <footer id="appFooter" class="footer-app">
+  © 2026 Agajota • Laboratório • Atualizado a: 02.06.2026
+  </footer>
 
   <script>
 
@@ -671,6 +680,7 @@
 
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("mainContent").style.display = "block";
+    document.getElementById("zoomControls").style.display = "flex";
 
     // Mostrar nota
     document.getElementById("footerNote").style.display = "block";
@@ -790,6 +800,37 @@
       });
 
     }
+
+    let currentZoom = 100;
+
+  function applyZoom() {
+  document.getElementById("mainContent").style.zoom = currentZoom + "%";
+  document.getElementById("zoomValue").textContent = currentZoom + "%";
+  localStorage.setItem("pageZoom", currentZoom);
+}
+
+  function changeZoom(value) {
+    currentZoom += value;
+
+    if (currentZoom < 70) currentZoom = 70;
+    if (currentZoom > 150) currentZoom = 150;
+
+    applyZoom();
+  }
+
+  function resetZoom() {
+    currentZoom = 100;
+    applyZoom();
+  }
+
+  window.addEventListener("load", () => {
+    const savedZoom = localStorage.getItem("pageZoom");
+
+    if (savedZoom) {
+      currentZoom = parseInt(savedZoom);
+      applyZoom();
+    }
+  });
 
   </script>
 
