@@ -93,34 +93,32 @@
 
       .background-letters img{
         object-position:75% center;
-         transform:scale(1);
+        transform:scale(1);
       }
 
       .container{
          padding-bottom:180px;
-     }
-
+      }
     }
 
     @media (max-height:600px){
 
       .container{
         padding-bottom:280px;
-    }
+      }
 
-  }
+    }
 
     /* Container */
 
     .container{
       width:100%;
       max-width:1000px;
-      padding:40px 25px;
+      padding:60px 25px 120px;
       padding-bottom:120px;
       z-index:2;
       text-align:center;
-      display:none;
-      
+      display:none; 
     }
     
     /* palavra Laboratorio do titulo*/
@@ -132,7 +130,7 @@
       margin-bottom:10px;
       color: #031668ef;
       text-shadow: 0 0 18px rgba(61, 220, 132, 0.35);
-      padding:140px 25px 50px;
+      padding:60px 25px 30px;
     }
 
     /* palavra ou frase do sub-titulo*/
@@ -310,7 +308,7 @@
       font-weight:700; /* negrito */
     }
 
-     /* Rodapé do Login */
+ /* Rodapé do Login */
 
 .footer-login{
   position:fixed;
@@ -383,14 +381,55 @@
 
     }
 
-  .zoom-controls{
-    position:fixed;
-    top:15px;
-    right:15px;
-    z-index:2000;
-    display:none;
-    gap:5px;
-  }
+/* Cabeçalho */
+
+.header-bar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:50px;
+
+  display:none;
+
+  padding:0 15px;
+
+  background:rgba(0,0,0,0.25);
+  backdrop-filter:blur(8px);
+
+  z-index:2000;
+}
+
+.header-left{
+  display:flex;
+  gap:10px;
+}
+
+.header-btn{
+  padding:8px 15px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+
+  background:rgba(27,31,36,0.85);
+  color:white;
+  font-weight:600;
+}
+
+.header-btn:hover{
+  background:#232931;
+}
+
+/* Zoom dentro do cabeçalho */
+
+.zoom-controls{
+  margin-left:auto;
+  position:static;
+  display:flex;
+  gap:5px;
+}
+
+/* botão Zoom*/
 
 .zoom-controls button{
   width:45px;
@@ -398,7 +437,7 @@
   border:none;
   border-radius:10px;
   cursor:pointer;
-  font-size:20px;
+  font-size:15px;
   font-weight:bold;
   background:rgba(27,31,36,0.85);
   color:white;
@@ -408,12 +447,92 @@
   background:#232931;
 }
 
+/* Popup Suporte */
 
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,0.6);
+
+  justify-content:center;
+  align-items:center;
+
+  z-index:5000;
+}
+
+.modal-content{
+  width:90%;
+  max-width:450px;
+
+  background:rgba(27,31,36,0.95);
+  backdrop-filter:blur(8px);
+
+  padding:30px;
+  border-radius:20px;
+
+  color:white;
+  position:relative;
+}
+
+.modal-content h2{
+  margin-bottom:20px;
+}
+
+.modal-content p{
+  margin-bottom:12px;
+}
+
+.close-modal{
+  position:absolute;
+  top:10px;
+  right:15px;
+
+  font-size:28px;
+  cursor:pointer;
+}
+
+.contact-btn{
+  width:100%;
+  margin-top:15px;
+
+  padding:15px;
+
+  border:none;
+  border-radius:12px;
+
+  background:white;
+  color:#0a6cff;
+
+  font-weight:700;
+  cursor:pointer;
+}
 
   </style>
-</head>
 
+</head>
 <body>
+
+<!-- cabeçalho -->
+
+<header class="header-bar">
+
+  <div class="header-left">
+
+  <button class="header-btn" onclick="openContacts()">
+    Suporte
+  </button>
+
+</div>
+
+  <div id="zoomControls" class="zoom-controls">
+    <button onclick="changeZoom(-5)">−</button>
+    <button id="zoomValue" onclick="resetZoom()">100%</button>
+    <button onclick="changeZoom(5)">+</button>
+  </div>
+
+</header>
 
   <!-- LOGIN -->
 
@@ -456,15 +575,7 @@
 
     <p class="subtitle">Centro de atalhos</p>
 
-   <!-- botão de zoom -->
-
-  <div id="zoomControls" class="zoom-controls">
-    <button onclick="changeZoom(-5)">−</button>
-    <button id="zoomValue" onclick="resetZoom()">100%</button>
-    <button onclick="changeZoom(5)">+</button>
-  </div>
-
-    <!-- DEPARTAMENTOS -->
+   <!-- DEPARTAMENTOS -->
 
     <h2 class="section-title">
       Departamentos:
@@ -662,12 +773,47 @@
   <!-- Rodapé após login -->
 
   <footer id="appFooter" class="footer-app">
-  © 2026 Agajota • Laboratório • Atualizado a: 02.06.2026
-  </footer>
+  © 2026 Agajota • Atualizado a: 06.06.2026
+</footer>
 
-  <script>
+<!-- Popup Suporte -->
+
+<div id="contactsModal" class="modal">
+
+  <div class="modal-content">
+
+    <span class="close-modal" onclick="closeContacts()">×</span>
+
+    <h2>Suporte</h2>
+
+    <p><strong>Nome:</strong> Hélder Fernandes</p>
+
+    <p><strong>Email:</strong> helder.fernandes@sumolcompal.pt</p>
+
+    <button class="contact-btn" onclick="sendMessage()">
+      Enviar mensagem
+    </button>
+
+  </div>
+
+</div>
+
+<script>
 
     const correctPassword = "0";
+
+  function openContacts(){
+    document.getElementById("contactsModal").style.display = "flex";
+  }
+
+  function closeContacts(){
+    document.getElementById("contactsModal").style.display = "none";
+  }
+
+  function sendMessage(){
+  window.location.href =
+  "mailto:helder.fernandes@sumolcompal.pt?subject=SC Lab - Pedido de Suporte&body=Descreva aqui o que pretende:";
+}
 
     function checkPassword(){
 
@@ -680,8 +826,8 @@
 
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("mainContent").style.display = "block";
-    document.getElementById("zoomControls").style.display = "flex";
-
+    document.querySelector(".header-bar").style.display = "flex";
+    
     // Mostrar nota
     document.getElementById("footerNote").style.display = "block";
 
@@ -832,7 +978,17 @@
     }
   });
 
-  </script>
+window.addEventListener("click", function(event){
+
+  const modal = document.getElementById("contactsModal");
+
+  if(event.target === modal){
+    closeContacts();
+  }
+
+});
+
+</script>
 
 </body>
 </html>
