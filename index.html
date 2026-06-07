@@ -6,30 +6,30 @@
 
   <title>SC Lab</title>
 
-   <!-- Google AdSense -->
+  <!-- Google AdSense -->
     
-  <script async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4094039418988922"
-    crossorigin="anonymous">
-  </script>
+<script async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4094039418988922"
+  crossorigin="anonymous">
+</script>
 
-  <!-- icone da aba do browser -->
+<!-- icone da aba do browser -->
 
-  <link rel="icon" href="favicon.ico">
+<link rel="icon" href="favicon.ico">
 
-  <!-- Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
 
-  <style>
+<style>
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
 
     html, body{
       max-width:100%;
@@ -66,22 +66,18 @@
     object-fit:cover;
     object-position:center center;
   }
-
-  .container{
-   padding-bottom:180px;
-  }
     
 /* Container */
 
-    .container{
-      width:100%;
-      max-width:1000px;
-      padding:60px 25px 120px;
-      padding-bottom:120px;
-      z-index:2;
-      text-align:center;
-      display:none; 
-    }
+ .container{
+   width:100%;
+   max-width:1000px;
+   padding:60px 25px 120px;
+   padding-bottom:120px;
+   z-index:2;
+   text-align:center;
+   display:none; 
+ }
     
 /* palavra Laboratorio do titulo*/
 
@@ -127,7 +123,8 @@
 
     .hub-button{
       background:rgba(27,31,36,0.75);
-      border:1px solid rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.75);
+      box-shadow:0 8px 20px rgba(0,0,0,0.3);
       border-radius:20px;
       padding:28px 20px;
       text-decoration:none;
@@ -147,8 +144,8 @@
     .hub-button:hover{
       transform:translateY(-5px);
       background:#232931;
-      border-color:rgba(255,255,255,0.12);
-      box-shadow:0 10px 30px rgba(0,0,0,0.3);
+      border-color:rgba(255,255,255,0.75);
+      box-shadow:0 10px 30px rgba(0,0,0,0.4);
     }
 
     .hub-button::before{
@@ -178,15 +175,22 @@
       margin-bottom:30px;
     }
 
+  /* Botão voltar*/
+
     .back-button{
       margin-bottom:30px;
       padding:14px 20px;
-      border:none;
+
+      border:1px solid rgba(255,255,255,0.75);
       border-radius:14px;
+
       background:#232931;
       color:white;
+
       cursor:pointer;
       font-weight:700;
+
+      box-shadow:0 8px 20px rgba(0,0,0,0.3);
       transition:0.3s;
     }
 
@@ -247,14 +251,19 @@
     .login-button{
       width:100%;
       padding:25px;
-      border:none;
+
+      border:1px solid rgba(255,255,255,0.75);
       border-radius:14px;
+
       background:#ffffff;
       color:#0a6cff;
+
       font-weight:700;
       cursor:pointer;
       transition:0.3s ease;
       font-size:1.5rem;
+
+      box-shadow:0 8px 20px rgba(0,0,0,0.3);
     }
 
     .login-button:hover{
@@ -369,6 +378,8 @@
   gap:10px;
 }
 
+/* Botões do cabeçalho */
+
 .header-btn{
   width:80px;
   height:35px;
@@ -377,10 +388,10 @@
   align-items:center;
   justify-content:center;
 
-  border:none;
+  border:1px solid rgba(255,255,255,0.75);
   border-radius:10px;
-  cursor:pointer;
 
+  cursor:pointer;
   background:rgba(27,31,36,0.85);
   color:white;
 
@@ -392,41 +403,37 @@
   background:#232931;
 }
 
-/* Zoom dentro do cabeçalho */
-
-.zoom-controls{
-  margin-left:auto;
-  position:static;
-  display:flex;
-  gap:5px;
-}
-
-/* botão Zoom*/
+/* Botão Zoom dentro do cabeçalho */
 
 .zoom-controls button{
   width:45px;
   height:35px;
-  border:none;
+
+  border:1px solid rgba(255,255,255,0.75);
   border-radius:10px;
+
   cursor:pointer;
   font-size:15px;
   font-weight:bold;
+
   background:rgba(27,31,36,0.85);
   color:white;
 }
+
+/* botão Zoom*/
 
 .zoom-controls button:hover{
   background:#232931;
 }
 
-/* Popup Suporte */
+/* Popup do botão Suporte */
 
 .modal{
   display:none;
   position:fixed;
   inset:0;
 
-  background:rgba(0,0,0,0.6);
+  background:rgba(0,0,0,0.8); /* antes 0,0,0,0.8 escurecimento do fundo após abrir a mensagem do botao suporte */
 
   justify-content:center;
   align-items:center;
@@ -441,19 +448,21 @@
   background:rgba(27,31,36,0.95);
   backdrop-filter:blur(8px);
 
-  padding:30px;
+  padding:45px; /* mais espaço interno */
   border-radius:20px;
+
+  margin-bottom:20px;
+  line-height:2;
 
   color:white;
   position:relative;
+
+  border:1px solid rgba(255, 255, 255, 0.753);
+  box-shadow:0 15px 40px rgba(0, 0, 0, 0.781);
 }
 
 .modal-content h2{
   margin-bottom:20px;
-}
-
-.modal-content p{
-  margin-bottom:12px;
 }
 
 .close-modal{
@@ -465,20 +474,26 @@
   cursor:pointer;
 }
 
+/* botão envie mensagem no suporte */
+
 .contact-btn{
   width:100%;
   margin-top:15px;
 
-  padding:15px;
+  padding:20px;
 
-  border:none;
+  border:1px solid rgba(255,255,255,0.75);
   border-radius:12px;
 
   background:white;
   color:#0a6cff;
 
-  font-weight:700;
+  font-weight:700; /* negrito */
+  font-size:1.5rem; /* tamanho da letra */
+
   cursor:pointer;
+
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
 }
 
   </style>
@@ -745,7 +760,7 @@
   <!-- Rodapé após login -->
 
   <footer id="appFooter" class="footer-app">
-  © 2026 Agajota • Atualizado a: 06.06.2026
+  © 2026 Agajota • Atualizado a: 07.06.2026
 </footer>
 
 <!-- Popup Suporte -->
@@ -756,15 +771,13 @@
 
     <span class="close-modal" onclick="closeContacts()">×</span>
 
-    <h2>Suporte</h2>
+    <h2>Suporte:</h2>
 
     <p><strong>Nome:</strong> Hélder Fernandes</p>
 
     <p><strong>Email:</strong> helder.fernandes@sumolcompal.pt</p>
 
-    <button class="contact-btn" onclick="sendMessage()">
-      Enviar mensagem
-    </button>
+    <button class="contact-btn" onclick="sendMessage()">Enviar mensagem </button>
 
   </div>
 
@@ -772,7 +785,7 @@
 
 <script>
 
-    const correctPassword = "0";
+  const correctPassword = "0";
 
   function openContacts(){
     document.getElementById("contactsModal").style.display = "flex";
@@ -787,14 +800,14 @@
   "mailto:helder.fernandes@sumolcompal.pt?subject=SC Lab - Pedido de Suporte&body=Descreva aqui o que pretende:";
 }
 
-    function checkPassword(){
+   function checkPassword(){
 
-      const input = document.getElementById("passwordInput").value;
-      const error = document.getElementById("errorMessage");
+    const input = document.getElementById("passwordInput").value;
+    const error = document.getElementById("errorMessage");
 
-      error.style.display = "none";
+    error.style.display = "none";
 
-      if(input === correctPassword){
+    if(input === correctPassword){
 
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("mainContent").style.display = "block";
