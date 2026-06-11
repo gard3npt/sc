@@ -70,7 +70,7 @@
  .container{
   transform-origin: top center;
   width:100%;
-  max-width:1600px;
+  max-width:1000px;
   padding:60px 25px 120px;
   padding-bottom:120px;
   z-index:2;
@@ -102,23 +102,27 @@
 
     /*titulos das secçõe departamentos etc*/
 
-    .section-title{
-      text-align:left;
-      margin-bottom:20px;
-      font-size:1.2rem;
-      color:#082d5a;
-      letter-spacing:2px;
-      text-transform:uppercase;
-    }
+.section-title{
+  max-width:800px;      /* mesmo valor dos button-grid */
+  margin:0 auto 20px;
+  text-align:left;
+
+  font-size:1.2rem;
+  color:#082d5a;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
 
     /* Botões */
 
-    .button-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
-      gap:28px;
-      margin-bottom:80px;
-    }
+.button-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(250px, 255px));
+  justify-content:center;
+  gap:28px;
+  margin:0 auto 80px;
+  max-width:900px;
+}
 
     .hub-button{
       background:rgba(27,31,36,0.75);
@@ -172,29 +176,37 @@
     .page-title{
       font-size:2rem;
       margin-bottom:30px;
+      color:#0b49f5;
     }
 
   /* Botão voltar*/
 
-    .back-button{
-      margin-bottom:30px;
-      padding:14px 20px;
+.back-button{
+  position:fixed;
+  top:60px;
 
-      border:1px solid rgba(255,255,255,0.75);
-      border-radius:14px;
+  left:50%;
+  transform:translateX(-400px); /* metade de 800px */
 
-      background:#232931;
-      color:white;
+  padding:14px 20px;
 
-      cursor:pointer;
-      font-weight:700;
+  border:1px solid rgba(255,255,255,0.75);
+  border-radius:14px;
 
-      box-shadow:0 8px 20px rgba(0,0,0,0.3);
-      transition:0.3s;
-    }
+  background:#232931;
+  color:white;
+
+  cursor:pointer;
+  font-weight:700;
+
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+  transition:0.3s;
+
+  z-index:3000;
+}
 
     .back-button:hover{
-      background:#2f3742;
+        background:#460f0fda; /* cor do fundo do botap voltar ao passar com o rato */
     }
 
     /* Fundo antes da LOGIN */
@@ -632,14 +644,14 @@
          class="hub-button">
          Intranet
       </a>
-           
-      <a href="https://sumolcompal.sharepoint.com/sites/SIG"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="hub-button">
-           SIG
-        </a>
-      
+
+       <a href="https://sumolcompal.sharepoint.com/sites/SIG"
+         target="_blank"
+          rel="noopener noreferrer"
+          class="hub-button">
+          SIG
+      </a>
+
       <a href="https://sumolcompal.atlassian.net/servicedesk/customer/user/login?destination=portals"
          target="_blank"
          rel="noopener noreferrer"
@@ -676,12 +688,18 @@
       </h2>
 
       <div class="button-grid">
-               
+     
         <a href="https://sumolcompal.sharepoint.com/:w:/r/sites/SIG-Operacoes/_layouts/15/Doc.aspx?sourcedoc=%7B3E28EE17-DB93-426B-9FDB-29F57BB66642%7D&file=D0203.docx&action=default&mobileredirect=true&DefaultItemOpen=1%3Fweb%3D1"
            target="_blank"
            rel="noopener noreferrer"
            class="hub-button">
            Formulas: D0203 
+        </a>
+
+           <a href="https://www.google.pt"
+           target="_blank"
+           class="hub-button">
+           "a colocar"
         </a>
         
       </div>
@@ -770,6 +788,12 @@
            Tradutor DeepL 
         </a>
 
+        <a href="https://www.google.pt"
+           target="_blank"
+           class="hub-button">
+           Google
+        </a>
+
       </div>
 
     </div>
@@ -814,7 +838,7 @@
 
 <div class="update-box">
  
-  <p><strong>Actualizado a: </strong>10.06.2026</p>
+  <p><strong>Actualizado a: </strong>11.06.2026</p>
 </div>
 
 </div>
