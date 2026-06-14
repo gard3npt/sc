@@ -68,11 +68,12 @@
 /* Container */
 
  .container{
+  top:105px;
   transform-origin: top center;
   width:100%;
   max-width:1000px;
   padding:60px 25px 120px;
-  padding-bottom:120px;
+  padding-bottom:180px;
   z-index:2;
   text-align:center;
   display:none; 
@@ -80,25 +81,26 @@
     
 /* palavra Laboratorio do titulo*/
 
-    .title{
-      font-size:clamp(3rem, 5vw, 4rem);
+   .title{
+      font-size:clamp(2.5rem, 5vw, 4rem);
       font-weight:900;
       letter-spacing:10px;
       margin-bottom:10px;
-      color: #031668ef;
-      text-shadow: 0 0 18px rgba(61, 220, 132, 0.35);
+      color: #061f91ef;
+      text-shadow: 0 0 18px rgba(0, 0, 0, 0.678);
       padding:60px 25px 30px;
     }
 
 /* palavra ou frase do sub-titulo*/
 
-    .subtitle{
-      color:#303438;
-      margin-bottom:40px;
-      letter-spacing:3px;
-      text-transform:uppercase;
-      font-size:0.9rem;
-    }
+  .subtitle{
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  color: #037927b7;
+  opacity: 0.85;
+}
 
     /*titulos das secçõe departamentos etc*/
 
@@ -117,8 +119,8 @@
 
 .button-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(250px, 255px));
-  justify-content:center;
+  grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+  justify-content:start;
   gap:28px;
   margin:0 auto 80px;
   max-width:900px;
@@ -176,34 +178,8 @@
     .page-title{
       font-size:2rem;
       margin-bottom:30px;
-      color:#0b49f5;
+      color:#052fa0c9;
     }
-
-  /* Botão voltar*/
-
-.back-button{
-  position:fixed;
-  top:60px;
-
-  left:50%;
-  transform:translateX(-400px); /* metade de 800px */
-
-  padding:14px 20px;
-
-  border:1px solid rgba(255,255,255,0.75);
-  border-radius:14px;
-
-  background:#232931;
-  color:white;
-
-  cursor:pointer;
-  font-weight:700;
-
-  box-shadow:0 8px 20px rgba(0,0,0,0.3);
-  transition:0.3s;
-
-  z-index:3000;
-}
 
     .back-button:hover{
         background:#460f0fda; /* cor do fundo do botap voltar ao passar com o rato */
@@ -359,18 +335,40 @@
 
 /* Mobile */
 
- @media(max-width:700px){
+@media(max-width:700px){
 
-  .title{
-    font-size:2.5rem;
-    letter-spacing:5px;
+  .header-bar{
+    height:auto;
+    min-height:110px;
+    padding:10px;
   }
 
-  .hub-button{
-    padding:24px 16px;
-    font-size:1.2rem;
-    }
+  .header-left{
+    position:absolute;
+    left:10px;
+    top:10px;
   }
+
+  .header-right{
+    position:absolute;
+    right:10px;
+    top:10px;
+  }
+
+  .zoom-controls{
+    position:absolute;
+    left:50%;
+    top:60px;
+    transform:translateX(-50%);
+
+    width:90%;
+    justify-content:center;
+  }
+
+  .zoom-controls input[type="range"]{
+    width:180px;
+  }
+}
 
 /* Barra de Cabeçalho */
 
@@ -395,7 +393,28 @@
 }
 
 .header-left{
+  position:absolute;
+  left:15px;
+
   display:flex;
+  align-items:center;
+}
+
+.header-right{
+  position:absolute;
+  right:15px;
+
+  display:flex;
+  align-items:center;
+}
+
+.zoom-controls{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+
+  display:flex;
+  align-items:center;
   gap:10px;
 }
 
@@ -545,29 +564,43 @@
 
 <header class="header-bar">
 
+  <!-- ESQUERDA -->
   <div class="header-left">
 
-  <button class="header-btn" onclick="openContacts()">
-    Suporte
-  </button>
+    <button id="backHeaderBtn"
+            class="header-btn"
+            onclick="showHome()"
+            style="display:none;">
+      ← Voltar
+    </button>
 
-</div>
+  </div>
 
-<div id="zoomControls" class="zoom-controls">
+  <!-- CENTRO -->
+  <div id="zoomControls" class="zoom-controls">
 
-  <input
-    type="range"
-    id="zoomSlider"
-    min="50"
-    max="150"
-    value="100"
-    step="1"
-    oninput="setZoom(this.value)"
-  >
+    <input
+      type="range"
+      id="zoomSlider"
+      min="50"
+      max="150"
+      value="100"
+      step="1"
+      oninput="setZoom(this.value)"
+    >
 
-  <span id="zoomValue">100%</span>
+    <span id="zoomValue">100%</span>
 
-</div>
+  </div>
+
+  <!-- DIREITA -->
+  <div class="header-right">
+
+    <button class="header-btn" onclick="openContacts()">
+      Suporte
+    </button>
+
+  </div>
 
 </header>
 
@@ -610,7 +643,7 @@
 
     <h1 class="title">Laboratório</h1>
 
-    <p class="subtitle">Centro de atalhos</p>
+    <p class="subtitle">Centro de atalhos:</p>
 
    <!-- DEPARTAMENTOS -->
 
@@ -679,11 +712,7 @@
 
     <div id="apoioPage" style="display:none; margin-top:40px;">
 
-      <button onclick="showHome()" class="back-button">
-        ← Voltar
-      </button>
-
-      <h2 class="page-title">
+           <h2 class="page-title">
         Apoio Produção
       </h2>
 
@@ -709,10 +738,6 @@
     <!-- EMBALAGENS -->
 
     <div id="embalagensPage" style="display:none; margin-top:40px;">
-
-      <button onclick="showHome()" class="back-button">
-        ← Voltar
-      </button>
 
       <h2 class="page-title">
         Embalagens
@@ -757,10 +782,6 @@
     <!-- VÁRIOS -->
 
     <div id="variosPage" style="display:none; margin-top:40px;">
-
-      <button onclick="showHome()" class="back-button">
-        ← Voltar
-      </button>
 
       <h2 class="page-title">
         Vários
@@ -838,9 +859,10 @@
 
 <div class="update-box">
  
-  <p><strong>Actualizado a: </strong>11.06.2026</p>
+  <p><strong>Actualizado a: </strong>15.06.2026</p>
 </div>
 
+</div>
 </div>
 
 <script>
@@ -905,7 +927,7 @@
       hideAllPages();
 
       document.getElementById("apoioPage").style.display = "block";
-
+      document.getElementById("backHeaderBtn").style.display = "flex";
     }
 
     // EMBALAGENS
@@ -915,6 +937,7 @@
       hideAllPages();
 
       document.getElementById("embalagensPage").style.display = "block";
+      document.getElementById("backHeaderBtn").style.display = "flex";
 
     }
 
@@ -925,6 +948,7 @@
       hideAllPages();
 
       document.getElementById("variosPage").style.display = "block";
+      document.getElementById("backHeaderBtn").style.display = "flex";
 
     }
 
@@ -934,6 +958,7 @@
 
       showMainSections();
       hideInternalPages();
+      document.getElementById("backHeaderBtn").style.display = "none";
 
     }
 
@@ -998,7 +1023,7 @@ function applyZoom() {
   const scale = currentZoom / 100;
 
   const main = document.getElementById("mainContent");
-  main.style.transform = `scale(${scale})`;
+  main.style.zoom = scale;
   main.style.transformOrigin = "top center";
 
   document.getElementById("zoomValue").textContent = currentZoom + "%";
