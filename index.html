@@ -355,16 +355,6 @@
     top:10px;
   }
 
-  .zoom-controls{
-    position:absolute;
-    left:50%;
-    top:60px;
-    transform:translateX(-50%);
-
-    width:90%;
-    justify-content:center;
-  }
-
   .zoom-controls input[type="range"]{
     width:180px;
   }
@@ -596,11 +586,16 @@
   <!-- DIREITA -->
   <div class="header-right">
 
-    <button class="header-btn" onclick="openContacts()">
-      Suporte
-    </button>
+ 
+<button class="header-btn" onclick="openContacts()">
+  Suporte
+</button>
 
-  </div>
+<button class="header-btn" onclick="logout()">
+  Logout
+</button>
+
+</div>
 
 </header>
 
@@ -718,21 +713,30 @@
 
       <div class="button-grid">
      
+        <a href="cc.html" class="hub-button">
+          Correcção de Cargas (Em construção)
+        </a>
+
         <a href="https://sumolcompal.sharepoint.com/:w:/r/sites/SIG-Operacoes/_layouts/15/Doc.aspx?sourcedoc=%7B3E28EE17-DB93-426B-9FDB-29F57BB66642%7D&file=D0203.docx&action=default&mobileredirect=true&DefaultItemOpen=1%3Fweb%3D1"
            target="_blank"
            rel="noopener noreferrer"
            class="hub-button">
            Formulas: D0203 
         </a>
-
-        <a href="cc.html"
-          class="hub-button">
-          (Em teste)
-        </a>
-        
+             
       </div>
 
     </div>
+
+<!-- C.C. -->
+
+<div id="ccPage" style="display:none; margin-top:40px;">
+
+  <h2 class="page-title">
+    Correcção de Cargas
+  </h2>
+
+ </div>
 
     <!-- EMBALAGENS -->
 
@@ -814,6 +818,12 @@
            Google
         </a>
 
+        <a href="https://www.sapo.pt"
+           target="_blank"
+           class="hub-button">
+           Sapo
+        </a>
+
       </div>
 
     </div>
@@ -858,7 +868,7 @@
 
 <div class="update-box">
  
-  <p><strong>Actualizado a: </strong>15.06.2026</p>
+  <p><strong>Actualizado a: </strong>19.06.2026</p>
 </div>
 
 </div>
@@ -888,20 +898,10 @@
 
     error.style.display = "none";
 
-    if(input === correctPassword){
-
-    document.getElementById("loginScreen").style.display = "none";
-    document.getElementById("mainContent").style.display = "block";
-    document.querySelector(".header-bar").style.display = "flex";
-    
-    // Mostrar nota
-    document.getElementById("footerNote").style.display = "block";
-
-    // Trocar rodapés
-    document.getElementById("loginFooter").style.display = "none";
-    document.getElementById("appFooter").style.display = "flex";
-
-      }
+   if(input === correctPassword){
+  localStorage.setItem("isLoggedIn", "true");
+  renderAppState();
+}
     else{
 
     error.style.display = "block";
@@ -975,46 +975,45 @@
       document.getElementById("apoioPage").style.display = "none";
       document.getElementById("embalagensPage").style.display = "none";
       document.getElementById("variosPage").style.display = "none";
+      document.getElementById("ccPage").style.display = "none";
 
     }
 
-    function hideMainSections(){
+function hideMainSections(){
 
-      const sections = document.querySelectorAll(".section-title");
-      const grids = document.querySelectorAll(".button-grid");
+  document.querySelectorAll(".section-title").forEach(el=>{
+    el.style.display = "none";
+  });
 
-      sections.forEach(section => {
-        section.style.display = "none";
-      });
+  document.getElementById("mainMenu").style.display = "none";
 
-      grids.forEach((grid, index) => {
+  const generalLinks =
+    document.querySelectorAll(".button-grid")[1];
 
-        if(index < 3){
-          grid.style.display = "none";
-        }
+  const tools =
+    document.querySelectorAll(".button-grid")[2];
 
-      });
+  generalLinks.style.display = "none";
+  tools.style.display = "none";
+}
 
-    }
+function showMainSections(){
 
-    function showMainSections(){
+  document.querySelectorAll(".section-title").forEach(el=>{
+    el.style.display = "block";
+  });
 
-      const sections = document.querySelectorAll(".section-title");
-      const grids = document.querySelectorAll(".button-grid");
+  document.getElementById("mainMenu").style.display = "grid";
 
-      sections.forEach(section => {
-        section.style.display = "block";
-      });
+  const generalLinks =
+    document.querySelectorAll(".button-grid")[1];
 
-      grids.forEach((grid, index) => {
+  const tools =
+    document.querySelectorAll(".button-grid")[2];
 
-        if(index < 3){
-          grid.style.display = "grid";
-        }
-
-      });
-
-    }
+  generalLinks.style.display = "grid";
+  tools.style.display = "grid";
+}
 
 let currentZoom = 100;
 
@@ -1042,23 +1041,63 @@ function setZoom(value) {
   applyZoom();
 }
 
-  window.addEventListener("load", () => {
+ 
+window.addEventListener("load", () => {
+
+  // ======================
+  // LOGIN STATE
+  // ======================
+  const loggedIn = localStorage.getItem("isLoggedIn");
+
+  if (loggedIn === "true") {
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+    document.querySelector(".header-bar").style.display = "flex";
+
+    document.getElementById("footerNote").style.display = "block";
+    document.getElementById("loginFooter").style.display = "none";
+    document.getElementById("appFooter").style.display = "flex";
+  }
+
+  // ======================
+  // ZOOM STATE
+  // ======================
   const savedZoom = localStorage.getItem("pageZoom");
 
   currentZoom = savedZoom ? parseInt(savedZoom) : 100;
-
   applyZoom();
 });
 
-window.addEventListener("click", function(event){
+function logout(){
+  localStorage.removeItem("isLoggedIn");
+  renderAppState();
+}
 
-  const modal = document.getElementById("contactsModal");
+function renderAppState() {
 
-  if(event.target === modal){
-    closeContacts();
+  const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+  if (loggedIn) {
+
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+    document.querySelector(".header-bar").style.display = "flex";
+
+    document.getElementById("footerNote").style.display = "block";
+    document.getElementById("loginFooter").style.display = "none";
+    document.getElementById("appFooter").style.display = "flex";
+
+  } else {
+
+    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("mainContent").style.display = "none";
+    document.querySelector(".header-bar").style.display = "none";
+
+    document.getElementById("footerNote").style.display = "none";
+    document.getElementById("loginFooter").style.display = "flex";
+    document.getElementById("appFooter").style.display = "none";
   }
-
-});
+}
 
 </script>
 
