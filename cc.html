@@ -14,134 +14,170 @@ body {
     font-family: Calibri, Arial, sans-serif;
 }
 
-.top{background:#0a18d8;color:#fff;text-align:center;padding:14px;font-size:28px;font-weight:700}
-.tabs{display:flex;justify-content:center;gap:6px;padding:10px;background:#cfd8f8;align-items:center;min-height:60px}
-
-/* Botões do menu arredondados */
-.tabs button{
-    background:#0a18d8;
-    color:#fff;
-    border:none;
-    padding:10px 18px;
-    cursor:pointer;
-    font-size:16px;
-    font-weight:normal;
-    border-radius: 20px;
-    transition:all 0.2s ease;
+.top {
+    background: #0a18d8;
+    color: #fff;
+    text-align: center;
+    padding: 14px;
+    font-size: 28px;
+    font-weight: 700;
 }
 
-/* Botão ativo */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px;
+    background: #cfd8f8;
+    align-items: center;
+    min-height: 70px;
+    flex-wrap: wrap;
+}
+
+.tabs button {
+    background: #0a18d8;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: normal;
+    border-radius: 20px;
+    transition: all 0.25s ease;
+    transform: scale(1);
+}
+
+.tabs button:hover {
+    background: #1a28e8;
+}
+
 .tabs button.active {
     background: #0088cc;
     color: #fff;
-    padding: 12px 24px;
-    font-size: 19px;
+    padding: 14px 30px;
+    font-size: 21px;
     font-weight: bold;
-    border-radius: 25px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 28px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.28);
+    transform: scale(1.15);
 }
 
-.sheet{display:none;padding:30px}
-.sheet.active{display:block}
+.sheet {
+    display: none;
+    padding: 30px;
+}
 
-/* Caixa branca de fundo maior e mais transparente */
+.sheet.active {
+    display: block;
+}
+
 .canvas {
     width: 760px;
+    max-width: 100%;
     margin: auto;
-    background: rgba(255, 255, 255, 0.45); 
+    background: rgba(255,255,255,0.45);
     border: 1px solid #222;
     padding: 30px;
     min-height: 480px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3); 
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     border-radius: 12px;
 }
 
-.row{display:flex;justify-content:center;gap:15px;margin-bottom:20px}
-.box{width:180px}
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
 
-/* Títulos das células padrão */
-.lbl{
-    background:#0a18d8;
-    color:#fff;
-    text-align:center;
-    padding:8px;
-    font-weight:bold;
-    border:1px solid #222;
+.box {
+    width: 180px;
+}
+
+.lbl {
+    background: #0a18d8;
+    color: #fff;
+    text-align: center;
+    padding: 8px;
+    font-weight: bold;
+    border: 1px solid #222;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom: none;
 }
 
-/* Caixa exterior arredondada padrão */
-.cell{
-    border:1px solid #222;
-    background:#e6f0fa; /* Fundo azul claro */
-    height:46px; 
-    border-radius: 10px; 
+.cell {
+    border: 1px solid #222;
+    background: #e6f0fa;
+    height: 46px;
+    border-radius: 10px;
     overflow: hidden;
-}
-
-/* Ajuste de encaixe para todas as caixas que têm título colado diretamente acima */
-.lbl + .cell {
-    border-top-left-radius: 0px !important;
-    border-top-right-radius: 0px !important;
-    border-bottom-left-radius: 10px !important;
-    border-bottom-right-radius: 10px !important;
 }
 
 .left-col .lbl {
     border-radius: 10px 10px 0 0;
     border-bottom: none;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
-/* Input interno */
-.cell input{
-    width:100%;
-    height:100%;
-    border:none;
-    text-align:center;
-    font-size:22px; 
+.left-col .cell {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.cell input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    font-size: 22px;
     font-weight: bold;
     background: transparent;
     color: #000;
     outline: none;
 }
+
 .cell input:focus {
     background: #d2e4f7;
 }
 
-.resultrow{display:flex;justify-content:center;gap:0;margin-top:20px}
+.resultrow {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-top: 20px;
+}
 
-/* Célula Azul de Resultado (Etiqueta) */
-.rlabel{
-    width:250px;
-    background:#0a18d8;
-    color:#fff;
-    padding:10px;
-    border:1px solid #222;
+.rlabel {
+    width: 250px;
+    background: #0a18d8;
+    color: #fff;
+    padding: 10px;
+    border: 1px solid #222;
     border-radius: 10px;
     margin-right: 10px;
     text-align: center;
     font-weight: bold;
-    font-size: 20px; 
+    font-size: 20px;
 }
 
-/* Célula Verde de Resultado (Valor) */
-.rvalue{
-    width:140px;
-    background:#26bfa0;
-    color:#000;
-    padding:10px;
-    border:1px solid #222;
+.rvalue {
+    width: 140px;
+    background: #26bfa0;
+    color: #000;
+    padding: 10px;
+    border: 1px solid #222;
     border-radius: 10px;
-    text-align:center;
-    font-weight:bold;
-    font-size:20px; 
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
 }
-.neg{color:red !important}
 
-/* Estilo para a palavra OU entre os resultados */
+.rvalue.neg {
+    color: red;
+}
+
 .or-separator {
     text-align: center;
     font-weight: bold;
@@ -150,7 +186,6 @@ body {
     margin: 12px 0;
 }
 
-/* Linha divisória */
 .divider {
     border: none;
     border-top: 2px dashed #222;
@@ -158,191 +193,252 @@ body {
     width: 85%;
 }
 
-/* Estrutura de duas colunas otimizada */
 .main-layout {
     display: flex;
     justify-content: center;
     gap: 25px;
     margin-top: 10px;
+    flex-wrap: wrap;
 }
+
 .left-col {
     width: 140px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; 
+    justify-content: flex-end;
 }
-.align-acidez {
-    padding-bottom: 55px; 
-}
-.align-brix {
-    padding-bottom: 55px; 
-}
+
 .right-col {
-    width: 400px; 
+    width: 400px;
+    max-width: 100%;
+}
+
+.align-acidez,
+.align-brix {
+    padding-bottom: 55px;
 }
 </style>
 </head>
 <body>
+
 <div class="top">Correcção de Cargas</div>
+
 <div class="tabs">
-<button id="btn-ac" class="active" onclick="show('ac', this)">Acidez</button>
-<button id="btn-bx" onclick="show('bx', this)">Brixº</button>
-<button id="btn-cl" onclick="show('cl', this)">Cloretos</button>
-<button id="btn-ra" onclick="show('ra', this)">Ratio</button>
-<button id="btn-co" onclick="show('co', this)">Consistência</button>
-<button id="btn-gu" onclick="show('gu', this)">Acidez GUD</button>
+    <button class="active" onclick="openTab('ac',this)">Acidez</button>
+    <button onclick="openTab('bx',this)">Brixº</button>
+    <button onclick="openTab('cl',this)">Cloretos</button>
+    <button onclick="openTab('ra',this)">Ratio</button>
+    <button onclick="openTab('co',this)">Consistência</button>
+    <button onclick="openTab('gu',this)">Acidez GUD</button>
 </div>
 
-<div id="ac" class="sheet active"></div>
-<div id="gu" class="sheet"></div>
-<div id="bx" class="sheet"></div>
-<div id="cl" class="sheet"></div>
-<div id="ra" class="sheet"></div>
-<div id="co" class="sheet"></div>
+<!-- ACIDEZ -->
+<div id="ac" class="sheet active">
+    <div class="canvas">
+        <div class="row">
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input id="q_ac" value="12000" onclick="this.value=''" oninput="calcA()"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input id="c_ac" value="0.17" onclick="this.value=''" oninput="calcA()"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input id="p_ac" value="0.35" onclick="this.value=''" oninput="calcA()"></div></div>
+        </div>
+        <hr class="divider">
+        <div class="main-layout">
+            <div class="left-col align-acidez">
+                <div class="lbl">ACIDEZ</div>
+                <div class="cell"><input id="a_ac" value="40" onclick="this.value=''" oninput="calcA()"></div>
+            </div>
+            <div class="right-col">
+                <div class="resultrow" style="margin-top:0;margin-bottom:42px">
+                    <div class="rlabel">Factor:</div>
+                    <div class="rvalue" id="fac"></div>
+                </div>
+                <div class="resultrow">
+                    <div class="rlabel">Concentrado Limão:</div>
+                    <div class="rvalue" id="clim"></div>
+                </div>
+                <div class="or-separator">OU</div>
+                <div class="resultrow" style="margin-top:0">
+                    <div class="rlabel">Ácido Cítrico:</div>
+                    <div class="rvalue" id="aci"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BRIX -->
+<div id="bx" class="sheet">
+    <div class="canvas">
+        <div class="row">
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input id="q_bx" value="12000" onclick="this.value=''" oninput="calcB()"></div></div>
+            <div class="box"><div class="lbl">BRIX CARGA</div><div class="cell"><input id="c_bx" value="10" onclick="this.value=''" oninput="calcB()"></div></div>
+            <div class="box"><div class="lbl">BRIX PRETENDIDO</div><div class="cell"><input id="p_bx" value="12" onclick="this.value=''" oninput="calcB()"></div></div>
+        </div>
+        <hr class="divider">
+        <div class="main-layout">
+            <div class="left-col align-brix">
+                <div class="lbl">BRIX</div>
+                <div class="cell"><input id="b_bx" value="80" onclick="this.value=''" oninput="calcB()"></div>
+            </div>
+            <div class="right-col">
+                <div class="resultrow" style="margin-top:0;margin-bottom:42px">
+                    <div class="rlabel">Água:</div>
+                    <div class="rvalue" id="agua"></div>
+                </div>
+                <div class="resultrow">
+                    <div class="rlabel">Xarope:</div>
+                    <div class="rvalue" id="xar"></div>
+                </div>
+                <div class="or-separator">OU</div>
+                <div class="resultrow" style="margin-top:0">
+                    <div class="rlabel">Concentrado:</div>
+                    <div class="rvalue" id="conc"></div>
+                </div>
+                <div class="or-separator">OU</div>
+                <div class="resultrow" style="margin-top:0">
+                    <div class="rlabel">Açúcar:</div>
+                    <div class="rvalue" id="acu"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CLORETOS -->
+<div id="cl" class="sheet">
+    <div class="canvas">
+        <div class="row">
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input id="q_cl" value="4600" onclick="this.value=''" oninput="calcC()"></div></div>
+            <div class="box"><div class="lbl">CLORETOS CARGA</div><div class="cell"><input id="c_cl" value="0.2" onclick="this.value=''" oninput="calcC()"></div></div>
+            <div class="box"><div class="lbl">CLORETOS PRETENDIDOS</div><div class="cell"><input id="p_cl" value="0.35" onclick="this.value=''" oninput="calcC()"></div></div>
+        </div>
+        <hr class="divider">
+        <div class="resultrow">
+            <div class="rlabel">Sal:</div>
+            <div class="rvalue" id="sal"></div>
+        </div>
+    </div>
+</div>
+
+<!-- RATIO -->
+<div id="ra" class="sheet">
+    <div class="canvas">
+        <div class="row">
+            <div class="box"><div class="lbl">BRIX</div><div class="cell"><input id="b_ra" value="10" onclick="this.value=''" oninput="calcR()"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ</div><div class="cell"><input id="c_ra" value="0.4" onclick="this.value=''" oninput="calcR()"></div></div>
+        </div>
+        <hr class="divider">
+        <div class="resultrow">
+            <div class="rlabel">Ratio:</div>
+            <div class="rvalue" id="rat"></div>
+        </div>
+    </div>
+</div>
+
+<!-- CONSISTÊNCIA -->
+<div id="co" class="sheet">
+    <div class="canvas">
+        <div class="row">
+            <div class="box"><div class="lbl">TEMPO ESCORRIMENTO</div><div class="cell"><input id="te" value="40" onclick="this.value=''" oninput="calcT()"></div></div>
+        </div>
+        <hr class="divider">
+        <div class="resultrow">
+            <div class="rlabel">Consistência:</div>
+            <div class="rvalue" id="cres"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ACIDEZ GUD -->
+<div id="gu" class="sheet">
+    <div class="canvas">
+        <div class="row">
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input id="q_gu" value="11640" onclick="this.value=''" oninput="calcG()"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input id="c_gu" value="2.94" onclick="this.value=''" oninput="calcG()"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input id="p_gu" value="3" onclick="this.value=''" oninput="calcG()"></div></div>
+        </div>
+        <hr class="divider">
+        <div class="main-layout">
+            <div class="left-col align-acidez">
+                <div class="lbl">ACIDEZ</div>
+                <div class="cell"><input id="a_gu" value="30.12" onclick="this.value=''" oninput="calcG()"></div>
+            </div>
+            <div class="right-col">
+                <div class="resultrow" style="margin-top:0;margin-bottom:42px">
+                    <div class="rlabel">Factor:</div>
+                    <div class="rvalue" id="fac_gu"></div>
+                </div>
+                <div class="resultrow">
+                    <div class="rlabel">Concentrado Limão:</div>
+                    <div class="rvalue" id="clim_gu"></div>
+                </div>
+                <div class="or-separator">OU</div>
+                <div class="resultrow" style="margin-top:0">
+                    <div class="rlabel">Ácido Cítrico:</div>
+                    <div class="rvalue" id="aci_gu"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
-function show(id, elementoBotao){
+const n = (id) => parseFloat(document.getElementById(id).value) || 0;
+const fmt = (v) => {
+    const el = document.createElement('span');
+    el.textContent = v.toFixed(2);
+    if (v < 0) el.className = 'neg';
+    return el.outerHTML;
+};
+
+function openTab(id, btn) {
     document.querySelectorAll('.sheet').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    if(elementoBotao) { elementoBotao.classList.add('active'); }
+    btn.classList.add('active');
 }
 
-function n(v){return parseFloat(v)||0}
-
-function fmt(val, unit = '') {
-    let v = val.toFixed(2);
-    if(unit !== '') {
-        v += ' ' + unit;
-    }
-    return `<span class="${val < 0 ? 'neg' : ''}">${v}</span>`;
+function calcA() {
+    const Q = n('q_ac'), C = n('c_ac'), P = n('p_ac'), A = n('a_ac');
+    document.getElementById('fac').innerHTML = fmt(A !== 0 ? 100 / A : 0);
+    document.getElementById('clim').innerHTML = fmt(A !== 0 ? (Q * (P - C)) / A : 0) + ' KG';
+    document.getElementById('aci').innerHTML = fmt((Q * (P - C)) / 100) + ' KG';
 }
 
-function acidezPage(id, p, qVal, cVal, pVal, aVal){
-document.getElementById(id).innerHTML=`
-<div class="canvas">
-
-<div class="row">
-<div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input id="${p}q" value="${qVal}" onclick="this.value=''" oninput="calc${p}()"></div></div>
-<div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input id="${p}c" value="${cVal}" onclick="this.value=''" oninput="calc${p}()"></div></div>
-<div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input id="${p}p" value="${pVal}" onclick="this.value=''" oninput="calc${p}()"></div></div>
-</div>
-
-<hr class="divider">
-
-<div class="main-layout">
-    <div class="left-col align-acidez">
-        <div class="lbl">ACIDEZ</div>
-        <div class="cell"><input id="${p}a" value="${aVal}" onclick="this.value=''" oninput="calc${p}()"></div>
-    </div>
-    <div class="right-col">
-        <div class="resultrow" style="margin-top:0; margin-bottom: 42px;"><div class="rlabel">Factor:</div><div class="rvalue" id="${p}f"></div></div>
-        <div class="resultrow"><div class="rlabel">Concentrado Limão:</div><div class="rvalue" id="${p}l"></div></div>
-        <div class="or-separator">OU</div>
-        <div class="resultrow" style="margin-top:0;"><div class="rlabel">Ácido Cítrico:</div><div class="rvalue" id="${p}r"></div></div>
-    </div>
-</div>
-</div>`;
+function calcG() {
+    const Q = n('q_gu'), C = n('c_gu'), P = n('p_gu'), A = n('a_gu');
+    document.getElementById('fac_gu').innerHTML = fmt(A !== 0 ? 100 / A : 0);
+    document.getElementById('clim_gu').innerHTML = fmt(A !== 0 ? (Q * (P - C)) / A : 0) + ' KG';
+    document.getElementById('aci_gu').innerHTML = fmt((Q * (P - C)) / 100) + ' KG';
 }
 
-acidezPage('ac', 'a', '12000', '0.17', '0.35', '40');
-acidezPage('gu', 'g', '11640', '2.94', '3', '30.12');
-
-function calca(){
-let q=n(aq.value),c=n(ac.value),p=n(ap.value),a=n(aa.value);
-let f = a !== 0 ? 100/a : 0;
-af.innerHTML = fmt(f);
-let l=(p-c)*q/100*(a !== 0 ? 100/a : 0);
-let r=q*(p-c)/100;
-al.innerHTML = fmt(l, 'KG');
-ar.innerHTML = fmt(r, 'KG');
+function calcB() {
+    const Q = n('q_bx'), C = n('c_bx'), P = n('p_bx'), B = n('b_bx');
+    const agua = P !== 0 ? (Q * C) / P - Q : 0;
+    const acucar = (Q * (P - C)) / 100;
+    const xarope = (acucar / 40) * 100;
+    const conc = B !== 0 ? (Q * (P - C)) / B : 0;
+    document.getElementById('agua').innerHTML = fmt(agua) + ' KG';
+    document.getElementById('xar').innerHTML = fmt(xarope) + ' KG';
+    document.getElementById('conc').innerHTML = fmt(conc) + ' KG';
+    document.getElementById('acu').innerHTML = fmt(acucar) + ' KG';
 }
 
-function calcg(){
-let q=n(gq.value),c=n(gc.value),p=n(gp.value),a=n(ga.value);
-let f = a !== 0 ? 100/a : 0;
-gf.innerHTML = fmt(f);
-let l=(p-c)*q/100*(a !== 0 ? 100/a : 0);
-let r=q*(p-c)/100;
-gl.innerHTML = fmt(l, 'KG');
-gr.innerHTML = fmt(r, 'KG');
+function calcC() {
+    const sal = (n('q_cl') * (n('p_cl') - n('c_cl'))) / 100;
+    document.getElementById('sal').innerHTML = fmt(sal) + ' KG';
 }
 
-document.getElementById('bx').innerHTML=`<div class="canvas">
-<div class="row">
-<div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input id="bq" value="12000" onclick="this.value=''" oninput="calcB()"></div></div>
-<div class="box"><div class="lbl">BRIX CARGA</div><div class="cell"><input id="bc" value="10" onclick="this.value=''" oninput="calcB()"></div></div>
-<div class="box"><div class="lbl">BRIX PRETENDIDO</div><div class="cell"><input id="bp" value="12" onclick="this.value=''" oninput="calcB()"></div></div>
-</div>
-
-<hr class="divider">
-
-<div class="main-layout">
-    <div class="left-col align-brix">
-        <div class="lbl">BRIX</div>
-        <div class="cell"><input id="bb" value="80" onclick="this.value=''" oninput="calcB()"></div>
-    </div>
-    <div class="right-col">
-        <div class="resultrow" style="margin-top:0; margin-bottom: 42px;"><div class="rlabel">Água:</div><div class="rvalue" id="agua"></div></div>
-        <div class="resultrow"><div class="rlabel">Xarope:</div><div class="rvalue" id="xarope"></div></div>
-        <div class="or-separator">OU</div>
-        <div class="resultrow" style="margin-top:0;"><div class="rlabel">Concentrado:</div><div class="rvalue" id="conc"></div></div>
-        <div class="or-separator">OU</div>
-        <div class="resultrow" style="margin-top:0;"><div class="rlabel">Açúcar:</div><div class="rvalue" id="acucar"></div></div>
-    </div>
-</div>
-</div>`;
-
-function calcB(){
-let q=n(bq.value),c=n(bc.value),p=n(bp.value),b=n(bb.value);
-agua.innerHTML = fmt(p !== 0 ? (q*c/p)-q : 0, 'KG');
-acucar.innerHTML = fmt(q*(p-c)/100, 'KG');
-xarope.innerHTML = fmt(((q*(p-c)/100)/40*100), 'KG');
-conc.innerHTML = fmt(b !== 0 ? q*(p-c)/b : 0, 'KG');
+function calcR() {
+    const den = n('c_ra');
+    document.getElementById('rat').innerHTML = fmt(den !== 0 ? n('b_ra') / den : 0);
 }
 
-/* ALTERADO: Inseridos os novos valores iniciais (4600, 0.2, 0.35) solicitados para Cloretos */
-document.getElementById('cl').innerHTML=`<div class="canvas">
-<div class="row">
-<div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input id="cq" value="4600" onclick="this.value=''" oninput="calcC()"></div></div>
-<div class="box"><div class="lbl">CLORETOS CARGA</div><div class="cell"><input id="cc" value="0.2" onclick="this.value=''" oninput="calcC()"></div></div>
-<div class="box"><div class="lbl">CLORETOS PRETENDIDOS</div><div class="cell"><input id="cp" value="0.35" onclick="this.value=''" oninput="calcC()"></div></div>
-</div>
-<hr class="divider">
-<div class="resultrow"><div class="rlabel">Sal:</div><div class="rvalue" id="sal"></div></div></div>`;
-
-function calcC(){
-let val = (n(cq.value)*(n(cp.value)-n(cc.value))/100);
-sal.innerHTML = fmt(val, 'KG');
+function calcT() {
+    document.getElementById('cres').innerHTML = fmt(n('te') / 4);
 }
 
-document.getElementById('ra').innerHTML=`<div class="canvas">
-<div class="row">
-<div class="box"><div class="lbl">BRIX</div><div class="cell"><input id="rb" value="10" onclick="this.value=''" oninput="calcR()"></div></div>
-<div class="box"><div class="lbl">ACIDEZ</div><div class="cell"><input id="rc" value="0.4" onclick="this.value=''" oninput="calcR()"></div></div>
-</div>
-<hr class="divider">
-<div class="resultrow"><div class="rlabel">Ratio:</div><div class="rvalue" id="ratio"></div></div></div>`;
-
-function calcR(){
-let den = n(rc.value);
-let val = den !== 0 ? (n(rb.value)/den) : 0;
-ratio.innerHTML = fmt(val);
-}
-
-document.getElementById('co').innerHTML=`<div class="canvas">
-<div class="row">
-<div class="box"><div class="lbl">TEMPO ESCORRIMENTO</div><div class="cell"><input id="te" value="40" onclick="this.value=''" oninput="calcT()"></div></div>
-</div>
-<hr class="divider">
-<div class="resultrow"><div class="rlabel">Consistência:</div><div class="rvalue" id="cres"></div></div></div>`;
-
-function calcT(){
-let val = (n(te.value)/4);
-cres.innerHTML = fmt(val);
-}
-
-calca();calcg();calcB();calcC();calcR();calcT();
+calcA(); calcB(); calcC(); calcR(); calcT(); calcG();
 </script>
+
 </body>
 </html>
