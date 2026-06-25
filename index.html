@@ -33,7 +33,17 @@
     body{
       font-family: 'Montserrat', sans-serif;
       position: relative;
-      font-size: 14.5px; /* Redução proporcional geral */
+      font-size: 14.5px; 
+    }
+
+    /* REMOVER SETAS DOS INPUTS NUMÉRICOS */
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+    input[type=number] {
+      -moz-appearance: textfield; /* Para o Firefox */
     }
 
     /* IMAGEM DE FUNDO */
@@ -87,7 +97,6 @@
       transition: all 0.3s ease;
     }
 
-    /* Classe dinâmica aplicada quando o subtítulo muda para Correcção de Cargas */
     .subtitle.cc-active {
       font-size: 1.8rem;
       font-weight: 900;
@@ -145,7 +154,6 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
 
-    /* Estilo Especial para indicar que o botão expande */
     .hub-button.dropdown-toggle::after {
       content: ' ▼';
       font-size: 0.8rem;
@@ -156,12 +164,12 @@
       transform: rotate(180deg);
     }
 
-    /* CONTEUDO DO DROPDOWN (PAINEL OCULTO) */
+    /* CONTEUDO DO DROPDOWN */
     .dropdown-content {
       display: none;
-      grid-column: 1 / -1; /* Ocupa a largura total da grelha */
-      background: rgba(15, 18, 22, 0.6);
-      border: 1px dashed rgba(255, 255, 255, 0.2);
+      grid-column: 1 / -1; 
+      background: transparent; 
+      border: 1px dashed rgba(255, 255, 255, 0.25);
       border-radius: 16px;
       padding: 20px;
       margin-top: -10px;
@@ -178,6 +186,155 @@
       font-size: 1.8rem;
       margin-bottom: 25px;
       color: #052fa0c9;
+      font-weight: 900;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ESTILOS DA TABELA DE CONTAS */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: 15px;
+    }
+
+    .calc-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      overflow: hidden;
+      color: #000000;
+    }
+
+    .calc-table th {
+      background: #0272f1ea;
+      color: #ffffff;
+      padding: 12px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .calc-table td {
+      padding: 10px;
+      border: 1px solid rgba(34, 34, 34, 0.15);
+      text-align: center;
+    }
+
+    .calc-table input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: bold;
+      outline: none;
+    }
+
+    .calc-table input:focus {
+      background: #d2e4f7;
+    }
+
+    .calc-table .result-cell {
+      background: rgba(2, 114, 241, 0.15);
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    /* Cores dinâmicas para validação do resultado final */
+    .calc-table .result-cell.valido {
+      background: #1dc917bd !important; /* Verde */
+      color: #000000 !important;
+    }
+
+    .calc-table .result-cell.invalido {
+      background: #ff4d4dbd !important; /* Vermelho */
+      color: #ffffff !important;
+    }
+
+    /* Linha do total por defeito limpa */
+    .calc-table .total-row {
+      font-weight: 900;
+      font-size: 1.1rem;
+      background: transparent;
+    }
+
+    /* Caixa verde que envolve o texto Média Total */
+    .total-badge {
+      background: #1dc917bd;
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: #000;
+      font-weight: normal; /* Sem negrito geral na caixa */
+    }
+
+    /* Célula verde do resultado da média global */
+    .calc-table .total-row .global-result-cell {
+      background: #1dc917bd;
+      font-weight: 900;
+    }
+
+    /* Container flexível para alinhar botão à esquerda e texto à direita */
+    .total-flex-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 2px 5px;
+    }
+
+    /* Botão Adicionar Linha */
+    .add-row-btn {
+      padding: 8px 16px;
+      background: #0272f1ea;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .add-row-btn:hover {
+      background: #0156b8;
+      transform: translateY(-1px);
+    }
+
+    /* Container inline para input e botões rápidos */
+    .input-with-quick-values {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .input-with-quick-values input {
+      max-width: 140px;
+    }
+
+    .quick-values-inline {
+      display: flex;
+      gap: 6px;
+    }
+
+    .quick-value-btn {
+      background: #061f91ef;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .quick-value-btn:hover {
+      background: #041461;
+      transform: scale(1.05);
     }
 
     /* LOGIN */
@@ -298,13 +455,7 @@
       background: #232931;
     }
 
-    /* SECÇÃO DE CORRECÇÃO DE CARGAS (CC) */
-    #ccPage {
-      max-width: 950px;
-      margin: 0 auto;
-    }
-
-    /* BOTÕES AJUSTADOS COM ESPAÇAMENTO COMPLETO */
+    /* TABS & CANVAS */
     .tabs {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
@@ -357,16 +508,15 @@
       display: block;
     }
 
-    /* CANVAS E CÉLULAS COGNITIVAS TRANSLÚCIDAS */
     .canvas {
       width: 100%;
       margin: 0 auto;
-      background: rgba(255, 255, 255, 0.75); /* FUNDO DO CANVAS MENOS OPACO (Era 0.95) */
+      background: rgba(255, 255, 255, 0.75); 
       border: 1px solid rgba(34, 34, 34, 0.2);
       padding: 30px 24px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
       border-radius: 12px;
-      backdrop-filter: blur(4px); /* Adiciona um leve desfoque elegante ao fundo visível */
+      backdrop-filter: blur(4px); 
     }
 
     .row {
@@ -432,11 +582,10 @@
       flex-wrap: wrap;
     }
 
-    /* RÓTULOS EM BRANCO DOS RESULTADOS MAIS TRANSLÚCIDOS */
     .rlabel {
       width: 100%;
       max-width: 320px;
-      background: rgba(240, 240, 240, 0.65); /* FUNDO MENOS OPACO (Era sólido/0.85) */
+      background: rgba(240, 240, 240, 0.65); 
       color: #0d00bd;
       padding: 10px;
       border: 1px solid rgba(0, 0, 0, 0.2);
@@ -446,14 +595,13 @@
       font-size: 18px;
     }
 
-    /* Estrutura dividida em branco com opacidade reduzida */
     .rlabel-split {
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
       max-width: 320px;
-      background: rgba(240, 240, 240, 0.65); /* FUNDO MENOS OPACO (Era sólido/0.85) */
+      background: rgba(240, 240, 240, 0.65); 
       color: #0d00bd;
       padding: 5px 10px;
       border: 1px solid rgba(0, 0, 0, 0.2);
@@ -623,11 +771,129 @@
       box-shadow: 0 5px 15px rgba(10, 108, 255, 0.2);
     }
 
+    /* RESPONSIVIDADE (MOBILE) */
     @media(max-width: 768px){
       body { font-size: 13.5px; }
       .button-grid { grid-template-columns: 1fr; padding: 0 10px; }
       .container { top: 80px; }
       .tabs { grid-template-columns: repeat(3, 1fr); margin-top: 35px; margin-bottom: 20px; }
+
+      .total-flex-container {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .add-row-btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .input-with-quick-values {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .input-with-quick-values input {
+        max-width: 100%;
+      }
+
+      .quick-values-inline {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .quick-value-btn {
+        flex: 1;
+        text-align: center;
+      }
+
+      /* TRANSFORMAÇÃO DA TABELA DAS BISNAGAS EM VERTICAL (MOBILE) */
+      .calc-table, .calc-table thead, .calc-table tbody, .calc-table th, .calc-table td, .calc-table tr {
+        display: block;
+        width: 100%;
+      }
+      
+      .calc-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+
+      .calc-table tr {
+        background: #ffffff;
+        border: 2px solid #0272f1ea;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        padding: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      }
+
+      .calc-table td {
+        text-align: left;
+        padding: 8px 10px;
+        border: none;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+      }
+
+      .calc-table tbody tr:not(.total-row) td:first-child {
+        background: #0272f1ea;
+        color: #ffffff;
+        border-radius: 6px;
+        justify-content: center;
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+
+      .calc-table tbody tr:not(.total-row) td:nth-child(2)::before { content: "Espessura de Cravação 1:"; font-weight: bold; color: #333; min-width: 160px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(3)::before { content: "Espessura de Cravação 2:"; font-weight: bold; color: #333; min-width: 160px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(4)::before { content: "Média:"; font-weight: bold; color: #0272f1ea; min-width: 160px; }
+
+      .calc-table input {
+        max-width: 160px;
+        text-align: center;
+        background: #f4f4f4;
+      }
+
+      .calc-table .result-cell {
+        background: rgba(2, 114, 241, 0.1);
+        padding: 8px 15px;
+        border-radius: 6px;
+        justify-content: space-between;
+        font-size: 1.1rem;
+      }
+
+      /* Linha do Total Global Mobile */
+      .calc-table tr.total-row {
+        background: transparent;
+        border: 2px solid #149410;
+      }
+      .calc-table tr.total-row td {
+        justify-content: space-between;
+        text-align: left;
+        font-size: 1.1rem;
+        padding: 12px 10px;
+      }
+      .calc-table tr.total-row td:first-child {
+        background: transparent;
+        color: #000;
+        font-size: 1rem;
+        margin-bottom: 0;
+      }
+      .calc-table tr.total-row td[colspan] {
+        display: none; 
+      }
+
+      /* Responsividade específica da segunda tabela no Mobile */
+      #tableFolha tr {
+        border-color: #061f91ef;
+      }
+      #tableFolha td:nth-child(1)::before { content: "Parâmetro:"; font-weight: bold; color: #333; }
+      #tableFolha td:nth-child(2)::before { content: "Valor / Resultado:"; font-weight: bold; color: #333; }
     }
   </style>
 </head>
@@ -635,7 +901,7 @@
 
   <div class="login-screen" id="loginScreen">
     <div class="login-box">
-      <h2>Acesso Restricted</h2>
+      <h2>Acesso Restrito</h2>
       <input type="password" id="passwordInput" class="password-input" placeholder="Introduza a senha">
       <button class="login-button" onclick="checkPassword()">Entrar</button>
       <div class="error-message" id="errorMessage" style="color:#ff4d4d; margin-top:15px; display:none; font-weight:700;">Senha incorreta...</div>
@@ -701,9 +967,9 @@
       <div id="ac" class="sheet active">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input id="q_ac" value="12000" onclick="this.value=''" oninput="calcA()"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input id="c_ac" value="0.17" onclick="this.value=''" oninput="calcA()"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input id="p_ac" value="0.35" onclick="this.value=''" oninput="calcA()"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_ac" value="12000" onclick="this.value=''" oninput="calcA()"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" id="c_ac" value="0.17" onclick="this.value=''" oninput="calcA()"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" id="p_ac" value="0.35" onclick="this.value=''" oninput="calcA()"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -714,7 +980,7 @@
             <div class="rlabel-split">
               <span>Concentrado Limão:</span>
               <div class="inline-acid-cell">
-                <input id="a_ac" value="40" placeholder="Acidez" onclick="this.value=''" oninput="calcA()">
+                <input type="number" id="a_ac" value="40" placeholder="Acidez" onclick="this.value=''" oninput="calcA()">
               </div>
             </div>
             <div class="rvalue" id="clim"></div>
@@ -730,9 +996,9 @@
       <div id="bx" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input id="q_bx" value="12000" onclick="this.value=''" oninput="calcB()"></div></div>
-            <div class="box"><div class="lbl">BRIX CARGA</div><div class="cell"><input id="c_bx" value="10" onclick="this.value=''" oninput="calcB()"></div></div>
-            <div class="box"><div class="lbl">BRIX PRETENDIDO</div><div class="cell"><input id="p_bx" value="12" onclick="this.value=''" oninput="calcB()"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_bx" value="12000" onclick="this.value=''" oninput="calcB()"></div></div>
+            <div class="box"><div class="lbl">BRIX CARGA</div><div class="cell"><input type="number" id="c_bx" value="10" onclick="this.value=''" oninput="calcB()"></div></div>
+            <div class="box"><div class="lbl">BRIX PRETENDIDO</div><div class="cell"><input type="number" id="p_bx" value="12" onclick="this.value=''" oninput="calcB()"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -748,7 +1014,7 @@
             <div class="rlabel-split">
               <span>Concentrado:</span>
               <div class="inline-acid-cell">
-                <input id="b_bx" value="80" placeholder="Brix" onclick="this.value=''" oninput="calcB()">
+                <input type="number" id="b_bx" value="80" placeholder="Brix" onclick="this.value=''" oninput="calcB()">
               </div>
             </div>
             <div class="rvalue" id="conc"></div>
@@ -764,9 +1030,9 @@
       <div id="cl" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input id="q_cl" value="4600" onclick="this.value=''" oninput="calcC()"></div></div>
-            <div class="box"><div class="lbl">CLORETOS CARGA</div><div class="cell"><input id="c_cl" value="0.2" onclick="this.value=''" oninput="calcC()"></div></div>
-            <div class="box"><div class="lbl">CLORETOS PRETENDIDOS</div><div class="cell"><input id="p_cl" value="0.35" onclick="this.value=''" oninput="calcC()"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_cl" value="4600" onclick="this.value=''" oninput="calcC()"></div></div>
+            <div class="box"><div class="lbl">CLORETOS CARGA</div><div class="cell"><input type="number" id="c_cl" value="0.2" onclick="this.value=''" oninput="calcC()"></div></div>
+            <div class="box"><div class="lbl">CLORETOS PRETENDIDOS</div><div class="cell"><input type="number" id="p_cl" value="0.35" onclick="this.value=''" oninput="calcC()"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -779,8 +1045,8 @@
       <div id="ra" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">BRIX</div><div class="cell"><input id="b_ra" value="10" onclick="this.value=''" oninput="calcR()"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ</div><div class="cell"><input id="c_ra" value="0.4" onclick="this.value=''" oninput="calcR()"></div></div>
+            <div class="box"><div class="lbl">BRIX</div><div class="cell"><input type="number" id="b_ra" value="10" onclick="this.value=''" oninput="calcR()"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ</div><div class="cell"><input type="number" id="c_ra" value="0.4" onclick="this.value=''" oninput="calcR()"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -793,7 +1059,7 @@
       <div id="co" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">TEMPO ESCORRIMENTO</div><div class="cell"><input id="te" value="40" onclick="this.value=''" oninput="calcT()"></div></div>
+            <div class="box"><div class="lbl">TEMPO ESCORRIMENTO</div><div class="cell"><input type="number" id="te" value="40" onclick="this.value=''" oninput="calcT()"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -806,9 +1072,9 @@
       <div id="gu" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input id="q_gu" value="11640" onclick="this.value=''" oninput="calcG()"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input id="c_gu" value="2.94" onclick="this.value=''" oninput="calcG()"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input id="p_gu" value="3" onclick="this.value=''" oninput="calcG()"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_gu" value="11640" onclick="this.value=''" oninput="calcG()"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" id="c_gu" value="2.94" onclick="this.value=''" oninput="calcG()"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" id="p_gu" value="3" onclick="this.value=''" oninput="calcG()"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -819,7 +1085,7 @@
             <div class="rlabel-split">
               <span>Concentrado Limão:</span>
               <div class="inline-acid-cell">
-                <input id="a_gu" value="30.12" placeholder="Acidez" onclick="this.value=''" oninput="calcG()">
+                <input type="number" id="a_gu" value="30.12" placeholder="Acidez" onclick="this.value=''" oninput="calcG()">
               </div>
             </div>
             <div class="rvalue" id="clim_gu"></div>
@@ -833,19 +1099,27 @@
       </div>
     </div>
 
+    <!-- PÁGINA DE EMBALAGENS -->
     <div id="embalagensPage" style="display:none; margin-top:20px;">
       <h2 class="page-title">Embalagens</h2>
       <div class="button-grid">
-        <a href="http://10.167.1.4/login" target="_blank" class="hub-button">Accept</a>
-        <a href="http://10.167.1.4:8181/pt/home#/" target="_blank" class="hub-button">Accept MSA</a>
         
+        <div onclick="toggleAcceptDropdown()" id="acceptDropdownBtn" class="hub-button dropdown-toggle">ACCEPT</div>
+        
+        <div id="acceptDropdown" class="dropdown-content">
+          <div class="button-grid" style="margin-bottom: 0; gap: 15px;">
+            <a href="http://10.167.1.4/login" target="_blank" class="hub-button" style="padding: 18px 15px; font-size: 1.1rem; background: rgba(30, 41, 59, 0.9);">Accept</a>
+            <a href="http://10.167.1.4:8181/pt/home#/" target="_blank" class="hub-button" style="padding: 18px 15px; font-size: 1.1rem; background: rgba(30, 41, 59, 0.9);">Accept MSA</a>
+          </div>
+        </div>
+
         <div onclick="toggleSharepointDropdown()" id="spDropdownBtn" class="hub-button dropdown-toggle">SharePoint</div>
         
         <div id="sharepointDropdown" class="dropdown-content">
           <div class="button-grid" style="margin-bottom: 0; gap: 15px;">
             <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual_Almeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem&viewid=cc397437-7114-4d36-a30a-c5729209ff32&sharingv2=true&fromShare=true&at=9&CID=1a77d6a1-e0e3-e000-7cf3-b5bfacfe038a&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&ovuser=c966f82c-42fb-40e2-9370-3a7a3da6cbee%2CSCU00137%40sumolcompal%2Ept&OR=Teams-HL&CT=1770079823283&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNipro0OS8yNjAxMDQwMDkyMyIsIkhhc0Fzc29jaWF0ZWQiOnRydWV9" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 18px 15px; font-size: 1.1rem; background: rgba(30, 41, 59, 0.9);">03. Embalagens</a>
             
-            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&CT=1782335300219&OR=OWA%2DNTB%2DMail&CID=e1c85562%2D32cf%2D4e7c%2D1983%2D8c58456195d2&SI=NonSentItems&clickParams=eyJYLUFwcE5hbWUiOiJNaWNyb3NvZnQgT3V0bG9vayBXZWIgQXBwIiwiWC1BcHBWZXJzaW9uIjoiMjAyNjA2MTIwMTYuMjYiLCJPUyI6IldpbmRvd3MgMTEifQ%3D%3D" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 18px 15px; font-size: 1.1rem; background: rgba(30, 41, 59, 0.9);">04 Medidas Membranas Stelos</a>
+            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&CT=1782335300219&OR=OWA%2DNTB%2DMail&CID=e1c85562%2D32cf%2D4e7c%2D1983%2D8c58456195d2&SI=NonSentItems&clickParams=eyJYLUFwcE5hbWUiOiJNaWNyb3NvZnQgT3V0bG9vayBXZWIgQXBwIiwiWC1BcHBWZXJzaW9uIjoiMjAyNjA2MTIwMTYuMjYiLCJPUyI6IldpbmRvd3MgMTEifQ%3D%3D" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 18px 15px; font-size: 1.1rem; background: rgba(30, 41, 59, 0.9);">❌04 Medidas Membranas Stelos</a>
             
             <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F05%20%2D%20Teste%20dissolu%C3%A7%C3%B5es&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&CT=1782335207315&OR=OWA%2DNTB%2DMail&CID=486f7f43%2D1421%2D10bb%2D7679%2Dce87d54bf7cd&SI=NonSentItems&clickParams=eyJYLUFwcE5hbWUiOiJNaWNyb3NvZnQgT3V0bG9vayBXZWIgQXBwIiwiWC1BcHBWZXJzaW9uIjoiMjAyNjA2MTIwMTYuMjYiLCJPUyI6IldpbmRvd3MgMTEifQ%3D%3D" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 18px 15px; font-size: 1.1rem; background: rgba(30, 41, 59, 0.9);">05 Teste dissoluções</a>
           </div>
@@ -853,6 +1127,102 @@
 
         <a href="https://sumolcompal.sharepoint.com/:x:/r/sites/QualidadeAmbiente/_layouts/15/Doc.aspx?sourcedoc=%7B909A696B-99B0-4BE2-9899-0EAFB0FA8D1F%7D&file=04AL.xlsx&action=default&mobileredirect=true" target="_blank" class="hub-button">04AL</a>
         <a href="http://10.102.223.11/PLMSLogin/login.aspx?loginfailed=1" target="_blank" class="hub-button">PLMS</a>
+        
+        <div onclick="showMediasBisnagas()" class="hub-button">Compactação do fecho das Bisnagas</div>
+      </div>
+    </div>
+
+    <!-- PÁGINA: COMPACTAÇÃO DO FECHO DAS BISNAGAS -->
+    <div id="mediasBisnagasPage" style="display:none; text-align:left;">
+      <h2 class="page-title" style="text-align: center; margin-top: 50px;">Compactação do fecho das Bisnagas</h2>
+      <div class="canvas" style="text-align: left; margin-top: 10px;">
+        <p style="color: #000; font-weight: bold; margin-bottom: 15px; text-align: center;">Insira os dois valores de cada amostra. Prima [Enter] para saltar para o campo seguinte:</p>
+        
+        <div class="table-container">
+          <table class="calc-table" id="bisnagasTable">
+            <thead>
+              <tr>
+                <th>Amostra</th>
+                <th>Espessura de Cravação 1</th>
+                <th>Espessura de Cravação 2</th>
+                <th>Média Amostra</th>
+              </tr>
+            </thead>
+            <tbody id="bisnagasBody">
+              <tr>
+                <td><b>Amostra 1</b></td>
+                <td><input type="number" id="b1_v1" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b1_v2')"></td>
+                <td><input type="number" id="b1_v2" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v1')"></td>
+                <td class="result-cell" id="b1_media">---</td>
+              </tr>
+              <tr>
+                <td><b>Amostra 2</b></td>
+                <td><input type="number" id="b2_v1" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v2')"></td>
+                <td><input type="number" id="b2_v2" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v1')"></td>
+                <td class="result-cell" id="b2_media">---</td>
+              </tr>
+              <tr>
+                <td><b>Amostra 3</b></td>
+                <td><input type="number" id="b3_v1" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v2')"></td>
+                <td><input type="number" id="b3_v2" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v1')"></td>
+                <td class="result-cell" id="b3_media">---</td>
+              </tr>
+              <tr>
+                <td><b>Amostra 4</b></td>
+                <td><input type="number" id="b4_v1" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v2')"></td>
+                <td><input type="number" id="b4_v2" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'espessura_folha')"></td>
+                <td class="result-cell" id="b4_media">---</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="total-row">
+                <td colspan="3" id="totalLabelCell">
+                  <div class="total-flex-container">
+                    <button type="button" class="add-row-btn" onclick="adicionarLinhaAmostra()">+ Adicionar Amostra</button>
+                    <span class="total-badge">Média total:</span>
+                  </div>
+                </td>
+                <td id="total_global_media" class="global-result-cell">---</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <!-- ESPAÇADOR/DIVISÓRIA ENTRE TABELAS -->
+        <div style="margin-top: 35px; margin-bottom: 15px; border-top: 1px solid rgba(0,0,0,0.15);"></div>
+
+        <!-- SEGUNDA TABELA: ESPESSURA DA FOLHA COM VALORES RÁPIDOS INLINE -->
+        <div class="table-container">
+          <table class="calc-table" id="tableFolha">
+            <thead>
+              <tr>
+                <th style="background: #061f91ef; width: 40%;">Parâmetro</th>
+                <th style="background: #061f91ef; width: 60%;">Valor / Resultado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>Espessura da folha (mm)</b></td>
+                <td>
+                  <div class="input-with-quick-values">
+                    <input type="number" id="espessura_folha" step="0.01" placeholder="Valor" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcResultadoFinal()" onkeydown="navegarEnter(event, '')">
+                    <div class="quick-values-inline">
+                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.15)">0.15</button>
+                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.16)">0.16</button>
+                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.17)">0.17</button>
+                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.18)">0.18</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><b>Compactação (%)</b></td>
+                <td id="resultado_final_campo" class="result-cell">---</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>
 
@@ -927,6 +1297,23 @@
       } else {
         dropdown.style.display = "block";
         btn.classList.add("active");
+        document.getElementById("acceptDropdown").style.display = "none";
+        document.getElementById("acceptDropdownBtn").classList.remove("active");
+      }
+    }
+
+    function toggleAcceptDropdown() {
+      const dropdown = document.getElementById("acceptDropdown");
+      const btn = document.getElementById("acceptDropdownBtn");
+      
+      if (dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+        btn.classList.remove("active");
+      } else {
+        dropdown.style.display = "block";
+        btn.classList.add("active");
+        document.getElementById("sharepointDropdown").style.display = "none";
+        document.getElementById("spDropdownBtn").classList.remove("active");
       }
     }
 
@@ -958,19 +1345,29 @@
       document.getElementById("backHeaderBtn").style.display = "flex";
     }
 
+    function showMediasBisnagas() {
+      hideAllPages();
+      document.getElementById("mediasBisnagasPage").style.display = "block";
+      document.getElementById("backHeaderBtn").style.display = "flex";
+      
+      const subtitle = document.getElementById("mainSubtitle");
+      subtitle.style.display = "none"; // Oculta o subtítulo para não duplicar espaço com a classe page-title
+    }
+
     function showHome(){
       showMainSections();
       hideInternalPages();
       document.getElementById("backHeaderBtn").style.display = "none";
       
       const subtitle = document.getElementById("mainSubtitle");
+      subtitle.style.display = "block";
       subtitle.textContent = "Centro de atalhos:";
       subtitle.classList.remove("cc-active");
 
-      const dropdown = document.getElementById("sharepointDropdown");
-      if(dropdown) dropdown.style.display = "none";
-      const btn = document.getElementById("spDropdownBtn");
-      if(btn) btn.classList.remove("active");
+      document.getElementById("sharepointDropdown").style.display = "none";
+      document.getElementById("spDropdownBtn").classList.remove("active");
+      document.getElementById("acceptDropdown").style.display = "none";
+      document.getElementById("acceptDropdownBtn").classList.remove("active");
     }
 
     function hideAllPages(){
@@ -983,6 +1380,7 @@
       document.getElementById("embalagensPage").style.display = "none";
       document.getElementById("variosPage").style.display = "none";
       document.getElementById("ccPage").style.display = "none";
+      document.getElementById("mediasBisnagasPage").style.display = "none";
     }
 
     function hideMainSections(){
@@ -1014,6 +1412,115 @@
       if (v < 0) el.className = 'neg';
       return el.outerHTML;
     };
+
+    /* FUNÇÃO ENTER: PASSA PARA A PRÓXIMA CÉLULA */
+    function navegarEnter(event, proximoId) {
+      if (event.key === "Enter") {
+        event.preventDefault(); 
+        if (proximoId) {
+          const target = document.getElementById(proximoId);
+          if (target) target.focus();
+        }
+      }
+    }
+
+    /* FORÇAR DUAS CASAS DECIMAIS QUANDO O UTILIZADOR SAI DO CAMPO */
+    function forcarDuasCasasDecimais(input) {
+      if (input.value !== "") {
+        input.value = parseFloat(input.value).toFixed(2);
+      }
+    }
+
+    /* ATRIBUI UM VALOR RÁPIDO FIXO À ESPESSURA DA FOLHA */
+    function definirEspessuraRapida(valor) {
+      document.getElementById("espessura_folha").value = valor.toFixed(2);
+      calcResultadoFinal();
+    }
+
+    /* FUNÇÃO DE CÁLCULO DAS BISNAGAS DINÂMICA */
+    function calcBisnagas() {
+      let totalMedias = 0;
+      let qtdMediasValidas = 0;
+
+      const rows = document.querySelectorAll("#bisnagasBody tr");
+      rows.forEach((row, index) => {
+        const num = index + 1;
+        const campo1 = document.getElementById(`b${num}_v1`).value;
+        const campo2 = document.getElementById(`b${num}_v2`).value;
+        const elMedia = document.getElementById(`b${num}_media`);
+
+        if (campo1 !== "" && campo2 !== "") {
+          const v1 = parseFloat(campo1) || 0;
+          const v2 = parseFloat(campo2) || 0;
+          const m = (v1 + v2) / 2;
+          elMedia.textContent = m.toFixed(2);
+          totalMedias += m;
+          qtdMediasValidas++;
+        } else {
+          elMedia.textContent = "---";
+        }
+      });
+
+      if (qtdMediasValidas > 0) {
+        const mediaGlobal = totalMedias / qtdMediasValidas;
+        document.getElementById("total_global_media").textContent = mediaGlobal.toFixed(2);
+      } else {
+        document.getElementById("total_global_media").textContent = "---";
+      }
+
+      // Desencadeia também a atualização do resultado final
+      calcResultadoFinal();
+    }
+
+    /* FUNÇÃO PARA ADICIONAR NOVAS AMOSTRAS À TABELA */
+    function adicionarLinhaAmostra() {
+      const tbody = document.getElementById("bisnagasBody");
+      const proximoNumero = tbody.querySelectorAll("tr").length + 1;
+
+      if (proximoNumero > 1) {
+        const SecretlinhaAnteriorV2 = document.getElementById(`b${proximoNumero - 1}_v2`);
+        if (SecretlinhaAnteriorV2) {
+          SecretlinhaAnteriorV2.setAttribute("onkeydown", `navegarEnter(event, 'b${proximoNumero}_v1')`);
+        }
+      }
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><b>Amostra ${proximoNumero}</b></td>
+        <td><input type="number" id="b${proximoNumero}_v1" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b${proximoNumero}_v2')"></td>
+        <td><input type="number" id="b${proximoNumero}_v2" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'espessura_folha')"></td>
+        <td class="result-cell" id="b${proximoNumero}_media">---</td>
+      `;
+
+      tbody.appendChild(tr);
+      document.getElementById(`b${proximoNumero}_v1`).focus();
+    }
+
+    /* FUNÇÃO DO CÁLCULO DA COMPACTAÇÃO (%) */
+    function calcResultadoFinal() {
+      const espessura = parseFloat(document.getElementById("espessura_folha").value);
+      const mediaGlobalTexto = document.getElementById("total_global_media").textContent;
+      const mediaGlobal = mediaGlobalTexto !== "---" ? parseFloat(mediaGlobalTexto) : null;
+      
+      const elResultado = document.getElementById("resultado_final_campo");
+
+      // Reset de classes de validação de cores
+      elResultado.classList.remove("valido", "invalido");
+
+      if (!isNaN(espessura) && mediaGlobal !== null && mediaGlobal !== 0) {
+        const calculo = ((espessura * 8) / mediaGlobal) * 100;
+        elResultado.textContent = calculo.toFixed(2) + " %";
+
+        // Validação do intervalo inclusive [75, 92]
+        if (calculo >= 75 && calculo <= 92) {
+          elResultado.classList.add("valido");
+        } else {
+          elResultado.classList.add("invalido");
+        }
+      } else {
+        elResultado.textContent = "---";
+      }
+    }
 
     function calcA() {
       const Q = n('q_ac'), C = n('c_ac'), P = n('p_ac'), A = n('a_ac');
@@ -1076,6 +1583,7 @@
         calcR();
         calcT();
         calcG();
+        calcBisnagas();
       } else {
         document.getElementById("loginScreen").style.display = "flex";
         document.getElementById("mainContent").style.display = "none";
