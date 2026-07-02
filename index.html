@@ -82,7 +82,7 @@
       letter-spacing: 8px;
       margin-bottom: 5px;
       color: #061f91ef;
-      text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 25px rgba(255, 255, 255, 0.3);
       padding: 20px 10px 10px;
     }
 
@@ -200,79 +200,109 @@
     .calc-table {
       width: 100%;
       border-collapse: collapse;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 8px;
       overflow: hidden;
-      color: #000000;
+      color: #1e293b;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
     .calc-table th {
       background: #0272f1ea;
       color: #ffffff;
-      padding: 12px;
-      font-weight: bold;
-      font-size: 0.9rem;
+      padding: 12px 14px;
+      font-weight: 700;
+      font-size: 0.95rem;
       text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+      text-align: center;
+      vertical-align: middle;
+      border: 1.5px solid #015ec9;
     }
 
     .calc-table td {
-      padding: 10px;
-      border: 1px solid rgba(34, 34, 34, 0.15);
+      padding: 12px;
+      border: 1.5px solid #8ba3c0; 
       text-align: center;
+      vertical-align: middle;
     }
 
-    .calc-table input {
+    /* ESTILO DOS INPUTS - CÉLULAS EDITÁVEIS */
+    .calc-table .input-index-style {
       width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      padding: 10px 14px;
+      border: 1.5px solid #94a3b8; 
+      border-radius: 10px;
       text-align: center;
-      font-size: 1rem;
-      font-weight: bold;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #000000;
       outline: none;
+      background-color: #ffffff;
+      transition: all 0.2s ease;
     }
 
-    .calc-table input:focus {
-      background: #d2e4f7;
+    /* PLACEHOLDERS AINDA MAIS SUAVES */
+    .calc-table .input-index-style::placeholder {
+      color: #cbd5e1 !important;
+      font-weight: 400;
+      opacity: 0.85;
     }
 
+    /* COR EM DESTAQUE NA CÉLULA SELECIONADA (EDITÁVEL) */
+    .calc-table .input-index-style:focus {
+      border-color: #0272f1ea;
+      background-color: #e6f2ff;
+      box-shadow: 0 0 0 3px rgba(2, 114, 241, 0.25);
+    }
+
+    /* CÉLULA DE RESULTADO CENTRADA COM MAIS DESTAQUE (CINZA SUAVE DE FUNDO) */
     .calc-table .result-cell {
-      background: rgba(2, 114, 241, 0.15);
-      font-weight: bold;
-      font-size: 1rem;
+      background: #f1f5f9;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: #0f172a;
+      text-align: center;
     }
 
     /* Cores dinâmicas para validação do resultado final */
     .calc-table .result-cell.valido {
-      background: #1dc917bd !important; /* Verde */
-      color: #000000 !important;
+      background: #ecfdf5 !important; 
+      color: #059669 !important;
+      font-weight: 700;
+      border-color: #a7f3d0;
     }
 
     .calc-table .result-cell.invalido {
-      background: #ff4d4dbd !important; /* Vermelho */
-      color: #ffffff !important;
+      background: #fef2f2 !important; 
+      color: #dc2626 !important;
+      font-weight: 700;
+      border-color: #fca5a5;
     }
 
-    /* Linha do total por defeito limpa */
+    /* Linha do total no estilo TANB */
     .calc-table .total-row {
-      font-weight: 900;
-      font-size: 1.1rem;
-      background: transparent;
+      font-family: 'Inter', sans-serif;
+      background: #e2e8f0;
     }
 
-    /* Caixa verde que envolve o texto Média Total */
+    /* Label descritivo do Total */
     .total-badge {
-      background: #1dc917bd;
-      padding: 6px 12px;
-      border-radius: 6px;
-      color: #000;
-      font-weight: normal; /* Sem negrito geral na caixa */
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: #334155;
+      font-weight: 700; 
     }
 
-    /* Célula verde do resultado da média global */
+    /* Célula do resultado da média global igual ao simulador */
     .calc-table .total-row .global-result-cell {
-      background: #1dc917bd;
-      font-weight: 900;
+      background: #e2e8f0;
+      font-weight: 800;
+      color: #000000;
+      font-size: 16px;
+      text-align: center;
     }
 
     /* Container flexível para alinhar botão à esquerda e texto à direita */
@@ -286,20 +316,50 @@
 
     /* Botão Adicionar Linha */
     .add-row-btn {
-      padding: 8px 16px;
-      background: #0272f1ea;
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 0.85rem;
+      padding: 10px 18px;
+      background: #ffffff;
+      color: #0272f1ea;
+      border: 1px solid #94a3b8;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
     .add-row-btn:hover {
-      background: #0156b8;
+      background: #f8fafc;
+      border-color: #64748b;
       transform: translateY(-1px);
+    }
+
+    /* BOTÃO APAGAR LINHA */
+    .delete-btn {
+      background: #fff5f5;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: .25s;
+      font-weight: 600;
+      margin: 0 auto;
+      display: block;
+    }
+    .delete-btn:hover {
+      background: #fee2e2;
+      border-color: #ef4444;
+      transform: translateY(-1px);
+    }
+
+    /* COLUNA # CENTRADA */
+    .calc-table .col-index-style {
+      background: #e2e8f0;
+      font-weight: 700;
+      color: #334155;
+      text-align: center;
+      font-size: 14px;
+      width: 8%;
     }
 
     /* Container inline para input e botões rápidos */
@@ -320,21 +380,33 @@
       gap: 6px;
     }
 
+    /* Botões Rápidos */
     .quick-value-btn {
-      background: #061f91ef;
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 0.85rem;
+      background: #ffffff;
+      color: #334155;
+      border: 1px solid #94a3b8;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .quick-value-btn:hover {
-      background: #041461;
-      transform: scale(1.05);
+      background: #f1f5f9;
+      border-color: #64748b;
+      color: #0f172a;
+    }
+
+    /* DESTAQUE DE SELEÇÃO NOS VALORES PREDEFINIDOS E NA CÉLULA EDITÁVEL */
+    .quick-value-btn:focus, .quick-value-btn.selected-preset, .calc-table .input-index-style.selected-preset {
+      border-color: #0272f1ea !important;
+      background-color: #e6f2ff !important;
+      color: #0272f1ea !important;
+      box-shadow: 0 0 0 3px rgba(2, 114, 241, 0.25) !important;
+      outline: none;
     }
 
     /* LOGIN */
@@ -840,27 +912,29 @@
         gap: 15px;
       }
 
+      /* No mobile a coluna # assume comportamento adaptável */
       .calc-table tbody tr:not(.total-row) td:first-child {
-        background: #0272f1ea;
-        color: #ffffff;
+        background: #e2e8f0 !important;
+        color: #334155 !important;
         border-radius: 6px;
-        justify-content: center;
+        justify-content: space-between;
         font-size: 1.1rem;
         margin-bottom: 10px;
+        border: 1px solid #cbd5e1 !important;
       }
 
+      .calc-table tbody tr:not(.total-row) td:child(1)::before { content: "#:"; font-weight: bold; color: #334155; }
       .calc-table tbody tr:not(.total-row) td:nth-child(2)::before { content: "Espessura de Cravação 1:"; font-weight: bold; color: #333; min-width: 160px; }
       .calc-table tbody tr:not(.total-row) td:nth-child(3)::before { content: "Espessura de Cravação 2:"; font-weight: bold; color: #333; min-width: 160px; }
       .calc-table tbody tr:not(.total-row) td:nth-child(4)::before { content: "Média:"; font-weight: bold; color: #0272f1ea; min-width: 160px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(5)::before { content: "Ação:"; font-weight: bold; color: #333; }
 
-      .calc-table input {
+      .calc-table .input-index-style {
         max-width: 160px;
-        text-align: center;
-        background: #f4f4f4;
       }
 
       .calc-table .result-cell {
-        background: rgba(2, 114, 241, 0.1);
+        background: #f1f5f9;
         padding: 8px 15px;
         border-radius: 6px;
         justify-content: space-between;
@@ -869,8 +943,8 @@
 
       /* Linha do Total Global Mobile */
       .calc-table tr.total-row {
-        background: transparent;
-        border: 2px solid #149410;
+        background: #e2e8f0;
+        border: 2px solid #cbd5e1;
       }
       .calc-table tr.total-row td {
         justify-content: space-between;
@@ -880,7 +954,7 @@
       }
       .calc-table tr.total-row td:first-child {
         background: transparent;
-        color: #000;
+        color: #334155;
         font-size: 1rem;
         margin-bottom: 0;
       }
@@ -890,10 +964,15 @@
 
       /* Responsividade específica da segunda tabela no Mobile */
       #tableFolha tr {
-        border-color: #061f91ef;
+        border-color: #0272f1ea;
       }
-      #tableFolha td:nth-child(1)::before { content: "Parâmetro:"; font-weight: bold; color: #333; }
-      #tableFolha td:nth-child(2)::before { content: "Valor / Resultado:"; font-weight: bold; color: #333; }
+      #tableFolha td {
+        border: 1.5px solid #8ba3c0 !important;
+        margin-bottom: 0;
+        border-radius: 0;
+      }
+      #tableFolha td:nth-child(1)::before { content: ""; min-width: 0; display: none; }
+      #tableFolha td:nth-child(2)::before { content: ""; min-width: 0; display: none; }
     }
   </style>
 </head>
@@ -937,13 +1016,13 @@
       <a href="https://intranet.sumolcompal.pt" target="_blank" rel="noopener noreferrer" class="hub-button">Intranet</a>
       <a href="https://sumolcompal.sharepoint.com/sites/SIG" target="_blank" rel="noopener noreferrer" class="hub-button">SIG</a>
       <a href="https://sumolcompal.atlassian.net/servicedesk/customer/user/login?destination=portals" target="_blank" rel="noopener noreferrer" class="hub-button">Jira</a>
-      <a href="https://www.saborista.pt" target="_blank" rel="noopener noreferrer" class="hub-button">Saborista</a>
-      <a href="https://performancemanager.successfactors.eu" target="_blank" rel="noopener noreferrer" class="hub-button">Successfactors</a>
+      <a href="https://www.saborista.pt" target="_blank" class="hub-button">Saborista</a>
+      <a href="https://performancemanager.successfactors.eu" target="_blank" class="hub-button">Successfactors</a>
     </div>
 
     <h2 class="section-title" style="margin-top:30px;">Ferramentas:</h2>
     <div class="button-grid" id="toolsMenu">
-      <div onclick="showVarios()" class="hub-button">Vários</div>
+      <div onclick="showVarios()" class="hub-button">reembolso parcial</div>
     </div>
 
     <div id="apoioPage" style="display:none; margin-top:20px;">
@@ -1099,7 +1178,6 @@
       </div>
     </div>
 
-    <!-- PÁGINA DE EMBALAGENS -->
     <div id="embalagensPage" style="display:none; margin-top:20px;">
       <h2 class="page-title">Embalagens</h2>
       <div class="button-grid">
@@ -1132,51 +1210,57 @@
       </div>
     </div>
 
-    <!-- PÁGINA: COMPACTAÇÃO DO FECHO DAS BISNAGAS -->
     <div id="mediasBisnagasPage" style="display:none; text-align:left;">
-      <h2 class="page-title" style="text-align: center; margin-top: 50px;">Compactação do fecho das Bisnagas</h2>
-      <div class="canvas" style="text-align: left; margin-top: 10px;">
-        <p style="color: #000; font-weight: bold; margin-bottom: 15px; text-align: center;">Insira os dois valores de cada amostra. Prima [Enter] para saltar para o campo seguinte:</p>
+      <div class="canvas" style="text-align: left; margin-top: 30px;">
+        <p style="color: #475569; font-weight: 500; font-family: 'Inter', sans-serif; margin-bottom: 15px; text-align: center;">Insira os dois valores de cada amostra. Prima [Enter] para saltar para o campo seguinte:</p>
         
         <div class="table-container">
           <table class="calc-table" id="bisnagasTable">
             <thead>
               <tr>
-                <th>Amostra</th>
-                <th>Espessura de Cravação 1</th>
-                <th>Espessura de Cravação 2</th>
-                <th>Média Amostra</th>
+                <th rowspan="2" style="width: 8%;">#</th>
+                <th colspan="2">Espessura de Cravação (mm)</th>
+                <th rowspan="2">Média Amostra</th>
+                <th rowspan="2" style="width: 12%;">Ação</th>
+              </tr>
+              <tr>
+                <th>1</th>
+                <th>2</th>
               </tr>
             </thead>
             <tbody id="bisnagasBody">
               <tr>
-                <td><b>Amostra 1</b></td>
-                <td><input type="number" id="b1_v1" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b1_v2')"></td>
-                <td><input type="number" id="b1_v2" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v1')"></td>
+                <td class="col-index-style">1</td>
+                <td><input type="number" id="b1_v1" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b1_v2')"></td>
+                <td><input type="number" id="b1_v2" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v1')"></td>
                 <td class="result-cell" id="b1_media">---</td>
+                <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
-                <td><b>Amostra 2</b></td>
-                <td><input type="number" id="b2_v1" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v2')"></td>
-                <td><input type="number" id="b2_v2" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v1')"></td>
+                <td class="col-index-style">2</td>
+                <td><input type="number" id="b2_v1" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v2')"></td>
+                <td><input type="number" id="b2_v2" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v1')"></td>
                 <td class="result-cell" id="b2_media">---</td>
+                <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
-                <td><b>Amostra 3</b></td>
-                <td><input type="number" id="b3_v1" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v2')"></td>
-                <td><input type="number" id="b3_v2" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v1')"></td>
+                <td class="col-index-style">3</td>
+                <td><input type="number" id="b3_v1" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v2')"></td>
+                <td><input type="number" id="b3_v2" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v1')"></td>
                 <td class="result-cell" id="b3_media">---</td>
+                <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
-                <td><b>Amostra 4</b></td>
-                <td><input type="number" id="b4_v1" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v2')"></td>
-                <td><input type="number" id="b4_v2" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'espessura_folha')"></td>
+                <td class="col-index-style">4</td>
+                <td><input type="number" id="b4_v1" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v2')"></td>
+                <td><input type="number" id="b4_v2" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'espessura_folha')"></td>
                 <td class="result-cell" id="b4_media">---</td>
+                <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
             </tbody>
             <tfoot>
               <tr class="total-row">
-                <td colspan="3" id="totalLabelCell">
+                <td colspan="4" id="totalLabelCell">
                   <div class="total-flex-container">
                     <button type="button" class="add-row-btn" onclick="adicionarLinhaAmostra()">+ Adicionar Amostra</button>
                     <span class="total-badge">Média total:</span>
@@ -1188,29 +1272,21 @@
           </table>
         </div>
 
-        <!-- ESPAÇADOR/DIVISÓRIA ENTRE TABELAS -->
         <div style="margin-top: 35px; margin-bottom: 15px; border-top: 1px solid rgba(0,0,0,0.15);"></div>
 
-        <!-- SEGUNDA TABELA: ESPESSURA DA FOLHA COM VALORES RÁPIDOS INLINE -->
         <div class="table-container">
           <table class="calc-table" id="tableFolha">
-            <thead>
-              <tr>
-                <th style="background: #061f91ef; width: 40%;">Parâmetro</th>
-                <th style="background: #061f91ef; width: 60%;">Valor / Resultado</th>
-              </tr>
-            </thead>
             <tbody>
               <tr>
-                <td><b>Espessura da folha (mm)</b></td>
-                <td>
+                <td style="width: 40%;"><b>Espessura da folha (mm)</b></td>
+                <td style="width: 60%;">
                   <div class="input-with-quick-values">
-                    <input type="number" id="espessura_folha" step="0.01" placeholder="Valor" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcResultadoFinal()" onkeydown="navegarEnter(event, '')">
+                    <input type="number" id="espessura_folha" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcResultadoFinal()" onkeydown="navegarEnter(event, '')">
                     <div class="quick-values-inline">
-                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.15)">0.15</button>
-                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.16)">0.16</button>
-                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.17)">0.17</button>
-                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.18)">0.18</button>
+                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.15, this)">0.15</button>
+                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.16, this)">0.16</button>
+                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.17, this)">0.17</button>
+                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.18, this)">0.18</button>
                     </div>
                   </div>
                 </td>
@@ -1249,7 +1325,7 @@
       <p style="line-height:2; font-size:1.05rem;"><strong>Nome:</strong> Hélder Fernandes</p>
       <button class="contact-btn" onclick="sendMessage()">Enviar mensagem</button>
       <hr style="margin:20px 0; border:0; border-top:1px solid rgba(255,255,255,0.2);">
-      <p style="font-size:0.85rem; opacity:0.7;"><strong>Atualizado a: </strong>25.06.2026</p>
+      <p style="font-size:0.85rem; opacity:0.7;"><strong>Atualizado a: </strong>02.07.2026</p>
     </div>
   </div>
 
@@ -1351,7 +1427,9 @@
       document.getElementById("backHeaderBtn").style.display = "flex";
       
       const subtitle = document.getElementById("mainSubtitle");
-      subtitle.style.display = "none"; // Oculta o subtítulo para não duplicar espaço com a classe page-title
+      subtitle.style.display = "block";
+      subtitle.textContent = "Compactação do fecho das Bisnagas";
+      subtitle.classList.add("cc-active");
     }
 
     function showHome(){
@@ -1428,12 +1506,45 @@
     function forcarDuasCasasDecimais(input) {
       if (input.value !== "") {
         input.value = parseFloat(input.value).toFixed(2);
+        atualizarEstiloPresets();
+      }
+    }
+
+    /* VERIFICA E ATUALIZA DINAMICAMENTE O DESTAQUE DO PRESET SELECIONADO OU DO INPUT */
+    function atualizarEstiloPresets() {
+      const inputEspessura = document.getElementById("espessura_folha");
+      const espessuraAtual = parseFloat(inputEspessura.value);
+      
+      // Limpar estilos prévios
+      inputEspessura.classList.remove("selected-preset");
+      
+      if (isNaN(espessuraAtual) || espessuraAtual === 0) {
+        document.querySelectorAll(".quick-value-btn").forEach(btn => btn.classList.remove("selected-preset"));
+        return;
+      }
+
+      let correspondeAPreset = false;
+
+      document.querySelectorAll(".quick-value-btn").forEach(btn => {
+        const btnValor = parseFloat(btn.textContent) || 0;
+        if (espessuraAtual.toFixed(2) === btnValor.toFixed(2)) {
+          btn.classList.add("selected-preset");
+          correspondeAPreset = true;
+        } else {
+          btn.classList.remove("selected-preset");
+        }
+      });
+
+      // Se o valor inserido não for nenhum dos 4 presets rápidos, destaca o input editável
+      if (!correspondeAPreset && inputEspessura.value !== "") {
+        inputEspessura.classList.add("selected-preset");
       }
     }
 
     /* ATRIBUI UM VALOR RÁPIDO FIXO À ESPESSURA DA FOLHA */
-    function definirEspessuraRapida(valor) {
+    function definirEspessuraRapida(valor, elementoBotao) {
       document.getElementById("espessura_folha").value = valor.toFixed(2);
+      atualizarEstiloPresets();
       calcResultadoFinal();
     }
 
@@ -1445,9 +1556,29 @@
       const rows = document.querySelectorAll("#bisnagasBody tr");
       rows.forEach((row, index) => {
         const num = index + 1;
-        const campo1 = document.getElementById(`b${num}_v1`).value;
-        const campo2 = document.getElementById(`b${num}_v2`).value;
-        const elMedia = document.getElementById(`b${num}_media`);
+        
+        row.cells[0].className = "col-index-style";
+        row.cells[0].textContent = num;
+
+        const inputV1 = row.cells[1].querySelector("input");
+        const inputV2 = row.cells[2].querySelector("input");
+        const elMedia = row.cells[3];
+
+        inputV1.id = `b${num}_v1`;
+        inputV2.id = `b${num}_v2`;
+        elMedia.id = `b${num}_media`;
+
+        const proximaLinha = rows[index + 1];
+        if (proximaLinha) {
+          inputV1.setAttribute("onkeydown", `navegarEnter(event, 'b${num}_v2')`);
+          inputV2.setAttribute("onkeydown", `navegarEnter(event, 'b${num + 1}_v1')`);
+        } else {
+          inputV1.setAttribute("onkeydown", `navegarEnter(event, 'b${num}_v2')`);
+          inputV2.setAttribute("onkeydown", `navegarEnter(event, 'espessura_folha')`);
+        }
+
+        const campo1 = inputV1.value;
+        const campo2 = inputV2.value;
 
         if (campo1 !== "" && campo2 !== "") {
           const v1 = parseFloat(campo1) || 0;
@@ -1463,13 +1594,24 @@
 
       if (qtdMediasValidas > 0) {
         const mediaGlobal = totalMedias / qtdMediasValidas;
-        document.getElementById("total_global_media").textContent = mediaGlobal.toFixed(2);
+        document.getElementById("total_global_media").textContent = mediaGlobal.toFixed(2) + " mm";
       } else {
         document.getElementById("total_global_media").textContent = "---";
       }
 
-      // Desencadeia também a atualização do resultado final
       calcResultadoFinal();
+    }
+
+    /* FUNÇÃO PARA APAGAR UMA AMOSTRA ESPECÍFICA */
+    function apagarLinhaAmostra(botao) {
+      const rows = document.querySelectorAll("#bisnagasBody tr");
+      if (rows.length > 1) {
+        const row = botao.closest("tr");
+        row.remove();
+        calcBisnagas();
+      } else {
+        alert("É necessário manter pelo menos uma amostra de simulação.");
+      }
     }
 
     /* FUNÇÃO PARA ADICIONAR NOVAS AMOSTRAS À TABELA */
@@ -1477,41 +1619,34 @@
       const tbody = document.getElementById("bisnagasBody");
       const proximoNumero = tbody.querySelectorAll("tr").length + 1;
 
-      if (proximoNumero > 1) {
-        const SecretlinhaAnteriorV2 = document.getElementById(`b${proximoNumero - 1}_v2`);
-        if (SecretlinhaAnteriorV2) {
-          SecretlinhaAnteriorV2.setAttribute("onkeydown", `navegarEnter(event, 'b${proximoNumero}_v1')`);
-        }
-      }
-
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td><b>Amostra ${proximoNumero}</b></td>
-        <td><input type="number" id="b${proximoNumero}_v1" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b${proximoNumero}_v2')"></td>
-        <td><input type="number" id="b${proximoNumero}_v2" step="0.01" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'espessura_folha')"></td>
+        <td class="col-index-style">${proximoNumero}</td>
+        <td><input type="number" id="b${proximoNumero}_v1" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+        <td><input type="number" id="b${proximoNumero}_v2" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
         <td class="result-cell" id="b${proximoNumero}_media">---</td>
+        <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
       `;
 
       tbody.appendChild(tr);
+      calcBisnagas(); 
       document.getElementById(`b${proximoNumero}_v1`).focus();
     }
 
     /* FUNÇÃO DO CÁLCULO DA COMPACTAÇÃO (%) */
     function calcResultadoFinal() {
       const espessura = parseFloat(document.getElementById("espessura_folha").value);
-      const mediaGlobalTexto = document.getElementById("total_global_media").textContent;
+      const mediaGlobalTexto = document.getElementById("total_global_media").textContent.replace(" mm", "");
       const mediaGlobal = mediaGlobalTexto !== "---" ? parseFloat(mediaGlobalTexto) : null;
       
       const elResultado = document.getElementById("resultado_final_campo");
 
-      // Reset de classes de validação de cores
       elResultado.classList.remove("valido", "invalido");
 
       if (!isNaN(espessura) && mediaGlobal !== null && mediaGlobal !== 0) {
         const calculo = ((espessura * 8) / mediaGlobal) * 100;
         elResultado.textContent = calculo.toFixed(2) + " %";
 
-        // Validação do intervalo inclusive [75, 92]
         if (calculo >= 75 && calculo <= 92) {
           elResultado.classList.add("valido");
         } else {
@@ -1520,6 +1655,9 @@
       } else {
         elResultado.textContent = "---";
       }
+      
+      // Garante que o estado visual do preset/input não se perde nos recálculos ou inputs manuais
+      atualizarEstiloPresets();
     }
 
     function calcA() {
@@ -1572,7 +1710,7 @@
       if (loggedIn) {
         document.getElementById("loginScreen").style.display = "none";
         document.getElementById("mainContent").style.display = "block";
-        document.querySelector(".header-bar").style.display = "flex";
+        document.querySelectorAll(".header-bar").forEach(el => el.style.display = "flex");
         document.getElementById("loginFooter").style.display = "none";
         document.getElementById("appFooter").style.display = "flex";
         document.getElementById("footerNote").style.display = "block";
@@ -1587,7 +1725,7 @@
       } else {
         document.getElementById("loginScreen").style.display = "flex";
         document.getElementById("mainContent").style.display = "none";
-        document.querySelector(".header-bar").style.display = "none";
+        document.querySelectorAll(".header-bar").forEach(el => el.style.display = "none");
         document.getElementById("loginFooter").style.display = "flex";
         document.getElementById("appFooter").style.display = "none";
         document.getElementById("footerNote").style.display = "none";
