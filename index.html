@@ -93,7 +93,7 @@
       font-size: 0.85rem;
       color: #037927b7;
       opacity: 0.9;
-      margin-bottom: 40px; /* Aumentado de 20px para 40px para criar mais espaço nas páginas */
+      margin-bottom: 40px; 
       transition: all 0.3s ease;
     }
 
@@ -103,7 +103,7 @@
       color: #052fa0c9;
       letter-spacing: 1px;
       text-transform: none;
-      margin-bottom: 20px; /* Aumentado de 0px para 20px nas subpáginas */
+      margin-bottom: 20px; 
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
@@ -191,110 +191,159 @@
     }
 
     /* ESTILOS DA TABELA DE CONTAS */
+    .table-canvas-wrapper {
+      max-width: 1000px;
+      margin: 20px auto 40px;
+      background: #f1f5f9; 
+      border: 1px solid #cbd5e1;
+      border-radius: 24px; 
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,.15), 0 5px 15px rgba(0,0,0,.1); 
+    }
+
     .table-container {
       width: 100%;
       overflow-x: auto;
-      margin-top: 12px;
     }
 
     .calc-table {
       width: 100%;
       border-collapse: collapse;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 8px;
-      overflow: hidden;
-      color: #1e293b;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      background: #ffffff;
     }
 
     .calc-table th {
-      background: #0272f1ea;
-      color: #ffffff;
-      padding: 10px 12px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      font-family: 'Inter', sans-serif;
+      background: #f8fafc; 
+      color: #475569; 
+      padding: 14px 18px; 
+      font-weight: 600;
+      border-bottom: 2px solid #cbd5e1; 
       text-align: center;
       vertical-align: middle;
-      border: 1.5px solid #015ec9;
+    }
+
+    .calc-table thead tr:nth-child(2) th {
+      background: #f1f5f9; 
+    }
+
+    .calc-table th.cravacao-header-main {
+      font-size: 18px; 
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: 0.5px;
     }
 
     .calc-table td {
-      padding: 9px;
-      border: 1.5px solid #8ba3c0; 
+      padding: 14px; 
+      border-bottom: 1px solid #e2e8f0; 
       text-align: center;
       vertical-align: middle;
+      color: #1e293b;
     }
 
-    /* ESTILO DOS INPUTS - CÉLULAS EDITÁVEIS */
+    .calc-table tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .calc-table tbody tr:hover {
+      background: #f1f5f9; 
+    }
+
     .calc-table .input-index-style {
       width: 100%;
-      padding: 8px 12px;
-      border: 1.5px solid #94a3b8; 
-      border-radius: 8px;
+      padding: 12px;
+      border: 2px solid #cbd5e1; 
+      border-radius: 10px;
+      transition: .3s;
       text-align: center;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      color: #000000;
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f172a;
+      background: #f8fafc; 
       outline: none;
-      background-color: #ffffff;
-      transition: all 0.2s ease;
-    }
-
-    .calc-table .input-index-style::placeholder {
-      color: #cbd5e1 !important;
-      font-weight: 400;
-      opacity: 0.85;
     }
 
     .calc-table .input-index-style:focus {
-      border-color: #0272f1ea;
-      background-color: #e6f2ff;
-      box-shadow: 0 0 0 3px rgba(2, 114, 241, 0.25);
+      border-color: #2563eb; 
+      box-shadow: 0 0 0 4px rgba(37,99,235,.15);
+      background: #ffffff;
+    }
+
+    .calc-table .input-index-style::placeholder {
+      color: rgba(15, 23, 42, 0.2) !important;
+      font-weight: 500;
     }
 
     .calc-table .result-cell {
-      background: #f1f5f9;
-      font-weight: 700;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      color: #0f172a;
-      text-align: center;
+      background: #eff6ff; 
+      color: #1e40af; 
+      font-weight: 600;
+      font-size: 16px;
+      height: 48px;
+      border-left: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
     }
 
-    .calc-table .result-cell.valido {
+    .calc-table .result-cell.valido, .calc-table .global-result-cell.valido {
       background: #ecfdf5 !important; 
       color: #059669 !important;
-      font-weight: 700;
-      border-color: #a7f3d0;
     }
 
-    .calc-table .result-cell.invalido {
+    .calc-table .result-cell.invalido, .calc-table .global-result-cell.invalido {
       background: #fef2f2 !important; 
       color: #dc2626 !important;
-      font-weight: 700;
+    }
+
+    /* Ajuste para a célula de compactação final */
+    .calc-table .compactacao-destaque-cell {
+      font-size: 18px !important;
+      font-weight: 900 !important;
+      letter-spacing: 0.5px;
+      background: transparent !important; /* Sem cor por defeito */
+      color: #1e293b !important;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px; /* Margem arredondada */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 140px;
+      height: 46px;
+    }
+    
+    .calc-table .compactacao-destaque-cell.valido {
+      background: #1dc917bd !important; 
+      color: #000000 !important;
+      border-color: #1bc415;
+    }
+    
+    .calc-table .compactacao-destaque-cell.invalido {
+      background: #fef2f2 !important; 
+      color: #ff0000 !important;
       border-color: #fca5a5;
     }
 
     .calc-table .total-row {
-      font-family: 'Inter', sans-serif;
-      background: #e2e8f0;
+      background: #f8fafc;
     }
 
     .total-badge {
-      font-family: 'Inter', sans-serif;
       font-size: 14px;
-      color: #334155;
-      font-weight: 700; 
+      color: #475569;
+      font-weight: 600; 
     }
 
     .calc-table .total-row .global-result-cell {
-      background: #e2e8f0;
-      font-weight: 800;
-      color: #000000;
-      font-size: 15px;
-      text-align: center;
+      background: #eff6ff;
+      font-weight: 700; 
+      color: #1e40af;
+      font-size: 18px;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px; 
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 140px;
+      height: 46px;
     }
 
     .total-flex-container {
@@ -302,33 +351,28 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      padding: 1px 3px;
     }
 
     .add-row-btn {
-      padding: 8px 14px;
-      background: #ffffff;
-      color: #0272f1ea;
-      border: 1px solid #94a3b8;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      font-size: 13px;
+      background: linear-gradient(135deg, #3c5894, #3383df); 
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: 0.3s;
     }
     .add-row-btn:hover {
-      background: #f8fafc;
-      border-color: #64748b;
-      transform: translateY(-1px);
+      box-shadow: 0 6px 15px rgba(18, 60, 151, 0.3);
     }
 
     .delete-btn {
-      background: #fff5f5;
+      background: #fff5f5; 
       color: #dc2626;
-      border: 1px solid #fca5a5;
-      padding: 8px 12px;
-      border-radius: 8px;
+      border: 1px solid #fecaca;
+      padding: 10px 14px;
+      border-radius: 10px;
       cursor: pointer;
       transition: .25s;
       font-weight: 600;
@@ -337,16 +381,15 @@
     }
     .delete-btn:hover {
       background: #fee2e2;
-      border-color: #ef4444;
+      border-color: #fca5a5;
       transform: translateY(-1px);
     }
 
     .calc-table .col-index-style {
-      background: #e2e8f0;
-      font-weight: 700;
-      color: #334155;
+      font-weight: bold;
+      color: #475569;
       text-align: center;
-      font-size: 13px;
+      font-size: 14px;
       width: 8%;
     }
 
@@ -359,7 +402,12 @@
     }
 
     .input-with-quick-values input {
-      max-width: 120px;
+      max-width: 140px;
+    }
+
+    #espessura_folha::placeholder {
+      color: rgba(15, 23, 42, 0.2) !important;
+      font-weight: 500;
     }
 
     .quick-values-inline {
@@ -369,28 +417,23 @@
 
     .quick-value-btn {
       background: #ffffff;
-      color: #334155;
-      border: 1px solid #94a3b8;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
+      color: #475569;
+      border: 2px solid #e2e8f0;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-weight: bold;
       font-size: 13px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .quick-value-btn:hover {
-      background: #f1f5f9;
-      border-color: #64748b;
-      color: #0f172a;
+      background: #f8fafc;
     }
 
     .quick-value-btn:focus, .quick-value-btn.selected-preset, .calc-table .input-index-style.selected-preset {
-      border-color: #0272f1ea !important;
-      background-color: #e6f2ff !important;
-      color: #0272f1ea !important;
-      box-shadow: 0 0 0 3px rgba(2, 114, 241, 0.25) !important;
+      background-color: #eff6ff !important;
+      border-color: #2563eb !important;
       outline: none;
     }
 
@@ -512,7 +555,7 @@
       background: #232931;
     }
 
-    /* TABS & CANVAS */
+    /* TABS & CANVAS GERAIS */
     .tabs {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -617,7 +660,7 @@
       text-align: center;
       font-size: 18px;
       font-weight: bold;
-      color: #000000;
+      color: #0272f1ea; 
       outline: none;
     }
 
@@ -688,7 +731,7 @@
       text-align: center;
       font-size: 14px;
       font-weight: bold;
-      color: #000000;
+      color: #0272f1ea;
       outline: none;
     }
 
@@ -732,6 +775,21 @@
       border-top: 2px dashed rgba(51, 51, 51, 0.3);
       margin: 15px auto;
       width: 90%;
+    }
+
+    /* Box da média global no rodapé da tabela */
+    .total-td-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    .final-td-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
     }
 
     /* Rodapés */
@@ -835,6 +893,13 @@
       .container { top: 70px; }
       .tabs { grid-template-columns: repeat(3, 1fr); margin-top: 25px; margin-bottom: 15px; }
 
+      .table-canvas-wrapper {
+        border-radius: 14px;
+        box-shadow: none;
+        background: transparent;
+        border: none;
+      }
+
       .total-flex-container {
         flex-direction: column;
         gap: 8px;
@@ -879,65 +944,76 @@
 
       .calc-table tr {
         background: #ffffff;
-        border: 2px solid #0272f1ea;
-        border-radius: 10px;
+        border: 2px solid #2563eb;
+        border-radius: 14px;
         margin-bottom: 15px;
-        padding: 8px;
+        padding: 10px;
         box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+      }
+
+      .calc-table tbody tr:nth-child(even) {
+        background: #ffffff; 
       }
 
       .calc-table td {
         text-align: left;
-        padding: 6px 8px;
+        padding: 8px 10px;
         border: none;
         position: relative;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      
+      .calc-table td:last-child {
+        border-bottom: none;
       }
 
       .calc-table tbody tr:not(.total-row) td:first-child {
-        background: #e2e8f0 !important;
-        color: #334155 !important;
+        background: #f8fafc !important;
+        color: #475569 !important;
         border-radius: 5px;
         justify-content: space-between;
         font-size: 1rem;
         margin-bottom: 8px;
-        border: 1px solid #cbd5e1 !important;
+        border: 1px solid #e2e8f0 !important;
       }
 
-      .calc-table tbody tr:not(.total-row) td:child(1)::before { content: "#:"; font-weight: bold; color: #334155; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(2)::before { content: "Espessura de Cravação 1:"; font-weight: bold; color: #333; min-width: 150px; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(3)::before { content: "Espessura de Cravação 2:"; font-weight: bold; color: #333; min-width: 150px; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(4)::before { content: "Média Amostra:"; font-weight: bold; color: #0272f1ea; min-width: 150px; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(5)::before { content: "Ação:"; font-weight: bold; color: #333; }
+      .calc-table tbody tr:not(.total-row) td:child(1)::before { content: "#:"; font-weight: bold; color: #475569; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(2)::before { content: "Espessura de Cravação Esq.:"; font-weight: bold; color: #475569; min-width: 150px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(3)::before { content: "Espessura de Cravação Dir.:"; font-weight: bold; color: #475569; min-width: 150px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(4)::before { content: "Média Amostra:"; font-weight: bold; color: #2563eb; min-width: 150px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(5)::before { content: "Ação:"; font-weight: bold; color: #475569; }
 
       .calc-table .input-index-style {
         max-width: 150px;
       }
 
       .calc-table .result-cell {
-        background: #f1f5f9;
-        padding: 6px 12px;
-        border-radius: 5px;
+        background: #eff6ff;
+        padding: 8px 12px;
+        border-radius: 8px;
         justify-content: space-between;
         font-size: 1rem;
+        border: none;
       }
 
       .calc-table tr.total-row {
-        background: #e2e8f0;
-        border: 2px solid #cbd5e1;
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
       }
       .calc-table tr.total-row td {
         justify-content: space-between;
         text-align: left;
         font-size: 1rem;
-        padding: 10px 8px;
+        padding: 12px 10px;
+        border-bottom: none;
       }
       .calc-table tr.total-row td:first-child {
         background: transparent;
-        color: #334155;
+        color: #475569;
         font-size: 0.95rem;
         margin-bottom: 0;
       }
@@ -946,15 +1022,23 @@
       }
 
       #tableFolha tr {
-        border-color: #0272f1ea;
+        border-color: #e2e8f0;
       }
       #tableFolha td {
-        border: 1.5px solid #8ba3c0 !important;
+        border-bottom: 1px solid #e2e8f0 !important;
         margin-bottom: 0;
         border-radius: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
       #tableFolha td:nth-child(1)::before { content: ""; min-width: 0; display: none; }
       #tableFolha td:nth-child(2)::before { content: ""; min-width: 0; display: none; }
+      
+      .calc-table .compactacao-destaque-cell {
+        width: 100%;
+        max-width: 150px;
+      }
     }
   </style>
 </head>
@@ -987,24 +1071,26 @@
     <h1 id="mainTitle" class="title">Laboratório</h1>
     <p id="mainSubtitle" class="subtitle">Centro de atalhos:</p>
 
-    <h2 class="section-title">Departamentos:</h2>
-    <div class="button-grid" id="mainMenu">
-      <div onclick="showApoio()" class="hub-button">Apoio Produção</div>
-      <div onclick="showEmbalagens()" class="hub-button">Embalagens</div>
-    </div>
+    <div id="departmentsSection">
+      <h2 class="section-title">Departamentos:</h2>
+      <div class="button-grid" id="mainMenu">
+        <div onclick="showApoio()" class="hub-button">Apoio Produção</div>
+        <div onclick="showEmbalagens()" class="hub-button">Embalagens</div>
+      </div>
 
-    <h2 class="section-title" style="margin-top:30px;">Links Gerais:</h2>
-    <div class="button-grid" id="linksMenu">
-      <a href="https://intranet.sumolcompal.pt" target="_blank" rel="noopener noreferrer" class="hub-button">Intranet</a>
-      <a href="https://sumolcompal.sharepoint.com/sites/SIG" target="_blank" rel="noopener noreferrer" class="hub-button">SIG</a>
-      <a href="https://sumolcompal.atlassian.net/servicedesk/customer/user/login?destination=portals" target="_blank" rel="noopener noreferrer" class="hub-button">Jira</a>
-      <a href="https://www.saborista.pt" target="_blank" class="hub-button">Saborista</a>
-      <a href="https://performancemanager.successfactors.eu" target="_blank" class="hub-button">Successfactors</a>
-    </div>
+      <h2 class="section-title" style="margin-top:30px;">Links Gerais:</h2>
+      <div class="button-grid" id="linksMenu">
+        <a href="https://intranet.sumolcompal.pt" target="_blank" rel="noopener noreferrer" class="hub-button">Intranet</a>
+        <a href="https://sumolcompal.sharepoint.com/sites/SIG" target="_blank" rel="noopener noreferrer" class="hub-button">SIG</a>
+        <a href="https://sumolcompal.atlassian.net/servicedesk/customer/user/login?destination=portals" target="_blank" rel="noopener noreferrer" class="hub-button">Jira</a>
+        <a href="https://www.saborista.pt" target="_blank" class="hub-button">Saborista</a>
+        <a href="https://performancemanager.successfactors.eu" target="_blank" class="hub-button">Successfactors</a>
+      </div>
 
-    <h2 class="section-title" style="margin-top:30px;">Ferramentas:</h2>
-    <div class="button-grid" id="toolsMenu">
-      <div onclick="showVarios()" class="hub-button">Vários</div>
+      <h2 class="section-title" style="margin-top:30px;">Ferramentas:</h2>
+      <div class="button-grid" id="toolsMenu">
+        <div onclick="showVarios()" class="hub-button">reembolso parcial</div>
+      </div>
     </div>
 
     <div id="apoioPage" style="display:none; margin-top:20px;">
@@ -1181,7 +1267,7 @@
             
             <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F04%20%2D%20Medidas%20Membranas%20Stelos&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&CID=1a77d6a1%2De0e3%2De000%2D7cf3%2Db5bfacfe038a&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&ovuser=c966f82c%2D42fb%2D40e2%2D9370%2D3a7a3da6cbee%2CSCU00137%40sumolcompal%2Ept&OR=Teams%2DHL&CT=1770079823283&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNipro0OS8yNjAxMDQwMDkyMyIsIkhhc0Fzc29jaWF0ZWQiOnRydWV9" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 14px 12px; font-size: 1rem; background: rgba(30, 41, 59, 0.9);">04 Medidas Membranas Stelos</a>
             
-            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F05%20%2D%20Teste%20dissolu%C3%A7%C3%B5es&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&CT=1782335207315&OR=OWA%2DNTB%2DMail&CID=486f7f43%2D1421%2D10bb%2D7679%2Dce87d54bf7cd&SI=NonSentItems&clickParams=eyJYLUFwcE5hbWUiOiJNaWNyb3NvZnQgT3V0bG9 outlook%20Web%20AppIiwiWC1BcHBWZXJzaW9uIjoiMjAyNjA2MTIwMTYuMjYiLCJPUyI6IldpbmRvd3MgMTEifQ%3D%3D" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 14px 12px; font-size: 1rem; background: rgba(30, 41, 59, 0.9);">05 Teste dissoluções</a>
+            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F05%20%2D%20Teste%20dissolu%C3%A7%C3%B5es&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&CT=1782335207315&OR=OWA%2DNTB%2DMail&CID=486f7f43%2D1421%2D10bb%2D7679%2Dce87d54bf7cd&SI=NonSentItems&clickParams=eyJYLUFwcE5hbWUiOiJNaWNyb3NvZnQgT3V0bG9vbyBXZWIgQXBwIiwiWC1BcHBWZXJzaW9uIjoiMjAyNjA2MTIwMTYuMjYiLCJPUyI6IldpbmRvd3MgMTEifQ%3D%3D" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 14px 12px; font-size: 1rem; background: rgba(30, 41, 59, 0.9);">05 Teste dissoluções</a>
           </div>
         </div>
 
@@ -1193,48 +1279,49 @@
     </div>
 
     <div id="mediasBisnagasPage" style="display:none; text-align:left;">
-      <div class="canvas" style="text-align: left; margin-top: 20px;">
-        
+      <div class="table-canvas-wrapper">
         <div class="table-container">
           <table class="calc-table" id="bisnagasTable">
             <thead>
               <tr>
                 <th rowspan="2" style="width: 8%;">#</th>
-                <th colspan="2">Espessura de Cravação (mm)</th>
-                <th rowspan="2">Média Amostra</th>
-                <th rowspan="2" style="width: 12%;">Ação</th>
+                <th colspan="2" class="cravacao-header-main">Espessura de Cravação (mm)</th>
+                <th>Média Amostra</th>
+                <th style="width: 12%;">Ação</th>
               </tr>
               <tr>
-                <th>1</th>
-                <th>2</th>
+                <th>Esq.</th>
+                <th>Dir.</th>
+                <th>Média Amostra</th>
+                <th>Ação</th>
               </tr>
             </thead>
             <tbody id="bisnagasBody">
               <tr>
                 <td class="col-index-style">1</td>
-                <td><input type="number" id="b1_v1" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b1_v2')"></td>
-                <td><input type="number" id="b1_v2" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v1')"></td>
+                <td><input type="number" id="b1_v1" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b1_v2')"></td>
+                <td><input type="number" id="b1_v2" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v1')"></td>
                 <td class="result-cell" id="b1_media">---</td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">2</td>
-                <td><input type="number" id="b2_v1" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v2')"></td>
-                <td><input type="number" id="b2_v2" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v1')"></td>
+                <td><input type="number" id="b2_v1" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v2')"></td>
+                <td><input type="number" id="b2_v2" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v1')"></td>
                 <td class="result-cell" id="b2_media">---</td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">3</td>
-                <td><input type="number" id="b3_v1" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v2')"></td>
-                <td><input type="number" id="b3_v2" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v1')"></td>
+                <td><input type="number" id="b3_v1" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v2')"></td>
+                <td><input type="number" id="b3_v2" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v1')"></td>
                 <td class="result-cell" id="b3_media">---</td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">4</td>
-                <td><input type="number" id="b4_v1" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v2')"></td>
-                <td><input type="number" id="b4_v2" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'espessura_folha')"></td>
+                <td><input type="number" id="b4_v1" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v2')"></td>
+                <td><input type="number" id="b4_v2" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'espessura_folha')"></td>
                 <td class="result-cell" id="b4_media">---</td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
@@ -1242,50 +1329,55 @@
             <tfoot>
               <tr class="total-row">
                 <td colspan="3" id="totalLabelCell">
-                  <div class="total-flex-container">
+                  <div class="total-flex-container" style="padding: 0 4px;">
                     <button type="button" class="add-row-btn" onclick="adicionarLinhaAmostra()">+ Adicionar Amostra</button>
                     <span class="total-badge">Média total:</span>
                   </div>
                 </td>
-                <td id="total_global_media" class="global-result-cell">---</td>
+                <td>
+                  <div class="total-td-wrapper">
+                    <div id="total_medias" class="global-result-cell">---</div>
+                  </div>
+                </td>
                 <td></td>
               </tr>
             </tfoot>
           </table>
         </div>
 
-        <div style="margin-top: 25px; margin-bottom: 15px; border-top: 1px solid rgba(0,0,0,0.15);"></div>
-
-        <div class="table-container">
+        <div class="table-container" style="border-top: 2px dashed #cbd5e1;">
           <table class="calc-table" id="tableFolha">
             <tbody>
               <tr>
-                <td style="width: 40%;"><b>Espessura da folha (mm)</b></td>
-                <td style="width: 60%;">
+                <td style="width: 40%; background: #f8fafc; color: #475569; font-weight: 600; text-align: center;">Espessura da folha (mm)</td>
+                <td style="width: 60%; padding: 14px;">
                   <div class="input-with-quick-values">
-                    <input type="number" id="espessura_folha" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcResultadoFinal()" onkeydown="navegarEnter(event, '')">
                     <div class="quick-values-inline">
                       <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.15, this)">0.15</button>
                       <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.16, this)">0.16</button>
                       <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.17, this)">0.17</button>
                       <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.18, this)">0.18</button>
                     </div>
+                    <input type="number" id="espessura_folha" class="input-index-style" step="0.01" placeholder="0.15 a 0.18 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcResultadoFinal()" onkeydown="navegarEnter(event, '')">
                   </div>
                 </td>
               </tr>
               <tr>
-                <td><b>Compactação (%)</b></td>
-                <td id="resultado_final_campo" class="result-cell">---</td>
+                <td style="background: #f8fafc; color: #475569; font-weight: 600; text-align: center;">Compactação (%)</td>
+                <td style="padding: 14px;">
+                  <div class="final-td-wrapper">
+                    <div id="resultado_final_campo" class="compactacao-destaque-cell">---</div>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
 
     <div id="variosPage" style="display:none; margin-top:20px;">
-      <h2 class="page-title">Vários</h2>
+      <h2 class="page-title">reembolso parcial</h2>
       <div class="button-grid">
         <a href="https://www.ipma.pt/" target="_blank" rel="noopener noreferrer" class="hub-button">IPMA</a>
         <a href="https://radioonline.com.pt/" target="_blank" rel="noopener noreferrer" class="hub-button">Rádio</a>
@@ -1444,14 +1536,14 @@
     }
 
     function hideMainSections(){
-      document.querySelectorAll(".section-title").forEach(el=>{ el.style.display = "none"; });
+      document.getElementById("departmentsSection").style.display = "none";
       document.getElementById("mainMenu").style.display = "none";
       document.getElementById("linksMenu").style.display = "none";
       document.getElementById("toolsMenu").style.display = "none";
     }
 
     function showMainSections(){
-      document.querySelectorAll(".section-title").forEach(el=>{ el.style.display = "block"; });
+      document.getElementById("departmentsSection").style.display = "block";
       document.getElementById("mainMenu").style.display = "grid";
       document.getElementById("linksMenu").style.display = "grid";
       document.getElementById("toolsMenu").style.display = "grid";
@@ -1466,9 +1558,14 @@
     }
 
     const n = (id) => parseFloat(document.getElementById(id).value) || 0;
+    
+    const formatarComVirgula = (valor) => {
+      return valor.toFixed(2).replace(".", ",");
+    };
+
     const fmt = (v) => {
       const el = document.createElement('span');
-      el.textContent = v.toFixed(2);
+      el.textContent = formatarComVirgula(v);
       if (v < 0) el.className = 'neg';
       return el.outerHTML;
     };
@@ -1555,11 +1652,20 @@
         const campo1 = inputV1.value;
         const campo2 = inputV2.value;
 
+        elMedia.classList.remove("valido", "invalido");
+
         if (campo1 !== "" && campo2 !== "") {
           const v1 = parseFloat(campo1) || 0;
           const v2 = parseFloat(campo2) || 0;
           const m = (v1 + v2) / 2;
-          elMedia.textContent = m.toFixed(2);
+          elMedia.textContent = formatarComVirgula(m) + " mm";
+          
+          if (m >= 1.30 && m <= 1.92) {
+            elMedia.classList.add("valido");
+          } else {
+            elMedia.classList.add("invalido");
+          }
+
           totalMedias += m;
           qtdMediasValidas++;
         } else {
@@ -1567,11 +1673,22 @@
         }
       });
 
+      const elTotal = document.getElementById("total_medias");
+      elTotal.classList.remove("valido", "invalido");
+
       if (qtdMediasValidas > 0) {
-        const mediaGlobal = totalMedias / qtdMediasValidas;
-        document.getElementById("total_global_media").textContent = mediaGlobal.toFixed(2) + " mm";
+        const mediaGlobalRaw = totalMedias / qtdMediasValidas;
+        const mediaGlobal = parseFloat(mediaGlobalRaw.toFixed(2));
+        
+        elTotal.textContent = formatarComVirgula(mediaGlobal) + " mm";
+
+        if (mediaGlobal >= 1.30 && mediaGlobal <= 1.92) {
+          elTotal.classList.add("valido");
+        } else {
+          elTotal.classList.add("invalido");
+        }
       } else {
-        document.getElementById("total_global_media").textContent = "---";
+        elTotal.textContent = "---";
       }
 
       calcResultadoFinal();
@@ -1595,8 +1712,8 @@
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td class="col-index-style">${proximoNumero}</td>
-        <td><input type="number" id="b${proximoNumero}_v1" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-        <td><input type="number" id="b${proximoNumero}_v2" class="input-index-style" step="0.01" placeholder="0,00 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+        <td><input type="number" id="b${proximoNumero}_v1" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+        <td><input type="number" id="b${proximoNumero}_v2" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
         <td class="result-cell" id="b${proximoNumero}_media">---</td>
         <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
       `;
@@ -1608,8 +1725,8 @@
 
     function calcResultadoFinal() {
       const espessura = parseFloat(document.getElementById("espessura_folha").value);
-      const mediaGlobalTexto = document.getElementById("total_global_media").textContent.replace(" mm", "");
-      const mediaGlobal = mediaGlobalTexto !== "---" ? parseFloat(mediaGlobalTexto) : null;
+      const mediaGlobalTexto = document.getElementById("total_medias").textContent.replace(" mm", "").replace(",", ".");
+      const mediaGlobal = (mediaGlobalTexto !== "---" && mediaGlobalTexto !== "") ? parseFloat(mediaGlobalTexto) : null;
       
       const elResultado = document.getElementById("resultado_final_campo");
 
@@ -1617,7 +1734,7 @@
 
       if (!isNaN(espessura) && mediaGlobal !== null && mediaGlobal !== 0) {
         const calculo = ((espessura * 8) / mediaGlobal) * 100;
-        elResultado.textContent = calculo.toFixed(2) + " %";
+        elResultado.textContent = formatarComVirgula(calculo) + " %";
 
         if (calculo >= 75 && calculo <= 92) {
           elResultado.classList.add("valido");
