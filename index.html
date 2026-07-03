@@ -33,7 +33,7 @@
     body{
       font-family: 'Montserrat', sans-serif;
       position: relative;
-      font-size: 14.5px; 
+      font-size: 13.5px;
     }
 
     /* REMOVER SETAS DOS INPUTS NUMÉRICOS */
@@ -43,7 +43,7 @@
       margin: 0; 
     }
     input[type=number] {
-      -moz-appearance: textfield; /* Para o Firefox */
+      -moz-appearance: textfield;
     }
 
     /* IMAGEM DE FUNDO */
@@ -66,52 +66,52 @@
     /* Container do conteúdo principal */
     .container{
       position: relative;
-      top: 70px;
+      top: 60px;
       width: 100%;
-      max-width: 1100px; 
+      max-width: 1050px;
       margin: 0 auto;
-      padding: 20px 24px 140px;
+      padding: 15px 20px 100px;
       z-index: 2;
       text-align: center;
       display: none; 
     }
       
     .title{
-      font-size: clamp(2rem, 6vw, 3.8rem);
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
       font-weight: 900;
-      letter-spacing: 8px;
+      letter-spacing: 6px;
       margin-bottom: 5px;
       color: #061f91ef;
       text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 25px rgba(255, 255, 255, 0.3);
-      padding: 20px 10px 10px;
+      padding: 15px 10px 5px;
     }
 
     .subtitle{
       font-weight: 800;
       letter-spacing: 3px;
       text-transform: uppercase;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #037927b7;
       opacity: 0.9;
-      margin-bottom: 25px;
+      margin-bottom: 40px; /* Aumentado de 20px para 40px para criar mais espaço nas páginas */
       transition: all 0.3s ease;
     }
 
     .subtitle.cc-active {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-weight: 900;
       color: #052fa0c9;
       letter-spacing: 1px;
       text-transform: none;
-      margin-bottom: 0px;
+      margin-bottom: 20px; /* Aumentado de 0px para 20px nas subpáginas */
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
     .section-title{
       max-width: 1000px;
-      margin: 0 auto 15px;
+      margin: 0 auto 12px;
       text-align: left;
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: #082d5a;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -120,10 +120,10 @@
     /* Grelhas de Botões */
     .button-grid{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       justify-content: center;
-      gap: 24px;
-      margin: 0 auto 50px;
+      gap: 18px;
+      margin: 0 auto 40px;
       max-width: 1000px;
       width: 100%;
     }
@@ -131,12 +131,12 @@
     .hub-button{
       background: rgba(27,31,36,0.8);
       border: 1px solid rgba(255,255,255,0.75);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      border-radius: 16px;
-      padding: 26px 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.35);
+      border-radius: 12px;
+      padding: 18px 16px;
       text-decoration: none;
       color: white;
-      font-size: clamp(1rem, 1.8vw, 1.3rem);
+      font-size: clamp(0.9rem, 1.5vw, 1.15rem);
       font-weight: 700;
       transition: 0.25s ease;
       position: relative;
@@ -149,15 +149,15 @@
     }
 
     .hub-button:hover{
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       background: #232931;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.45);
     }
 
     .hub-button.dropdown-toggle::after {
       content: ' ▼';
-      font-size: 0.8rem;
-      margin-left: 8px;
+      font-size: 0.75rem;
+      margin-left: 6px;
       transition: transform 0.25s ease;
     }
     .hub-button.dropdown-toggle.active::after {
@@ -170,8 +170,8 @@
       grid-column: 1 / -1; 
       background: transparent; 
       border: 1px dashed rgba(255, 255, 255, 0.25);
-      border-radius: 16px;
-      padding: 20px;
+      border-radius: 12px;
+      padding: 15px;
       margin-top: -10px;
       margin-bottom: 10px;
       animation: fadeIn 0.3s ease;
@@ -183,8 +183,8 @@
     }
 
     .page-title{
-      font-size: 1.8rem;
-      margin-bottom: 25px;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
       color: #052fa0c9;
       font-weight: 900;
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -194,7 +194,7 @@
     .table-container {
       width: 100%;
       overflow-x: auto;
-      margin-top: 15px;
+      margin-top: 12px;
     }
 
     .calc-table {
@@ -204,16 +204,15 @@
       border-radius: 8px;
       overflow: hidden;
       color: #1e293b;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     .calc-table th {
       background: #0272f1ea;
       color: #ffffff;
-      padding: 12px 14px;
+      padding: 10px 12px;
       font-weight: 700;
-      font-size: 0.95rem;
-      text-transform: uppercase;
+      font-size: 0.9rem;
       font-family: 'Inter', sans-serif;
       text-align: center;
       vertical-align: middle;
@@ -221,7 +220,7 @@
     }
 
     .calc-table td {
-      padding: 12px;
+      padding: 9px;
       border: 1.5px solid #8ba3c0; 
       text-align: center;
       vertical-align: middle;
@@ -230,12 +229,12 @@
     /* ESTILO DOS INPUTS - CÉLULAS EDITÁVEIS */
     .calc-table .input-index-style {
       width: 100%;
-      padding: 10px 14px;
+      padding: 8px 12px;
       border: 1.5px solid #94a3b8; 
-      border-radius: 10px;
+      border-radius: 8px;
       text-align: center;
       font-family: 'Inter', sans-serif;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       color: #000000;
       outline: none;
@@ -243,31 +242,27 @@
       transition: all 0.2s ease;
     }
 
-    /* PLACEHOLDERS AINDA MAIS SUAVES */
     .calc-table .input-index-style::placeholder {
       color: #cbd5e1 !important;
       font-weight: 400;
       opacity: 0.85;
     }
 
-    /* COR EM DESTAQUE NA CÉLULA SELECIONADA (EDITÁVEL) */
     .calc-table .input-index-style:focus {
       border-color: #0272f1ea;
       background-color: #e6f2ff;
       box-shadow: 0 0 0 3px rgba(2, 114, 241, 0.25);
     }
 
-    /* CÉLULA DE RESULTADO CENTRADA COM MAIS DESTAQUE (CINZA SUAVE DE FUNDO) */
     .calc-table .result-cell {
       background: #f1f5f9;
       font-weight: 700;
       font-family: 'Inter', sans-serif;
-      font-size: 15px;
+      font-size: 14px;
       color: #0f172a;
       text-align: center;
     }
 
-    /* Cores dinâmicas para validação do resultado final */
     .calc-table .result-cell.valido {
       background: #ecfdf5 !important; 
       color: #059669 !important;
@@ -282,48 +277,43 @@
       border-color: #fca5a5;
     }
 
-    /* Linha do total no estilo TANB */
     .calc-table .total-row {
       font-family: 'Inter', sans-serif;
       background: #e2e8f0;
     }
 
-    /* Label descritivo do Total */
     .total-badge {
       font-family: 'Inter', sans-serif;
-      font-size: 15px;
+      font-size: 14px;
       color: #334155;
       font-weight: 700; 
     }
 
-    /* Célula do resultado da média global igual ao simulador */
     .calc-table .total-row .global-result-cell {
       background: #e2e8f0;
       font-weight: 800;
       color: #000000;
-      font-size: 16px;
+      font-size: 15px;
       text-align: center;
     }
 
-    /* Container flexível para alinhar botão à esquerda e texto à direita */
     .total-flex-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      padding: 2px 5px;
+      padding: 1px 3px;
     }
 
-    /* Botão Adicionar Linha */
     .add-row-btn {
-      padding: 10px 18px;
+      padding: 8px 14px;
       background: #ffffff;
       color: #0272f1ea;
       border: 1px solid #94a3b8;
-      border-radius: 10px;
+      border-radius: 8px;
       font-family: 'Inter', sans-serif;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
@@ -333,13 +323,12 @@
       transform: translateY(-1px);
     }
 
-    /* BOTÃO APAGAR LINHA */
     .delete-btn {
       background: #fff5f5;
       color: #dc2626;
       border: 1px solid #fca5a5;
-      padding: 10px 14px;
-      border-radius: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
       cursor: pointer;
       transition: .25s;
       font-weight: 600;
@@ -352,44 +341,41 @@
       transform: translateY(-1px);
     }
 
-    /* COLUNA # CENTRADA */
     .calc-table .col-index-style {
       background: #e2e8f0;
       font-weight: 700;
       color: #334155;
       text-align: center;
-      font-size: 14px;
+      font-size: 13px;
       width: 8%;
     }
 
-    /* Container inline para input e botões rápidos */
     .input-with-quick-values {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       width: 100%;
     }
 
     .input-with-quick-values input {
-      max-width: 140px;
+      max-width: 120px;
     }
 
     .quick-values-inline {
       display: flex;
-      gap: 6px;
+      gap: 5px;
     }
 
-    /* Botões Rápidos */
     .quick-value-btn {
       background: #ffffff;
       color: #334155;
       border: 1px solid #94a3b8;
-      padding: 8px 14px;
-      border-radius: 10px;
+      padding: 6px 12px;
+      border-radius: 8px;
       font-family: 'Inter', sans-serif;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
@@ -400,7 +386,6 @@
       color: #0f172a;
     }
 
-    /* DESTAQUE DE SELEÇÃO NOS VALORES PREDEFINIDOS E NA CÉLULA EDITÁVEL */
     .quick-value-btn:focus, .quick-value-btn.selected-preset, .calc-table .input-index-style.selected-preset {
       border-color: #0272f1ea !important;
       background-color: #e6f2ff !important;
@@ -427,32 +412,32 @@
       background: rgba(22, 26, 32, 0.88);
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
-      padding: 50px 35px;
-      border-radius: 24px;
+      padding: 40px 30px;
+      border-radius: 20px;
       width: 90%;
-      max-width: 380px;
+      max-width: 350px;
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
     }
 
     .login-box h2 {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 700;
       letter-spacing: 1px;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       color: #ffffff;
     }
 
     .password-input{
       width: 100%;
-      padding: 16px 20px;
+      padding: 14px 18px;
       border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 12px;
+      border-radius: 10px;
       background: rgba(255, 255, 255, 0.06);
       color: white;
-      font-size: 1.1rem;
-      margin-bottom: 20px;
+      font-size: 1rem;
+      margin-bottom: 18px;
       outline: none;
       text-align: center;
       transition: all 0.3s ease;
@@ -466,23 +451,23 @@
 
     .login-button{
       width: 100%;
-      padding: 16px;
+      padding: 14px;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       background: #ffffff;
       color: #121417;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.25s ease;
-      font-size: 1.1rem;
+      font-size: 1rem;
       letter-spacing: 0.5px;
-      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
     }
 
     .login-button:hover{
       background: #e6e6e6;
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+      box-shadow: 0 6px 16px rgba(255, 255, 255, 0.25);
     }
 
     /* BARRA DE CABEÇALHO */
@@ -491,11 +476,11 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 50px;
+      height: 44px;
       display: none;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
+      padding: 0 16px;
       background: rgba(0,0,0,0.5);
       backdrop-filter: blur(10px);
       z-index: 2000;
@@ -505,21 +490,21 @@
     .header-left, .header-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .header-btn{
-      width: 85px;
-      height: 34px;
+      width: 80px;
+      height: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px solid rgba(255,255,255,0.7);
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
       background: rgba(27,31,36,0.9);
       color: white;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
     }
 
@@ -530,27 +515,27 @@
     /* TABS & CANVAS */
     .tabs {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-      gap: 8px;
-      padding: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 6px;
+      padding: 10px;
       background: #cfd8f827;
       align-items: center;
       width: 100%;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-      margin-top: 50px;
-      margin-bottom: 30px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      margin-top: 40px;
+      margin-bottom: 20px;
     }
 
     .tabs button {
       background: #0a18d8;
       color: #fff;
       border: none;
-      padding: 12px 8px;
+      padding: 10px 6px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      border-radius: 8px;
+      border-radius: 6px;
       width: 100%;
       transition: all 0.25s ease;
       text-align: center;
@@ -563,11 +548,11 @@
     .tabs button.active {
       background: #d61c1c;
       color: #ffffff;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
-      border-radius: 8px;
-      transform: scale(1.06);
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+      border-radius: 6px;
+      transform: scale(1.04);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
       z-index: 10;
     }
 
@@ -585,43 +570,43 @@
       margin: 0 auto;
       background: rgba(255, 255, 255, 0.75); 
       border: 1px solid rgba(34, 34, 34, 0.2);
-      padding: 30px 24px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-      border-radius: 12px;
+      padding: 22px 18px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
       backdrop-filter: blur(4px); 
     }
 
     .row {
       display: flex;
       justify-content: center;
-      gap: 15px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 15px;
       flex-wrap: wrap;
     }
 
     .box {
       flex: 1;
-      min-width: 200px;
-      max-width: 280px;
+      min-width: 180px;
+      max-width: 250px;
     }
 
     .lbl {
       background: #0272f1ea;
       color: #ffffff;
       text-align: center;
-      padding: 8px;
+      padding: 6px;
       font-weight: bold;
-      font-size: 0.85rem;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
+      font-size: 0.8rem;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
     }
 
     .cell {
       border: 1px solid #22222255;
       background: #ffffff;
-      height: 44px;
-      border-radius: 8px;
+      height: 38px;
+      border-radius: 6px;
       overflow: hidden;
     }
 
@@ -630,7 +615,7 @@
       height: 100%;
       border: none;
       text-align: center;
-      font-size: 22px;
+      font-size: 18px;
       font-weight: bold;
       color: #000000;
       outline: none;
@@ -642,29 +627,29 @@
 
     .cell input::placeholder {
       color: #a0a0a0;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: normal;
     }
 
     .resultrow {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin-top: 15px;
+      gap: 8px;
+      margin-top: 12px;
       flex-wrap: wrap;
     }
 
     .rlabel {
       width: 100%;
-      max-width: 320px;
+      max-width: 300px;
       background: rgba(240, 240, 240, 0.65); 
       color: #0d00bd;
-      padding: 10px;
+      padding: 8px;
       border: 1px solid rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
+      border-radius: 6px;
       text-align: center;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .rlabel-split {
@@ -672,14 +657,14 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      max-width: 320px;
+      max-width: 300px;
       background: rgba(240, 240, 240, 0.65); 
       color: #0d00bd;
-      padding: 5px 10px;
+      padding: 4px 8px;
       border: 1px solid rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
+      border-radius: 6px;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .rlabel-split span {
@@ -688,10 +673,10 @@
     }
 
     .inline-acid-cell {
-      width: 90px;
-      height: 34px;
+      width: 80px;
+      height: 30px;
       border: 1px solid #0272f1ea;
-      border-radius: 6px;
+      border-radius: 5px;
       overflow: hidden;
       background: #ffffff;
     }
@@ -701,7 +686,7 @@
       height: 100%;
       border: none;
       text-align: center;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
       color: #000000;
       outline: none;
@@ -713,21 +698,21 @@
 
     .inline-acid-cell input::placeholder {
       color: #ff0000 !important;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: bold;
       opacity: 1;
     }
 
     .rvalue {
       width: 100%;
-      max-width: 260px;
+      max-width: 240px;
       background: #1dc917bd;
       color: #000;
-      padding: 10px;
-      border-radius: 8px;
+      padding: 8px;
+      border-radius: 6px;
       text-align: center;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .rvalue span.neg {
@@ -738,14 +723,14 @@
       text-align: center; 
       color: #0d00bd; 
       font-weight: bold; 
-      margin: 10px 0;
+      margin: 8px 0;
       width: 100%;
     }
 
     .divider {
       border: none;
       border-top: 2px dashed rgba(51, 51, 51, 0.3);
-      margin: 20px auto;
+      margin: 15px auto;
       width: 90%;
     }
 
@@ -755,12 +740,12 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 40px;
+      height: 36px;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       background: rgba(0,0,0,0.6);
       backdrop-filter: blur(6px);
       z-index: 1000;
@@ -771,14 +756,14 @@
     .footer-note {
       position: fixed;
       display: none;
-      bottom: 40px;
+      bottom: 36px;
       left: 0;
       width: 100%;
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: #000000;
       background: transparent;
-      padding: 4px 10px;
+      padding: 3px 10px;
       z-index: 999;
     }
 
@@ -795,22 +780,22 @@
 
     .modal-content {
       width: 90%;
-      max-width: 420px;
+      max-width: 380px;
       background: rgba(27,31,36,0.98);
-      padding: 40px 25px 30px;
-      border-radius: 16px;
+      padding: 35px 20px 25px;
+      border-radius: 12px;
       color: white;
       text-align: center;
       border: 1px solid rgba(255,255,255,0.2);
       position: relative;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
     }
 
     .close-modal {
       position: absolute;
-      top: 12px;
-      right: 18px;
-      font-size: 32px;
+      top: 10px;
+      right: 15px;
+      font-size: 28px;
       font-weight: 400;
       color: rgba(255, 255, 255, 0.6);
       cursor: pointer;
@@ -825,14 +810,14 @@
 
     .contact-btn {
       width: 100%;
-      margin-top: 20px;
-      padding: 16px;
+      margin-top: 15px;
+      padding: 14px;
       border: 1px solid rgba(255,255,255,0.75);
-      border-radius: 12px;
+      border-radius: 10px;
       background: #ffffff;
       color: #0a6cff;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.95rem;
       cursor: pointer;
       transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
     }
@@ -840,19 +825,19 @@
     .contact-btn:hover {
       background: #eeeeee;
       transform: translateY(-1px);
-      box-shadow: 0 5px 15px rgba(10, 108, 255, 0.2);
+      box-shadow: 0 5px 12px rgba(10, 108, 255, 0.2);
     }
 
     /* RESPONSIVIDADE (MOBILE) */
     @media(max-width: 768px){
-      body { font-size: 13.5px; }
-      .button-grid { grid-template-columns: 1fr; padding: 0 10px; }
-      .container { top: 80px; }
-      .tabs { grid-template-columns: repeat(3, 1fr); margin-top: 35px; margin-bottom: 20px; }
+      body { font-size: 13px; }
+      .button-grid { grid-template-columns: 1fr; padding: 0 5px; gap: 14px; }
+      .container { top: 70px; }
+      .tabs { grid-template-columns: repeat(3, 1fr); margin-top: 25px; margin-bottom: 15px; }
 
       .total-flex-container {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
         align-items: center;
       }
 
@@ -863,7 +848,7 @@
 
       .input-with-quick-values {
         flex-direction: column;
-        gap: 8px;
+        gap: 6px;
       }
 
       .input-with-quick-values input {
@@ -895,53 +880,51 @@
       .calc-table tr {
         background: #ffffff;
         border: 2px solid #0272f1ea;
-        border-radius: 12px;
-        margin-bottom: 20px;
-        padding: 10px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        border-radius: 10px;
+        margin-bottom: 15px;
+        padding: 8px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.12);
       }
 
       .calc-table td {
         text-align: left;
-        padding: 8px 10px;
+        padding: 6px 8px;
         border: none;
         position: relative;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 15px;
+        gap: 12px;
       }
 
-      /* No mobile a coluna # assume comportamento adaptável */
       .calc-table tbody tr:not(.total-row) td:first-child {
         background: #e2e8f0 !important;
         color: #334155 !important;
-        border-radius: 6px;
+        border-radius: 5px;
         justify-content: space-between;
-        font-size: 1.1rem;
-        margin-bottom: 10px;
+        font-size: 1rem;
+        margin-bottom: 8px;
         border: 1px solid #cbd5e1 !important;
       }
 
       .calc-table tbody tr:not(.total-row) td:child(1)::before { content: "#:"; font-weight: bold; color: #334155; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(2)::before { content: "Espessura de Cravação 1:"; font-weight: bold; color: #333; min-width: 160px; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(3)::before { content: "Espessura de Cravação 2:"; font-weight: bold; color: #333; min-width: 160px; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(4)::before { content: "Média:"; font-weight: bold; color: #0272f1ea; min-width: 160px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(2)::before { content: "Espessura de Cravação 1:"; font-weight: bold; color: #333; min-width: 150px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(3)::before { content: "Espessura de Cravação 2:"; font-weight: bold; color: #333; min-width: 150px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(4)::before { content: "Média Amostra:"; font-weight: bold; color: #0272f1ea; min-width: 150px; }
       .calc-table tbody tr:not(.total-row) td:nth-child(5)::before { content: "Ação:"; font-weight: bold; color: #333; }
 
       .calc-table .input-index-style {
-        max-width: 160px;
+        max-width: 150px;
       }
 
       .calc-table .result-cell {
         background: #f1f5f9;
-        padding: 8px 15px;
-        border-radius: 6px;
+        padding: 6px 12px;
+        border-radius: 5px;
         justify-content: space-between;
-        font-size: 1.1rem;
+        font-size: 1rem;
       }
 
-      /* Linha do Total Global Mobile */
       .calc-table tr.total-row {
         background: #e2e8f0;
         border: 2px solid #cbd5e1;
@@ -949,20 +932,19 @@
       .calc-table tr.total-row td {
         justify-content: space-between;
         text-align: left;
-        font-size: 1.1rem;
-        padding: 12px 10px;
+        font-size: 1rem;
+        padding: 10px 8px;
       }
       .calc-table tr.total-row td:first-child {
         background: transparent;
         color: #334155;
-        font-size: 1rem;
+        font-size: 0.95rem;
         margin-bottom: 0;
       }
       .calc-table tr.total-row td[colspan] {
         display: none; 
       }
 
-      /* Responsividade específica da segunda tabela no Mobile */
       #tableFolha tr {
         border-color: #0272f1ea;
       }
@@ -1186,8 +1168,8 @@
         
         <div id="acceptDropdown" class="dropdown-content">
           <div class="button-grid" style="margin-bottom: 0; gap: 15px;">
-            <a href="http://10.167.1.4/login" target="_blank" class="hub-button" style="padding: 18px 15px; font-size: 1.1rem; background: rgba(30, 41, 59, 0.9);">Accept</a>
-            <a href="http://10.167.1.4:8181/pt/home#/" target="_blank" class="hub-button" style="padding: 18px 15px; font-size: 1.1rem; background: rgba(30, 41, 59, 0.9);">Accept MSA</a>
+            <a href="http://10.167.1.4/login" target="_blank" class="hub-button" style="padding: 14px 12px; font-size: 1rem; background: rgba(30, 41, 59, 0.9);">Accept</a>
+            <a href="http://10.167.1.4:8181/pt/home#/" target="_blank" class="hub-button" style="padding: 14px 12px; font-size: 1rem; background: rgba(30, 41, 59, 0.9);">Accept MSA</a>
           </div>
         </div>
 
@@ -1195,11 +1177,11 @@
         
         <div id="sharepointDropdown" class="dropdown-content">
           <div class="button-grid" style="margin-bottom: 0; gap: 15px;">
-            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual_Almeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem&viewid=cc397437-7114-4d36-a30a-c5729209ff32&sharingv2=true&fromShare=true&at=9&CID=1a77d6a1-e0e3-e000-7cf3-b5bfacfe038a&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&ovuser=c966f82c-42fb-40e2-9370-3a7a3da6cbee%2CSCU00137%40sumolcompal%2Ept&OR=Teams-HL&CT=1770079823283&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNipro0OS8yNjAxMDQwMDkyMyIsIkhhc0Fzc29jaWF0ZWQiOnRydWV9" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 18px 15px; font-size: 1.1rem; background: rgba(30, 41, 59, 0.9);">03. Embalagens</a>
+            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual_Almeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem&viewid=cc397437-7114-4d36-a30a-c5729209ff32&sharingv2=true&fromShare=true&at=9&CID=1a77d6a1-e0e3-e000-7cf3-b5bfacfe038a&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&ovuser=c966f82c-42fb-40e2-9370-3a7a3da6cbee%2CSCU00137%40sumolcompal%2Ept&OR=Teams-HL&CT=1770079823283&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNipro0OS8yNjAxMDQwMDkyMyIsIkhhc0Fzc29jaWF0ZWQiOnRydWV9" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 14px 12px; font-size: 1rem; background: rgba(30, 41, 59, 0.9);">03. Embalagens</a>
             
-            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F04%20%2D%20Medidas%20Membranas%20Stelos&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&CID=1a77d6a1%2De0e3%2De000%2D7cf3%2Db5bfacfe038a&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&ovuser=c966f82c%2D42fb%2D40e2%2D9370%2D3a7a3da6cbee%2CSCU00137%40sumolcompal%2Ept&OR=Teams%2DHL&CT=1770079823283&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNipro0OS8yNjAxMDQwMDkyMyIsIkhhc0Fzc29jaWF0ZWQiOnRydWV9" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 18px 15px; font-size: 1.1rem; background: rgba(30, 41, 59, 0.9);">04 Medidas Membranas Stelos</a>
+            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F04%20%2D%20Medidas%20Membranas%20Stelos&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&CID=1a77d6a1%2De0e3%2De000%2D7cf3%2Db5bfacfe038a&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&ovuser=c966f82c%2D42fb%2D40e2%2D9370%2D3a7a3da6cbee%2CSCU00137%40sumolcompal%2Ept&OR=Teams%2DHL&CT=1770079823283&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNipro0OS8yNjAxMDQwMDkyMyIsIkhhc0Fzc29jaWF0ZWQiOnRydWV9" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 14px 12px; font-size: 1rem; background: rgba(30, 41, 59, 0.9);">04 Medidas Membranas Stelos</a>
             
-            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F05%20%2D%20Teste%20dissolu%C3%A7%C3%B5es&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&CT=1782335207315&OR=OWA%2DNTB%2DMail&CID=486f7f43%2D1421%2D10bb%2D7679%2Dce87d54bf7cd&SI=NonSentItems&clickParams=eyJYLUFwcE5hbWUiOiJNaWNyb3NvZnQgT3V0bG9vayBXZWIgQXBwIiwiWC1BcHBWZXJzaW9uIjoiMjAyNjA2MTIwMTYuMjYiLCJPUyI6IldpbmRvd3MgMTEifQ%3D%3D" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 18px 15px; font-size: 1.1rem; background: rgba(30, 41, 59, 0.9);">05 Teste dissoluções</a>
+            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F05%20%2D%20Teste%20dissolu%C3%A7%C3%B5es&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&CT=1782335207315&OR=OWA%2DNTB%2DMail&CID=486f7f43%2D1421%2D10bb%2D7679%2Dce87d54bf7cd&SI=NonSentItems&clickParams=eyJYLUFwcE5hbWUiOiJNaWNyb3NvZnQgT3V0bG9 outlook%20Web%20AppIiwiWC1BcHBWZXJzaW9uIjoiMjAyNjA2MTIwMTYuMjYiLCJPUyI6IldpbmRvd3MgMTEifQ%3D%3D" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 14px 12px; font-size: 1rem; background: rgba(30, 41, 59, 0.9);">05 Teste dissoluções</a>
           </div>
         </div>
 
@@ -1211,8 +1193,7 @@
     </div>
 
     <div id="mediasBisnagasPage" style="display:none; text-align:left;">
-      <div class="canvas" style="text-align: left; margin-top: 30px;">
-        <p style="color: #475569; font-weight: 500; font-family: 'Inter', sans-serif; margin-bottom: 15px; text-align: center;">Insira os dois valores de cada amostra. Prima [Enter] para saltar para o campo seguinte:</p>
+      <div class="canvas" style="text-align: left; margin-top: 20px;">
         
         <div class="table-container">
           <table class="calc-table" id="bisnagasTable">
@@ -1260,19 +1241,20 @@
             </tbody>
             <tfoot>
               <tr class="total-row">
-                <td colspan="4" id="totalLabelCell">
+                <td colspan="3" id="totalLabelCell">
                   <div class="total-flex-container">
                     <button type="button" class="add-row-btn" onclick="adicionarLinhaAmostra()">+ Adicionar Amostra</button>
                     <span class="total-badge">Média total:</span>
                   </div>
                 </td>
                 <td id="total_global_media" class="global-result-cell">---</td>
+                <td></td>
               </tr>
             </tfoot>
           </table>
         </div>
 
-        <div style="margin-top: 35px; margin-bottom: 15px; border-top: 1px solid rgba(0,0,0,0.15);"></div>
+        <div style="margin-top: 25px; margin-bottom: 15px; border-top: 1px solid rgba(0,0,0,0.15);"></div>
 
         <div class="table-container">
           <table class="calc-table" id="tableFolha">
@@ -1325,7 +1307,7 @@
       <p style="line-height:2; font-size:1.05rem;"><strong>Nome:</strong> Hélder Fernandes</p>
       <button class="contact-btn" onclick="sendMessage()">Enviar mensagem</button>
       <hr style="margin:20px 0; border:0; border-top:1px solid rgba(255,255,255,0.2);">
-      <p style="font-size:0.85rem; opacity:0.7;"><strong>Atualizado a: </strong>02.07.2026</p>
+      <p style="font-size:0.85rem; opacity:0.7;"><strong>Atualizado a: </strong>03.07.2026</p>
     </div>
   </div>
 
@@ -1491,7 +1473,6 @@
       return el.outerHTML;
     };
 
-    /* FUNÇÃO ENTER: PASSA PARA A PRÓXIMA CÉLULA */
     function navegarEnter(event, proximoId) {
       if (event.key === "Enter") {
         event.preventDefault(); 
@@ -1502,7 +1483,6 @@
       }
     }
 
-    /* FORÇAR DUAS CASAS DECIMAIS QUANDO O UTILIZADOR SAI DO CAMPO */
     function forcarDuasCasasDecimais(input) {
       if (input.value !== "") {
         input.value = parseFloat(input.value).toFixed(2);
@@ -1510,12 +1490,10 @@
       }
     }
 
-    /* VERIFICA E ATUALIZA DINAMICAMENTE O DESTAQUE DO PRESET SELECIONADO OU DO INPUT */
     function atualizarEstiloPresets() {
       const inputEspessura = document.getElementById("espessura_folha");
       const espessuraAtual = parseFloat(inputEspessura.value);
       
-      // Limpar estilos prévios
       inputEspessura.classList.remove("selected-preset");
       
       if (isNaN(espessuraAtual) || espessuraAtual === 0) {
@@ -1535,20 +1513,17 @@
         }
       });
 
-      // Se o valor inserido não for nenhum dos 4 presets rápidos, destaca o input editável
       if (!correspondeAPreset && inputEspessura.value !== "") {
         inputEspessura.classList.add("selected-preset");
       }
     }
 
-    /* ATRIBUI UM VALOR RÁPIDO FIXO À ESPESSURA DA FOLHA */
     function definirEspessuraRapida(valor, elementoBotao) {
       document.getElementById("espessura_folha").value = valor.toFixed(2);
       atualizarEstiloPresets();
       calcResultadoFinal();
     }
 
-    /* FUNÇÃO DE CÁLCULO DAS BISNAGAS DINÂMICA */
     function calcBisnagas() {
       let totalMedias = 0;
       let qtdMediasValidas = 0;
@@ -1602,7 +1577,6 @@
       calcResultadoFinal();
     }
 
-    /* FUNÇÃO PARA APAGAR UMA AMOSTRA ESPECÍFICA */
     function apagarLinhaAmostra(botao) {
       const rows = document.querySelectorAll("#bisnagasBody tr");
       if (rows.length > 1) {
@@ -1614,7 +1588,6 @@
       }
     }
 
-    /* FUNÇÃO PARA ADICIONAR NOVAS AMOSTRAS À TABELA */
     function adicionarLinhaAmostra() {
       const tbody = document.getElementById("bisnagasBody");
       const proximoNumero = tbody.querySelectorAll("tr").length + 1;
@@ -1633,7 +1606,6 @@
       document.getElementById(`b${proximoNumero}_v1`).focus();
     }
 
-    /* FUNÇÃO DO CÁLCULO DA COMPACTAÇÃO (%) */
     function calcResultadoFinal() {
       const espessura = parseFloat(document.getElementById("espessura_folha").value);
       const mediaGlobalTexto = document.getElementById("total_global_media").textContent.replace(" mm", "");
@@ -1656,7 +1628,6 @@
         elResultado.textContent = "---";
       }
       
-      // Garante que o estado visual do preset/input não se perde nos recálculos ou inputs manuais
       atualizarEstiloPresets();
     }
 
