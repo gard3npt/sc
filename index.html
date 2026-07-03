@@ -206,12 +206,6 @@
       overflow-x: auto;
     }
 
-    .calc-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #ffffff;
-    }
-
     .calc-table th {
       background: #f8fafc; 
       color: #475569; 
@@ -259,8 +253,12 @@
       font-size: 18px;
       font-weight: 700;
       color: #0f172a;
-      background: #f8fafc; 
       outline: none;
+    }
+
+    /* Cor de fundo das células editáveis quando não estão focadas */
+    .calc-table .input-index-style:not(:focus) {
+      background: #fffbeb; 
     }
 
     .calc-table .input-index-style:focus {
@@ -274,24 +272,43 @@
       font-weight: 500;
     }
 
+    /* ESTILO MODIFICADO PARA AS CÉLULAS DE MÉDIA DAS AMOSTRAS */
     .calc-table .result-cell {
       background: #eff6ff; 
       color: #1e40af; 
-      font-weight: 600;
-      font-size: 16px;
-      height: 48px;
-      border-left: 1px solid #e2e8f0;
-      border-right: 1px solid #e2e8f0;
+      font-weight: 700;
+      font-size: 18px;
+      padding: 12px;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 46px;
     }
 
     .calc-table .result-cell.valido, .calc-table .global-result-cell.valido {
       background: #ecfdf5 !important; 
       color: #059669 !important;
+      border-color: #1bc415 !important;
     }
 
     .calc-table .result-cell.invalido, .calc-table .global-result-cell.invalido {
       background: #fef2f2 !important; 
       color: #dc2626 !important;
+      border-color: #fca5a5 !important;
+    }
+
+    /* Rótulos alinhados à direita e maiores no Desktop */
+    .label-folha-compactacao {
+      width: 40%; 
+      background: #f8fafc; 
+      color: #475569; 
+      font-weight: 700; 
+      text-align: right; 
+      padding-right: 45px !important; 
+      font-size: 16px;
     }
 
     /* Ajuste para a célula de compactação final */
@@ -299,10 +316,10 @@
       font-size: 18px !important;
       font-weight: 900 !important;
       letter-spacing: 0.5px;
-      background: transparent !important; /* Sem cor por defeito */
+      background: transparent !important; 
       color: #1e293b !important;
       border: 2px solid #cbd5e1;
-      border-radius: 10px; /* Margem arredondada */
+      border-radius: 10px; 
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -431,9 +448,14 @@
       background: #f8fafc;
     }
 
-    .quick-value-btn:focus, .quick-value-btn.selected-preset, .calc-table .input-index-style.selected-preset {
-      background-color: #eff6ff !important;
-      border-color: #2563eb !important;
+    /* Borda Verde e fundo suave apenas para o botão SELECIONADO */
+    .quick-value-btn.selected-preset {
+      border-color: #059669 !important;
+      background-color: #f0fdf4 !important;
+      color: #059669 !important;
+    }
+
+    .quick-value-btn:focus {
       outline: none;
     }
 
@@ -510,7 +532,7 @@
     .login-button:hover{
       background: #e6e6e6;
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(255, 255, 255, 0.25);
+      box-shadow: 0 6px 166px rgba(255, 255, 255, 0.25);
     }
 
     /* BARRA DE CABEÇALHO */
@@ -930,6 +952,14 @@
         text-align: center;
       }
 
+      /* Sobrescrita da classe dos rótulos para o modo mobile */
+      .label-folha-compactacao {
+        width: 100% !important;
+        text-align: left;
+        padding-right: 10px !important;
+        font-size: 14px;
+      }
+
       /* TRANSFORMAÇÃO DA TABELA DAS BISNAGAS EM VERTICAL (MOBILE) */
       .calc-table, .calc-table thead, .calc-table tbody, .calc-table th, .calc-table td, .calc-table tr {
         display: block;
@@ -981,9 +1011,9 @@
         border: 1px solid #e2e8f0 !important;
       }
 
-      .calc-table tbody tr:not(.total-row) td:child(1)::before { content: "#:"; font-weight: bold; color: #475569; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(2)::before { content: "Espessura de Cravação Esq.:"; font-weight: bold; color: #475569; min-width: 150px; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(3)::before { content: "Espessura de Cravação Dir.:"; font-weight: bold; color: #475569; min-width: 150px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(1)::before { content: "#:"; font-weight: bold; color: #475569; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(2)::before { content: "Ponto 1 - Esq.:"; font-weight: bold; color: #475569; min-width: 150px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(3)::before { content: "Ponto 2 - Dir.:"; font-weight: bold; color: #475569; min-width: 150px; }
       .calc-table tbody tr:not(.total-row) td:nth-child(4)::before { content: "Média Amostra:"; font-weight: bold; color: #2563eb; min-width: 150px; }
       .calc-table tbody tr:not(.total-row) td:nth-child(5)::before { content: "Ação:"; font-weight: bold; color: #475569; }
 
@@ -991,13 +1021,9 @@
         max-width: 150px;
       }
 
+      /* Ajuste da largura máxima da média da amostra em Mobile */
       .calc-table .result-cell {
-        background: #eff6ff;
-        padding: 8px 12px;
-        border-radius: 8px;
-        justify-content: space-between;
-        font-size: 1rem;
-        border: none;
+        max-width: 150px;
       }
 
       .calc-table tr.total-row {
@@ -1286,43 +1312,41 @@
               <tr>
                 <th rowspan="2" style="width: 8%;">#</th>
                 <th colspan="2" class="cravacao-header-main">Espessura de Cravação (mm)</th>
-                <th>Média Amostra</th>
-                <th style="width: 12%;">Ação</th>
+                <th rowspan="2">Média Amostra</th>
+                <th rowspan="2" style="width: 12%;">Ação</th>
               </tr>
               <tr>
-                <th>Esq.</th>
-                <th>Dir.</th>
-                <th>Média Amostra</th>
-                <th>Ação</th>
+                <th>Ponto 1 - Esq.</th>
+                <th>Ponto 2 - Dir.</th>
               </tr>
             </thead>
             <tbody id="bisnagasBody">
               <tr>
                 <td class="col-index-style">1</td>
-                <td><input type="number" id="b1_v1" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b1_v2')"></td>
-                <td><input type="number" id="b1_v2" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v1')"></td>
-                <td class="result-cell" id="b1_media">---</td>
+                <td><input type="text" inputmode="decimal" id="b1_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b1_v2')"></td>
+                <td><input type="text" inputmode="decimal" id="b1_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v1')"></td>
+                <td><div class="result-cell" id="b1_media">---</div></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">2</td>
-                <td><input type="number" id="b2_v1" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v2')"></td>
-                <td><input type="number" id="b2_v2" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v1')"></td>
-                <td class="result-cell" id="b2_media">---</td>
+                <td><input type="text" inputmode="decimal" id="b2_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v2')"></td>
+                <td><input type="text" inputmode="decimal" id="b2_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v1')"></td>
+                <td><div class="result-cell" id="b2_media">---</div></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">3</td>
-                <td><input type="number" id="b3_v1" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v2')"></td>
-                <td><input type="number" id="b3_v2" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v1')"></td>
-                <td class="result-cell" id="b3_media">---</td>
+                <td><input type="text" inputmode="decimal" id="b3_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v2')"></td>
+                <td><input type="text" inputmode="decimal" id="b3_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v1')"></td>
+                <td><div class="result-cell" id="b3_media">---</div></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">4</td>
-                <td><input type="number" id="b4_v1" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v2')"></td>
-                <td><input type="number" id="b4_v2" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'espessura_folha')"></td>
-                <td class="result-cell" id="b4_media">---</td>
+                <td><input type="text" inputmode="decimal" id="b4_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v2')"></td>
+                <td><input type="text" inputmode="decimal" id="b4_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'espessura_folha')"></td>
+                <td><div class="result-cell" id="b4_media">---</div></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
             </tbody>
@@ -1349,21 +1373,21 @@
           <table class="calc-table" id="tableFolha">
             <tbody>
               <tr>
-                <td style="width: 40%; background: #f8fafc; color: #475569; font-weight: 600; text-align: center;">Espessura da folha (mm)</td>
+                <td class="label-folha-compactacao">Espessura da folha (mm)</td>
                 <td style="width: 60%; padding: 14px;">
                   <div class="input-with-quick-values">
                     <div class="quick-values-inline">
-                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.15, this)">0.15</button>
-                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.16, this)">0.16</button>
-                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.17, this)">0.17</button>
-                      <button type="button" class="quick-value-btn" onclick="definirEspessuraRapida(0.18, this)">0.18</button>
+                      <button type="button" id="btn_preset_015" class="quick-value-btn" onclick="definirEspessuraRapida(0.15, this)">0.15</button>
+                      <button type="button" id="btn_preset_016" class="quick-value-btn" onclick="definirEspessuraRapida(0.16, this)">0.16</button>
+                      <button type="button" id="btn_preset_017" class="quick-value-btn" onclick="definirEspessuraRapida(0.17, this)">0.17</button>
+                      <button type="button" id="btn_preset_018" class="quick-value-btn" onclick="definirEspessuraRapida(0.18, this)">0.18</button>
                     </div>
-                    <input type="number" id="espessura_folha" class="input-index-style" step="0.01" placeholder="0.15 a 0.18 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcResultadoFinal()" onkeydown="navegarEnter(event, '')">
+                    <input type="text" inputmode="decimal" id="espessura_folha" class="input-index-style" placeholder="0.15 a 0.18 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcResultadoFinal()" onkeydown="navegarEnter(event, '')">
                   </div>
                 </td>
               </tr>
               <tr>
-                <td style="background: #f8fafc; color: #475569; font-weight: 600; text-align: center;">Compactação (%)</td>
+                <td class="label-folha-compactacao">Compactação (%)</td>
                 <td style="padding: 14px;">
                   <div class="final-td-wrapper">
                     <div id="resultado_final_campo" class="compactacao-destaque-cell">---</div>
@@ -1582,41 +1606,38 @@
 
     function forcarDuasCasasDecimais(input) {
       if (input.value !== "") {
-        input.value = parseFloat(input.value).toFixed(2);
+        let limpo = input.value.replace(" mm", "").replace(",", ".");
+        let val = parseFloat(limpo);
+        if (!isNaN(val)) {
+          input.value = val.toFixed(2).replace(".", ",") + " mm";
+        } else {
+          input.value = "";
+        }
         atualizarEstiloPresets();
       }
     }
 
     function atualizarEstiloPresets() {
       const inputEspessura = document.getElementById("espessura_folha");
-      const espessuraAtual = parseFloat(inputEspessura.value);
-      
-      inputEspessura.classList.remove("selected-preset");
-      
+      const espessuraAtual = parseFloat(inputEspessura.value.replace(" mm", "").replace(",", "."));
+
       if (isNaN(espessuraAtual) || espessuraAtual === 0) {
         document.querySelectorAll(".quick-value-btn").forEach(btn => btn.classList.remove("selected-preset"));
         return;
       }
 
-      let correspondeAPreset = false;
-
       document.querySelectorAll(".quick-value-btn").forEach(btn => {
         const btnValor = parseFloat(btn.textContent) || 0;
         if (espessuraAtual.toFixed(2) === btnValor.toFixed(2)) {
-          btn.classList.add("selected-preset");
-          correspondeAPreset = true;
+          btn.classList.add("selected-preset"); 
         } else {
           btn.classList.remove("selected-preset");
         }
       });
-
-      if (!correspondeAPreset && inputEspessura.value !== "") {
-        inputEspessura.classList.add("selected-preset");
-      }
     }
 
     function definirEspessuraRapida(valor, elementoBotao) {
-      document.getElementById("espessura_folha").value = valor.toFixed(2);
+      document.getElementById("espessura_folha").value = valor.toFixed(2).replace(".", ",") + " mm";
       atualizarEstiloPresets();
       calcResultadoFinal();
     }
@@ -1634,7 +1655,7 @@
 
         const inputV1 = row.cells[1].querySelector("input");
         const inputV2 = row.cells[2].querySelector("input");
-        const elMedia = row.cells[3];
+        const elMedia = row.cells[3].querySelector(".result-cell");
 
         inputV1.id = `b${num}_v1`;
         inputV2.id = `b${num}_v2`;
@@ -1649,12 +1670,26 @@
           inputV2.setAttribute("onkeydown", `navegarEnter(event, 'espessura_folha')`);
         }
 
-        const campo1 = inputV1.value;
-        const campo2 = inputV2.value;
+        const campo1 = inputV1.value.replace(" mm", "").replace(",", ".");
+        const campo2 = inputV2.value.replace(" mm", "").replace(",", ".");
 
         elMedia.classList.remove("valido", "invalido");
 
-        if (campo1 !== "" && campo2 !== "") {
+        if (inputV1.value !== "") {
+          const val1 = parseFloat(campo1) || 0;
+          inputV1.style.color = (val1 >= 1.30 && val1 <= 1.92) ? "#059669" : "#dc2626";
+        } else {
+          inputV1.style.color = "#0f172a";
+        }
+
+        if (inputV2.value !== "") {
+          const val2 = parseFloat(campo2) || 0;
+          inputV2.style.color = (val2 >= 1.30 && val2 <= 1.92) ? "#059669" : "#dc2626";
+        } else {
+          inputV2.style.color = "#0f172a";
+        }
+
+        if (inputV1.value !== "" && inputV2.value !== "") {
           const v1 = parseFloat(campo1) || 0;
           const v2 = parseFloat(campo2) || 0;
           const m = (v1 + v2) / 2;
@@ -1712,9 +1747,9 @@
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td class="col-index-style">${proximoNumero}</td>
-        <td><input type="number" id="b${proximoNumero}_v1" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-        <td><input type="number" id="b${proximoNumero}_v2" class="input-index-style" step="0.01" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-        <td class="result-cell" id="b${proximoNumero}_media">---</td>
+        <td><input type="text" inputmode="decimal" id="b${proximoNumero}_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+        <td><input type="text" inputmode="decimal" id="b${proximoNumero}_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+        <td><div class="result-cell" id="b${proximoNumero}_media">---</div></td>
         <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
       `;
 
@@ -1724,13 +1759,24 @@
     }
 
     function calcResultadoFinal() {
-      const espessura = parseFloat(document.getElementById("espessura_folha").value);
+      const inputEspessura = document.getElementById("espessura_folha");
+      const espessuraTexto = inputEspessura.value.replace(" mm", "").replace(",", ".");
+      const espessura = parseFloat(espessuraTexto);
       const mediaGlobalTexto = document.getElementById("total_medias").textContent.replace(" mm", "").replace(",", ".");
       const mediaGlobal = (mediaGlobalTexto !== "---" && mediaGlobalTexto !== "") ? parseFloat(mediaGlobalTexto) : null;
       
       const elResultado = document.getElementById("resultado_final_campo");
-
       elResultado.classList.remove("valido", "invalido");
+
+      if (!isNaN(espessura)) {
+        if (espessura >= 0.15 && espessura <= 0.18) {
+          inputEspessura.style.color = "#059669"; 
+        } else {
+          inputEspessura.style.color = "#dc2626"; 
+        }
+      } else {
+        inputEspessura.style.color = "#0f172a";
+      }
 
       if (!isNaN(espessura) && mediaGlobal !== null && mediaGlobal !== 0) {
         const calculo = ((espessura * 8) / mediaGlobal) * 100;
