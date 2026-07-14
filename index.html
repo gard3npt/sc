@@ -33,7 +33,7 @@
     body{
       font-family: 'Montserrat', sans-serif;
       position: relative;
-      font-size: 13.5px;
+      font-size: 12.5px;
     }
 
     /* REMOVER SETAS DOS INPUTS NUMÉRICOS */
@@ -66,52 +66,52 @@
     /* Container do conteúdo principal */
     .container{
       position: relative;
-      top: 60px;
+      top: 52px; 
       width: 100%;
-      max-width: 1050px;
+      max-width: 1000px; 
       margin: 0 auto;
-      padding: 15px 20px 100px;
+      padding: 10px 15px 80px; 
       z-index: 2;
       text-align: center;
       display: none; 
     }
       
     .title{
-      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      font-size: clamp(1.6rem, 4.5vw, 2.7rem); 
       font-weight: 900;
-      letter-spacing: 6px;
-      margin-bottom: 5px;
+      letter-spacing: 5px; 
+      margin-bottom: 3px;
       color: #061f91ef;
       text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 25px rgba(255, 255, 255, 0.3);
-      padding: 15px 10px 5px;
+      padding: 10px 10px 3px;
     }
 
     .subtitle{
       font-weight: 800;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      font-size: 0.85rem;
+      font-size: 0.8rem; 
       color: #037927b7;
       opacity: 0.9;
-      margin-bottom: 40px; 
+      margin-bottom: 25px; 
       transition: all 0.3s ease;
     }
 
     .subtitle.cc-active {
-      font-size: 1.6rem;
+      font-size: 1.4rem; 
       font-weight: 900;
       color: #052fa0c9;
       letter-spacing: 1px;
       text-transform: none;
-      margin-bottom: 20px; 
+      margin-bottom: 15px; 
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
     .section-title{
       max-width: 1000px;
-      margin: 0 auto 12px;
+      margin: 0 auto 8px; 
       text-align: left;
-      font-size: 1rem;
+      font-size: 0.9rem; 
       color: #082d5a;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -120,10 +120,10 @@
     /* Grelhas de Botões */
     .button-grid{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
       justify-content: center;
-      gap: 18px;
-      margin: 0 auto 40px;
+      gap: 12px; 
+      margin: 0 auto 30px; 
       max-width: 1000px;
       width: 100%;
     }
@@ -131,12 +131,12 @@
     .hub-button{
       background: rgba(27,31,36,0.8);
       border: 1px solid rgba(255,255,255,0.75);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.35);
-      border-radius: 12px;
-      padding: 18px 16px;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+      border-radius: 10px; 
+      padding: 12px 14px; 
       text-decoration: none;
       color: white;
-      font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+      font-size: clamp(0.85rem, 1.3vw, 1.05rem); 
       font-weight: 700;
       transition: 0.25s ease;
       position: relative;
@@ -149,15 +149,15 @@
     }
 
     .hub-button:hover{
-      transform: translateY(-3px);
+      transform: translateY(-2px);
       background: #232931;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
     }
 
     .hub-button.dropdown-toggle::after {
       content: ' ▼';
-      font-size: 0.75rem;
-      margin-left: 6px;
+      font-size: 0.7rem;
+      margin-left: 5px;
       transition: transform 0.25s ease;
     }
     .hub-button.dropdown-toggle.active::after {
@@ -170,10 +170,10 @@
       grid-column: 1 / -1; 
       background: transparent; 
       border: 1px dashed rgba(255, 255, 255, 0.25);
-      border-radius: 12px;
-      padding: 15px;
-      margin-top: -10px;
-      margin-bottom: 10px;
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: -6px;
+      margin-bottom: 8px;
       animation: fadeIn 0.3s ease;
     }
 
@@ -183,8 +183,8 @@
     }
 
     .page-title{
-      font-size: 1.5rem;
-      margin-bottom: 20px;
+      font-size: 1.3rem; 
+      margin-bottom: 15px;
       color: #052fa0c9;
       font-weight: 900;
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -193,12 +193,12 @@
     /* ESTILOS DA TABELA DE CONTAS */
     .table-canvas-wrapper {
       max-width: 1000px;
-      margin: 20px auto 40px;
+      margin: 15px auto 30px; 
       background: #f1f5f9; 
       border: 1px solid #cbd5e1;
-      border-radius: 24px; 
+      border-radius: 16px; 
       overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0,0,0,.15), 0 5px 15px rgba(0,0,0,.1); 
+      box-shadow: 0 10px 25px rgba(0,0,0,.12), 0 4px 10px rgba(0,0,0,.08); 
     }
 
     .table-container {
@@ -209,7 +209,7 @@
     .calc-table th {
       background: #f8fafc; 
       color: #475569; 
-      padding: 14px 18px; 
+      padding: 10px 14px; 
       font-weight: 600;
       border-bottom: 2px solid #cbd5e1; 
       text-align: center;
@@ -221,14 +221,14 @@
     }
 
     .calc-table th.cravacao-header-main {
-      font-size: 18px; 
+      font-size: 15px; 
       font-weight: 700;
       color: #1e293b;
       letter-spacing: 0.5px;
     }
 
     .calc-table td {
-      padding: 14px; 
+      padding: 10px; 
       border-bottom: 1px solid #e2e8f0; 
       text-align: center;
       vertical-align: middle;
@@ -245,12 +245,12 @@
 
     .calc-table .input-index-style {
       width: 100%;
-      padding: 12px;
+      padding: 8px 10px; 
       border: 2px solid #cbd5e1; 
-      border-radius: 10px;
+      border-radius: 8px;
       transition: .3s;
       text-align: center;
-      font-size: 18px;
+      font-size: 15px; 
       font-weight: 700;
       color: #0f172a;
       outline: none;
@@ -261,9 +261,13 @@
       background: #fffbeb; 
     }
 
+    .calc-table .input-index-style:hover:not(:focus) {
+      background: #f1f5f9;
+    }
+
     .calc-table .input-index-style:focus {
       border-color: #2563eb; 
-      box-shadow: 0 0 0 4px rgba(37,99,235,.15);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.15);
       background: #ffffff;
     }
 
@@ -277,15 +281,15 @@
       background: #eff6ff; 
       color: #1e40af; 
       font-weight: 700;
-      font-size: 18px;
-      padding: 12px;
+      font-size: 15px; 
+      padding: 8px;
       border: 2px solid #cbd5e1;
-      border-radius: 10px;
+      border-radius: 8px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      height: 46px;
+      height: 38px; 
     }
 
     .calc-table .result-cell.valido, .calc-table .global-result-cell.valido {
@@ -307,24 +311,24 @@
       color: #475569; 
       font-weight: 700; 
       text-align: right; 
-      padding-right: 45px !important; 
-      font-size: 16px;
+      padding-right: 30px !important; 
+      font-size: 14px; 
     }
 
     /* Ajuste para a célula de compactação final */
     .calc-table .compactacao-destaque-cell {
-      font-size: 18px !important;
+      font-size: 16px !important; 
       font-weight: 900 !important;
       letter-spacing: 0.5px;
       background: transparent !important; 
       color: #1e293b !important;
       border: 2px solid #cbd5e1;
-      border-radius: 10px; 
+      border-radius: 8px; 
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 140px;
-      height: 46px;
+      min-width: 120px; 
+      height: 38px; 
     }
     
     .calc-table .compactacao-destaque-cell.valido {
@@ -344,7 +348,7 @@
     }
 
     .total-badge {
-      font-size: 14px;
+      font-size: 13px; 
       color: #475569;
       font-weight: 600; 
     }
@@ -353,14 +357,14 @@
       background: #eff6ff;
       font-weight: 700; 
       color: #1e40af;
-      font-size: 18px;
+      font-size: 16px; 
       border: 2px solid #cbd5e1;
-      border-radius: 10px; 
+      border-radius: 8px; 
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 140px;
-      height: 46px;
+      min-width: 120px; 
+      height: 38px; 
     }
 
     .total-flex-container {
@@ -374,22 +378,22 @@
       background: linear-gradient(135deg, #3c5894, #3383df); 
       color: white;
       border: none;
-      padding: 10px 18px;
-      border-radius: 12px;
+      padding: 8px 14px; 
+      border-radius: 10px;
       font-weight: 600;
       cursor: pointer;
       transition: 0.3s;
     }
     .add-row-btn:hover {
-      box-shadow: 0 6px 15px rgba(18, 60, 151, 0.3);
+      box-shadow: 0 5px 12px rgba(18, 60, 151, 0.25);
     }
 
     .delete-btn {
       background: #fff5f5; 
       color: #dc2626;
       border: 1px solid #fecaca;
-      padding: 10px 14px;
-      border-radius: 10px;
+      padding: 8px 12px; 
+      border-radius: 8px;
       cursor: pointer;
       transition: .25s;
       font-weight: 600;
@@ -402,11 +406,30 @@
       transform: translateY(-1px);
     }
 
+    /* ESTILO DO BOTÃO LIMPAR TUDO NO CABEÇALHO */
+    .clear-all-btn {
+      background: #dc2626;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 4px;
+      display: inline-block;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+    .clear-all-btn:hover {
+      background: #b91c1c;
+      transform: scale(1.02);
+    }
+
     .calc-table .col-index-style {
       font-weight: bold;
       color: #475569;
       text-align: center;
-      font-size: 14px;
+      font-size: 13px;
       width: 8%;
     }
 
@@ -414,12 +437,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px; 
       width: 100%;
     }
 
     .input-with-quick-values input {
-      max-width: 140px;
+      max-width: 120px; 
     }
 
     #espessura_folha::placeholder {
@@ -429,17 +452,17 @@
 
     .quick-values-inline {
       display: flex;
-      gap: 5px;
+      gap: 4px;
     }
 
     .quick-value-btn {
       background: #ffffff;
       color: #475569;
       border: 2px solid #e2e8f0;
-      padding: 8px 14px;
-      border-radius: 10px;
+      padding: 6px 11px; 
+      border-radius: 8px;
       font-weight: bold;
-      font-size: 13px;
+      font-size: 12px; 
       cursor: pointer;
       transition: all 0.2s ease;
     }
@@ -477,32 +500,32 @@
       background: rgba(22, 26, 32, 0.88);
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
-      padding: 40px 30px;
-      border-radius: 20px;
+      padding: 30px 24px; 
+      border-radius: 16px;
       width: 90%;
-      max-width: 350px;
+      max-width: 320px; 
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
     }
 
     .login-box h2 {
-      font-size: 1.4rem;
+      font-size: 1.25rem; 
       font-weight: 700;
       letter-spacing: 1px;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       color: #ffffff;
     }
 
     .password-input{
       width: 100%;
-      padding: 14px 18px;
+      padding: 12px 15px; 
       border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 10px;
+      border-radius: 8px;
       background: rgba(255, 255, 255, 0.06);
       color: white;
-      font-size: 1rem;
-      margin-bottom: 18px;
+      font-size: 0.95rem;
+      margin-bottom: 15px;
       outline: none;
       text-align: center;
       transition: all 0.3s ease;
@@ -511,28 +534,27 @@
     .password-input:focus {
       background: rgba(255, 255, 255, 0.12);
       border-color: #ffffff;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
     }
 
     .login-button{
       width: 100%;
-      padding: 14px;
+      padding: 12px;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       background: #ffffff;
       color: #121417;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.25s ease;
-      font-size: 1rem;
+      font-size: 0.95rem;
       letter-spacing: 0.5px;
-      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
     }
 
     .login-button:hover{
       background: #e6e6e6;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 166px rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
     }
 
     /* BARRA DE CABEÇALHO */
@@ -541,11 +563,11 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 44px;
+      height: 40px; 
       display: none;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
+      padding: 0 12px;
       background: rgba(0,0,0,0.5);
       backdrop-filter: blur(10px);
       z-index: 2000;
@@ -555,21 +577,21 @@
     .header-left, .header-right {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .header-btn{
-      width: 80px;
-      height: 30px;
+      width: 74px; 
+      height: 26px; 
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px solid rgba(255,255,255,0.7);
-      border-radius: 6px;
+      border-radius: 5px;
       cursor: pointer;
       background: rgba(27,31,36,0.9);
       color: white;
-      font-size: 0.75rem;
+      font-size: 0.7rem; 
       font-weight: 600;
     }
 
@@ -580,27 +602,27 @@
     /* TABS & CANVAS GERAIS */
     .tabs {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 6px;
-      padding: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); 
+      gap: 5px;
+      padding: 8px;
       background: #cfd8f827;
       align-items: center;
       width: 100%;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-      margin-top: 40px;
-      margin-bottom: 20px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      margin-top: 25px; 
+      margin-bottom: 15px; 
     }
 
     .tabs button {
       background: #0a18d8;
       color: #fff;
       border: none;
-      padding: 10px 6px;
+      padding: 8px 4px; 
       cursor: pointer;
-      font-size: 13px;
+      font-size: 12px; 
       font-weight: 600;
-      border-radius: 6px;
+      border-radius: 5px;
       width: 100%;
       transition: all 0.25s ease;
       text-align: center;
@@ -613,11 +635,11 @@
     .tabs button.active {
       background: #d61c1c;
       color: #ffffff;
-      font-size: 14px;
+      font-size: 13px; 
       font-weight: 800;
-      border-radius: 6px;
-      transform: scale(1.04);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      border-radius: 5px;
+      transform: scale(1.03);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
       z-index: 10;
     }
 
@@ -635,44 +657,59 @@
       margin: 0 auto;
       background: rgba(255, 255, 255, 0.75); 
       border: 1px solid rgba(34, 34, 34, 0.2);
-      padding: 22px 18px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
+      padding: 16px 14px; 
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
       backdrop-filter: blur(4px); 
     }
 
     .row {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      margin-bottom: 15px;
+      gap: 10px; 
+      margin-bottom: 12px; 
       flex-wrap: wrap;
     }
 
     .box {
       flex: 1;
-      min-width: 180px;
-      max-width: 250px;
+      min-width: 160px; 
+      max-width: 220px; 
     }
 
     .lbl {
       background: #0272f1ea;
       color: #ffffff;
       text-align: center;
-      padding: 6px;
+      padding: 5px; 
       font-weight: bold;
-      font-size: 0.8rem;
-      border-top-left-radius: 6px;
-      border-top-right-radius: 6px;
+      font-size: 0.75rem; 
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
     }
 
+    /* Comportamento igual às Bisnagas (Fundo creme por padrão) */
     .cell {
-      border: 1px solid #22222255;
-      background: #ffffff;
-      height: 38px;
-      border-radius: 6px;
+      border: 2px solid #cbd5e1;
+      background: #fffbeb;
+      height: 38px; 
+      border-radius: 8px;
       overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    /* Efeito Hover igual às Bisnagas */
+    .cell:hover:not(:focus-within) {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    /* Foco activa a borda azul e puxa o fundo para Branco Puro */
+    .cell:focus-within {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+      background: #ffffff;
     }
 
     .cell input {
@@ -680,69 +717,31 @@
       height: 100%;
       border: none;
       text-align: center;
-      font-size: 18px;
+      font-size: 15px; 
       font-weight: bold;
-      color: #0272f1ea; 
+      color: #0f172a; 
+      background: transparent; 
       outline: none;
     }
 
-    .cell input:focus {
-      background: #d2e4f7;
-    }
-
-    .cell input::placeholder {
-      color: #a0a0a0;
-      font-size: 14px;
-      font-weight: normal;
-    }
-
-    .resultrow {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 12px;
-      flex-wrap: wrap;
-    }
-
-    .rlabel {
-      width: 100%;
-      max-width: 300px;
-      background: rgba(240, 240, 240, 0.65); 
-      color: #0d00bd;
-      padding: 8px;
-      border: 1px solid rgba(0, 0, 0, 0.2);
-      border-radius: 6px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    .rlabel-split {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 300px;
-      background: rgba(240, 240, 240, 0.65); 
-      color: #0d00bd;
-      padding: 4px 8px;
-      border: 1px solid rgba(0, 0, 0, 0.2);
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    .rlabel-split span {
-      flex: 1;
-      text-align: center;
-    }
-
+    /* Comportamento das pequenas células de input internas da Acidez */
     .inline-acid-cell {
-      width: 80px;
-      height: 30px;
-      border: 1px solid #0272f1ea;
-      border-radius: 5px;
+      width: 74px; 
+      height: 28px; 
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
       overflow: hidden;
+      background: #fffbeb;
+      transition: all 0.25s ease;
+    }
+
+    .inline-acid-cell:hover:not(:focus-within) {
+      background: #f1f5f9;
+    }
+
+    .inline-acid-cell:focus-within {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37,99,235,.15);
       background: #ffffff;
     }
 
@@ -751,33 +750,71 @@
       height: 100%;
       border: none;
       text-align: center;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: bold;
-      color: #0272f1ea;
+      color: #0f172a;
+      background: transparent;
       outline: none;
     }
 
-    .inline-acid-cell input:focus {
-      background: #d2e4f7;
-    }
-
     .inline-acid-cell input::placeholder {
-      color: #ff0000 !important;
-      font-size: 12px;
+      color: rgba(15, 23, 42, 0.2) !important;
+      font-size: 11px;
       font-weight: bold;
       opacity: 1;
     }
 
-    .rvalue {
+    .resultrow {
+      display: flex;
+      justify-content: center;
+      gap: 6px; 
+      margin-top: 10px; 
+      flex-wrap: wrap;
+    }
+
+    .rlabel {
       width: 100%;
-      max-width: 240px;
-      background: #1dc917bd;
-      color: #000;
-      padding: 8px;
-      border-radius: 6px;
+      max-width: 280px; 
+      background: rgba(240, 240, 240, 0.65); 
+      color: #0d00bd;
+      padding: 6px; 
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
       text-align: center;
       font-weight: bold;
-      font-size: 16px;
+      font-size: 14px; 
+    }
+
+    .rlabel-split {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 280px; 
+      background: rgba(240, 240, 240, 0.65); 
+      color: #0d00bd;
+      padding: 3px 6px; 
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 14px; 
+    }
+
+    .rlabel-split span {
+      flex: 1;
+      text-align: center;
+    }
+
+    .rvalue {
+      width: 100%;
+      max-width: 220px; 
+      background: #1dc917bd;
+      color: #000;
+      padding: 6px; 
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px; 
     }
 
     .rvalue span.neg {
@@ -788,14 +825,14 @@
       text-align: center; 
       color: #0d00bd; 
       font-weight: bold; 
-      margin: 8px 0;
+      margin: 6px 0;
       width: 100%;
     }
 
     .divider {
       border: none;
       border-top: 2px dashed rgba(51, 51, 51, 0.3);
-      margin: 15px auto;
+      margin: 12px auto; 
       width: 90%;
     }
 
@@ -820,12 +857,12 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 36px;
+      height: 32px; 
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
-      font-size: 0.8rem;
+      font-size: 0.75rem; 
       background: rgba(0,0,0,0.6);
       backdrop-filter: blur(6px);
       z-index: 1000;
@@ -836,14 +873,14 @@
     .footer-note {
       position: fixed;
       display: none;
-      bottom: 36px;
+      bottom: 32px; 
       left: 0;
       width: 100%;
       text-align: center;
-      font-size: 0.75rem;
+      font-size: 0.7/-rem; 
       color: #000000;
       background: transparent;
-      padding: 3px 10px;
+      padding: 2px 10px;
       z-index: 999;
     }
 
@@ -860,22 +897,22 @@
 
     .modal-content {
       width: 90%;
-      max-width: 380px;
+      max-width: 350px; 
       background: rgba(27,31,36,0.98);
-      padding: 35px 20px 25px;
-      border-radius: 12px;
+      padding: 30px 18px 20px; 
+      border-radius: 10px;
       color: white;
       text-align: center;
       border: 1px solid rgba(255,255,255,0.2);
       position: relative;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
 
     .close-modal {
       position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 28px;
+      top: 8px;
+      right: 12px;
+      font-size: 24px;
       font-weight: 400;
       color: rgba(255, 255, 255, 0.6);
       cursor: pointer;
@@ -890,14 +927,14 @@
 
     .contact-btn {
       width: 100%;
-      margin-top: 15px;
-      padding: 14px;
+      margin-top: 12px;
+      padding: 12px;
       border: 1px solid rgba(255,255,255,0.75);
-      border-radius: 10px;
+      border-radius: 8px;
       background: #ffffff;
       color: #0a6cff;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       cursor: pointer;
       transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
     }
@@ -905,18 +942,17 @@
     .contact-btn:hover {
       background: #eeeeee;
       transform: translateY(-1px);
-      box-shadow: 0 5px 12px rgba(10, 108, 255, 0.2);
     }
 
     /* RESPONSIVIDADE (MOBILE) */
     @media(max-width: 768px){
-      body { font-size: 13px; }
-      .button-grid { grid-template-columns: 1fr; padding: 0 5px; gap: 14px; }
-      .container { top: 70px; }
-      .tabs { grid-template-columns: repeat(3, 1fr); margin-top: 25px; margin-bottom: 15px; }
+      body { font-size: 12px; }
+      .button-grid { grid-template-columns: 1fr; padding: 0 5px; gap: 10px; }
+      .container { top: 60px; }
+      .tabs { grid-template-columns: repeat(3, 1fr); margin-top: 20px; margin-bottom: 12px; }
 
       .table-canvas-wrapper {
-        border-radius: 14px;
+        border-radius: 12px;
         box-shadow: none;
         background: transparent;
         border: none;
@@ -924,7 +960,7 @@
 
       .total-flex-container {
         flex-direction: column;
-        gap: 8px;
+        gap: 6px;
         align-items: center;
       }
 
@@ -935,7 +971,7 @@
 
       .input-with-quick-values {
         flex-direction: column;
-        gap: 6px;
+        gap: 5px;
       }
 
       .input-with-quick-values input {
@@ -957,7 +993,7 @@
         width: 100% !important;
         text-align: left;
         padding-right: 10px !important;
-        font-size: 14px;
+        font-size: 13px;
       }
 
       /* TRANSFORMAÇÃO DA TABELA DAS BISNAGAS EM VERTICAL (MOBILE) */
@@ -975,10 +1011,10 @@
       .calc-table tr {
         background: #ffffff;
         border: 2px solid #2563eb;
-        border-radius: 14px;
-        margin-bottom: 15px;
-        padding: 10px;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+        border-radius: 12px;
+        margin-bottom: 12px;
+        padding: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       }
 
       .calc-table tbody tr:nth-child(even) {
@@ -987,13 +1023,13 @@
 
       .calc-table td {
         text-align: left;
-        padding: 8px 10px;
+        padding: 6px 8px;
         border: none;
         position: relative;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
+        gap: 10px;
         border-bottom: 1px solid #e2e8f0;
       }
       
@@ -1004,26 +1040,32 @@
       .calc-table tbody tr:not(.total-row) td:first-child {
         background: #f8fafc !important;
         color: #475569 !important;
-        border-radius: 5px;
+        border-radius: 4px;
         justify-content: space-between;
-        font-size: 1rem;
-        margin-bottom: 8px;
+        font-size: 0.95rem;
+        margin-bottom: 6px;
         border: 1px solid #e2e8f0 !important;
       }
 
       .calc-table tbody tr:not(.total-row) td:nth-child(1)::before { content: "#:"; font-weight: bold; color: #475569; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(2)::before { content: "Ponto 1 - Esq.:"; font-weight: bold; color: #475569; min-width: 150px; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(3)::before { content: "Ponto 2 - Dir.:"; font-weight: bold; color: #475569; min-width: 150px; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(4)::before { content: "Média Amostra:"; font-weight: bold; color: #2563eb; min-width: 150px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(2)::before { content: "Ponto 1 - Esq.:"; font-weight: bold; color: #475569; min-width: 130px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(3)::before { content: "Ponto 2 - Dir.:"; font-weight: bold; color: #475569; min-width: 130px; }
+      .calc-table tbody tr:not(.total-row) td:nth-child(4)::before { content: "Média Amostra:"; font-weight: bold; color: #2563eb; min-width: 130px; }
       .calc-table tbody tr:not(.total-row) td:nth-child(5)::before { content: "Ação:"; font-weight: bold; color: #475569; }
 
+      /* Forçar a exibição do botão Limpar Tudo em Mobile no topo da célula de ações */
+      .calc-table tbody tr:not(.total-row) td:nth-child(5) {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
       .calc-table .input-index-style {
-        max-width: 150px;
+        max-width: 130px;
       }
 
       /* Ajuste da largura máxima da média da amostra em Mobile */
       .calc-table .result-cell {
-        max-width: 150px;
+        max-width: 130px;
       }
 
       .calc-table tr.total-row {
@@ -1033,14 +1075,14 @@
       .calc-table tr.total-row td {
         justify-content: space-between;
         text-align: left;
-        font-size: 1rem;
-        padding: 12px 10px;
+        font-size: 0.95rem;
+        padding: 10px 8px;
         border-bottom: none;
       }
       .calc-table tr.total-row td:first-child {
         background: transparent;
         color: #475569;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         margin-bottom: 0;
       }
       .calc-table tr.total-row td[colspan] {
@@ -1063,7 +1105,7 @@
       
       .calc-table .compactacao-destaque-cell {
         width: 100%;
-        max-width: 150px;
+        max-width: 130px;
       }
     }
   </style>
@@ -1104,7 +1146,7 @@
         <div onclick="showEmbalagens()" class="hub-button">Embalagens</div>
       </div>
 
-      <h2 class="section-title" style="margin-top:30px;">Links Gerais:</h2>
+      <h2 class="section-title" style="margin-top:20px;">Links Gerais:</h2>
       <div class="button-grid" id="linksMenu">
         <a href="https://intranet.sumolcompal.pt" target="_blank" rel="noopener noreferrer" class="hub-button">Intranet</a>
         <a href="https://sumolcompal.sharepoint.com/sites/SIG" target="_blank" rel="noopener noreferrer" class="hub-button">SIG</a>
@@ -1113,16 +1155,16 @@
         <a href="https://performancemanager.successfactors.eu" target="_blank" class="hub-button">Successfactors</a>
       </div>
 
-      <h2 class="section-title" style="margin-top:30px;">Ferramentas:</h2>
+      <h2 class="section-title" style="margin-top:20px;">Ferramentas:</h2>
       <div class="button-grid" id="toolsMenu">
         <div onclick="showVarios()" class="hub-button">Vários</div>
       </div>
     </div>
 
-    <div id="apoioPage" style="display:none; margin-top:20px;">
+    <div id="apoioPage" style="display:none; margin-top:15px;">
       <h2 class="page-title">Apoio Produção</h2>
       <div class="button-grid">
-        <div onclick="showCC()" class="hub-button">Correcção de Cargas</div>
+        <div onclick="showCC()" class="hub-button">Correção de Cargas</div>
         <a href="https://sumolcompal.sharepoint.com/:w:/r/sites/SIG-Operacoes/_layouts/15/Doc.aspx?sourcedoc=%7B3E28EE17-DB93-426B-9FDB-29F57BB66642%7D&file=D0203.docx&action=default&mobileredirect=true&DefaultItemOpen=1%3Fweb%3D1" target="_blank" rel="noopener noreferrer" class="hub-button">Formulas: D0203</a>
       </div>
     </div>
@@ -1140,9 +1182,9 @@
       <div id="ac" class="sheet active">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_ac" value="12000" onclick="this.value=''" oninput="calcA()"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" id="c_ac" value="0.17" onclick="this.value=''" oninput="calcA()"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" id="p_ac" value="0.35" onclick="this.value=''" oninput="calcA()"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_ac" value="12000" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'c_ac')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" id="c_ac" value="0.17" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'p_ac')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" id="p_ac" value="0.35" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'a_ac')"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -1153,7 +1195,7 @@
             <div class="rlabel-split">
               <span>Concentrado Limão:</span>
               <div class="inline-acid-cell">
-                <input type="number" id="a_ac" value="40" placeholder="Acidez" onclick="this.value=''" oninput="calcA()">
+                <input type="number" id="a_ac" value="40" placeholder="Acidez" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, '')">
               </div>
             </div>
             <div class="rvalue" id="clim"></div>
@@ -1169,9 +1211,9 @@
       <div id="bx" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_bx" value="12000" onclick="this.value=''" oninput="calcB()"></div></div>
-            <div class="box"><div class="lbl">BRIX CARGA</div><div class="cell"><input type="number" id="c_bx" value="10" onclick="this.value=''" oninput="calcB()"></div></div>
-            <div class="box"><div class="lbl">BRIX PRETENDIDO</div><div class="cell"><input type="number" id="p_bx" value="12" onclick="this.value=''" oninput="calcB()"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_bx" value="12000" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'c_bx')"></div></div>
+            <div class="box"><div class="lbl">BRIX CARGA</div><div class="cell"><input type="number" id="c_bx" value="10" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'p_bx')"></div></div>
+            <div class="box"><div class="lbl">BRIX PRETENDIDO</div><div class="cell"><input type="number" id="p_bx" value="12" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'b_bx')"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -1187,7 +1229,7 @@
             <div class="rlabel-split">
               <span>Concentrado:</span>
               <div class="inline-acid-cell">
-                <input type="number" id="b_bx" value="80" placeholder="Brix" onclick="this.value=''" oninput="calcB()">
+                <input type="number" id="b_bx" value="80" placeholder="Brix" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, '')">
               </div>
             </div>
             <div class="rvalue" id="conc"></div>
@@ -1203,9 +1245,9 @@
       <div id="cl" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_cl" value="4600" onclick="this.value=''" oninput="calcC()"></div></div>
-            <div class="box"><div class="lbl">CLORETOS CARGA</div><div class="cell"><input type="number" id="c_cl" value="0.2" onclick="this.value=''" oninput="calcC()"></div></div>
-            <div class="box"><div class="lbl">CLORETOS PRETENDIDOS</div><div class="cell"><input type="number" id="p_cl" value="0.35" onclick="this.value=''" oninput="calcC()"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_cl" value="4600" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, 'c_cl')"></div></div>
+            <div class="box"><div class="lbl">CLORETOS CARGA</div><div class="cell"><input type="number" id="c_cl" value="0.2" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, 'p_cl')"></div></div>
+            <div class="box"><div class="lbl">CLORETOS PRETENDIDOS</div><div class="cell"><input type="number" id="p_cl" value="0.35" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, '')"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -1218,8 +1260,8 @@
       <div id="ra" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">BRIX</div><div class="cell"><input type="number" id="b_ra" value="10" onclick="this.value=''" oninput="calcR()"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ</div><div class="cell"><input type="number" id="c_ra" value="0.4" onclick="this.value=''" oninput="calcR()"></div></div>
+            <div class="box"><div class="lbl">BRIX</div><div class="cell"><input type="number" id="b_ra" value="10" onclick="this.select()" oninput="calcR()" onkeydown="navegarEnter(event, 'c_ra')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ</div><div class="cell"><input type="number" id="c_ra" value="0.4" onclick="this.select()" oninput="calcR()" onkeydown="navegarEnter(event, '')"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -1232,7 +1274,7 @@
       <div id="co" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">TEMPO ESCORRIMENTO</div><div class="cell"><input type="number" id="te" value="40" onclick="this.value=''" oninput="calcT()"></div></div>
+            <div class="box"><div class="lbl">TEMPO ESCORRIMENTO</div><div class="cell"><input type="number" id="te" value="40" onclick="this.select()" oninput="calcT()" onkeydown="navegarEnter(event, '')"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -1245,9 +1287,9 @@
       <div id="gu" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_gu" value="11640" onclick="this.value=''" oninput="calcG()"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" id="c_gu" value="2.94" onclick="this.value=''" oninput="calcG()"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" id="p_gu" value="3" onclick="this.value=''" oninput="calcG()"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_gu" value="11640" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'c_gu')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" id="c_gu" value="2.94" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'p_gu')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" id="p_gu" value="3" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'a_gu')"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -1258,7 +1300,7 @@
             <div class="rlabel-split">
               <span>Concentrado Limão:</span>
               <div class="inline-acid-cell">
-                <input type="number" id="a_gu" value="30.12" placeholder="Acidez" onclick="this.value=''" oninput="calcG()">
+                <input type="number" id="a_gu" value="30.12" placeholder="Acidez" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, '')">
               </div>
             </div>
             <div class="rvalue" id="clim_gu"></div>
@@ -1272,28 +1314,28 @@
       </div>
     </div>
 
-    <div id="embalagensPage" style="display:none; margin-top:20px;">
+    <div id="embalagensPage" style="display:none; margin-top:15px;">
       <h2 class="page-title">Embalagens</h2>
       <div class="button-grid">
         
         <div onclick="toggleAcceptDropdown()" id="acceptDropdownBtn" class="hub-button dropdown-toggle">ACCEPT</div>
         
         <div id="acceptDropdown" class="dropdown-content">
-          <div class="button-grid" style="margin-bottom: 0; gap: 15px;">
-            <a href="http://10.167.1.4/login" target="_blank" class="hub-button" style="padding: 14px 12px; font-size: 1rem; background: rgba(30, 41, 59, 0.9);">Accept</a>
-            <a href="http://10.167.1.4:8181/pt/home#/" target="_blank" class="hub-button" style="padding: 14px 12px; font-size: 1rem; background: rgba(30, 41, 59, 0.9);">Accept MSA</a>
+          <div class="button-grid" style="margin-bottom: 0; gap: 10px;">
+            <a href="http://10.167.1.4/login" target="_blank" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Accept</a>
+            <a href="http://10.167.1.4:8181/pt/home#/" target="_blank" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Accept MSA</a>
           </div>
         </div>
 
         <div onclick="toggleSharepointDropdown()" id="spDropdownBtn" class="hub-button dropdown-toggle">SharePoint</div>
         
         <div id="sharepointDropdown" class="dropdown-content">
-          <div class="button-grid" style="margin-bottom: 0; gap: 15px;">
-            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual_Almeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem&viewid=cc397437-7114-4d36-a30a-c5729209ff32&sharingv2=true&fromShare=true&at=9&CID=1a77d6a1-e0e3-e000-7cf3-b5bfacfe038a&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&ovuser=c966f82c-42fb-40e2-9370-3a7a3da6cbee%2CSCU00137%40sumolcompal%2Ept&OR=Teams-HL&CT=1770079823283&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNipro0OS8yNjAxMDQwMDkyMyIsIkhhc0Fzc29jaWF0ZWQiOnRydWV9" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 14px 12px; font-size: 1rem; background: rgba(30, 41, 59, 0.9);">03. Embalagens</a>
+          <div class="button-grid" style="margin-bottom: 0; gap: 10px;">
+            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual_Almeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem&viewid=cc397437-7114-4d36-a30a-c5729209ff32&sharingv2=true&fromShare=true&at=9&CID=1a77d6a1-e0e3-e000-7cf3-b5bfacfe038a&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&ovuser=c966f82c-42fb-40e2-9370-3a7a3da6cbee%2CSCU00137%40sumolcompal%2Ept&OR=Teams-HL&CT=1770079823283&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNipro0OS8yNjAxMDQwMDkyMyIsIkhhc0Fzc29jaWF0ZWQiOnRydWV9" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">03. Embalagens</a>
             
-            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F04%20%2D%20Medidas%20Membranas%20Stelos&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&CID=1a77d6a1%2De0e3%2De000%2D7cf3%2Db5bfacfe038a&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&ovuser=c966f82c%2D42fb%2D40e2%2D9370%2D3a7a3da6cbee%2CSCU00137%40sumolcompal%2Ept&OR=Teams%2DHL&CT=1770079823283&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNipro0OS8yNjAxMDQwMDkyMyIsIkhhc0Fzc29jaWF0ZWQiOnRydWV9" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 14px 12px; font-size: 1rem; background: rgba(30, 41, 59, 0.9);">04 Medidas Membranas Stelos</a>
+            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F04%20%2D%20Medidas%20Membranas%20Stelos&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&CID=1a77d6a1%2De0e3%2De000%2D7cf3%2Db5bfacfe038a&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&ovuser=c966f82c%2D42fb%2D40e2%2D9370%2D3a7a3da6cbee%2CSCU00137%40sumolcompal%2Ept&OR=Teams%2DHL&CT=1770079823283&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNipro0OS8yNjAxMDQwMDkyMyIsIkhhc0Fzc29jaWF0ZWQiOnRydWV9" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">04 Medidas Membranas Stelos</a>
             
-            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F05%20%2D%20Teste%20dissolu%C3%A7%C3%B5es&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&CT=1782335207315&OR=OWA%2DNTB%2DMail&CID=486f7f43%2D1421%2D10bb%2D7679%2Dce87d54bf7cd&SI=NonSentItems&clickParams=eyJYLUFwcE5hbWUiOiJNaWNyb3NvZnQgT3V0bG9vbyBXZWIgQXBwIiwiWC1BcHBWZXJzaW9uIjoiMjAyNjA2MTIwMTYuMjYiLCJPUyI6IldpbmRvd3MgMTEifQ%3D%3D" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 14px 12px; font-size: 1rem; background: rgba(30, 41, 59, 0.9);">05 Teste dissoluções</a>
+            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F05%20%2D%20Teste%20dissolu%C3%A7%C3%B5es&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&CT=1782335207315&OR=OWA%2DNTB%2DMail&CID=486f7f43%2D1421%2D10bb%2D7679%2Dce87d54bf7cd&SI=NonSentItems&clickParams=eyJYLUFwcE5hbWUiOiJNaWNyb3NvZnQgT3V0bG9vbyBXZWIgQXBwIiwiWC1BcHBWZXJzaW9uIjoiMjAyNjA2MTIwMTYuMjYiLCJPUyI6IldpbmRvd3MgMTEifQ%3D%3D" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">05 Teste dissoluções</a>
           </div>
         </div>
 
@@ -1313,7 +1355,10 @@
                 <th rowspan="2" style="width: 8%;">#</th>
                 <th colspan="2" class="cravacao-header-main">Espessura de Cravação (mm)</th>
                 <th rowspan="2">Média Amostra</th>
-                <th rowspan="2" style="width: 12%;">Ação</th>
+                <th rowspan="2" style="width: 12%;">
+                  Ação <br>
+                  <button type="button" class="clear-all-btn" onclick="limparTudoBisnagas()">Limpar tudo</button>
+                </th>
               </tr>
               <tr>
                 <th>Ponto 1 - Esq.</th>
@@ -1323,29 +1368,29 @@
             <tbody id="bisnagasBody">
               <tr>
                 <td class="col-index-style">1</td>
-                <td><input type="text" inputmode="decimal" id="b1_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b1_v2')"></td>
-                <td><input type="text" inputmode="decimal" id="b1_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v1')"></td>
+                <td><input type="text" inputmode="decimal" id="b1_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b1_v2')"></td>
+                <td><input type="text" inputmode="decimal" id="b1_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v1')"></td>
                 <td><div class="result-cell" id="b1_media">---</div></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">2</td>
-                <td><input type="text" inputmode="decimal" id="b2_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v2')"></td>
-                <td><input type="text" inputmode="decimal" id="b2_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v1')"></td>
+                <td><input type="text" inputmode="decimal" id="b2_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v2')"></td>
+                <td><input type="text" inputmode="decimal" id="b2_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v1')"></td>
                 <td><div class="result-cell" id="b2_media">---</div></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">3</td>
-                <td><input type="text" inputmode="decimal" id="b3_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v2')"></td>
-                <td><input type="text" inputmode="decimal" id="b3_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v1')"></td>
+                <td><input type="text" inputmode="decimal" id="b3_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v2')"></td>
+                <td><input type="text" inputmode="decimal" id="b3_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v1')"></td>
                 <td><div class="result-cell" id="b3_media">---</div></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">4</td>
-                <td><input type="text" inputmode="decimal" id="b4_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v2')"></td>
-                <td><input type="text" inputmode="decimal" id="b4_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'espessura_folha')"></td>
+                <td><input type="text" inputmode="decimal" id="b4_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v2')"></td>
+                <td><input type="text" inputmode="decimal" id="b4_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'espessura_folha')"></td>
                 <td><div class="result-cell" id="b4_media">---</div></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
@@ -1374,7 +1419,7 @@
             <tbody>
               <tr>
                 <td class="label-folha-compactacao">Espessura da folha (mm)</td>
-                <td style="width: 60%; padding: 14px;">
+                <td style="width: 60%; padding: 10px;">
                   <div class="input-with-quick-values">
                     <div class="quick-values-inline">
                       <button type="button" id="btn_preset_015" class="quick-value-btn" onclick="definirEspessuraRapida(0.15, this)">0.15</button>
@@ -1382,13 +1427,13 @@
                       <button type="button" id="btn_preset_017" class="quick-value-btn" onclick="definirEspessuraRapida(0.17, this)">0.17</button>
                       <button type="button" id="btn_preset_018" class="quick-value-btn" onclick="definirEspessuraRapida(0.18, this)">0.18</button>
                     </div>
-                    <input type="text" inputmode="decimal" id="espessura_folha" class="input-index-style" placeholder="0.15 a 0.18 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcResultadoFinal()" onkeydown="navegarEnter(event, '')">
+                    <input type="text" inputmode="decimal" id="espessura_folha" class="input-index-style" placeholder="0.15 a 0.18 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcResultadoFinal()" onkeydown="navegarEnter(event, '')">
                   </div>
                 </td>
               </tr>
               <tr>
                 <td class="label-folha-compactacao">Compactação (%)</td>
-                <td style="padding: 14px;">
+                <td style="padding: 10px;">
                   <div class="final-td-wrapper">
                     <div id="resultado_final_campo" class="compactacao-destaque-cell">---</div>
                   </div>
@@ -1400,8 +1445,8 @@
       </div>
     </div>
 
-    <div id="variosPage" style="display:none; margin-top:20px;">
-      <h2 class="page-title">reembolso parcial</h2>
+    <div id="variosPage" style="display:none; margin-top:15px;">
+      <h2 class="page-title">Vários</h2>
       <div class="button-grid">
         <a href="https://www.ipma.pt/" target="_blank" rel="noopener noreferrer" class="hub-button">IPMA</a>
         <a href="https://radioonline.com.pt/" target="_blank" rel="noopener noreferrer" class="hub-button">Rádio</a>
@@ -1419,11 +1464,11 @@
   <div id="contactsModal" class="modal">
     <div class="modal-content">
       <span class="close-modal" onclick="closeContacts()">×</span>
-      <h2 style="margin-bottom:20px; letter-spacing: 1px;">Suporte:</h2>
-      <p style="line-height:2; font-size:1.05rem;"><strong>Nome:</strong> Hélder Fernandes</p>
+      <h2 style="margin-bottom:15px; letter-spacing: 1px;">Suporte:</h2>
+      <p style="line-height:2; font-size:1rem;"><strong>Nome:</strong> Hélder Fernandes</p>
       <button class="contact-btn" onclick="sendMessage()">Enviar mensagem</button>
-      <hr style="margin:20px 0; border:0; border-top:1px solid rgba(255,255,255,0.2);">
-      <p style="font-size:0.85rem; opacity:0.7;"><strong>Atualizado a: </strong>03.07.2026</p>
+      <hr style="margin:15px 0; border:0; border-top:1px solid rgba(255,255,255,0.2);">
+      <p style="font-size:0.8rem; opacity:0.7;"><strong>Atualizado a: </strong>03.07.2026</p>
     </div>
   </div>
 
@@ -1497,7 +1542,7 @@
       document.getElementById("backHeaderBtn").style.display = "flex";
       
       const subtitle = document.getElementById("mainSubtitle");
-      subtitle.textContent = "Correcção de Cargas";
+      subtitle.textContent = "Correção de Cargas";
       subtitle.classList.add("cc-active");
     }
 
@@ -1599,7 +1644,14 @@
         event.preventDefault(); 
         if (proximoId) {
           const target = document.getElementById(proximoId);
-          if (target) target.focus();
+          if (target) {
+            target.focus();
+            setTimeout(() => {
+              if (typeof target.select === 'function') {
+                target.select();
+              }
+            }, 0);
+          }
         }
       }
     }
@@ -1747,15 +1799,36 @@
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td class="col-index-style">${proximoNumero}</td>
-        <td><input type="text" inputmode="decimal" id="b${proximoNumero}_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-        <td><input type="text" inputmode="decimal" id="b${proximoNumero}_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.value=''" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+        <td><input type="text" inputmode="decimal" id="b${proximoNumero}_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+        <td><input type="text" inputmode="decimal" id="b${proximoNumero}_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
         <td><div class="result-cell" id="b${proximoNumero}_media">---</div></td>
         <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
       `;
 
       tbody.appendChild(tr);
       calcBisnagas(); 
-      document.getElementById(`b${proximoNumero}_v1`).focus();
+      
+      const novoInput = document.getElementById(`b${proximoNumero}_v1`);
+      novoInput.focus();
+      setTimeout(() => { novoInput.select(); }, 0);
+    }
+
+    /* NOVA FUNÇÃO: LIMPAR TODOS OS CAMPOS EDITÁVEIS DA TABELA DE BISNAGAS */
+    function limparTudoBisnagas() {
+      // 1. Limpar todos os inputs dentro do tbody (Amostras)
+      const inputsAmostras = document.querySelectorAll("#bisnagasBody input");
+      inputsAmostras.forEach(input => {
+        input.value = "";
+        input.style.color = "#0f172a";
+      });
+
+      // 2. Limpar o input de espessura da folha
+      const inputEspessura = document.getElementById("espessura_folha");
+      inputEspessura.value = "";
+      inputEspessura.style.color = "#0f172a";
+
+      // 3. Recalcular e atualizar estados visuais da tabela inteira
+      calcBisnagas();
     }
 
     function calcResultadoFinal() {
