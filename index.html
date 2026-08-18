@@ -256,7 +256,6 @@
       outline: none;
     }
 
-    /* Cor de fundo das células editáveis quando não estão focadas */
     .calc-table .input-index-style:not(:focus) {
       background: #fffbeb; 
     }
@@ -276,7 +275,6 @@
       font-weight: 500;
     }
 
-    /* ESTILO MODIFICADO PARA AS CÉLULAS DE MÉDIA DAS AMOSTRAS */
     .calc-table .result-cell {
       background: #eff6ff; 
       color: #1e40af; 
@@ -304,7 +302,6 @@
       border-color: #fca5a5 !important;
     }
 
-    /* Rótulos alinhados à direita e maiores no Desktop */
     .label-folha-compactacao {
       width: 40%; 
       background: #f8fafc; 
@@ -315,7 +312,6 @@
       font-size: 14px; 
     }
 
-    /* Ajuste para a célula de compactação final */
     .calc-table .compactacao-destaque-cell {
       font-size: 16px !important; 
       font-weight: 900 !important;
@@ -406,7 +402,6 @@
       transform: translateY(-1px);
     }
 
-    /* ESTILO DO BOTÃO LIMPAR TUDO NO CABEÇALHO */
     .clear-all-btn {
       background: #dc2626;
       color: white;
@@ -486,7 +481,6 @@
       background: #f8fafc;
     }
 
-    /* Borda Verde e fundo suave apenas para o botão SELECIONADO */
     .quick-value-btn.selected-preset {
       border-color: #059669 !important;
       background-color: #f0fdf4 !important;
@@ -704,7 +698,6 @@
       text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
     }
 
-    /* Comportamento igual às Bisnagas (Fundo creme por padrão) */
     .cell {
       border: 2px solid #cbd5e1;
       background: #fffbeb;
@@ -714,13 +707,11 @@
       transition: all 0.25s ease;
     }
 
-    /* Efeito Hover igual às Bisnagas */
     .cell:hover:not(:focus-within) {
       background: #f1f5f9;
       border-color: #cbd5e1;
     }
 
-    /* Foco activa a borda azul e puxa o fundo para Branco Puro */
     .cell:focus-within {
       border-color: #2563eb;
       box-shadow: 0 0 0 3px rgba(37,99,235,.15);
@@ -739,7 +730,6 @@
       outline: none;
     }
 
-    /* Comportamento das pequenas células de input internas da Acidez */
     .inline-acid-cell {
       width: 74px; 
       height: 28px; 
@@ -851,7 +841,6 @@
       width: 90%;
     }
 
-    /* Box da média global no rodapé da tabela */
     .total-td-wrapper {
       display: flex;
       align-items: center;
@@ -1003,7 +992,6 @@
         text-align: center;
       }
 
-      /* Sobrescrita da classe dos rótulos para o modo mobile */
       .label-folha-compactacao {
         width: 100% !important;
         text-align: left;
@@ -1011,7 +999,6 @@
         font-size: 13px;
       }
 
-      /* TRANSFORMAÇÃO DA TABELA EM VERTICAL (MOBILE) */
       .calc-table, .calc-table thead, .calc-table tbody, .calc-table th, .calc-table td, .calc-table tr {
         display: block;
         width: 100%;
@@ -1062,7 +1049,6 @@
         border: 1px solid #e2e8f0 !important;
       }
 
-      /* Regras Específicas para Mobile (Limitadas aos respetivos IDs) */
       #bisnagasTable tbody tr:not(.total-row) td:nth-child(1)::before { content: "#:"; font-weight: bold; color: #475569; }
       #bisnagasTable tbody tr:not(.total-row) td:nth-child(2)::before { content: "Ponto 1 - Esq.:"; font-weight: bold; color: #475569; min-width: 130px; }
       #bisnagasTable tbody tr:not(.total-row) td:nth-child(3)::before { content: "Ponto 2 - Dir.:"; font-weight: bold; color: #475569; min-width: 130px; }
@@ -1074,10 +1060,7 @@
       #tarasTable tbody tr:not(.total-row) td:nth-child(2)::before { content: "Valor (g):"; font-weight: bold; color: #475569; }
       #tarasTable tbody tr:not(.total-row) td:nth-child(3) { justify-content: center; }
 
-      /* Ajustes para a tabela de Resultados de Colas em Mobile */
-      #tableResultadosColas tr {
-        padding: 8px;
-      }
+      #tableResultadosColas tr { padding: 8px; }
       #tableResultadosColas tbody tr:not(.total-row) td:first-child {
         background: transparent !important;
         border: none !important;
@@ -1091,13 +1074,8 @@
       #tableResultadosColas tbody tr:not(.total-row) td:nth-child(5)::before { content: "Ação:"; font-weight: bold; color: #475569; }
       #tableResultadosColas tbody tr:not(.total-row) td:nth-child(5) { flex-direction: column; align-items: stretch; }
 
-      .calc-table .input-index-style {
-        max-width: 130px;
-      }
-
-      .calc-table .result-cell {
-        max-width: 130px;
-      }
+      .calc-table .input-index-style { max-width: 130px; }
+      .calc-table .result-cell { max-width: 130px; }
 
       .calc-table tr.total-row {
         background: #ffffff;
@@ -1116,13 +1094,9 @@
         font-size: 0.9rem;
         margin-bottom: 0;
       }
-      .calc-table tr.total-row td[colspan] {
-        display: none; 
-      }
+      .calc-table tr.total-row td[colspan] { display: none; }
 
-      #tableFolha tr {
-        border-color: #e2e8f0;
-      }
+      #tableFolha tr { border-color: #e2e8f0; }
       #tableFolha td {
         border-bottom: 1px solid #e2e8f0 !important;
         margin-bottom: 0;
@@ -1366,7 +1340,7 @@
             
             <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F04%20%2D%20Medidas%20Membranas%20Stelos&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&CID=1a77d6a1%2De0e3%2De000%2D7cf3%2Db5bfacfe038a&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&ovuser=c966f82c%2D42fb%2D40e2%2D9370%2D3a7a3da6cbee%2CSCU00137%40sumolcompal%2Ept&OR=Teams%2DHL&CT=1770079823283&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNipro0OS8yNjAxMDQwMDkyMyIsIkhhc0Fzc29jaWF0ZWQiOnRydWV9" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">04 Medidas Membranas Stelos</a>
             
-            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F05%20%2D%20Teste%20dissolu%C3%A7%C3%B5es&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&CT=1782335207315&OR=OWA%2DNTB%2DMail&CID=486f7f43%2D1421%2D10bb%2D7679%2Dce87d54bf7cd&SI=NonSentItems&clickParams=eyJYLUFwcE5hbWUiOiJNaWNyb3NvZnQgT3V0bG9vbyBXZWIgQXBwIiwiWC1BcHBWZXJzaW9uIjoiMjAyNjA2MTIwMTYuMjYiLCJPUyI6IldpbmRvd3MgMTEifQ%3D%3D" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">05 Teste dissoluções</a>
+            <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F05%20%2D%20Teste%20dissolu%C3%A7%C3%B5es&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&CT=1782335207315&OR=OWA%2DNTB%2DMail&CID=486f7f43%2D1421%2D10bb%2D7679%2Dce87d54bf7cd&SI=NonSentItems&clickParams=eyJYLUFwcE5hbWUiOiJNaWNyb3NvZnQgT3V0bG9vbyBXZWIgQXBwIiwiWC1BcHBWZXJzaW9uIjoiMjAy02MTIwMTYuMjYiLCJPUyI6IldpbmRvd3MgMTEifQ%3D%3D" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">05 Teste dissoluções</a>
           </div>
         </div>
 
@@ -1493,7 +1467,7 @@
               </tr>
             </thead>
             <tbody id="tarasBody">
-              </tbody>
+            </tbody>
             <tfoot>
               <tr class="total-row">
                 <td colspan="2" style="text-align: left; padding-left: 15px;">
@@ -1980,8 +1954,10 @@
     }
 
 
-    /* ---------------- NOVA LÓGICA DE TARAS E COLAS DINÂMICAS LADO A LADO ---------------- */
+    /* ---------------- LÓGICA DE TARAS E COLAS DINÂMICAS LADO A LADO ---------------- */
     let tarasData = ["", "", "", ""]; 
+    
+    // Assegura que há sempre uma linha inicial
     let colasData = [{ esq: "", dir: "" }];
 
     function renderTarasTable() {
@@ -2024,6 +2000,10 @@
     }
 
     function renderColasTable() {
+      if (!colasData || colasData.length === 0) {
+        colasData = [{ esq: "", dir: "" }];
+      }
+      
       const tbody = document.getElementById("colasBody");
       tbody.innerHTML = "";
       
@@ -2047,7 +2027,7 @@
             <div id="res_cola_dir_${index}" class="compactacao-destaque-cell" style="width: 100%; min-width: 80px; height: 38px; font-size: 14px !important;">---</div>
           </td>
           <td style="padding: 10px;">
-            ${index > 0 ? `<button type="button" class="delete-btn" onclick="removeColaRow(${index})" title="Remover linha">❌</button>` : `<div style="color:#94a3b8; font-size:12px; font-weight:600;">---</div>`}
+            <button type="button" class="delete-btn" onclick="removeColaRow(${index})" title="Remover linha">❌</button>
           </td>
         `;
         tbody.appendChild(tr);
@@ -2070,11 +2050,17 @@
       }, 0);
     }
 
+    // MODIFICAÇÃO PRINCIPAL: Dá alerta e impede que a última linha seja eliminada, à semelhança da tabela de taras
     function removeColaRow(index) {
-      colasData.splice(index, 1);
-      renderColasTable();
+      if (colasData.length > 1) {
+        colasData.splice(index, 1);
+        renderColasTable();
+      } else {
+        alert("Tem de existir pelo menos uma linha de pesos de cola.");
+      }
     }
 
+    // MODIFICAÇÃO PRINCIPAL: Garante o reset contendo sempre 1 linha visível
     function limparColas() {
       colasData = [{ esq: "", dir: "" }];
       renderColasTable();
@@ -2082,9 +2068,7 @@
 
     function limparTaras() {
       tarasData = ["", "", "", ""];
-      colasData = [{esq: "", dir: ""}];
       renderTarasTable();
-      renderColasTable();
     }
 
     function calcColas() {
