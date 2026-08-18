@@ -411,6 +411,21 @@
       background: #dc2626;
       color: white;
       border: none;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .clear-all-btn:hover {
+      background: #b91c1c;
+      box-shadow: 0 5px 12px rgba(220, 38, 38, 0.25);
+    }
+    
+    .clear-all-btn-small {
+      background: #dc2626;
+      color: white;
+      border: none;
       padding: 5px 10px;
       border-radius: 6px;
       font-size: 11px;
@@ -420,7 +435,7 @@
       display: inline-block;
       transition: background 0.2s ease, transform 0.1s ease;
     }
-    .clear-all-btn:hover {
+    .clear-all-btn-small:hover {
       background: #b91c1c;
       transform: scale(1.02);
     }
@@ -877,7 +892,7 @@
       left: 0;
       width: 100%;
       text-align: center;
-      font-size: 0.7/-rem; 
+      font-size: 0.7rem; 
       color: #000000;
       background: transparent;
       padding: 2px 10px;
@@ -996,7 +1011,7 @@
         font-size: 13px;
       }
 
-      /* TRANSFORMAÇÃO DA TABELA DAS BISNAGAS EM VERTICAL (MOBILE) */
+      /* TRANSFORMAÇÃO DA TABELA EM VERTICAL (MOBILE) */
       .calc-table, .calc-table thead, .calc-table tbody, .calc-table th, .calc-table td, .calc-table tr {
         display: block;
         width: 100%;
@@ -1047,23 +1062,39 @@
         border: 1px solid #e2e8f0 !important;
       }
 
-      .calc-table tbody tr:not(.total-row) td:nth-child(1)::before { content: "#:"; font-weight: bold; color: #475569; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(2)::before { content: "Ponto 1 - Esq.:"; font-weight: bold; color: #475569; min-width: 130px; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(3)::before { content: "Ponto 2 - Dir.:"; font-weight: bold; color: #475569; min-width: 130px; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(4)::before { content: "Média Amostra:"; font-weight: bold; color: #2563eb; min-width: 130px; }
-      .calc-table tbody tr:not(.total-row) td:nth-child(5)::before { content: "Ação:"; font-weight: bold; color: #475569; }
+      /* Regras Específicas para Mobile (Limitadas aos respetivos IDs) */
+      #bisnagasTable tbody tr:not(.total-row) td:nth-child(1)::before { content: "#:"; font-weight: bold; color: #475569; }
+      #bisnagasTable tbody tr:not(.total-row) td:nth-child(2)::before { content: "Ponto 1 - Esq.:"; font-weight: bold; color: #475569; min-width: 130px; }
+      #bisnagasTable tbody tr:not(.total-row) td:nth-child(3)::before { content: "Ponto 2 - Dir.:"; font-weight: bold; color: #475569; min-width: 130px; }
+      #bisnagasTable tbody tr:not(.total-row) td:nth-child(4)::before { content: "Média Amostra:"; font-weight: bold; color: #2563eb; min-width: 130px; }
+      #bisnagasTable tbody tr:not(.total-row) td:nth-child(5)::before { content: "Ação:"; font-weight: bold; color: #475569; }
+      #bisnagasTable tbody tr:not(.total-row) td:nth-child(5) { flex-direction: column; align-items: stretch; }
 
-      /* Forçar a exibição do botão Limpar Tudo em Mobile no topo da célula de ações */
-      .calc-table tbody tr:not(.total-row) td:nth-child(5) {
-        flex-direction: column;
-        align-items: stretch;
+      #tarasTable tbody tr:not(.total-row) td:nth-child(1)::before { content: "#:"; font-weight: bold; color: #475569; }
+      #tarasTable tbody tr:not(.total-row) td:nth-child(2)::before { content: "Valor (g):"; font-weight: bold; color: #475569; }
+      #tarasTable tbody tr:not(.total-row) td:nth-child(3) { justify-content: center; }
+
+      /* Ajustes para a tabela de Resultados de Colas em Mobile */
+      #tableResultadosColas tr {
+        padding: 8px;
       }
+      #tableResultadosColas tbody tr:not(.total-row) td:first-child {
+        background: transparent !important;
+        border: none !important;
+        margin-bottom: 0;
+      }
+      
+      #tableResultadosColas tbody tr:not(.total-row) td:nth-child(1)::before { content: "Peso Esq. (g):"; font-weight: bold; color: #475569; min-width: 110px;}
+      #tableResultadosColas tbody tr:not(.total-row) td:nth-child(2)::before { content: "Res. Esq.:"; font-weight: bold; color: #1e293b; min-width: 110px;}
+      #tableResultadosColas tbody tr:not(.total-row) td:nth-child(3)::before { content: "Peso Dir. (g):"; font-weight: bold; color: #475569; min-width: 110px;}
+      #tableResultadosColas tbody tr:not(.total-row) td:nth-child(4)::before { content: "Res. Dir.:"; font-weight: bold; color: #1e293b; min-width: 110px;}
+      #tableResultadosColas tbody tr:not(.total-row) td:nth-child(5)::before { content: "Ação:"; font-weight: bold; color: #475569; }
+      #tableResultadosColas tbody tr:not(.total-row) td:nth-child(5) { flex-direction: column; align-items: stretch; }
 
       .calc-table .input-index-style {
         max-width: 130px;
       }
 
-      /* Ajuste da largura máxima da média da amostra em Mobile */
       .calc-table .result-cell {
         max-width: 130px;
       }
@@ -1343,6 +1374,8 @@
         <a href="http://10.102.223.11/PLMSLogin/login.aspx?loginfailed=1" target="_blank" class="hub-button">PLMS</a>
         
         <div onclick="showMediasBisnagas()" class="hub-button">Compactação do fecho das Bisnagas</div>
+        
+        <div onclick="showColas()" class="hub-button">Médias de Colas</div>
       </div>
     </div>
 
@@ -1357,7 +1390,7 @@
                 <th rowspan="2">Média Amostra</th>
                 <th rowspan="2" style="width: 12%;">
                   Ação <br>
-                  <button type="button" class="clear-all-btn" onclick="limparTudoBisnagas()">Limpar tudo</button>
+                  <button type="button" class="clear-all-btn-small" onclick="limparTudoBisnagas()">Limpar tudo</button>
                 </th>
               </tr>
               <tr>
@@ -1445,6 +1478,76 @@
       </div>
     </div>
 
+    <div id="colasPage" style="display:none; text-align:left;">
+      <div class="table-canvas-wrapper">
+        <div class="table-container">
+          <table class="calc-table" id="tarasTable">
+            <thead>
+              <tr>
+                <th colspan="3" class="cravacao-header-main">VALORES DE TARA</th>
+              </tr>
+              <tr>
+                <th style="width: 10%;">#</th>
+                <th>Valor da Tara (g)</th>
+                <th style="width: 15%;">Ação</th>
+              </tr>
+            </thead>
+            <tbody id="tarasBody">
+              </tbody>
+            <tfoot>
+              <tr class="total-row">
+                <td colspan="2" style="text-align: left; padding-left: 15px;">
+                  <button type="button" class="add-row-btn" onclick="addTaraRow()">+ Adicionar Tara</button>
+                </td>
+                <td>
+                  <button type="button" class="clear-all-btn-small" onclick="limparTaras()">Limpar</button>
+                </td>
+              </tr>
+              <tr class="total-row">
+                <td colspan="2" style="font-weight: 700; color: #475569; text-align: right; padding-right: 15px;">
+                  Média da Tara:
+                </td>
+                <td>
+                  <div class="final-td-wrapper">
+                    <div id="media_tara_result" class="global-result-cell">---</div>
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div class="table-container" style="border-top: 2px dashed #cbd5e1;">
+          <table class="calc-table" id="tableResultadosColas">
+            <thead>
+              <tr>
+                <th colspan="5" class="cravacao-header-main" style="text-align: center !important;">PESOS COM COLA & RESULTADOS</th>
+              </tr>
+              <tr>
+                <th style="width: 22%; color: #1e40af; font-size: 14px; text-align: center;">Peso Esq. (g)</th>
+                <th style="width: 22%; color: #1e40af; font-size: 14px; text-align: center;">Res. Esq.</th>
+                <th style="width: 22%; color: #1e40af; font-size: 14px; text-align: center;">Peso Dir. (g)</th>
+                <th style="width: 22%; color: #1e40af; font-size: 14px; text-align: center;">Res. Dir.</th>
+                <th style="width: 12%; color: #475569; font-size: 14px; text-align: center;">Ação</th>
+              </tr>
+            </thead>
+            <tbody id="colasBody">
+            </tbody>
+            <tfoot>
+              <tr class="total-row">
+                <td colspan="4" style="text-align: left; padding: 15px;">
+                  <button type="button" class="add-row-btn" onclick="addColaRow()">+ Adicionar Linha</button>
+                </td>
+                <td style="padding: 15px;">
+                  <button type="button" class="clear-all-btn" onclick="limparColas()">Limpar</button>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
     <div id="variosPage" style="display:none; margin-top:15px;">
       <h2 class="page-title">Vários</h2>
       <div class="button-grid">
@@ -1468,7 +1571,7 @@
       <p style="line-height:2; font-size:1rem;"><strong>Nome:</strong> Hélder Fernandes</p>
       <button class="contact-btn" onclick="sendMessage()">Enviar mensagem</button>
       <hr style="margin:15px 0; border:0; border-top:1px solid rgba(255,255,255,0.2);">
-      <p style="font-size:0.8rem; opacity:0.7;"><strong>Atualizado a: </strong>14.07.2026</p>
+      <p style="font-size:0.8rem; opacity:0.7;"><strong>Atualizado a: </strong>18.08.2026</p>
     </div>
   </div>
 
@@ -1575,6 +1678,17 @@
       subtitle.classList.add("cc-active");
     }
 
+    function showColas() {
+      hideAllPages();
+      document.getElementById("colasPage").style.display = "block";
+      document.getElementById("backHeaderBtn").style.display = "flex";
+      
+      const subtitle = document.getElementById("mainSubtitle");
+      subtitle.style.display = "block";
+      subtitle.textContent = "Médias de Colas";
+      subtitle.classList.add("cc-active");
+    }
+
     function showHome(){
       showMainSections();
       hideInternalPages();
@@ -1602,6 +1716,7 @@
       document.getElementById("variosPage").style.display = "none";
       document.getElementById("ccPage").style.display = "none";
       document.getElementById("mediasBisnagasPage").style.display = "none";
+      document.getElementById("colasPage").style.display = "none";
     }
 
     function hideMainSections(){
@@ -1694,6 +1809,7 @@
       calcResultadoFinal();
     }
 
+    /* ---------------- LÓGICA BISNAGAS ---------------- */
     function calcBisnagas() {
       let totalMedias = 0;
       let qtdMediasValidas = 0;
@@ -1813,21 +1929,17 @@
       setTimeout(() => { novoInput.select(); }, 0);
     }
 
-    /* NOVA FUNÇÃO: LIMPAR TODOS OS CAMPOS EDITÁVEIS DA TABELA DE BISNAGAS */
     function limparTudoBisnagas() {
-      // 1. Limpar todos os inputs dentro do tbody (Amostras)
       const inputsAmostras = document.querySelectorAll("#bisnagasBody input");
       inputsAmostras.forEach(input => {
         input.value = "";
         input.style.color = "#0f172a";
       });
 
-      // 2. Limpar o input de espessura da folha
       const inputEspessura = document.getElementById("espessura_folha");
       inputEspessura.value = "";
       inputEspessura.style.color = "#0f172a";
 
-      // 3. Recalcular e atualizar estados visuais da tabela inteira
       calcBisnagas();
     }
 
@@ -1867,6 +1979,166 @@
       atualizarEstiloPresets();
     }
 
+
+    /* ---------------- NOVA LÓGICA DE TARAS E COLAS DINÂMICAS LADO A LADO ---------------- */
+    let tarasData = ["", "", "", ""]; 
+    let colasData = [{ esq: "", dir: "" }];
+
+    function renderTarasTable() {
+      const tbody = document.getElementById("tarasBody");
+      tbody.innerHTML = "";
+      
+      tarasData.forEach((val, index) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="col-index-style">${index + 1}</td>
+          <td>
+            <input type="text" inputmode="decimal" class="input-index-style" placeholder="Ex: 200,5" value="${val}" onclick="this.select()" oninput="updateTara(${index}, this.value)">
+          </td>
+          <td>
+            <button type="button" class="delete-btn" onclick="removeTara(${index})" title="Remover esta tara">❌</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+      calcColas();
+    }
+
+    function updateTara(index, val) {
+      tarasData[index] = val;
+      calcColas();
+    }
+
+    function addTaraRow() {
+      tarasData.push("");
+      renderTarasTable();
+    }
+
+    function removeTara(index) {
+      if (tarasData.length > 1) {
+        tarasData.splice(index, 1);
+        renderTarasTable();
+      } else {
+        alert("Tem de existir pelo menos um valor de tara.");
+      }
+    }
+
+    function renderColasTable() {
+      const tbody = document.getElementById("colasBody");
+      tbody.innerHTML = "";
+      
+      colasData.forEach((item, index) => {
+        const tr = document.createElement("tr");
+        
+        const nextEsqId = `cola_esq_${index + 1}`;
+        const dirId = `cola_dir_${index}`;
+        
+        tr.innerHTML = `
+          <td style="padding: 10px;">
+            <input type="text" inputmode="decimal" id="cola_esq_${index}" class="input-index-style" placeholder="Inserir valor" value="${item.esq}" onclick="this.select()" onkeydown="navegarEnter(event, '${dirId}')" oninput="updateCola(${index}, 'esq', this.value)">
+          </td>
+          <td style="padding: 10px;">
+            <div id="res_cola_esq_${index}" class="compactacao-destaque-cell" style="width: 100%; min-width: 80px; height: 38px; font-size: 14px !important;">---</div>
+          </td>
+          <td style="padding: 10px; border-left: 2px dashed #cbd5e1;">
+            <input type="text" inputmode="decimal" id="${dirId}" class="input-index-style" placeholder="Inserir valor" value="${item.dir}" onclick="this.select()" onkeydown="${index < colasData.length - 1 ? `navegarEnter(event, '${nextEsqId}')` : ''}" oninput="updateCola(${index}, 'dir', this.value)">
+          </td>
+          <td style="padding: 10px;">
+            <div id="res_cola_dir_${index}" class="compactacao-destaque-cell" style="width: 100%; min-width: 80px; height: 38px; font-size: 14px !important;">---</div>
+          </td>
+          <td style="padding: 10px;">
+            ${index > 0 ? `<button type="button" class="delete-btn" onclick="removeColaRow(${index})" title="Remover linha">❌</button>` : `<div style="color:#94a3b8; font-size:12px; font-weight:600;">---</div>`}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+      
+      calcColas();
+    }
+
+    function updateCola(index, lado, valor) {
+      colasData[index][lado] = valor;
+      calcColas();
+    }
+
+    function addColaRow() {
+      colasData.push({ esq: "", dir: "" });
+      renderColasTable();
+      setTimeout(() => {
+        const newEl = document.getElementById(`cola_esq_${colasData.length - 1}`);
+        if (newEl) newEl.focus();
+      }, 0);
+    }
+
+    function removeColaRow(index) {
+      colasData.splice(index, 1);
+      renderColasTable();
+    }
+
+    function limparColas() {
+      colasData = [{ esq: "", dir: "" }];
+      renderColasTable();
+    }
+
+    function limparTaras() {
+      tarasData = ["", "", "", ""];
+      colasData = [{esq: "", dir: ""}];
+      renderTarasTable();
+      renderColasTable();
+    }
+
+    function calcColas() {
+      let sum = 0;
+      let count = 0;
+
+      tarasData.forEach(val => {
+        const numStr = val.replace(",", ".");
+        const num = parseFloat(numStr);
+        if (!isNaN(num)) {
+          sum += num;
+          count++;
+        }
+      });
+
+      const mediaEl = document.getElementById("media_tara_result");
+      let media = 0;
+
+      if (count > 0) {
+        media = sum / count;
+        mediaEl.textContent = formatarComVirgula(media) + " g";
+        mediaEl.classList.add("valido"); 
+      } else {
+        mediaEl.textContent = "---";
+        mediaEl.classList.remove("valido");
+      }
+
+      colasData.forEach((item, index) => {
+        const resEsqEl = document.getElementById(`res_cola_esq_${index}`);
+        const resDirEl = document.getElementById(`res_cola_dir_${index}`);
+
+        const colaEsq = parseFloat(item.esq.replace(",", "."));
+        if (count > 0 && !isNaN(colaEsq)) {
+          const resEsq = colaEsq - media;
+          resEsqEl.textContent = formatarComVirgula(resEsq) + " g";
+          resEsqEl.classList.add("valido");
+        } else {
+          resEsqEl.textContent = "---";
+          resEsqEl.classList.remove("valido");
+        }
+
+        const colaDir = parseFloat(item.dir.replace(",", "."));
+        if (count > 0 && !isNaN(colaDir)) {
+          const resDir = colaDir - media;
+          resDirEl.textContent = formatarComVirgula(resDir) + " g";
+          resDirEl.classList.add("valido");
+        } else {
+          resDirEl.textContent = "---";
+          resDirEl.classList.remove("valido");
+        }
+      });
+    }
+
+    /* ---------------- LÓGICA CORREÇÃO CARGAS (CC) ---------------- */
     function calcA() {
       const Q = n('q_ac'), C = n('c_ac'), P = n('p_ac'), A = n('a_ac');
       document.getElementById('fac').innerHTML = fmt(A !== 0 ? 100 / A : 0);
@@ -1929,6 +2201,8 @@
         calcT();
         calcG();
         calcBisnagas();
+        renderTarasTable();
+        renderColasTable(); 
       } else {
         document.getElementById("loginScreen").style.display = "flex";
         document.getElementById("mainContent").style.display = "none";
