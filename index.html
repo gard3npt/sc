@@ -194,7 +194,7 @@
     .table-canvas-wrapper {
       max-width: 1000px;
       margin: 15px auto 30px; 
-      background: #f1f5f9; 
+      background: #ffffff; 
       border: 1px solid #cbd5e1;
       border-radius: 16px; 
       overflow: hidden;
@@ -204,6 +204,11 @@
     .table-container {
       width: 100%;
       overflow-x: auto;
+    }
+
+    .calc-table {
+      width: 100%;
+      border-collapse: collapse;
     }
 
     .calc-table th {
@@ -243,7 +248,8 @@
       background: #f1f5f9; 
     }
 
-    .calc-table .input-index-style {
+    /* ESTILO PADRONIZADO DAS CÉLULAS DE INPUT */
+    .input-index-style {
       width: 100%;
       padding: 8px 10px; 
       border: 2px solid #cbd5e1; 
@@ -254,23 +260,20 @@
       font-weight: 700;
       color: #0f172a;
       outline: none;
+      background: #fffbeb;
     }
 
-    .calc-table .input-index-style:not(:focus) {
-      background: #fffbeb; 
-    }
-
-    .calc-table .input-index-style:hover:not(:focus) {
+    .input-index-style:hover:not(:focus) {
       background: #f1f5f9;
     }
 
-    .calc-table .input-index-style:focus {
+    .input-index-style:focus {
       border-color: #2563eb; 
       box-shadow: 0 0 0 3px rgba(37,99,235,.15);
       background: #ffffff;
     }
 
-    .calc-table .input-index-style::placeholder {
+    .input-index-style::placeholder {
       color: rgba(15, 23, 42, 0.2) !important;
       font-weight: 500;
     }
@@ -302,41 +305,80 @@
       border-color: #fca5a5 !important;
     }
 
-    .label-folha-compactacao {
-      width: 40%; 
-      background: #f8fafc; 
-      color: #475569; 
-      font-weight: 700; 
-      text-align: right; 
-      padding-right: 30px !important; 
-      font-size: 14px; 
+    /* SECÇÕES DOS 3 PONTOS DA BISNAGA */
+    .bisnaga-section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      background: #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
+      border-top: 1px solid #cbd5e1;
     }
 
-    .calc-table .compactacao-destaque-cell {
-      font-size: 16px !important; 
-      font-weight: 900 !important;
+    .bisnaga-section-header:first-child {
+      border-top: none;
+    }
+
+    .bisnaga-section-header h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #1e293b;
       letter-spacing: 0.5px;
-      background: transparent !important; 
-      color: #1e293b !important;
-      border: 2px solid #cbd5e1;
-      border-radius: 8px; 
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .step-num {
+      background: #2563eb;
+      color: white;
+      font-weight: 800;
+      font-size: 0.85rem;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 120px; 
-      height: 38px; 
+    }
+
+    /* CARD DE DESTAQUE PARA COMPACTAÇÃO % (APENAS O RESULTADO) */
+    .compactacao-destaque-cell {
+      font-size: 24px !important; 
+      font-weight: 900 !important;
+      letter-spacing: 1px;
+      background: #1e293b !important; 
+      color: #f8fafc !important;
+      border: 3px solid #64748b;
+      border-radius: 12px; 
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 28px;
+      min-width: 180px; 
+      height: 54px; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
     }
     
-    .calc-table .compactacao-destaque-cell.valido {
-      background: #1dc917bd !important; 
-      color: #000000 !important;
-      border-color: #1bc415;
+    .compactacao-destaque-cell.valido {
+      background: #059669 !important; 
+      color: #ffffff !important;
+      border-color: #34d399 !important;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
     }
     
-    .calc-table .compactacao-destaque-cell.invalido {
-      background: #fef2f2 !important; 
-      color: #ff0000 !important;
-      border-color: #fca5a5;
+    .compactacao-destaque-cell.invalido {
+      background: #dc2626 !important; 
+      color: #ffffff !important;
+      border-color: #fca5a5 !important;
+      box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
+    }
+
+    .compactacao-target-label {
+      font-size: 0.8rem;
+      color: #64748b;
+      font-weight: 600;
     }
 
     .calc-table .total-row {
@@ -421,13 +463,11 @@
       background: #dc2626;
       color: white;
       border: none;
-      padding: 5px 10px;
+      padding: 6px 12px;
       border-radius: 6px;
       font-size: 11px;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 4px;
-      display: inline-block;
       transition: background 0.2s ease, transform 0.1s ease;
     }
     .clear-all-btn-small:hover {
@@ -447,22 +487,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px; 
+      gap: 12px; 
       width: 100%;
+      flex-wrap: wrap;
     }
 
     .input-with-quick-values input {
-      max-width: 120px; 
-    }
-
-    #espessura_folha::placeholder {
-      color: rgba(15, 23, 42, 0.2) !important;
-      font-weight: 500;
+      max-width: 180px; 
     }
 
     .quick-values-inline {
       display: flex;
-      gap: 4px;
+      gap: 6px;
     }
 
     .quick-value-btn {
@@ -958,8 +994,8 @@
       .table-canvas-wrapper {
         border-radius: 12px;
         box-shadow: none;
-        background: transparent;
-        border: none;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
       }
 
       .total-flex-container {
@@ -975,7 +1011,7 @@
 
       .input-with-quick-values {
         flex-direction: column;
-        gap: 5px;
+        gap: 8px;
       }
 
       .input-with-quick-values input {
@@ -990,13 +1026,6 @@
       .quick-value-btn {
         flex: 1;
         text-align: center;
-      }
-
-      .label-folha-compactacao {
-        width: 100% !important;
-        text-align: left;
-        padding-right: 10px !important;
-        font-size: 13px;
       }
 
       .calc-table, .calc-table thead, .calc-table tbody, .calc-table th, .calc-table td, .calc-table tr {
@@ -1074,7 +1103,7 @@
       #tableResultadosColas tbody tr:not(.total-row) td:nth-child(5)::before { content: "Ação:"; font-weight: bold; color: #475569; }
       #tableResultadosColas tbody tr:not(.total-row) td:nth-child(5) { flex-direction: column; align-items: stretch; }
 
-      .calc-table .input-index-style { max-width: 130px; }
+      .input-index-style { max-width: 100%; }
       .calc-table .result-cell { max-width: 130px; }
 
       .calc-table tr.total-row {
@@ -1095,22 +1124,10 @@
         margin-bottom: 0;
       }
       .calc-table tr.total-row td[colspan] { display: none; }
-
-      #tableFolha tr { border-color: #e2e8f0; }
-      #tableFolha td {
-        border-bottom: 1px solid #e2e8f0 !important;
-        margin-bottom: 0;
-        border-radius: 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      #tableFolha td:nth-child(1)::before { content: ""; min-width: 0; display: none; }
-      #tableFolha td:nth-child(2)::before { content: ""; min-width: 0; display: none; }
       
-      .calc-table .compactacao-destaque-cell {
+      .compactacao-destaque-cell {
         width: 100%;
-        max-width: 130px;
+        max-width: 100%;
       }
     }
   </style>
@@ -1156,8 +1173,8 @@
         <a href="https://intranet.sumolcompal.pt" target="_blank" rel="noopener noreferrer" class="hub-button">Intranet</a>
         <a href="https://sumolcompal.sharepoint.com/sites/SIG" target="_blank" rel="noopener noreferrer" class="hub-button">SIG</a>
         <a href="https://sumolcompal.atlassian.net/servicedesk/customer/user/login?destination=portals" target="_blank" rel="noopener noreferrer" class="hub-button">Jira</a>
-        <a href="https://www.saborista.pt" target="_blank" class="hub-button">Saborista</a>
-        <a href="https://performancemanager.successfactors.eu" target="_blank" class="hub-button">Successfactors</a>
+        <a href="https://www.saborista.pt" target="_blank" rel="noopener noreferrer" class="hub-button">Saborista</a>
+        <a href="https://performancemanager.successfactors.eu" target="_blank" rel="noopener noreferrer" class="hub-button">Successfactors</a>
       </div>
 
       <h2 class="section-title" style="margin-top:20px;">Ferramentas:</h2>
@@ -1187,9 +1204,9 @@
       <div id="ac" class="sheet active">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_ac" value="12000" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'c_ac')"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" id="c_ac" value="0.17" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'p_ac')"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" id="p_ac" value="0.35" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'a_ac')"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" step="any" id="q_ac" value="12000" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'c_ac')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" step="any" id="c_ac" value="0.17" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'p_ac')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" step="any" id="p_ac" value="0.35" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'a_ac')"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -1200,7 +1217,7 @@
             <div class="rlabel-split">
               <span>Concentrado Limão:</span>
               <div class="inline-acid-cell">
-                <input type="number" id="a_ac" value="40" placeholder="Acidez" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, '')">
+                <input type="number" step="any" id="a_ac" value="40" placeholder="Acidez" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, '')">
               </div>
             </div>
             <div class="rvalue" id="clim"></div>
@@ -1216,9 +1233,9 @@
       <div id="bx" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_bx" value="12000" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'c_bx')"></div></div>
-            <div class="box"><div class="lbl">BRIX CARGA</div><div class="cell"><input type="number" id="c_bx" value="10" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'p_bx')"></div></div>
-            <div class="box"><div class="lbl">BRIX PRETENDIDO</div><div class="cell"><input type="number" id="p_bx" value="12" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'b_bx')"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" step="any" id="q_bx" value="12000" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'c_bx')"></div></div>
+            <div class="box"><div class="lbl">BRIX CARGA</div><div class="cell"><input type="number" step="any" id="c_bx" value="10" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'p_bx')"></div></div>
+            <div class="box"><div class="lbl">BRIX PRETENDIDO</div><div class="cell"><input type="number" step="any" id="p_bx" value="12" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'b_bx')"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -1234,7 +1251,7 @@
             <div class="rlabel-split">
               <span>Concentrado:</span>
               <div class="inline-acid-cell">
-                <input type="number" id="b_bx" value="80" placeholder="Brix" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, '')">
+                <input type="number" step="any" id="b_bx" value="80" placeholder="Brix" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, '')">
               </div>
             </div>
             <div class="rvalue" id="conc"></div>
@@ -1250,9 +1267,9 @@
       <div id="cl" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_cl" value="4600" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, 'c_cl')"></div></div>
-            <div class="box"><div class="lbl">CLORETOS CARGA</div><div class="cell"><input type="number" id="c_cl" value="0.2" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, 'p_cl')"></div></div>
-            <div class="box"><div class="lbl">CLORETOS PRETENDIDOS</div><div class="cell"><input type="number" id="p_cl" value="0.35" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, '')"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" step="any" id="q_cl" value="4600" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, 'c_cl')"></div></div>
+            <div class="box"><div class="lbl">CLORETOS CARGA</div><div class="cell"><input type="number" step="any" id="c_cl" value="0.2" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, 'p_cl')"></div></div>
+            <div class="box"><div class="lbl">CLORETOS PRETENDIDOS</div><div class="cell"><input type="number" step="any" id="p_cl" value="0.35" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, '')"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -1265,8 +1282,8 @@
       <div id="ra" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">BRIX</div><div class="cell"><input type="number" id="b_ra" value="10" onclick="this.select()" oninput="calcR()" onkeydown="navegarEnter(event, 'c_ra')"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ</div><div class="cell"><input type="number" id="c_ra" value="0.4" onclick="this.select()" oninput="calcR()" onkeydown="navegarEnter(event, '')"></div></div>
+            <div class="box"><div class="lbl">BRIX</div><div class="cell"><input type="number" step="any" id="b_ra" value="10" onclick="this.select()" oninput="calcR()" onkeydown="navegarEnter(event, 'c_ra')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ</div><div class="cell"><input type="number" step="any" id="c_ra" value="0.4" onclick="this.select()" oninput="calcR()" onkeydown="navegarEnter(event, '')"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -1279,7 +1296,7 @@
       <div id="co" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">TEMPO ESCORRIMENTO</div><div class="cell"><input type="number" id="te" value="40" onclick="this.select()" oninput="calcT()" onkeydown="navegarEnter(event, '')"></div></div>
+            <div class="box"><div class="lbl">TEMPO ESCORRIMENTO</div><div class="cell"><input type="number" step="any" id="te" value="40" onclick="this.select()" oninput="calcT()" onkeydown="navegarEnter(event, '')"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -1292,9 +1309,9 @@
       <div id="gu" class="sheet">
         <div class="canvas cc-canvas">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" id="q_gu" value="11640" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'c_gu')"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" id="c_gu" value="2.94" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'p_gu')"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" id="p_gu" value="3" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'a_gu')"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" step="any" id="q_gu" value="11640" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'c_gu')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" step="any" id="c_gu" value="2.94" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'p_gu')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" step="any" id="p_gu" value="3" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'a_gu')"></div></div>
           </div>
           <hr class="divider">
           <div class="resultrow">
@@ -1305,7 +1322,7 @@
             <div class="rlabel-split">
               <span>Concentrado Limão:</span>
               <div class="inline-acid-cell">
-                <input type="number" id="a_gu" value="30.12" placeholder="Acidez" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, '')">
+                <input type="number" step="any" id="a_gu" value="30.12" placeholder="Acidez" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, '')">
               </div>
             </div>
             <div class="rvalue" id="clim_gu"></div>
@@ -1327,8 +1344,8 @@
         
         <div id="acceptDropdown" class="dropdown-content">
           <div class="button-grid" style="margin-bottom: 0; gap: 10px;">
-            <a href="http://10.167.1.4/login" target="_blank" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Accept</a>
-            <a href="http://10.167.1.4:8181/pt/home#/" target="_blank" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Accept MSA</a>
+            <a href="http://10.167.1.4/login" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Accept</a>
+            <a href="http://10.167.1.4:8181/pt/home#/" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Accept MSA</a>
           </div>
         </div>
 
@@ -1344,8 +1361,8 @@
           </div>
         </div>
 
-        <a href="https://sumolcompal.sharepoint.com/:x:/r/sites/QualidadeAmbiente/_layouts/15/Doc.aspx?sourcedoc=%7B909A696B-99B0-4BE2-9899-0EAFB0FA8D1F%7D&file=04AL.xlsx&action=default&mobileredirect=true" target="_blank" class="hub-button">04AL</a>
-        <a href="http://10.102.223.11/PLMSLogin/login.aspx?loginfailed=1" target="_blank" class="hub-button">PLMS</a>
+        <a href="https://sumolcompal.sharepoint.com/:x:/r/sites/QualidadeAmbiente/_layouts/15/Doc.aspx?sourcedoc=%7B909A696B-99B0-4BE2-9899-0EAFB0FA8D1F%7D&file=04AL.xlsx&action=default&mobileredirect=true" target="_blank" rel="noopener noreferrer" class="hub-button">04AL</a>
+        <a href="http://10.102.223.11/PLMSLogin/login.aspx?loginfailed=1" target="_blank" rel="noopener noreferrer" class="hub-button">PLMS</a>
         
         <div onclick="showMediasBisnagas()" class="hub-button">Compactação do fecho das Bisnagas</div>
         
@@ -1353,51 +1370,72 @@
       </div>
     </div>
 
+    <!-- PÁGINA: COMPACTAÇÃO DO FECHO DAS BISNAGAS -->
     <div id="mediasBisnagasPage" style="display:none; text-align:left;">
       <div class="table-canvas-wrapper">
+        
+        <!-- PONTO 1: ESPESSURA DA FOLHA -->
+        <div class="bisnaga-section-header">
+          <span class="step-num">1</span>
+          <h3>Espessura da Folha (mm)</h3>
+        </div>
+        <div class="table-container" style="padding: 14px 16px; background: #ffffff;">
+          <div class="input-with-quick-values" style="justify-content: center;">
+            <div class="quick-values-inline">
+              <button type="button" id="btn_preset_015" class="quick-value-btn" onclick="definirEspessuraRapida(0.15)">0,15</button>
+              <button type="button" id="btn_preset_016" class="quick-value-btn" onclick="definirEspessuraRapida(0.16)">0,16</button>
+              <button type="button" id="btn_preset_017" class="quick-value-btn" onclick="definirEspessuraRapida(0.17)">0,17</button>
+              <button type="button" id="btn_preset_018" class="quick-value-btn" onclick="definirEspessuraRapida(0.18)">0,18</button>
+            </div>
+            <input type="text" inputmode="decimal" id="espessura_folha" class="input-index-style" placeholder="0.15 a 0.18 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcResultadoFinal()" onkeydown="navegarEnter(event, 'b1_v1')">
+            <button type="button" class="clear-all-btn-small" onclick="limparPonto1()">Limpar</button>
+          </div>
+        </div>
+
+        <!-- PONTO 2: ESPESSURA DA CRAVAÇÃO -->
+        <div class="bisnaga-section-header">
+          <span class="step-num">2</span>
+          <h3>Espessura de Cravação (mm)</h3>
+        </div>
         <div class="table-container">
           <table class="calc-table" id="bisnagasTable">
             <thead>
               <tr>
-                <th rowspan="2" style="width: 8%;">#</th>
-                <th colspan="2" class="cravacao-header-main">Espessura de Cravação (mm)</th>
-                <th rowspan="2">Média Amostra</th>
-                <th rowspan="2" style="width: 12%;">
-                  Ação <br>
-                  <button type="button" class="clear-all-btn-small" onclick="limparTudoBisnagas()">Limpar tudo</button>
-                </th>
-              </tr>
-              <tr>
+                <th style="width: 8%;">#</th>
                 <th>Ponto 1 - Esq.</th>
                 <th>Ponto 2 - Dir.</th>
+                <th>Média Amostra</th>
+                <th style="width: 12%;">
+                  <button type="button" class="clear-all-btn-small" onclick="limparPonto2()">Limpar tudo</button>
+                </th>
               </tr>
             </thead>
             <tbody id="bisnagasBody">
               <tr>
                 <td class="col-index-style">1</td>
-                <td><input type="text" inputmode="decimal" id="b1_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b1_v2')"></td>
-                <td><input type="text" inputmode="decimal" id="b1_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v1')"></td>
+                <td><input type="text" inputmode="decimal" id="b1_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+                <td><input type="text" inputmode="decimal" id="b1_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
                 <td><div class="result-cell" id="b1_media">---</div></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">2</td>
-                <td><input type="text" inputmode="decimal" id="b2_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b2_v2')"></td>
-                <td><input type="text" inputmode="decimal" id="b2_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v1')"></td>
+                <td><input type="text" inputmode="decimal" id="b2_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+                <td><input type="text" inputmode="decimal" id="b2_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
                 <td><div class="result-cell" id="b2_media">---</div></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">3</td>
-                <td><input type="text" inputmode="decimal" id="b3_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b3_v2')"></td>
-                <td><input type="text" inputmode="decimal" id="b3_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v1')"></td>
+                <td><input type="text" inputmode="decimal" id="b3_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+                <td><input type="text" inputmode="decimal" id="b3_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
                 <td><div class="result-cell" id="b3_media">---</div></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">4</td>
-                <td><input type="text" inputmode="decimal" id="b4_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'b4_v2')"></td>
-                <td><input type="text" inputmode="decimal" id="b4_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()" onkeydown="navegarEnter(event, 'espessura_folha')"></td>
+                <td><input type="text" inputmode="decimal" id="b4_v1" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+                <td><input type="text" inputmode="decimal" id="b4_v2" class="input-index-style" placeholder="1.30 a 1.92 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
                 <td><div class="result-cell" id="b4_media">---</div></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
@@ -1407,7 +1445,7 @@
                 <td colspan="3" id="totalLabelCell">
                   <div class="total-flex-container" style="padding: 0 4px;">
                     <button type="button" class="add-row-btn" onclick="adicionarLinhaAmostra()">+ Adicionar Amostra</button>
-                    <span class="total-badge">Média total:</span>
+                    <span class="total-badge">Média Total da Cravação:</span>
                   </div>
                 </td>
                 <td>
@@ -1421,34 +1459,17 @@
           </table>
         </div>
 
-        <div class="table-container" style="border-top: 2px dashed #cbd5e1;">
-          <table class="calc-table" id="tableFolha">
-            <tbody>
-              <tr>
-                <td class="label-folha-compactacao">Espessura da folha (mm)</td>
-                <td style="width: 60%; padding: 10px;">
-                  <div class="input-with-quick-values">
-                    <div class="quick-values-inline">
-                      <button type="button" id="btn_preset_015" class="quick-value-btn" onclick="definirEspessuraRapida(0.15, this)">0.15</button>
-                      <button type="button" id="btn_preset_016" class="quick-value-btn" onclick="definirEspessuraRapida(0.16, this)">0.16</button>
-                      <button type="button" id="btn_preset_017" class="quick-value-btn" onclick="definirEspessuraRapida(0.17, this)">0.17</button>
-                      <button type="button" id="btn_preset_018" class="quick-value-btn" onclick="definirEspessuraRapida(0.18, this)">0.18</button>
-                    </div>
-                    <input type="text" inputmode="decimal" id="espessura_folha" class="input-index-style" placeholder="0.15 a 0.18 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcResultadoFinal()" onkeydown="navegarEnter(event, '')">
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="label-folha-compactacao">Compactação (%)</td>
-                <td style="padding: 10px;">
-                  <div class="final-td-wrapper">
-                    <div id="resultado_final_campo" class="compactacao-destaque-cell">---</div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- PONTO 3: COMPACTAÇÃO % (UNIFORMIZADO & COM DESTAQUE APENAS NO RESULTADO) -->
+        <div class="bisnaga-section-header">
+          <span class="step-num">3</span>
+          <h3>Resultado Final • Compactação (%)</h3>
         </div>
+        <div class="table-container" style="padding: 20px 16px; background: #ffffff; text-align: center;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+            <div id="resultado_final_campo" class="compactacao-destaque-cell">---</div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -1527,9 +1548,9 @@
       <div class="button-grid">
         <a href="https://www.ipma.pt/" target="_blank" rel="noopener noreferrer" class="hub-button">IPMA</a>
         <a href="https://radioonline.com.pt/" target="_blank" rel="noopener noreferrer" class="hub-button">Rádio</a>
-        <a href="https://www.deepl.com/pt-PT/translator" target="_blank" class="hub-button">Tradutor DeepL</a>
-        <a href="https://www.google.pt" target="_blank" class="hub-button">Google</a>
-        <a href="https://www.sapo.pt" target="_blank" class="hub-button">Sapo</a>
+        <a href="https://www.deepl.com/pt-PT/translator" target="_blank" rel="noopener noreferrer" class="hub-button">Tradutor DeepL</a>
+        <a href="https://www.google.pt" target="_blank" rel="noopener noreferrer" class="hub-button">Google</a>
+        <a href="https://www.sapo.pt" target="_blank" rel="noopener noreferrer" class="hub-button">Sapo</a>
       </div>
     </div>
   </div>
@@ -1545,7 +1566,7 @@
       <p style="line-height:2; font-size:1rem;"><strong>Nome:</strong> Hélder Fernandes</p>
       <button class="contact-btn" onclick="sendMessage()">Enviar mensagem</button>
       <hr style="margin:15px 0; border:0; border-top:1px solid rgba(255,255,255,0.2);">
-      <p style="font-size:0.8rem; opacity:0.7;"><strong>Atualizado a: </strong>18.08.2026</p>
+      <p style="font-size:0.8rem; opacity:0.7;"><strong>Atualizado a: </strong>04.09.2026</p>
     </div>
   </div>
 
@@ -1619,6 +1640,7 @@
       document.getElementById("backHeaderBtn").style.display = "flex";
       
       const subtitle = document.getElementById("mainSubtitle");
+      subtitle.style.display = "block";
       subtitle.textContent = "Correção de Cargas";
       subtitle.classList.add("cc-active");
     }
@@ -1627,18 +1649,30 @@
       hideAllPages();
       document.getElementById("apoioPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
+      const subtitle = document.getElementById("mainSubtitle");
+      subtitle.style.display = "block";
+      subtitle.textContent = "Apoio Produção";
+      subtitle.classList.remove("cc-active");
     }
 
     function showEmbalagens(){
       hideAllPages();
       document.getElementById("embalagensPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
+      const subtitle = document.getElementById("mainSubtitle");
+      subtitle.style.display = "block";
+      subtitle.textContent = "Embalagens";
+      subtitle.classList.remove("cc-active");
     }
 
     function showVarios(){
       hideAllPages();
       document.getElementById("variosPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
+      const subtitle = document.getElementById("mainSubtitle");
+      subtitle.style.display = "block";
+      subtitle.textContent = "Vários";
+      subtitle.classList.remove("cc-active");
     }
 
     function showMediasBisnagas() {
@@ -1747,7 +1781,7 @@
 
     function forcarDuasCasasDecimais(input) {
       if (input.value !== "") {
-        let limpo = input.value.replace(" mm", "").replace(",", ".");
+        let limpo = input.value.replace(" mm", "").replace(",", ".").trim();
         let val = parseFloat(limpo);
         if (!isNaN(val)) {
           input.value = val.toFixed(2).replace(".", ",") + " mm";
@@ -1756,11 +1790,13 @@
         }
         atualizarEstiloPresets();
       }
+      calcBisnagas();
     }
 
     function atualizarEstiloPresets() {
       const inputEspessura = document.getElementById("espessura_folha");
-      const espessuraAtual = parseFloat(inputEspessura.value.replace(" mm", "").replace(",", "."));
+      if (!inputEspessura) return;
+      const espessuraAtual = parseFloat(inputEspessura.value.replace(" mm", "").replace(",", ".").trim());
 
       if (isNaN(espessuraAtual) || espessuraAtual === 0) {
         document.querySelectorAll(".quick-value-btn").forEach(btn => btn.classList.remove("selected-preset"));
@@ -1768,7 +1804,7 @@
       }
 
       document.querySelectorAll(".quick-value-btn").forEach(btn => {
-        const btnValor = parseFloat(btn.textContent) || 0;
+        const btnValor = parseFloat(btn.textContent.replace(",", ".")) || 0;
         if (espessuraAtual.toFixed(2) === btnValor.toFixed(2)) {
           btn.classList.add("selected-preset"); 
         } else {
@@ -1777,7 +1813,7 @@
       });
     }
 
-    function definirEspessuraRapida(valor, elementoBotao) {
+    function definirEspessuraRapida(valor) {
       document.getElementById("espessura_folha").value = valor.toFixed(2).replace(".", ",") + " mm";
       atualizarEstiloPresets();
       calcResultadoFinal();
@@ -1805,46 +1841,51 @@
 
         const proximaLinha = rows[index + 1];
         if (proximaLinha) {
-          inputV1.setAttribute("onkeydown", `navegarEnter(event, 'b${num}_v2')`);
-          inputV2.setAttribute("onkeydown", `navegarEnter(event, 'b${num + 1}_v1')`);
+          inputV1.onkeydown = (event) => navegarEnter(event, `b${num}_v2`);
+          inputV2.onkeydown = (event) => navegarEnter(event, `b${num + 1}_v1`);
         } else {
-          inputV1.setAttribute("onkeydown", `navegarEnter(event, 'b${num}_v2')`);
-          inputV2.setAttribute("onkeydown", `navegarEnter(event, 'espessura_folha')`);
+          inputV1.onkeydown = (event) => navegarEnter(event, `b${num}_v2`);
+          inputV2.onkeydown = (event) => navegarEnter(event, '');
         }
 
-        const campo1 = inputV1.value.replace(" mm", "").replace(",", ".");
-        const campo2 = inputV2.value.replace(" mm", "").replace(",", ".");
+        const campo1 = inputV1.value.replace(" mm", "").replace(",", ".").trim();
+        const campo2 = inputV2.value.replace(" mm", "").replace(",", ".").trim();
 
         elMedia.classList.remove("valido", "invalido");
 
         if (inputV1.value !== "") {
-          const val1 = parseFloat(campo1) || 0;
-          inputV1.style.color = (val1 >= 1.30 && val1 <= 1.92) ? "#059669" : "#dc2626";
+          const val1 = parseFloat(campo1);
+          inputV1.style.color = (!isNaN(val1) && val1 >= 1.30 && val1 <= 1.92) ? "#059669" : "#dc2626";
         } else {
           inputV1.style.color = "#0f172a";
         }
 
         if (inputV2.value !== "") {
-          const val2 = parseFloat(campo2) || 0;
-          inputV2.style.color = (val2 >= 1.30 && val2 <= 1.92) ? "#059669" : "#dc2626";
+          const val2 = parseFloat(campo2);
+          inputV2.style.color = (!isNaN(val2) && val2 >= 1.30 && val2 <= 1.92) ? "#059669" : "#dc2626";
         } else {
           inputV2.style.color = "#0f172a";
         }
 
-        if (inputV1.value !== "" && inputV2.value !== "") {
-          const v1 = parseFloat(campo1) || 0;
-          const v2 = parseFloat(campo2) || 0;
-          const m = (v1 + v2) / 2;
-          elMedia.textContent = formatarComVirgula(m) + " mm";
+        if (campo1 !== "" && campo2 !== "") {
+          const v1 = parseFloat(campo1);
+          const v2 = parseFloat(campo2);
           
-          if (m >= 1.30 && m <= 1.92) {
-            elMedia.classList.add("valido");
-          } else {
-            elMedia.classList.add("invalido");
-          }
+          if (!isNaN(v1) && !isNaN(v2)) {
+            const m = (v1 + v2) / 2;
+            elMedia.textContent = formatarComVirgula(m) + " mm";
+            
+            if (m >= 1.30 && m <= 1.92) {
+              elMedia.classList.add("valido");
+            } else {
+              elMedia.classList.add("invalido");
+            }
 
-          totalMedias += m;
-          qtdMediasValidas++;
+            totalMedias += m;
+            qtdMediasValidas++;
+          } else {
+            elMedia.textContent = "---";
+          }
         } else {
           elMedia.textContent = "---";
         }
@@ -1899,29 +1940,38 @@
       calcBisnagas(); 
       
       const novoInput = document.getElementById(`b${proximoNumero}_v1`);
-      novoInput.focus();
-      setTimeout(() => { novoInput.select(); }, 0);
+      if (novoInput) {
+        novoInput.focus();
+        setTimeout(() => { novoInput.select(); }, 0);
+      }
     }
 
-    function limparTudoBisnagas() {
+    /* LIMPAR APENAS O PONTO 1 */
+    function limparPonto1() {
+      const inputEspessura = document.getElementById("espessura_folha");
+      if (inputEspessura) {
+        inputEspessura.value = "";
+        inputEspessura.style.color = "#0f172a";
+      }
+      calcResultadoFinal();
+    }
+
+    /* LIMPAR APENAS O PONTO 2 */
+    function limparPonto2() {
       const inputsAmostras = document.querySelectorAll("#bisnagasBody input");
       inputsAmostras.forEach(input => {
         input.value = "";
         input.style.color = "#0f172a";
       });
-
-      const inputEspessura = document.getElementById("espessura_folha");
-      inputEspessura.value = "";
-      inputEspessura.style.color = "#0f172a";
-
       calcBisnagas();
     }
 
     function calcResultadoFinal() {
       const inputEspessura = document.getElementById("espessura_folha");
-      const espessuraTexto = inputEspessura.value.replace(" mm", "").replace(",", ".");
+      if (!inputEspessura) return;
+      const espessuraTexto = inputEspessura.value.replace(" mm", "").replace(",", ".").trim();
       const espessura = parseFloat(espessuraTexto);
-      const mediaGlobalTexto = document.getElementById("total_medias").textContent.replace(" mm", "").replace(",", ".");
+      const mediaGlobalTexto = document.getElementById("total_medias").textContent.replace(" mm", "").replace(",", ".").trim();
       const mediaGlobal = (mediaGlobalTexto !== "---" && mediaGlobalTexto !== "") ? parseFloat(mediaGlobalTexto) : null;
       
       const elResultado = document.getElementById("resultado_final_campo");
@@ -1953,11 +2003,8 @@
       atualizarEstiloPresets();
     }
 
-
-    /* ---------------- LÓGICA DE TARAS E COLAS DINÂMICAS LADO A LADO ---------------- */
+    /* ---------------- LÓGICA DE TARAS E COLAS DINÂMICAS ---------------- */
     let tarasData = ["", "", "", ""]; 
-    
-    // Assegura que há sempre uma linha inicial
     let colasData = [{ esq: "", dir: "" }];
 
     function renderTarasTable() {
@@ -1966,16 +2013,23 @@
       
       tarasData.forEach((val, index) => {
         const tr = document.createElement("tr");
+        const inputId = `tara_${index}`;
+        const nextTaraId = `tara_${index + 1}`;
         tr.innerHTML = `
           <td class="col-index-style">${index + 1}</td>
           <td>
-            <input type="text" inputmode="decimal" class="input-index-style" placeholder="Ex: 200,5" value="${val}" onclick="this.select()" oninput="updateTara(${index}, this.value)">
+            <input type="text" inputmode="decimal" id="${inputId}" class="input-index-style" placeholder="Ex: 200,5" value="${val}" onclick="this.select()" oninput="updateTara(${index}, this.value)">
           </td>
           <td>
             <button type="button" class="delete-btn" onclick="removeTara(${index})" title="Remover esta tara">❌</button>
           </td>
         `;
         tbody.appendChild(tr);
+
+        const inp = document.getElementById(inputId);
+        if (inp) {
+          inp.onkeydown = (e) => navegarEnter(e, nextTaraId);
+        }
       });
       calcColas();
     }
@@ -1988,6 +2042,10 @@
     function addTaraRow() {
       tarasData.push("");
       renderTarasTable();
+      setTimeout(() => {
+        const newEl = document.getElementById(`tara_${tarasData.length - 1}`);
+        if (newEl) newEl.focus();
+      }, 0);
     }
 
     function removeTara(index) {
@@ -2009,19 +2067,19 @@
       
       colasData.forEach((item, index) => {
         const tr = document.createElement("tr");
-        
-        const nextEsqId = `cola_esq_${index + 1}`;
+        const esqId = `cola_esq_${index}`;
         const dirId = `cola_dir_${index}`;
+        const nextEsqId = `cola_esq_${index + 1}`;
         
         tr.innerHTML = `
           <td style="padding: 10px;">
-            <input type="text" inputmode="decimal" id="cola_esq_${index}" class="input-index-style" placeholder="Inserir valor" value="${item.esq}" onclick="this.select()" onkeydown="navegarEnter(event, '${dirId}')" oninput="updateCola(${index}, 'esq', this.value)">
+            <input type="text" inputmode="decimal" id="${esqId}" class="input-index-style" placeholder="Inserir valor" value="${item.esq}" onclick="this.select()" oninput="updateCola(${index}, 'esq', this.value)">
           </td>
           <td style="padding: 10px;">
             <div id="res_cola_esq_${index}" class="compactacao-destaque-cell" style="width: 100%; min-width: 80px; height: 38px; font-size: 14px !important;">---</div>
           </td>
           <td style="padding: 10px; border-left: 2px dashed #cbd5e1;">
-            <input type="text" inputmode="decimal" id="${dirId}" class="input-index-style" placeholder="Inserir valor" value="${item.dir}" onclick="this.select()" onkeydown="${index < colasData.length - 1 ? `navegarEnter(event, '${nextEsqId}')` : ''}" oninput="updateCola(${index}, 'dir', this.value)">
+            <input type="text" inputmode="decimal" id="${dirId}" class="input-index-style" placeholder="Inserir valor" value="${item.dir}" onclick="this.select()" oninput="updateCola(${index}, 'dir', this.value)">
           </td>
           <td style="padding: 10px;">
             <div id="res_cola_dir_${index}" class="compactacao-destaque-cell" style="width: 100%; min-width: 80px; height: 38px; font-size: 14px !important;">---</div>
@@ -2031,6 +2089,25 @@
           </td>
         `;
         tbody.appendChild(tr);
+
+        const inpEsq = document.getElementById(esqId);
+        const inpDir = document.getElementById(dirId);
+
+        if (inpEsq) {
+          inpEsq.onkeydown = (e) => navegarEnter(e, dirId);
+        }
+        if (inpDir) {
+          inpDir.onkeydown = (e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              if (index < colasData.length - 1) {
+                navegarEnter(e, nextEsqId);
+              } else {
+                addColaRow();
+              }
+            }
+          };
+        }
       });
       
       calcColas();
@@ -2050,7 +2127,6 @@
       }, 0);
     }
 
-    // MODIFICAÇÃO PRINCIPAL: Dá alerta e impede que a última linha seja eliminada, à semelhança da tabela de taras
     function removeColaRow(index) {
       if (colasData.length > 1) {
         colasData.splice(index, 1);
@@ -2060,7 +2136,6 @@
       }
     }
 
-    // MODIFICAÇÃO PRINCIPAL: Garante o reset contendo sempre 1 linha visível
     function limparColas() {
       colasData = [{ esq: "", dir: "" }];
       renderColasTable();
@@ -2076,7 +2151,7 @@
       let count = 0;
 
       tarasData.forEach(val => {
-        const numStr = val.replace(",", ".");
+        const numStr = val.replace(",", ".").trim();
         const num = parseFloat(numStr);
         if (!isNaN(num)) {
           sum += num;
@@ -2100,24 +2175,28 @@
         const resEsqEl = document.getElementById(`res_cola_esq_${index}`);
         const resDirEl = document.getElementById(`res_cola_dir_${index}`);
 
-        const colaEsq = parseFloat(item.esq.replace(",", "."));
-        if (count > 0 && !isNaN(colaEsq)) {
-          const resEsq = colaEsq - media;
-          resEsqEl.textContent = formatarComVirgula(resEsq) + " g";
-          resEsqEl.classList.add("valido");
-        } else {
-          resEsqEl.textContent = "---";
-          resEsqEl.classList.remove("valido");
+        if (resEsqEl) {
+          const colaEsq = parseFloat(item.esq.replace(",", ".").trim());
+          if (count > 0 && !isNaN(colaEsq)) {
+            const resEsq = colaEsq - media;
+            resEsqEl.textContent = formatarComVirgula(resEsq) + " g";
+            resEsqEl.classList.add("valido");
+          } else {
+            resEsqEl.textContent = "---";
+            resEsqEl.classList.remove("valido");
+          }
         }
 
-        const colaDir = parseFloat(item.dir.replace(",", "."));
-        if (count > 0 && !isNaN(colaDir)) {
-          const resDir = colaDir - media;
-          resDirEl.textContent = formatarComVirgula(resDir) + " g";
-          resDirEl.classList.add("valido");
-        } else {
-          resDirEl.textContent = "---";
-          resDirEl.classList.remove("valido");
+        if (resDirEl) {
+          const colaDir = parseFloat(item.dir.replace(",", ".").trim());
+          if (count > 0 && !isNaN(colaDir)) {
+            const resDir = colaDir - media;
+            resDirEl.textContent = formatarComVirgula(resDir) + " g";
+            resDirEl.classList.add("valido");
+          } else {
+            resDirEl.textContent = "---";
+            resDirEl.classList.remove("valido");
+          }
         }
       });
     }
@@ -2169,36 +2248,28 @@
     }
 
     function renderAppState() {
-      const loggedIn = localStorage.getItem("isLoggedIn") === "true";
-      if (loggedIn) {
+      if (localStorage.getItem("isLoggedIn") === "true") {
         document.getElementById("loginScreen").style.display = "none";
         document.getElementById("mainContent").style.display = "block";
-        document.querySelectorAll(".header-bar").forEach(el => el.style.display = "flex");
         document.getElementById("loginFooter").style.display = "none";
         document.getElementById("appFooter").style.display = "flex";
         document.getElementById("footerNote").style.display = "block";
-        
-        calcA();
-        calcB();
-        calcC();
-        calcR();
-        calcT();
-        calcG();
-        calcBisnagas();
-        renderTarasTable();
-        renderColasTable(); 
+        document.querySelector(".header-bar").style.display = "flex";
       } else {
         document.getElementById("loginScreen").style.display = "flex";
         document.getElementById("mainContent").style.display = "none";
-        document.querySelectorAll(".header-bar").forEach(el => el.style.display = "none");
         document.getElementById("loginFooter").style.display = "flex";
         document.getElementById("appFooter").style.display = "none";
         document.getElementById("footerNote").style.display = "none";
-        document.getElementById("passwordInput").value = "";
+        document.querySelector(".header-bar").style.display = "none";
       }
     }
 
-    window.onload = renderAppState;
+    window.onload = function() {
+      renderAppState();
+      renderTarasTable();
+      renderColasTable();
+    };
   </script>
 </body>
 </html>
