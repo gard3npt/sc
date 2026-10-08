@@ -66,7 +66,7 @@
     /* Container do conteúdo principal */
     .container{
       position: relative;
-      top: 52px; 
+      top: 60px; 
       width: 100%;
       max-width: 1000px; 
       margin: 0 auto;
@@ -277,6 +277,19 @@
       color: rgba(15, 23, 42, 0.4) !important;
       font-weight: 500;
       font-size: 13px;
+    }
+
+    /* Bisnagas: marca ✎ quando a média da amostra foi escrita à mão */
+    #bisnagasBody td.media-manual { position: relative; }
+    #bisnagasBody td.media-manual::after {
+      content: "✎";
+      position: absolute;
+      top: 3px;
+      right: 8px;
+      font-size: 12px;
+      line-height: 1;
+      color: #64748b;
+      pointer-events: none;
     }
 
     /* Bisnagas: ao carregar numa célula editável, o texto de apoio desaparece */
@@ -662,7 +675,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 40px; 
+      height: 48px; 
       display: none;
       align-items: center;
       justify-content: space-between;
@@ -679,9 +692,27 @@
       gap: 6px;
     }
 
+    /* Mais espaço entre Suporte e Logout, para não carregar no errado */
+    .header-right { gap: 14px; }
+
+    /* Nome da página atual, ao centro da barra */
+    .header-title {
+      flex: 1;
+      min-width: 0;
+      padding: 0 10px;
+      text-align: center;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      opacity: 0.9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .header-btn{
-      width: 74px; 
-      height: 26px; 
+      width: 78px; 
+      height: 34px; 
       display: flex;
       align-items: center;
       justify-content: center;
@@ -690,7 +721,7 @@
       cursor: pointer;
       background: rgba(27,31,36,0.9);
       color: white;
-      font-size: 0.7rem; 
+      font-size: 0.75rem; 
       font-weight: 600;
     }
 
@@ -1042,7 +1073,7 @@
     @media(max-width: 768px){
       body { font-size: 12px; }
       .button-grid { grid-template-columns: 1fr; padding: 0 5px; gap: 10px; }
-      .container { top: 60px; }
+      .container { top: 68px; }
       .tabs { grid-template-columns: repeat(3, 1fr); margin-top: 20px; margin-bottom: 12px; }
 
       .table-canvas-wrapper {
@@ -1200,11 +1231,12 @@
 
   <header class="header-bar">
     <div class="header-left">
-      <button id="backHeaderBtn" class="header-btn" onclick="showHome()">← Voltar</button>
+      <button id="backHeaderBtn" class="header-btn" style="display:none;" onclick="showHome()">← Voltar</button>
     </div>
+    <div id="headerTitle" class="header-title"></div>
     <div class="header-right">
       <button class="header-btn" onclick="openContacts()">Suporte</button>
-      <button class="header-btn" onclick="logout()">Logout</button>
+      <button class="header-btn" onclick="pedirLogout()">Logout</button>
     </div>
   </header>
 
@@ -1451,7 +1483,7 @@
           <h3>Espessura de Cravação (mm)</h3>
           <div style="margin-left:auto; display:flex; align-items:center; gap:8px;">
             <label for="num_linhas_ponto2" style="font-size:13px; font-weight:700; color:#475569;">Linhas:</label>
-            <input autocomplete="off" onclick="this.select()" type="text" inputmode="numeric" id="num_linhas_ponto2" class="input-index-style" value="4" style="width:64px; padding:6px 8px;" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 3)" onchange="aplicarNumeroLinhas(this)" onkeydown="if (event.key === 'Enter') { event.preventDefault(); this.blur(); }" onblur="aplicarNumeroLinhas(this)">
+            <input autocomplete="off" onclick="this.select()" type="text" inputmode="numeric" id="num_linhas_ponto2" class="input-index-style" value="4" style="width:64px; padding:6px 8px;" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 3)" onchange="aplicarNumeroLinhas(this)" onkeydown="if (event.key === 'Enter') { event.preventDefault(); this.blur(); }">
           </div>
         </div>
         <div class="table-container">
@@ -1524,6 +1556,7 @@
         <div class="table-container" style="padding: 20px 16px; background: #ffffff; text-align: center;">
           <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
             <div id="resultado_final_campo" class="compactacao-destaque-cell">---</div>
+            <div id="resultado_aviso" style="font-size:13px; font-weight:600; color:#b45309; min-height:18px;"></div>
           </div>
         </div>
 
@@ -1538,6 +1571,10 @@
         <div class="bisnaga-section-header">
           <span class="step-num">1</span>
           <h3>Valores da Tara (g)</h3>
+          <div style="margin-left:auto; display:flex; align-items:center; gap:8px;">
+            <label for="num_linhas_taras" style="font-size:13px; font-weight:700; color:#475569;">Linhas:</label>
+            <input autocomplete="off" onclick="this.select()" type="text" inputmode="numeric" id="num_linhas_taras" class="input-index-style" value="4" style="width:64px; padding:6px 8px;" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 3)" onchange="aplicarNumeroLinhasTaras(this)" onkeydown="if (event.key === 'Enter') { event.preventDefault(); this.blur(); }">
+          </div>
         </div>
         <div class="table-container">
           <table class="calc-table" id="tarasTable">
@@ -1574,6 +1611,10 @@
         <div class="bisnaga-section-header">
           <span class="step-num">2</span>
           <h3>Tara + Cola e Resultados</h3>
+          <div style="margin-left:auto; display:flex; align-items:center; gap:8px;">
+            <label for="num_linhas_colas" style="font-size:13px; font-weight:700; color:#475569;">Linhas:</label>
+            <input autocomplete="off" onclick="this.select()" type="text" inputmode="numeric" id="num_linhas_colas" class="input-index-style" value="1" style="width:64px; padding:6px 8px;" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 3)" onchange="aplicarNumeroLinhasColas(this)" onkeydown="if (event.key === 'Enter') { event.preventDefault(); this.blur(); }">
+          </div>
         </div>
         <div class="table-container">
           <table class="calc-table" id="tableResultadosColas">
@@ -1618,8 +1659,8 @@
   </div>
 
   <div id="footerNote" class="footer-note">Nota: Alguns links apenas estão acessíveis através da rede interna da empresa.</div>
-  <footer id="loginFooter" class="footer-login">© 2026 Agajota</footer>
-  <footer id="appFooter" class="footer-app">© 2026 Agajota • Laboratório C. Q. - Almeirim</footer>
+  <footer id="loginFooter" class="footer-login"><span>© <span class="ano-atual">2026</span> Agajota</span></footer>
+  <footer id="appFooter" class="footer-app"><span>© <span class="ano-atual">2026</span> Agajota • Laboratório C. Q. - Almeirim</span></footer>
 
   <div id="contactsModal" class="modal">
     <div class="modal-content">
@@ -1628,11 +1669,14 @@
       <p style="line-height:2; font-size:1rem;"><strong>Nome:</strong> Hélder Fernandes</p>
       <button class="contact-btn" onclick="sendMessage()">Enviar mensagem</button>
       <hr style="margin:15px 0; border:0; border-top:1px solid rgba(255,255,255,0.2);">
-      <p style="font-size:0.8rem; opacity:0.7;"><strong>Atualizado a: </strong>08.10.2026</p>
+      <p style="font-size:0.8rem; opacity:0.7;"><strong>Atualizado a: </strong><span id="dataAtualizacao">09.10.2026</span></p>
     </div>
   </div>
 
   <script>
+    /* Data da última atualização: mudar só aqui (aparece no menu Suporte) */
+    const DATA_ATUALIZACAO = "09.10.2026";
+
     const correctPassword = "0";
 
     function renderAppState() {
@@ -1643,7 +1687,7 @@
         document.querySelector(".header-bar").style.display = "flex";
         document.getElementById("loginFooter").style.display = "none";
         document.getElementById("appFooter").style.display = "flex";
-        document.getElementById("footerNote").style.display = "block";
+        atualizarCabecalhoRodape();
         renderTarasTable();
         renderColasTable();
         
@@ -1667,6 +1711,20 @@
     function logout() {
       localStorage.removeItem("isLoggedIn");
       renderAppState();
+    }
+
+    function pedirLogout() {
+      caixaMensagem("Terminar sessão?", logout, null, "Sair");
+    }
+
+    /* Cabeçalho mostra o nome da página; a nota dos links só aparece na página inicial */
+    function atualizarCabecalhoRodape() {
+      const subtitle = document.getElementById("mainSubtitle");
+      const botaoVoltar = document.getElementById("backHeaderBtn");
+      const emHome = botaoVoltar.style.display === "none";
+      const logado = localStorage.getItem("isLoggedIn") === "true";
+      document.getElementById("headerTitle").textContent = emHome ? "" : subtitle.textContent;
+      document.getElementById("footerNote").style.display = (logado && emHome) ? "block" : "none";
     }
 
     function openContacts(){
@@ -1943,9 +2001,20 @@
       }
       if (v !== input.value) input.value = v;
     }
+    /* Tara e Cola: só números e uma vírgula decimal (sem limite de casas decimais) */
+    function soNumerosLivre(input) {
+      let v = input.value.replace(/\./g, ",").replace(/[^0-9,]/g, "");
+      const i = v.indexOf(",");
+      if (i !== -1) {
+        v = v.slice(0, i + 1) + v.slice(i + 1).replace(/,/g, "");
+      }
+      if (v !== input.value) input.value = v;
+    }
     document.addEventListener("input", function (e) {
       const t = e.target;
-      if (t && t.tagName === "INPUT" && t.closest && t.closest("#mediasBisnagasPage")) soNumeros(t);
+      if (!t || t.tagName !== "INPUT" || !t.closest) return;
+      if (t.closest("#mediasBisnagasPage")) soNumeros(t);
+      else if (t.closest("#colasPage")) soNumerosLivre(t);
     }, true);
 
     function forcarDuasCasasDecimais(input) {
@@ -2092,7 +2161,7 @@
         if (proximaLinha) {
           inputV1.onkeydown = (event) => navegarEnter(event, `b${num}_v2`);
           inputV2.onkeydown = (event) => navegarEnter(event, `b${num + 1}_v1`);
-          elMedia.onkeydown = (event) => navegarEnter(event, `b${num + 1}_media`);
+          elMedia.onkeydown = (event) => navegarEnter(event, `b${num + 1}_v1`);
         } else {
           inputV1.onkeydown = (event) => navegarEnter(event, `b${num}_v2`);
           inputV2.onkeydown = (event) => navegarEnter(event, '');
@@ -2179,6 +2248,14 @@
         }
       });
 
+      /* Marca ✎ nas médias escritas à mão */
+      rows.forEach(row => {
+        const m = row.cells[3].querySelector(".media-input");
+        const manual = !!(m && m.dataset.manual);
+        row.cells[3].classList.toggle("media-manual", manual);
+        if (m) m.title = manual ? "Média escrita à mão (não calculada a partir dos Pontos 1 e 2)" : "";
+      });
+
       const elNumLinhas = document.getElementById("num_linhas_ponto2");
       if (elNumLinhas && document.activeElement !== elNumLinhas) elNumLinhas.value = rows.length;
 
@@ -2205,21 +2282,71 @@
       calcResultadoFinal(false);
     }
 
+    /* Caixa de mensagem/confirmação dentro da página (não usa confirm/alert, que alguns navegadores bloqueiam).
+       Com aoConfirmar: mostra Cancelar + Apagar. Sem aoConfirmar: só OK. */
+    function caixaMensagem(msg, aoConfirmar, aoCancelar, textoConfirmar) {
+      const antigo = document.getElementById("caixaMensagemOverlay");
+      if (antigo) antigo.remove();
+
+      const ov = document.createElement("div");
+      ov.id = "caixaMensagemOverlay";
+      ov.style.cssText = "position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(15,23,42,0.55); z-index:99999; display:flex; align-items:center; justify-content:center; padding:16px;";
+
+      const caixa = document.createElement("div");
+      caixa.style.cssText = "background:#ffffff; border-radius:14px; padding:20px; max-width:340px; width:100%; box-shadow:0 10px 30px rgba(0,0,0,0.3); text-align:center;";
+
+      const texto = document.createElement("div");
+      texto.style.cssText = "font-size:16px; font-weight:700; color:#0f172a; margin-bottom:18px; line-height:1.4;";
+      texto.textContent = msg;
+
+      const botoes = document.createElement("div");
+      botoes.style.cssText = "display:flex; gap:10px; justify-content:center;";
+
+      const estiloBtn = "flex:1; padding:11px 14px; border-radius:10px; border:none; font-size:15px; font-weight:700; cursor:pointer;";
+      const fechar = () => ov.remove();
+      const cancelar = () => { fechar(); if (aoCancelar) aoCancelar(); };
+
+      const btnCancelar = document.createElement("button");
+      btnCancelar.type = "button";
+      btnCancelar.style.cssText = estiloBtn + "background:#e2e8f0; color:#0f172a;";
+      btnCancelar.textContent = aoConfirmar ? "Cancelar" : "OK";
+      btnCancelar.onclick = cancelar;
+      botoes.appendChild(btnCancelar);
+
+      if (aoConfirmar) {
+        const btnSim = document.createElement("button");
+        btnSim.type = "button";
+        btnSim.style.cssText = estiloBtn + "background:#dc2626; color:#ffffff;";
+        btnSim.textContent = textoConfirmar || "Apagar";
+        btnSim.onclick = () => { fechar(); aoConfirmar(); };
+        botoes.appendChild(btnSim);
+      }
+
+      caixa.appendChild(texto);
+      caixa.appendChild(botoes);
+      ov.appendChild(caixa);
+      ov.addEventListener("click", (e) => { if (e.target === ov) cancelar(); });
+      ov.addEventListener("keydown", (e) => { if (e.key === "Escape") cancelar(); });
+      document.body.appendChild(ov);
+      btnCancelar.focus();
+    }
+
     function apagarLinhaAmostra(botao) {
       const rows = document.querySelectorAll("#bisnagasBody tr");
       if (rows.length > 1) {
         const row = botao.closest("tr");
-        row.remove();
-        calcBisnagas();
+        const temValores = Array.from(row.querySelectorAll("input")).some(i => i.value.trim() !== "");
+        const apagar = () => { row.remove(); calcBisnagas(); };
+        if (temValores) caixaMensagem("Apagar esta amostra?", apagar); else apagar();
       } else {
-        alert("É necessário manter pelo menos uma amostra de simulação.");
+        caixaMensagem("É necessário manter pelo menos uma amostra de simulação.");
       }
     }
 
     function adicionarLinhaAmostra(semFoco) {
       const tbody = document.getElementById("bisnagasBody");
       if (tbody.querySelectorAll("tr").length >= LINHAS_MAX_PONTO2) {
-        alert("O número máximo de linhas é " + LINHAS_MAX_PONTO2 + ".");
+        caixaMensagem("O número máximo de linhas é " + LINHAS_MAX_PONTO2 + ".");
         return;
       }
       const proximoNumero = tbody.querySelectorAll("tr").length + 1;
@@ -2264,13 +2391,27 @@
     }
 
     function aplicarNumeroLinhas(input) {
+      const linhas = Array.from(document.querySelectorAll("#bisnagasBody tr"));
       const n = parseInt(input.value, 10);
       if (isNaN(n) || n < 1) {
-        input.value = document.querySelectorAll("#bisnagasBody tr").length;
+        input.value = linhas.length;
         return;
       }
-      definirNumeroLinhas(n);
-      input.value = document.querySelectorAll("#bisnagasBody tr").length;
+      const alvo = Math.max(1, Math.min(LINHAS_MAX_PONTO2, n));
+      if (alvo === linhas.length) {
+        input.value = alvo;
+        return;
+      }
+      const aplicar = () => {
+        definirNumeroLinhas(alvo);
+        input.value = document.querySelectorAll("#bisnagasBody tr").length;
+      };
+      const perdeValores = linhas.slice(alvo).some(tr => Array.from(tr.querySelectorAll("input")).some(i => i.value.trim() !== ""));
+      if (perdeValores) {
+        caixaMensagem("Reduzir para " + alvo + " linhas vai apagar valores já escritos. Continuar?", aplicar, () => { input.value = linhas.length; });
+      } else {
+        aplicar();
+      }
     }
 
     function limparPonto1() {
@@ -2283,13 +2424,22 @@
     }
 
     function limparPonto2() {
-      const inputsAmostras = document.querySelectorAll("#bisnagasBody input");
-      inputsAmostras.forEach(input => {
-        input.value = "";
-        input.style.color = "#0f172a";
-        delete input.dataset.manual;
-      });
-      definirNumeroLinhas(LINHAS_PADRAO_PONTO2);
+      const haDados = Array.from(document.querySelectorAll("#bisnagasBody input")).some(i => i.value.trim() !== "");
+      const limpar = () => {
+        const inputsAmostras = document.querySelectorAll("#bisnagasBody input");
+        inputsAmostras.forEach(input => {
+          input.value = "";
+          input.style.color = "#0f172a";
+          delete input.dataset.manual;
+        });
+        definirNumeroLinhas(LINHAS_PADRAO_PONTO2);
+      };
+      if (haDados) caixaMensagem("Apagar todos os valores das amostras?", limpar); else limpar();
+    }
+
+    function definirAvisoResultado(texto) {
+      const el = document.getElementById("resultado_aviso");
+      if (el) el.textContent = texto;
     }
 
     function calcResultadoFinal(triggerCalcBisnagas = true) {
@@ -2327,6 +2477,7 @@
         const mCent = paraCentesimas(mediaGlobalTexto);
         const calculo = Math.floor((1600 * eCent + mCent) / (2 * mCent));
         elResultado.textContent = calculo + " %";
+        definirAvisoResultado("");
 
         // Intervalo de validade (74,5% a 92,4%), avaliado sobre o valor inteiro apresentado: 75 a 92
         if (calculo >= 75 && calculo <= 92) {
@@ -2336,6 +2487,15 @@
         }
       } else {
         elResultado.textContent = "---";
+        if (mediaGlobal !== null && isNaN(espessura)) {
+          definirAvisoResultado("Falta a espessura da folha (Ponto 1).");
+        } else if (mediaGlobal === null && !isNaN(espessura)) {
+          definirAvisoResultado("Faltam as médias das amostras (Ponto 2).");
+        } else if (mediaGlobal === 0 && !isNaN(espessura)) {
+          definirAvisoResultado("A média total da cravação é 0,00 mm. Verifica os valores do Ponto 2.");
+        } else {
+          definirAvisoResultado("");
+        }
       }
       
       atualizarEstiloPresets();
@@ -2369,6 +2529,8 @@
           inp.onkeydown = (e) => navegarEnter(e, nextTaraId);
         }
       });
+      const elNTaras = document.getElementById("num_linhas_taras");
+      if (elNTaras && document.activeElement !== elNTaras) elNTaras.value = tarasData.length;
       calcColas();
     }
 
@@ -2377,7 +2539,51 @@
       calcColas();
     }
 
+    const LINHAS_MAX_TARAS_COLAS = 100;
+
+    function aplicarNumeroLinhasTaras(input) {
+      const n = parseInt(input.value, 10);
+      if (isNaN(n) || n < 1) { input.value = tarasData.length; return; }
+      const alvo = Math.min(n, LINHAS_MAX_TARAS_COLAS);
+      if (alvo === tarasData.length) { input.value = alvo; return; }
+      const aplicar = () => {
+        while (tarasData.length < alvo) tarasData.push("");
+        if (tarasData.length > alvo) tarasData.length = alvo;
+        renderTarasTable();
+        input.value = tarasData.length;
+      };
+      const perdeValores = tarasData.slice(alvo).some(v => String(v).trim() !== "");
+      if (perdeValores) {
+        caixaMensagem("Reduzir para " + alvo + " linhas vai apagar valores já escritos. Continuar?", aplicar, () => { input.value = tarasData.length; });
+      } else {
+        aplicar();
+      }
+    }
+
+    function aplicarNumeroLinhasColas(input) {
+      const n = parseInt(input.value, 10);
+      if (isNaN(n) || n < 1) { input.value = colasData.length; return; }
+      const alvo = Math.min(n, LINHAS_MAX_TARAS_COLAS);
+      if (alvo === colasData.length) { input.value = alvo; return; }
+      const aplicar = () => {
+        while (colasData.length < alvo) colasData.push({ esq: "", dir: "" });
+        if (colasData.length > alvo) colasData.length = alvo;
+        renderColasTable();
+        input.value = colasData.length;
+      };
+      const perdeValores = colasData.slice(alvo).some(c => String(c.esq).trim() !== "" || String(c.dir).trim() !== "");
+      if (perdeValores) {
+        caixaMensagem("Reduzir para " + alvo + " linhas vai apagar valores já escritos. Continuar?", aplicar, () => { input.value = colasData.length; });
+      } else {
+        aplicar();
+      }
+    }
+
     function addTaraRow() {
+      if (tarasData.length >= LINHAS_MAX_TARAS_COLAS) {
+        caixaMensagem("O número máximo de linhas é " + LINHAS_MAX_TARAS_COLAS + ".");
+        return;
+      }
       tarasData.push("");
       renderTarasTable();
       setTimeout(() => {
@@ -2388,10 +2594,10 @@
 
     function removeTara(index) {
       if (tarasData.length > 1) {
-        tarasData.splice(index, 1);
-        renderTarasTable();
+        const apagar = () => { tarasData.splice(index, 1); renderTarasTable(); };
+        if (String(tarasData[index]).trim() !== "") caixaMensagem("Apagar este valor de tara?", apagar); else apagar();
       } else {
-        alert("Tem de existir pelo menos um valor de tara.");
+        caixaMensagem("Tem de existir pelo menos um valor de tara.");
       }
     }
 
@@ -2439,16 +2645,17 @@
           inpDir.onkeydown = (e) => {
             if (e.key === "Enter") {
               e.preventDefault();
+              /* só passa à linha de baixo se já existir; não cria linhas novas */
               if (index < colasData.length - 1) {
                 navegarEnter(e, nextEsqId);
-              } else {
-                addColaRow();
               }
             }
           };
         }
       });
       
+      const elNColas = document.getElementById("num_linhas_colas");
+      if (elNColas && document.activeElement !== elNColas) elNColas.value = colasData.length;
       calcColas();
     }
 
@@ -2458,6 +2665,10 @@
     }
 
     function addColaRow() {
+      if (colasData.length >= LINHAS_MAX_TARAS_COLAS) {
+        caixaMensagem("O número máximo de linhas é " + LINHAS_MAX_TARAS_COLAS + ".");
+        return;
+      }
       colasData.push({ esq: "", dir: "" });
       renderColasTable();
       setTimeout(() => {
@@ -2468,103 +2679,134 @@
 
     function removeColaRow(index) {
       if (colasData.length > 1) {
-        colasData.splice(index, 1);
-        renderColasTable();
+        const c = colasData[index];
+        const apagar = () => { colasData.splice(index, 1); renderColasTable(); };
+        if (String(c.esq).trim() !== "" || String(c.dir).trim() !== "") caixaMensagem("Apagar esta linha de pesos?", apagar); else apagar();
       } else {
-        alert("Tem de existir pelo menos uma linha de pesos de cola.");
+        caixaMensagem("Tem de existir pelo menos uma linha de pesos de cola.");
       }
     }
 
     function limparColas() {
-      colasData = [{ esq: "", dir: "" }];
-      renderColasTable();
+      const haDados = colasData.some(c => String(c.esq).trim() !== "" || String(c.dir).trim() !== "");
+      const limpar = () => { colasData = [{ esq: "", dir: "" }]; renderColasTable(); };
+      if (haDados) caixaMensagem("Apagar todos os pesos de cola?", limpar); else limpar();
     }
 
     function limparTaras() {
-      tarasData = ["", "", "", ""];
-      renderTarasTable();
+      const limpar = () => { tarasData = ["", "", "", ""]; renderTarasTable(); };
+      if (tarasData.some(v => String(v).trim() !== "")) caixaMensagem("Apagar todos os valores de tara?", limpar); else limpar();
+    }
+
+    /* Tara e Cola: aritmética exata (BigInt) para o arredondamento seguir a regra
+       "3.ª casa de 5 a 9 sobe a 2.ª casa", sem erros de vírgula flutuante */
+    function lerDecimalExato(txt) {
+      const t = String(txt).replace(",", ".").trim();
+      if (!/^\d*\.?\d*$/.test(t) || !/\d/.test(t)) return null;
+      const partes = t.split(".");
+      const frac = partes[1] || "";
+      return { n: BigInt((partes[0] || "0") + frac), d: frac.length };
+    }
+
+    /* n / d arredondado ao inteiro; o meio (0,5) afasta-se de zero; d > 0 */
+    function divArredondada(n, d) {
+      const neg = n < 0n;
+      const a = neg ? -n : n;
+      const q = (2n * a + d) / (2n * d);
+      return neg ? -q : q;
+    }
+
+    function formatarCentesimas(c) {
+      const neg = c < 0n;
+      const a = neg ? -c : c;
+      return (neg ? "-" : "") + (a / 100n).toString() + "," + (a % 100n).toString().padStart(2, "0");
     }
 
     function calcColas() {
-      let sum = 0;
-      let count = 0;
-
+      const taras = [];
       tarasData.forEach((val, index) => {
-        const numStr = val.replace(",", ".").trim();
-        const num = parseFloat(numStr);
         const inp = document.getElementById(`tara_${index}`);
-        
-        if (val !== "" && inp) {
-          inp.style.color = "#2563eb"; 
-        } else if (inp) {
-          inp.style.color = "#0f172a";
-        }
-
-        if (!isNaN(num)) {
-          sum += num;
-          count++;
-        }
+        if (inp) inp.style.color = String(val) !== "" ? "#2563eb" : "#0f172a";
+        const v = lerDecimalExato(val);
+        if (v) taras.push(v);
       });
 
+      /* escala comum = máximo de casas decimais escritas (mínimo 2) */
+      let S = 2;
+      taras.forEach(v => { if (v.d > S) S = v.d; });
+      colasData.forEach(c => {
+        [c.esq, c.dir].forEach(txt => {
+          const v = lerDecimalExato(txt);
+          if (v && v.d > S) S = v.d;
+        });
+      });
+      const escala = 10n ** BigInt(S);
+      const paraEscala = (v) => v.n * 10n ** BigInt(S - v.d);
+
+      const count = taras.length;
+      const cntB = BigInt(count);
+      const soma = taras.reduce((acc, v) => acc + paraEscala(v), 0n);
+
       const mediaEl = document.getElementById("media_tara_result");
-      let media = 0;
-
       mediaEl.classList.remove("valido", "invalido", "neutro");
-
       if (count > 0) {
-        media = sum / count;
-        mediaEl.textContent = formatarComVirgula(media) + " g";
-        mediaEl.classList.add("neutro"); 
+        mediaEl.textContent = formatarCentesimas(divArredondada(soma * 100n, cntB * escala)) + " g";
+        mediaEl.classList.add("neutro");
       } else {
         mediaEl.textContent = "---";
       }
 
+      /* Resultado = peso com cola − média da tara (valor exato), arredondado a 2 casas.
+         Resultado negativo = peso inferior à média da tara: a vermelho. */
+      const atualizarLado = (txt, inp, resEl) => {
+        if (resEl) {
+          resEl.classList.remove("valido", "invalido", "neutro");
+          resEl.removeAttribute("title");
+        }
+        if (String(txt) === "") {
+          if (inp) inp.style.color = "#0f172a";
+          if (resEl) resEl.textContent = "---";
+          return;
+        }
+        const v = lerDecimalExato(txt);
+        if (!v || count === 0) {
+          if (inp) inp.style.color = "#2563eb";
+          if (resEl) resEl.textContent = "---";
+          return;
+        }
+        const diff = paraEscala(v) * cntB - soma;
+        const cent = divArredondada(diff * 100n, cntB * escala);
+        const negativo = cent < 0n;
+        if (inp) inp.style.color = negativo ? "#dc2626" : "#2563eb";
+        if (resEl) {
+          resEl.textContent = formatarCentesimas(cent) + " g";
+          if (negativo) {
+            resEl.classList.add("invalido");
+            resEl.title = "Peso inferior à média da tara: verifica o valor";
+          } else {
+            resEl.classList.add("neutro");
+          }
+        }
+      };
+
       colasData.forEach((item, index) => {
-        const resEsqEl = document.getElementById(`res_cola_esq_${index}`);
-        const resDirEl = document.getElementById(`res_cola_dir_${index}`);
-        const inpEsq = document.getElementById(`cola_esq_${index}`);
-        const inpDir = document.getElementById(`cola_dir_${index}`);
-
-        if (resEsqEl) resEsqEl.classList.remove("valido", "invalido", "neutro");
-        if (resDirEl) resDirEl.classList.remove("valido", "invalido", "neutro");
-
-        if (item.esq !== "") {
-          if (inpEsq) inpEsq.style.color = "#2563eb"; 
-          const valEsq = parseFloat(item.esq.replace(",", ".").trim());
-          if (!isNaN(valEsq) && count > 0) {
-            const diffEsq = valEsq - media;
-            if (resEsqEl) {
-              resEsqEl.textContent = formatarComVirgula(diffEsq) + " g";
-              resEsqEl.classList.add("neutro");
-            }
-          } else if (resEsqEl) {
-            resEsqEl.textContent = "---";
-          }
-        } else {
-          if (inpEsq) inpEsq.style.color = "#0f172a";
-          if (resEsqEl) resEsqEl.textContent = "---";
-        }
-
-        if (item.dir !== "") {
-          if (inpDir) inpDir.style.color = "#2563eb"; 
-          const valDir = parseFloat(item.dir.replace(",", ".").trim());
-          if (!isNaN(valDir) && count > 0) {
-            const diffDir = valDir - media;
-            if (resDirEl) {
-              resDirEl.textContent = formatarComVirgula(diffDir) + " g";
-              resDirEl.classList.add("neutro");
-            }
-          } else if (resDirEl) {
-            resDirEl.textContent = "---";
-          }
-        } else {
-          if (inpDir) inpDir.style.color = "#0f172a";
-          if (resDirEl) resDirEl.textContent = "---";
-        }
+        atualizarLado(item.esq, document.getElementById(`cola_esq_${index}`), document.getElementById(`res_cola_esq_${index}`));
+        atualizarLado(item.dir, document.getElementById(`cola_dir_${index}`), document.getElementById(`res_cola_dir_${index}`));
       });
     }
 
+    /* Atualiza cabeçalho e nota do rodapé sempre que a página muda */
+    (function () {
+      const obs = new MutationObserver(atualizarCabecalhoRodape);
+      obs.observe(document.getElementById("mainSubtitle"), { childList: true, characterData: true, subtree: true });
+      obs.observe(document.getElementById("backHeaderBtn"), { attributes: true, attributeFilter: ["style"] });
+    })();
+
     window.onload = function() {
+      const ano = new Date().getFullYear();
+      document.querySelectorAll(".ano-atual").forEach(el => { el.textContent = ano; });
+      const elData = document.getElementById("dataAtualizacao");
+      if (elData) elData.textContent = DATA_ATUALIZACAO;
       renderAppState();
     };
   </script>
