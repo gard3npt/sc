@@ -279,6 +279,12 @@
       font-size: 13px;
     }
 
+    /* Bisnagas: ao carregar numa célula editável, o texto de apoio desaparece */
+    #bisnagasBody input:focus::placeholder,
+    #espessura_folha:focus::placeholder {
+      color: transparent !important;
+    }
+
     .calc-table .result-cell {
       background: #eff6ff; 
       color: #1e40af; 
@@ -292,6 +298,22 @@
       justify-content: center;
       width: 100%;
       height: 38px; 
+    }
+
+    .calc-table input.media-input {
+      box-sizing: border-box;
+      text-align: center;
+      font-family: inherit;
+      outline: none;
+      cursor: text;
+    }
+    .calc-table input.media-input:focus {
+      border-color: #2563eb !important;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+    }
+    .calc-table input.media-input::placeholder {
+      color: rgba(15, 23, 42, 0.4);
+      font-weight: 500;
     }
 
     .calc-table .result-cell.valido, .calc-table .global-result-cell.valido {
@@ -1418,7 +1440,7 @@
               <button type="button" id="btn_preset_017" class="quick-value-btn" onclick="definirEspessuraRapida(0.17)">0,17</button>
               <button type="button" id="btn_preset_018" class="quick-value-btn" onclick="definirEspessuraRapida(0.18)">0,18</button>
             </div>
-            <input type="text" inputmode="decimal" id="espessura_folha" class="input-index-style" placeholder="0.15 a 0.18 mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcResultadoFinal()" onkeydown="navegarEnter(event, 'b1_v1')">
+            <input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" id="espessura_folha" class="input-index-style" placeholder="0.15 a 0.18 mm" onblur="forcarDuasCasasDecimais(this)" oninput="calcResultadoFinal()" onkeydown="navegarEnter(event, 'b1_v1')">
             <button type="button" class="clear-all-btn-small" onclick="limparPonto1()">Limpar</button>
           </div>
         </div>
@@ -1427,6 +1449,10 @@
         <div class="bisnaga-section-header">
           <span class="step-num">2</span>
           <h3>Espessura de Cravação (mm)</h3>
+          <div style="margin-left:auto; display:flex; align-items:center; gap:8px;">
+            <label for="num_linhas_ponto2" style="font-size:13px; font-weight:700; color:#475569;">Linhas:</label>
+            <input autocomplete="off" onclick="this.select()" type="text" inputmode="numeric" id="num_linhas_ponto2" class="input-index-style" value="4" style="width:64px; padding:6px 8px;" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 3)" onchange="aplicarNumeroLinhas(this)" onkeydown="if (event.key === 'Enter') { event.preventDefault(); this.blur(); }" onblur="aplicarNumeroLinhas(this)">
+          </div>
         </div>
         <div class="table-container">
           <table class="calc-table" id="bisnagasTable">
@@ -1444,30 +1470,30 @@
             <tbody id="bisnagasBody">
               <tr>
                 <td class="col-index-style">1</td>
-                <td><input type="text" inputmode="decimal" id="b1_v1" class="input-index-style" placeholder="Ex: Valor mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-                <td><input type="text" inputmode="decimal" id="b1_v2" class="input-index-style" placeholder="Ex: Valor mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-                <td><div class="result-cell" id="b1_media">---</div></td>
+                <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" id="b1_v1" class="input-index-style" placeholder="Ex: Valor mm" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+                <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" id="b1_v2" class="input-index-style" placeholder="Ex: Valor mm" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+                <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" class="result-cell media-input" id="b1_media" placeholder="---" oninput="mediaDigitada(this)" onblur="fecharMedia(this)"></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">2</td>
-                <td><input type="text" inputmode="decimal" id="b2_v1" class="input-index-style" placeholder="Ex: Valor mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-                <td><input type="text" inputmode="decimal" id="b2_v2" class="input-index-style" placeholder="Ex: Valor mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-                <td><div class="result-cell" id="b2_media">---</div></td>
+                <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" id="b2_v1" class="input-index-style" placeholder="Ex: Valor mm" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+                <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" id="b2_v2" class="input-index-style" placeholder="Ex: Valor mm" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+                <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" class="result-cell media-input" id="b2_media" placeholder="---" oninput="mediaDigitada(this)" onblur="fecharMedia(this)"></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">3</td>
-                <td><input type="text" inputmode="decimal" id="b3_v1" class="input-index-style" placeholder="Ex: Valor mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-                <td><input type="text" inputmode="decimal" id="b3_v2" class="input-index-style" placeholder="Ex: Valor mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-                <td><div class="result-cell" id="b3_media">---</div></td>
+                <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" id="b3_v1" class="input-index-style" placeholder="Ex: Valor mm" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+                <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" id="b3_v2" class="input-index-style" placeholder="Ex: Valor mm" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+                <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" class="result-cell media-input" id="b3_media" placeholder="---" oninput="mediaDigitada(this)" onblur="fecharMedia(this)"></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
               <tr>
                 <td class="col-index-style">4</td>
-                <td><input type="text" inputmode="decimal" id="b4_v1" class="input-index-style" placeholder="Ex: Valor mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-                <td><input type="text" inputmode="decimal" id="b4_v2" class="input-index-style" placeholder="Ex: Valor mm" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-                <td><div class="result-cell" id="b4_media">---</div></td>
+                <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" id="b4_v1" class="input-index-style" placeholder="Ex: Valor mm" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+                <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" id="b4_v2" class="input-index-style" placeholder="Ex: Valor mm" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+                <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" class="result-cell media-input" id="b4_media" placeholder="---" oninput="mediaDigitada(this)" onblur="fecharMedia(this)"></td>
                 <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
               </tr>
             </tbody>
@@ -1602,7 +1628,7 @@
       <p style="line-height:2; font-size:1rem;"><strong>Nome:</strong> Hélder Fernandes</p>
       <button class="contact-btn" onclick="sendMessage()">Enviar mensagem</button>
       <hr style="margin:15px 0; border:0; border-top:1px solid rgba(255,255,255,0.2);">
-      <p style="font-size:0.8rem; opacity:0.7;"><strong>Atualizado a: </strong>08.09.2026</p>
+      <p style="font-size:0.8rem; opacity:0.7;"><strong>Atualizado a: </strong>08.10.2026</p>
     </div>
   </div>
 
@@ -1903,12 +1929,31 @@
       }
     }
 
+    /* Converte texto decimal em centésimas (inteiro): 3.ª casa de 5 a 9 sobe, de 0 a 4 desce (sem erros de vírgula flutuante) */
+    function paraCentesimas(texto) {
+      return Math.round(Number(texto + "e2"));
+    }
+
+    /* Células editáveis da página das Bisnagas: ao escrever só entram números, vírgula decimal e no máximo 2 casas decimais; o " mm" é acrescentado ao sair da célula */
+    function soNumeros(input) {
+      let v = input.value.replace(/\./g, ",").replace(/[^0-9,]/g, "");
+      const i = v.indexOf(",");
+      if (i !== -1) {
+        v = v.slice(0, i + 1) + v.slice(i + 1).replace(/,/g, "").slice(0, 2);
+      }
+      if (v !== input.value) input.value = v;
+    }
+    document.addEventListener("input", function (e) {
+      const t = e.target;
+      if (t && t.tagName === "INPUT" && t.closest && t.closest("#mediasBisnagasPage")) soNumeros(t);
+    }, true);
+
     function forcarDuasCasasDecimais(input) {
       if (input.value !== "") {
         let limpo = input.value.replace(" mm", "").replace(",", ".").trim();
         let val = parseFloat(limpo);
         if (!isNaN(val)) {
-          input.value = val.toFixed(2).replace(".", ",") + " mm";
+          input.value = (paraCentesimas(limpo) / 100).toFixed(2).replace(".", ",") + " mm";
         } else {
           input.value = "";
         }
@@ -1972,13 +2017,58 @@
 
       const inputsAmostras = document.querySelectorAll("#bisnagasBody input");
       inputsAmostras.forEach(input => {
-        input.placeholder = placeholderTexto;
+        input.placeholder = input.classList.contains("media-input") ? "---" : placeholderTexto;
       });
+
+      /* Linhas com média escrita diretamente: Ponto 1 e Ponto 2 mostram "-" */
+      document.querySelectorAll("#bisnagasBody tr").forEach(row => {
+        const elMedia = row.cells[3].querySelector(".media-input");
+        if (elMedia && elMedia.dataset.manual) {
+          row.cells[1].querySelector("input").placeholder = "-";
+          row.cells[2].querySelector("input").placeholder = "-";
+        }
+      });
+    }
+
+    /* ---------------- MÉDIA DA AMOSTRA EDITÁVEL ---------------- */
+    function escreverMedia(el, texto) {
+      if (document.activeElement !== el) el.value = texto;
+    }
+
+    /* Ao escrever a média da amostra, é guardada como "média manual": Ponto 1 e Ponto 2 ficam vazios */
+    function mediaDigitada(input) {
+      const row = input.closest("tr");
+      const v1 = row.cells[1].querySelector("input");
+      const v2 = row.cells[2].querySelector("input");
+      const txt = input.value.replace(" mm", "").trim();
+      input.dataset.editado = "1";
+      if (txt === "") {
+        delete input.dataset.manual;
+      } else {
+        input.dataset.manual = "1";
+        v1.value = "";
+        v2.value = "";
+      }
+      calcBisnagas();
+    }
+
+    function fecharMedia(input) {
+      if (!input.dataset.editado) return;
+      delete input.dataset.editado;
+      const txt = input.value.replace(" mm", "").replace(",", ".").trim();
+      if (txt === "" || isNaN(parseFloat(txt))) {
+        input.value = "";
+        delete input.dataset.manual;
+      } else {
+        input.value = formatarComVirgula(paraCentesimas(txt) / 100) + " mm";
+      }
+      calcBisnagas();
     }
 
     /* ---------------- LÓGICA BISNAGAS ---------------- */
     function calcBisnagas() {
-      let totalMedias = 0;
+      /* Cálculo em centésimas (inteiros) para evitar erros de arredondamento de vírgula flutuante */
+      let somaCent = 0;
       let qtdMediasValidas = 0;
 
       const limites = obterLimitesCravacao();
@@ -2002,15 +2092,18 @@
         if (proximaLinha) {
           inputV1.onkeydown = (event) => navegarEnter(event, `b${num}_v2`);
           inputV2.onkeydown = (event) => navegarEnter(event, `b${num + 1}_v1`);
+          elMedia.onkeydown = (event) => navegarEnter(event, `b${num + 1}_media`);
         } else {
           inputV1.onkeydown = (event) => navegarEnter(event, `b${num}_v2`);
           inputV2.onkeydown = (event) => navegarEnter(event, '');
+          elMedia.onkeydown = (event) => navegarEnter(event, '');
         }
 
         const campo1 = inputV1.value.replace(" mm", "").replace(",", ".").trim();
         const campo2 = inputV2.value.replace(" mm", "").replace(",", ".").trim();
 
         elMedia.classList.remove("valido", "invalido", "neutro");
+        if (campo1 !== "" || campo2 !== "") delete elMedia.dataset.manual;
 
         if (inputV1.value !== "") {
           const val1 = parseFloat(campo1);
@@ -2043,8 +2136,11 @@
           const v2 = parseFloat(campo2);
           
           if (!isNaN(v1) && !isNaN(v2)) {
-            const m = (v1 + v2) / 2;
-            elMedia.textContent = formatarComVirgula(m) + " mm";
+            const c1 = paraCentesimas(campo1);
+            const c2 = paraCentesimas(campo2);
+            const mCent = Math.floor((c1 + c2 + 1) / 2); /* média da amostra em centésimas, 0,005 arredonda para cima */
+            const m = mCent / 100;
+            escreverMedia(elMedia, formatarComVirgula(m) + " mm");
             
             if (!limites) {
               elMedia.classList.add("neutro"); 
@@ -2054,22 +2150,44 @@
               elMedia.classList.add("invalido");
             }
 
-            totalMedias += m;
+            somaCent += mCent; /* soma das médias das amostras (valores apresentados) */
             qtdMediasValidas++;
           } else {
-            elMedia.textContent = "---";
+            escreverMedia(elMedia, "");
+          }
+        } else if (campo1 === "" && campo2 === "" && elMedia.dataset.manual) {
+          /* média escrita manualmente: Ponto 1 e Ponto 2 vazios */
+          const txtM = elMedia.value.replace(" mm", "").replace(",", ".").trim();
+          if (txtM !== "" && !isNaN(parseFloat(txtM))) {
+            const mCent = paraCentesimas(txtM);
+            const m = mCent / 100;
+            if (!limites) {
+              elMedia.classList.add("neutro");
+            } else if (m >= limites.min && m <= limites.max) {
+              elMedia.classList.add("valido");
+            } else {
+              elMedia.classList.add("invalido");
+            }
+            somaCent += mCent;
+            qtdMediasValidas++;
+          } else {
+            delete elMedia.dataset.manual;
+            escreverMedia(elMedia, "");
           }
         } else {
-          elMedia.textContent = "---";
+          escreverMedia(elMedia, "");
         }
       });
+
+      const elNumLinhas = document.getElementById("num_linhas_ponto2");
+      if (elNumLinhas && document.activeElement !== elNumLinhas) elNumLinhas.value = rows.length;
 
       const elTotal = document.getElementById("total_medias");
       elTotal.classList.remove("valido", "invalido", "neutro");
 
       if (qtdMediasValidas > 0) {
-        const mediaGlobalRaw = totalMedias / qtdMediasValidas;
-        const mediaGlobal = parseFloat(mediaGlobalRaw.toFixed(2));
+        /* média das médias das amostras, em centésimas, arredondada para cima a partir de 0,005 */
+        const mediaGlobal = Math.floor((2 * somaCent + qtdMediasValidas) / (2 * qtdMediasValidas)) / 100;
         
         elTotal.textContent = formatarComVirgula(mediaGlobal) + " mm";
 
@@ -2098,8 +2216,12 @@
       }
     }
 
-    function adicionarLinhaAmostra() {
+    function adicionarLinhaAmostra(semFoco) {
       const tbody = document.getElementById("bisnagasBody");
+      if (tbody.querySelectorAll("tr").length >= LINHAS_MAX_PONTO2) {
+        alert("O número máximo de linhas é " + LINHAS_MAX_PONTO2 + ".");
+        return;
+      }
       const proximoNumero = tbody.querySelectorAll("tr").length + 1;
 
       const limites = obterLimitesCravacao();
@@ -2112,20 +2234,43 @@
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td class="col-index-style">${proximoNumero}</td>
-        <td><input type="text" inputmode="decimal" id="b${proximoNumero}_v1" class="input-index-style" placeholder="${placeholderTexto}" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-        <td><input type="text" inputmode="decimal" id="b${proximoNumero}_v2" class="input-index-style" placeholder="${placeholderTexto}" onclick="this.select()" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
-        <td><div class="result-cell" id="b${proximoNumero}_media">---</div></td>
+        <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" id="b${proximoNumero}_v1" class="input-index-style" placeholder="${placeholderTexto}" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+        <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" id="b${proximoNumero}_v2" class="input-index-style" placeholder="${placeholderTexto}" onblur="forcarDuasCasasDecimais(this)" oninput="calcBisnagas()"></td>
+        <td><input autocomplete="off" onclick="this.select()" type="text" inputmode="decimal" class="result-cell media-input" id="b${proximoNumero}_media" placeholder="---" oninput="mediaDigitada(this)" onblur="fecharMedia(this)"></td>
         <td><button type="button" class="delete-btn" onclick="apagarLinhaAmostra(this)"> ❌</button></td>
       `;
 
       tbody.appendChild(tr);
       calcBisnagas(); 
       
+      if (semFoco === true) return;
       const novoInput = document.getElementById(`b${proximoNumero}_v1`);
       if (novoInput) {
         novoInput.focus();
         setTimeout(() => { novoInput.select(); }, 0);
       }
+    }
+
+    /* ---------------- NÚMERO DE LINHAS DO PONTO 2 ---------------- */
+    const LINHAS_PADRAO_PONTO2 = 4;
+    const LINHAS_MAX_PONTO2 = 100;
+
+    function definirNumeroLinhas(n) {
+      const tbody = document.getElementById("bisnagasBody");
+      n = Math.max(1, Math.min(LINHAS_MAX_PONTO2, n));
+      while (tbody.querySelectorAll("tr").length < n) adicionarLinhaAmostra(true);
+      while (tbody.querySelectorAll("tr").length > n) tbody.lastElementChild.remove();
+      calcBisnagas();
+    }
+
+    function aplicarNumeroLinhas(input) {
+      const n = parseInt(input.value, 10);
+      if (isNaN(n) || n < 1) {
+        input.value = document.querySelectorAll("#bisnagasBody tr").length;
+        return;
+      }
+      definirNumeroLinhas(n);
+      input.value = document.querySelectorAll("#bisnagasBody tr").length;
     }
 
     function limparPonto1() {
@@ -2142,8 +2287,9 @@
       inputsAmostras.forEach(input => {
         input.value = "";
         input.style.color = "#0f172a";
+        delete input.dataset.manual;
       });
-      calcBisnagas();
+      definirNumeroLinhas(LINHAS_PADRAO_PONTO2);
     }
 
     function calcResultadoFinal(triggerCalcBisnagas = true) {
@@ -2176,12 +2322,14 @@
       atualizarPlaceholdersPonto2();
 
       if (!isNaN(espessura) && mediaGlobal !== null && mediaGlobal !== 0) {
-        const calculo = ((espessura * 8) / mediaGlobal) * 100;
-        // Exibir com 1 casa decimal em vez de 2 para menor destaque dos decimais
-        elResultado.textContent = calculo.toFixed(1).replace(".", ",") + " %";
+        /* Compactação = espessura × 8 ÷ média total × 100, calculada em centésimas (inteiros) e arredondada a valor inteiro (0,5 sobe) */
+        const eCent = paraCentesimas(espessuraTexto);
+        const mCent = paraCentesimas(mediaGlobalTexto);
+        const calculo = Math.floor((1600 * eCent + mCent) / (2 * mCent));
+        elResultado.textContent = calculo + " %";
 
-        // Novo intervalo de validade: entre 74,5% e 92,4%
-        if (calculo >= 74.5 && calculo <= 92.4) {
+        // Intervalo de validade (74,5% a 92,4%), avaliado sobre o valor inteiro apresentado: 75 a 92
+        if (calculo >= 75 && calculo <= 92) {
           elResultado.classList.add("valido");
         } else {
           elResultado.classList.add("invalido");
