@@ -995,6 +995,20 @@
 
     .footer-app { display: none; }
 
+    /* "Agajota" no rodapé é um botão que mostra a data da última atualização */
+    .agajota-btn {
+      background: none;
+      border: none;
+      color: inherit;
+      font: inherit;
+      padding: 6px 4px;
+      margin: 0;
+      cursor: pointer;
+      text-decoration: underline dotted;
+      text-underline-offset: 3px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     .footer-note {
       position: fixed;
       display: none;
@@ -1214,6 +1228,195 @@
       #resultado_final_campo.compactacao-destaque-cell {
         width: 100%;
         max-width: 100%;
+      }
+    }
+
+    /* Compactação das Bisnagas em ecrãs estreitos: mantém a tabela (colunas) como nos ecrãs largos, mas mais reduzida */
+    @media(max-width: 768px){
+      #bisnagasTable { display: table; width: 100%; table-layout: fixed; border-collapse: collapse; }
+      #bisnagasTable thead { display: table-header-group; width: auto; }
+      #bisnagasTable tbody { display: table-row-group; width: auto; }
+      #bisnagasTable tfoot { display: table-footer-group; width: auto; }
+      #bisnagasTable tr { display: table-row; width: auto; background: transparent; border: none; border-radius: 0; margin: 0; padding: 0; box-shadow: none; }
+      #bisnagasTable thead tr { position: static; top: auto; left: auto; }
+      #bisnagasTable tbody tr:nth-child(even) { background: #f8fafc; }
+      #bisnagasTable tr.total-row { background: #f8fafc; border: none; }
+
+      #bisnagasTable th, #bisnagasTable td {
+        display: table-cell;
+        width: auto;
+        text-align: center;
+        vertical-align: middle;
+        padding: 5px 3px;
+        border: none;
+        border-bottom: 1px solid #e2e8f0;
+        gap: 0;
+        position: relative;
+      }
+      #bisnagasTable th { font-size: 11px; line-height: 1.2; padding: 6px 2px; border-bottom: 2px solid #cbd5e1; }
+      #bisnagasTable td::before { content: none !important; }
+      #bisnagasTable tbody tr:not(.total-row) td:first-child {
+        background: transparent !important;
+        color: #475569 !important;
+        border: none !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+        border-radius: 0;
+        margin: 0;
+        font-size: 12px;
+      }
+
+      #bisnagasBody .input-index-style, #bisnagasBody input.media-input {
+        width: 100%;
+        max-width: none;
+        height: 32px;
+        padding: 2px;
+        font-size: 13px;
+        border-width: 1.5px;
+        border-radius: 6px;
+        box-sizing: border-box;
+      }
+      #bisnagasBody input::placeholder { font-size: 10px; }
+      #bisnagasBody td.media-manual::after { top: 1px; right: 4px; font-size: 10px; }
+
+      #bisnagasTable .delete-btn { padding: 4px 6px; font-size: 12px; border-radius: 6px; }
+      #bisnagasTable .clear-all-btn-small { width: 100%; padding: 4px 2px; font-size: 9px; line-height: 1.15; }
+
+      #bisnagasTable tr.total-row td { display: table-cell; text-align: center; font-size: 12px; padding: 6px 3px; border-bottom: none; }
+      #bisnagasTable tr.total-row td[colspan] { display: table-cell; }
+      #bisnagasTable .total-flex-container { flex-direction: column; align-items: stretch; gap: 4px; }
+      #bisnagasTable .add-row-btn { width: 100%; font-size: 11px; padding: 6px 4px; border-radius: 8px; }
+      #bisnagasTable .total-badge { font-size: 11px; text-align: center; }
+      #bisnagasTable .total-row .global-result-cell { min-width: 0; width: 100%; max-width: none; font-size: 13px; height: 32px; box-sizing: border-box; }
+      #bisnagasTable .total-td-wrapper { justify-content: center; }
+    }
+    /* Tara + Cola em ecrãs estreitos: também em tabela (colunas), mais reduzida */
+    @media(max-width: 768px){
+      #tarasTable { display: table; width: 100%; table-layout: fixed; border-collapse: collapse; }
+      #tarasTable thead { display: table-header-group; width: auto; }
+      #tarasTable tbody { display: table-row-group; width: auto; }
+      #tarasTable tfoot { display: table-footer-group; width: auto; }
+      #tarasTable tr { display: table-row; width: auto; background: transparent; border: none; border-radius: 0; margin: 0; padding: 0; box-shadow: none; }
+      #tarasTable thead tr { position: static; top: auto; left: auto; }
+      #tarasTable tbody tr:nth-child(even) { background: #f8fafc; }
+      #tarasTable tr.total-row { background: #f8fafc; border: none; }
+
+      #tarasTable th, #tarasTable td {
+        display: table-cell;
+        width: auto;
+        text-align: center;
+        vertical-align: middle;
+        padding: 5px 3px;
+        border: none;
+        border-bottom: 1px solid #e2e8f0;
+        gap: 0;
+        position: relative;
+      }
+      #tarasTable th { font-size: 11px; line-height: 1.2; padding: 6px 2px; border-bottom: 2px solid #cbd5e1; }
+      #tarasTable td::before { content: none !important; }
+      #tarasTable tbody tr:not(.total-row) td:first-child {
+        background: transparent !important;
+        color: #475569 !important;
+        border: none !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+        border-radius: 0;
+        margin: 0;
+        font-size: 12px;
+      }
+
+      #tarasBody .input-index-style {
+        width: 100%;
+        max-width: none;
+        height: 32px;
+        padding: 2px;
+        font-size: 13px;
+        border-width: 1.5px;
+        border-radius: 6px;
+        box-sizing: border-box;
+      }
+      #tarasBody input::placeholder { font-size: 10px; }
+
+      #tarasTable .delete-btn { padding: 4px 6px; font-size: 12px; border-radius: 6px; }
+      #tarasTable .clear-all-btn-small { width: 100%; padding: 4px 2px; font-size: 9px; line-height: 1.15; }
+
+      #tarasTable tr.total-row td { display: table-cell; text-align: center; font-size: 12px; padding: 6px 3px; border-bottom: none; }
+      #tarasTable tr.total-row td[colspan] { display: table-cell; }
+      #tarasTable .total-flex-container { flex-direction: column; align-items: stretch; gap: 4px; }
+      #tarasTable .add-row-btn { width: 100%; font-size: 11px; padding: 6px 4px; border-radius: 8px; }
+      #tarasTable .total-badge { font-size: 11px; text-align: center; }
+      #tarasTable .total-row .global-result-cell { min-width: 0; width: 100%; max-width: none; font-size: 13px; height: 32px; box-sizing: border-box; }
+      #tarasTable .total-td-wrapper { justify-content: center; }
+
+      /* Taras: coluna da ação mais larga para caber a média no rodapé */
+      #tarasTable th:nth-child(1) { width: 8% !important; }
+      #tarasTable th:nth-child(3) { width: 24% !important; }
+      #tableResultadosColas { display: table; width: 100%; table-layout: fixed; border-collapse: collapse; }
+      #tableResultadosColas thead { display: table-header-group; width: auto; }
+      #tableResultadosColas tbody { display: table-row-group; width: auto; }
+      #tableResultadosColas tfoot { display: table-footer-group; width: auto; }
+      #tableResultadosColas tr { display: table-row; width: auto; background: transparent; border: none; border-radius: 0; margin: 0; padding: 0; box-shadow: none; }
+      #tableResultadosColas thead tr { position: static; top: auto; left: auto; }
+      #tableResultadosColas tbody tr:nth-child(even) { background: #f8fafc; }
+      #tableResultadosColas tr.total-row { background: #f8fafc; border: none; }
+
+      #tableResultadosColas th, #tableResultadosColas td {
+        display: table-cell;
+        width: auto;
+        text-align: center;
+        vertical-align: middle;
+        padding: 5px 3px;
+        border: none;
+        border-bottom: 1px solid #e2e8f0;
+        gap: 0;
+        position: relative;
+      }
+      #tableResultadosColas th { font-size: 11px; line-height: 1.2; padding: 6px 2px; border-bottom: 2px solid #cbd5e1; }
+      #tableResultadosColas td::before { content: none !important; }
+      #tableResultadosColas tbody tr:not(.total-row) td:first-child {
+        background: transparent !important;
+        color: #475569 !important;
+        border: none !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+        border-radius: 0;
+        margin: 0;
+        font-size: 12px;
+      }
+
+      #colasBody .input-index-style {
+        width: 100%;
+        max-width: none;
+        height: 32px;
+        padding: 2px;
+        font-size: 13px;
+        border-width: 1.5px;
+        border-radius: 6px;
+        box-sizing: border-box;
+      }
+      #colasBody input::placeholder { font-size: 10px; }
+
+      #tableResultadosColas .delete-btn { padding: 4px 6px; font-size: 12px; border-radius: 6px; }
+      #tableResultadosColas .clear-all-btn-small { width: 100%; padding: 4px 2px; font-size: 9px; line-height: 1.15; }
+
+      #tableResultadosColas tr.total-row td { display: table-cell; text-align: center; font-size: 12px; padding: 6px 3px; border-bottom: none; }
+      #tableResultadosColas tr.total-row td[colspan] { display: table-cell; }
+      #tableResultadosColas .total-flex-container { flex-direction: column; align-items: stretch; gap: 4px; }
+      #tableResultadosColas .add-row-btn { width: 100%; font-size: 11px; padding: 6px 4px; border-radius: 8px; }
+      #tableResultadosColas .total-badge { font-size: 11px; text-align: center; }
+      #tableResultadosColas .total-row .global-result-cell { min-width: 0; width: 100%; max-width: none; font-size: 13px; height: 32px; box-sizing: border-box; }
+      #tableResultadosColas .total-td-wrapper { justify-content: center; }
+
+      /* Pesos de cola: colunas ajustadas e resultados mais pequenos */
+      #tableResultadosColas th:nth-child(1) { width: 7% !important; }
+      #tableResultadosColas th:nth-child(2), #tableResultadosColas th:nth-child(4) { width: 21% !important; }
+      #tableResultadosColas th:nth-child(3), #tableResultadosColas th:nth-child(5) { width: 19% !important; }
+      #tableResultadosColas th:nth-child(6) { width: 13% !important; }
+      #tableResultadosColas .compactacao-destaque-cell {
+        font-size: 12px !important;
+        letter-spacing: 0;
+        height: 32px;
+        padding: 2px;
+        border-width: 1.5px;
+        border-radius: 6px;
+        box-sizing: border-box;
       }
     }
   </style>
@@ -1659,8 +1862,8 @@
   </div>
 
   <div id="footerNote" class="footer-note">Nota: Alguns links apenas estão acessíveis através da rede interna da empresa.</div>
-  <footer id="loginFooter" class="footer-login"><span>© <span class="ano-atual">2026</span> Agajota</span></footer>
-  <footer id="appFooter" class="footer-app"><span>© <span class="ano-atual">2026</span> Agajota • Laboratório C. Q. - Almeirim</span></footer>
+  <footer id="loginFooter" class="footer-login"><span>© <span class="ano-atual">2026</span> <button type="button" class="agajota-btn" onclick="mostrarDataAtualizacao()" title="Ver data da última atualização">Agajota</button></span></footer>
+  <footer id="appFooter" class="footer-app"><span>© <span class="ano-atual">2026</span> <button type="button" class="agajota-btn" onclick="mostrarDataAtualizacao()" title="Ver data da última atualização">Agajota</button> • Laboratório C. Q. - Almeirim</span></footer>
 
   <div id="contactsModal" class="modal">
     <div class="modal-content">
@@ -1668,14 +1871,12 @@
       <h2 style="margin-bottom:15px; letter-spacing: 1px;">Suporte:</h2>
       <p style="line-height:2; font-size:1rem;"><strong>Nome:</strong> Hélder Fernandes</p>
       <button class="contact-btn" onclick="sendMessage()">Enviar mensagem</button>
-      <hr style="margin:15px 0; border:0; border-top:1px solid rgba(255,255,255,0.2);">
-      <p style="font-size:0.8rem; opacity:0.7;"><strong>Atualizado a: </strong><span id="dataAtualizacao">09.10.2026</span></p>
     </div>
   </div>
 
   <script>
-    /* Data da última atualização: mudar só aqui (aparece no menu Suporte) */
-    const DATA_ATUALIZACAO = "09.10.2026";
+    /* Data da última atualização: mudar só aqui (aparece ao carregar em "Agajota" no rodapé) */
+    const DATA_ATUALIZACAO = "13.10.2026";
 
     const correctPassword = "0";
 
@@ -1711,6 +1912,10 @@
     function logout() {
       localStorage.removeItem("isLoggedIn");
       renderAppState();
+    }
+
+    function mostrarDataAtualizacao() {
+      caixaMensagem("Atualizado a " + DATA_ATUALIZACAO);
     }
 
     function pedirLogout() {
@@ -2805,8 +3010,6 @@
     window.onload = function() {
       const ano = new Date().getFullYear();
       document.querySelectorAll(".ano-atual").forEach(el => { el.textContent = ano; });
-      const elData = document.getElementById("dataAtualizacao");
-      if (elData) elData.textContent = DATA_ATUALIZACAO;
       renderAppState();
     };
   </script>
