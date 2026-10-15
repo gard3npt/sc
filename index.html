@@ -34,6 +34,8 @@
       font-family: 'Montserrat', sans-serif;
       position: relative;
       font-size: 12.5px;
+      display: flex;
+      flex-direction: column;
     }
 
     /* REMOVER SETAS DOS INPUTS NUMÉRICOS */
@@ -976,51 +978,64 @@
       width: 100%;
     }
 
-    /* Rodapés */
+    /* Rodapés (mesmo estilo do rodapé do site @caricas_metalicas) */
     .footer-login, .footer-app {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 32px; 
+      bottom: 8px;
+      left: 8px;
+      width: calc(100% - 16px);
+      min-height: 44px;
+      border-radius: 12px;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: white;
-      font-size: 0.75rem; 
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(6px);
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 8px;
+      color: #94a3b8;
+      font-size: 12px;
+      background: #222;
       z-index: 1000;
     }
 
-    .footer-app { display: none; }
+    .page-bottom { margin-top: auto; width: 100%; }
 
-    /* "Agajota" no rodapé é um botão que mostra a data da última atualização */
+    .footer-app {
+      display: none;
+      position: relative;
+      bottom: auto;
+      left: auto;
+      width: auto;
+      margin: 12px 8px 8px;
+    }
+
+    /* "AGAJOTA" no rodapé é um botão que mostra a data da última atualização */
     .agajota-btn {
       background: none;
       border: none;
-      color: inherit;
+      color: #94a3b8;
       font: inherit;
+      font-weight: 700;
+      letter-spacing: .04em;
       padding: 6px 4px;
       margin: 0;
       cursor: pointer;
-      text-decoration: underline dotted;
-      text-underline-offset: 3px;
+      text-decoration: none;
       -webkit-tap-highlight-color: transparent;
     }
+    .agajota-btn:hover { color: #cbd5e1; text-decoration: underline; text-underline-offset: 2px; }
+    .agajota-nome { font-weight: 700; letter-spacing: .04em; padding: 6px 4px; }
 
     .footer-note {
-      position: fixed;
       display: none;
-      bottom: 32px; 
-      left: 0;
       width: 100%;
       text-align: center;
       font-size: 0.7rem; 
       color: #000000;
       background: transparent;
       padding: 2px 10px;
-      z-index: 999;
+      position: relative;
+      z-index: 2;
     }
 
     /* MODAIS */
@@ -1419,6 +1434,121 @@
         box-sizing: border-box;
       }
     }
+
+    /* BOTÕES (página inicial e páginas internas): aspeto mais moderno, texto centrado */
+    #departmentsSection .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      margin-bottom: 12px;
+    }
+    #departmentsSection .section-title::before {
+      content: "";
+      width: 4px;
+      height: 16px;
+      border-radius: 4px;
+      background: linear-gradient(180deg, #60a5fa, #2563eb);
+      box-shadow: 0 0 10px rgba(96,165,250,0.6);
+    }
+
+    .container .button-grid { gap: 14px; margin-bottom: 26px; }
+
+    .container .hub-button {
+      justify-content: center;
+      text-align: center;
+      min-height: 54px;
+      padding: 14px 40px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: linear-gradient(135deg, rgba(40,47,59,0.94), rgba(20,24,31,0.94));
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      animation: hubEntrada 0.45s ease backwards;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    /* seta à direita (posição absoluta, para o texto ficar centrado): › páginas internas, ↗ links externos, ▼ menus */
+    .container .hub-button::after {
+      content: "›";
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      line-height: 1;
+      color: #60a5fa;
+      margin: 0;
+      transition: transform 0.25s ease, color 0.25s ease;
+    }
+    .container a.hub-button::after { content: "↗"; font-size: 1.05rem; }
+    .container .hub-button.dropdown-toggle::after { content: "▼"; font-size: 0.7rem; margin: 0; }
+    .container .hub-button.dropdown-toggle.active::after { transform: translateY(-50%) rotate(180deg); }
+
+    .container .hub-button:hover {
+      transform: translateY(-3px);
+      border-color: rgba(96,165,250,0.75);
+      background: linear-gradient(135deg, rgba(48,58,73,0.97), rgba(24,29,38,0.97));
+      box-shadow: 0 10px 24px rgba(0,0,0,0.45), 0 0 0 1px rgba(96,165,250,0.25), 0 0 18px rgba(96,165,250,0.18);
+    }
+    .container .hub-button:not(.dropdown-toggle):hover::after { transform: translateY(-50%) translateX(4px); color: #93c5fd; }
+    /* botões dentro dos menus (ACCEPT, SharePoint): espaço lateral para a seta não tocar no texto */
+    .container .dropdown-content .hub-button { padding-left: 20px !important; padding-right: 32px !important; letter-spacing: 0.1px; }
+    .container .hub-button:active { transform: translateY(-1px) scale(0.99); }
+
+    /* entrada suave, um cartão após o outro */
+    .container .hub-button:nth-child(2) { animation-delay: 0.05s; }
+    .container .hub-button:nth-child(3) { animation-delay: 0.10s; }
+    .container .hub-button:nth-child(4) { animation-delay: 0.15s; }
+    .container .hub-button:nth-child(5) { animation-delay: 0.20s; }
+    .container .hub-button:nth-child(n+6) { animation-delay: 0.25s; }
+
+    @keyframes hubEntrada {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .container .hub-button { animation: none; opacity: 1; transition: none; }
+    }
+
+    /* Embalagens (computador): ACCEPT e SharePoint lado a lado; cada menu abre por baixo do seu próprio botão,
+       sem mexer na posição dos botões */
+    @media (min-width: 769px) {
+      #embalagensPage > .button-grid > #acceptDropdownBtn { order: 1; grid-column: 1; }
+      #embalagensPage > .button-grid > #spDropdownBtn { order: 2; grid-column: 2; }
+      #embalagensPage > .button-grid > #acceptDropdown { order: 3; grid-column: 1; margin-top: 0; }
+      #embalagensPage > .button-grid > #sharepointDropdown { order: 3; grid-column: 2; margin-top: 0; }
+      /* com um menu aberto, os botões a seguir ao 04AL descem para uma linha por baixo do menu */
+      #embalagensPage > .button-grid:has(> .dropdown-content[style*="block"])::after { content: ""; order: 4; grid-column: 1 / -1; height: 0; margin-top: -14px; }
+      #embalagensPage > .button-grid > .hub-button:not(.dropdown-toggle) { order: 5; }
+      /* 04AL fica sempre na 1.ª linha, ao lado do SharePoint, mesmo com um menu aberto */
+      #embalagensPage > .button-grid > #sharepointDropdown + .hub-button { order: 2; grid-column: 3; }
+      /* todos os botões desta página com a mesma altura (a de dois linhas), mesmo os de uma só linha */
+      #embalagensPage > .button-grid > .hub-button { min-height: 64px; }
+      /* botão do menu aberto com a borda azul acesa */
+      #embalagensPage .hub-button.dropdown-toggle.active {
+        border-color: rgba(96,165,250,0.85);
+        box-shadow: 0 0 0 1px rgba(96,165,250,0.3), 0 0 16px rgba(96,165,250,0.25);
+      }
+    }
+
+
+    /* ZOOM AUTOMÁTICO: em ecrãs grandes o site cresce proporcionalmente (o telemóvel e o tablet ficam como estão) */
+    :root { --zoom: 1; }
+    @media (min-width: 1280px) { :root { --zoom: 1.1; } }
+    @media (min-width: 1500px) { :root { --zoom: 1.25; } }
+    @media (min-width: 1800px) { :root { --zoom: 1.5; } }
+    @media (min-width: 2200px) { :root { --zoom: 1.8; } }
+    @media (min-width: 2800px) { :root { --zoom: 2.2; } }
+
+    .container, .page-bottom, .login-box, .modal-content, #caixaMensagemOverlay > div { zoom: var(--zoom); }
+    .header-bar { zoom: var(--zoom); }
   </style>
 </head>
 <body>
@@ -1861,9 +1991,11 @@
     </div>
   </div>
 
+  <div class="page-bottom">
   <div id="footerNote" class="footer-note">Nota: Alguns links apenas estão acessíveis através da rede interna da empresa.</div>
-  <footer id="loginFooter" class="footer-login"><span>© <span class="ano-atual">2026</span> <button type="button" class="agajota-btn" onclick="mostrarDataAtualizacao()" title="Ver data da última atualização">Agajota</button></span></footer>
-  <footer id="appFooter" class="footer-app"><span>© <span class="ano-atual">2026</span> <button type="button" class="agajota-btn" onclick="mostrarDataAtualizacao()" title="Ver data da última atualização">Agajota</button> • Laboratório C. Q. - Almeirim</span></footer>
+  <footer id="loginFooter" class="footer-login"><span>© <span class="ano-atual">2026</span> <span class="agajota-nome">AGAJOTA</span></span></footer>
+  <footer id="appFooter" class="footer-app"><span>© <span class="ano-atual">2026</span> <button type="button" class="agajota-btn" onclick="mostrarDataAtualizacao()" title="Ver data da última atualização" aria-label="Ver data da última atualização">AGAJOTA</button></span><span>Laboratório C. Q. - Almeirim</span></footer>
+  </div>
 
   <div id="contactsModal" class="modal">
     <div class="modal-content">
@@ -1876,7 +2008,7 @@
 
   <script>
     /* Data da última atualização: mudar só aqui (aparece ao carregar em "Agajota" no rodapé) */
-    const DATA_ATUALIZACAO = "13.10.2026";
+    const DATA_ATUALIZACAO = "15 de Outubro de 2026";
 
     const correctPassword = "0";
 
@@ -1928,7 +2060,9 @@
       const botaoVoltar = document.getElementById("backHeaderBtn");
       const emHome = botaoVoltar.style.display === "none";
       const logado = localStorage.getItem("isLoggedIn") === "true";
-      document.getElementById("headerTitle").textContent = emHome ? "" : subtitle.textContent;
+      /* o nome da página aparece só por baixo do título; a barra do cabeçalho fica sem nome */
+      document.getElementById("headerTitle").textContent = "";
+
       document.getElementById("footerNote").style.display = (logado && emHome) ? "block" : "none";
     }
 
@@ -1945,6 +2079,14 @@
     function closeContacts(){
       document.getElementById("contactsModal").style.display = "none";
     }
+
+    /* Suporte fecha ao tocar em qualquer ponto (exceto no botão "Enviar mensagem") ou com Esc */
+    document.getElementById("contactsModal").addEventListener("click", function(e){
+      if (!e.target.closest(".contact-btn")) closeContacts();
+    });
+    document.addEventListener("keydown", function(e){
+      if (e.key === "Escape") closeContacts();
+    });
 
     function sendMessage(){
       window.location.href = "mailto:helder.fernandes@sumolcompal.pt?subject=SC Lab - Pedido de Suporte&body=Descreva aqui o que pretende:";
@@ -2530,7 +2672,7 @@
       caixa.appendChild(texto);
       caixa.appendChild(botoes);
       ov.appendChild(caixa);
-      ov.addEventListener("click", (e) => { if (e.target === ov) cancelar(); });
+      ov.addEventListener("click", (e) => { if (!aoConfirmar || e.target === ov) cancelar(); });
       ov.addEventListener("keydown", (e) => { if (e.key === "Escape") cancelar(); });
       document.body.appendChild(ov);
       btnCancelar.focus();
