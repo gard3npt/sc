@@ -266,7 +266,8 @@
     }
 
     .input-index-style:hover:not(:focus) {
-      background: #f1f5f9;
+      background: #dbeafe;
+      border-color: #3b82f6;
     }
 
     .input-index-style:focus {
@@ -645,6 +646,11 @@
       transition: all 0.3s ease;
     }
 
+    .password-input:hover:not(:focus) {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.7);
+    }
+
     .password-input:focus {
       background: rgba(255, 255, 255, 0.12);
       border-color: #ffffff;
@@ -829,8 +835,8 @@
     }
 
     .cell:hover:not(:focus-within) {
-      background: #f1f5f9;
-      border-color: #cbd5e1;
+      background: #dbeafe;
+      border-color: #3b82f6;
     }
 
     .cell:focus-within {
@@ -862,7 +868,13 @@
     }
 
     .inline-acid-cell:hover:not(:focus-within) {
-      background: #f1f5f9;
+      background: #dbeafe;
+      border-color: #3b82f6;
+    }
+
+    /* Médias das bisnagas (células editáveis com cores de estado): realce por sombra para não apagar o verde/vermelho */
+    .calc-table input.media-input:hover:not(:focus) {
+      box-shadow: 0 0 0 3px rgba(59,130,246,.35);
     }
 
     .inline-acid-cell:focus-within {
@@ -1549,6 +1561,115 @@
 
     .container, .page-bottom, .login-box, .modal-content, #caixaMensagemOverlay > div { zoom: var(--zoom); }
     .header-bar { zoom: var(--zoom); }
+
+    /* CORREÇÃO DE CARGAS: mesmo estilo das tabelas de Bisnagas e Médias de Colas */
+    #ccPage .tabs {
+      background: transparent;
+      max-width: 1000px;
+      margin: 15px auto 0;
+      padding: 0;
+      gap: 8px;
+      border-radius: 0;
+    }
+    #ccPage .tabs button {
+      background: #ffffff;
+      color: #1e293b;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 10px 6px;
+      font-size: 12.5px;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(0,0,0,.10);
+    }
+    #ccPage .tabs button:hover { background: #eff6ff; border-color: #93c5fd; }
+    #ccPage .tabs button.active {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+      font-size: 12.5px;
+      transform: none;
+      box-shadow: 0 4px 10px rgba(37,99,235,.35);
+    }
+
+    #ccPage .cc-canvas {
+      max-width: 1000px;
+      margin: 15px auto 30px;
+      padding: 0;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,.12), 0 4px 10px rgba(0,0,0,.08);
+      backdrop-filter: none;
+    }
+    #ccPage .cc-body { padding: 16px; background: #ffffff; }
+    #ccPage .row { gap: 14px; margin-bottom: 0; }
+    #ccPage .box { max-width: 240px; }
+    #ccPage .lbl {
+      background: transparent;
+      color: #475569;
+      text-shadow: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      padding: 0 2px 6px;
+    }
+
+    #ccPage .resultrow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 12px;
+      max-width: 520px;
+      margin: 0 auto 10px;
+    }
+    #ccPage .rlabel, #ccPage .rlabel-split {
+      max-width: none;
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: #475569;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: right;
+    }
+    #ccPage .rlabel-split { justify-content: flex-end; gap: 8px; }
+    #ccPage .rlabel-split span { flex: none; text-align: right; }
+    #ccPage .rvalue {
+      max-width: none;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #eff6ff;
+      color: #2563eb;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    #ccPage .rvalue span.neg { color: rgb(255, 0, 0) !important; }
+    #ccPage .rvalue:has(span.neg) {
+      background: #fef2f2;
+      border-color: #fca5a5;
+    }
+    #ccPage .or-separator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 520px;
+      margin: 4px auto 10px;
+      color: #94a3b8;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+    #ccPage .or-separator::before, #ccPage .or-separator::after { content: ""; flex: 1; height: 1px; background: #e2e8f0; }
+    @media (max-width: 520px) {
+      #ccPage .resultrow { grid-template-columns: 1fr; gap: 6px; }
+      #ccPage .rlabel, #ccPage .rlabel-split { text-align: center; justify-content: center; }
+    }
   </style>
 </head>
 <body>
@@ -1622,12 +1743,22 @@
 
       <div id="ac" class="sheet active">
         <div class="canvas cc-canvas">
+          <div class="bisnaga-section-header">
+            <span class="step-num">1</span>
+            <h3>Dados</h3>
+          </div>
+          <div class="cc-body">
           <div class="row">
             <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" step="any" id="q_ac" value="12000" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'c_ac')"></div></div>
             <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" step="any" id="c_ac" value="0.17" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'p_ac')"></div></div>
             <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" step="any" id="p_ac" value="0.35" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'a_ac')"></div></div>
           </div>
-          <hr class="divider">
+          </div>
+          <div class="bisnaga-section-header">
+            <span class="step-num">2</span>
+            <h3>Resultado</h3>
+          </div>
+          <div class="cc-body">
           <div class="resultrow">
             <div class="rlabel">Factor:</div>
             <div class="rvalue" id="fac"></div>
@@ -1646,17 +1777,28 @@
             <div class="rlabel">Ácido Cítrico:</div>
             <div class="rvalue" id="aci"></div>
           </div>
+          </div>
         </div>
       </div>
 
       <div id="bx" class="sheet">
         <div class="canvas cc-canvas">
+          <div class="bisnaga-section-header">
+            <span class="step-num">1</span>
+            <h3>Dados</h3>
+          </div>
+          <div class="cc-body">
           <div class="row">
             <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" step="any" id="q_bx" value="12000" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'c_bx')"></div></div>
             <div class="box"><div class="lbl">BRIX CARGA</div><div class="cell"><input type="number" step="any" id="c_bx" value="10" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'p_bx')"></div></div>
             <div class="box"><div class="lbl">BRIX PRETENDIDO</div><div class="cell"><input type="number" step="any" id="p_bx" value="12" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'b_bx')"></div></div>
           </div>
-          <hr class="divider">
+          </div>
+          <div class="bisnaga-section-header">
+            <span class="step-num">2</span>
+            <h3>Resultado</h3>
+          </div>
+          <div class="cc-body">
           <div class="resultrow">
             <div class="rlabel">Água:</div>
             <div class="rvalue" id="agua"></div>
@@ -1680,59 +1822,103 @@
             <div class="rlabel">Açúcar:</div>
             <div class="rvalue" id="acu"></div>
           </div>
+          </div>
         </div>
       </div>
 
       <div id="cl" class="sheet">
         <div class="canvas cc-canvas">
+          <div class="bisnaga-section-header">
+            <span class="step-num">1</span>
+            <h3>Dados</h3>
+          </div>
+          <div class="cc-body">
           <div class="row">
             <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" step="any" id="q_cl" value="4600" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, 'c_cl')"></div></div>
             <div class="box"><div class="lbl">CLORETOS CARGA</div><div class="cell"><input type="number" step="any" id="c_cl" value="0.2" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, 'p_cl')"></div></div>
             <div class="box"><div class="lbl">CLORETOS PRETENDIDOS</div><div class="cell"><input type="number" step="any" id="p_cl" value="0.35" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, '')"></div></div>
           </div>
-          <hr class="divider">
+          </div>
+          <div class="bisnaga-section-header">
+            <span class="step-num">2</span>
+            <h3>Resultado</h3>
+          </div>
+          <div class="cc-body">
           <div class="resultrow">
             <div class="rlabel">Sal:</div>
             <div class="rvalue" id="sal"></div>
+          </div>
           </div>
         </div>
       </div>
 
       <div id="ra" class="sheet">
         <div class="canvas cc-canvas">
+          <div class="bisnaga-section-header">
+            <span class="step-num">1</span>
+            <h3>Dados</h3>
+          </div>
+          <div class="cc-body">
           <div class="row">
             <div class="box"><div class="lbl">BRIX</div><div class="cell"><input type="number" step="any" id="b_ra" value="10" onclick="this.select()" oninput="calcR()" onkeydown="navegarEnter(event, 'c_ra')"></div></div>
             <div class="box"><div class="lbl">ACIDEZ</div><div class="cell"><input type="number" step="any" id="c_ra" value="0.4" onclick="this.select()" oninput="calcR()" onkeydown="navegarEnter(event, '')"></div></div>
           </div>
-          <hr class="divider">
+          </div>
+          <div class="bisnaga-section-header">
+            <span class="step-num">2</span>
+            <h3>Resultado</h3>
+          </div>
+          <div class="cc-body">
           <div class="resultrow">
             <div class="rlabel">Ratio:</div>
             <div class="rvalue" id="rat"></div>
+          </div>
           </div>
         </div>
       </div>
 
       <div id="co" class="sheet">
         <div class="canvas cc-canvas">
+          <div class="bisnaga-section-header">
+            <span class="step-num">1</span>
+            <h3>Dados</h3>
+          </div>
+          <div class="cc-body">
           <div class="row">
             <div class="box"><div class="lbl">TEMPO ESCORRIMENTO</div><div class="cell"><input type="number" step="any" id="te" value="40" onclick="this.select()" oninput="calcT()" onkeydown="navegarEnter(event, '')"></div></div>
           </div>
-          <hr class="divider">
+          </div>
+          <div class="bisnaga-section-header">
+            <span class="step-num">2</span>
+            <h3>Resultado</h3>
+          </div>
+          <div class="cc-body">
           <div class="resultrow">
             <div class="rlabel">Consistência:</div>
             <div class="rvalue" id="cres"></div>
+          </div>
           </div>
         </div>
       </div>
 
       <div id="gu" class="sheet">
         <div class="canvas cc-canvas">
+          <div class="bisnaga-section-header">
+            <span class="step-num">1</span>
+            <h3>Dados</h3>
+          </div>
+          <div class="cc-body">
           <div class="row">
             <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" step="any" id="q_gu" value="11640" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'c_gu')"></div></div>
             <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" step="any" id="c_gu" value="2.94" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'p_gu')"></div></div>
             <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" step="any" id="p_gu" value="3" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'a_gu')"></div></div>
           </div>
-          <hr class="divider">
+          </div>
+          <div class="bisnaga-section-header">
+            <span class="step-num">2</span>
+            <h3>Resultado</h3>
+          </div>
+          <div class="cc-body">
           <div class="resultrow">
             <div class="rlabel">Factor:</div>
             <div class="rvalue" id="fac_gu"></div>
@@ -1750,6 +1936,7 @@
           <div class="resultrow">
             <div class="rlabel">Ácido Cítrico:</div>
             <div class="rvalue" id="aci_gu"></div>
+          </div>
           </div>
         </div>
       </div>
@@ -1994,7 +2181,7 @@
   <div class="page-bottom">
   <div id="footerNote" class="footer-note">Nota: Alguns links apenas estão acessíveis através da rede interna da empresa.</div>
   <footer id="loginFooter" class="footer-login"><span>© <span class="ano-atual">2026</span> <span class="agajota-nome">AGAJOTA</span></span></footer>
-  <footer id="appFooter" class="footer-app"><span>© <span class="ano-atual">2026</span> <button type="button" class="agajota-btn" onclick="mostrarDataAtualizacao()" title="Ver data da última atualização" aria-label="Ver data da última atualização">AGAJOTA</button></span><span>Laboratório C. Q. - Almeirim</span></footer>
+  <footer id="appFooter" class="footer-app"><span>© <span class="ano-atual">2026</span> <button type="button" class="agajota-btn" onclick="mostrarDataAtualizacao()" title="Ver data da última atualização" aria-label="Ver data da última atualização">AGAJOTA</button></span><span>Laboratório C.Q. - Almeirim</span></footer>
   </div>
 
   <div id="contactsModal" class="modal">
@@ -2258,65 +2445,98 @@
       return valor.toFixed(2).replace(".", ",");
     };
 
+    /* Correção de Cargas: resultados em números inteiros (de ,5 a ,9 sobe; de ,1 a ,4 desce; negativos simétricos) */
+    const arredondarInteiro = (v) => {
+      const abs = Math.round(Number(Math.abs(v).toFixed(9)));
+      const r = v < 0 ? -abs : abs;
+      return r === 0 ? 0 : r;
+    };
     const fmt = (v) => {
+      const r = arredondarInteiro(v);
       const el = document.createElement('span');
-      el.textContent = formatarComVirgula(v);
-      if (v < 0) el.className = 'neg';
+      el.textContent = String(r);
+      if (r < 0) el.className = 'neg';
       return el.outerHTML;
     };
 
     /* ---------------- LÓGICA CORREÇÃO DE CARGAS ---------------- */
+    /* Só mostra resultados quando todos os campos do ponto 1 (Dados) estão preenchidos */
+    function dadosPreenchidos(ids) {
+      return ids.every(id => {
+        const v = document.getElementById(id).value;
+        return String(v).trim() !== "" && !isNaN(parseFloat(v));
+      });
+    }
+    function limparResultadosCC(ids) {
+      ids.forEach(id => { document.getElementById(id).textContent = "---"; });
+    }
+
+    /* Mostra o valor no resultado, ou "---" se os campos necessários não estiverem preenchidos */
+    function mostrarResultadoCC(id, valor, ok) {
+      const el = document.getElementById(id);
+      if (ok) el.innerHTML = fmt(valor); else el.textContent = "---";
+    }
+
     function calcA() {
+      const okDados = dadosPreenchidos(['q_ac', 'c_ac', 'p_ac']);
+      const okConc = okDados && dadosPreenchidos(['a_ac']);
       const q = n('q_ac'), c = n('c_ac'), p = n('p_ac'), a = n('a_ac');
       const fac = (p - c) * q / 100;
       const clim = a !== 0 ? (fac / a) * 100 : 0;
       const aci = fac * 1.07;
 
-      document.getElementById('fac').innerHTML = fmt(fac);
-      document.getElementById('clim').innerHTML = fmt(clim);
-      document.getElementById('aci').innerHTML = fmt(aci);
+      mostrarResultadoCC('fac', fac, okDados);
+      mostrarResultadoCC('clim', clim, okConc);
+      mostrarResultadoCC('aci', aci, okDados);
     }
 
     function calcB() {
+      const okDados = dadosPreenchidos(['q_bx', 'c_bx', 'p_bx']);
+      const okConc = okDados && dadosPreenchidos(['b_bx']);
       const q = n('q_bx'), c = n('c_bx'), p = n('p_bx'), b = n('b_bx');
       const agua = p !== 0 ? (q * (c - p)) / p : 0;
       const xar = (67 - p) !== 0 ? (q * (p - c)) / (67 - p) : 0;
       const conc = (b - p) !== 0 ? (q * (p - c)) / (b - p) : 0;
       const acu = (100 - p) !== 0 ? (q * (p - c)) / (100 - p) : 0;
 
-      document.getElementById('agua').innerHTML = fmt(agua);
-      document.getElementById('xar').innerHTML = fmt(xar);
-      document.getElementById('conc').innerHTML = fmt(conc);
-      document.getElementById('acu').innerHTML = fmt(acu);
+      mostrarResultadoCC('agua', agua, okDados);
+      mostrarResultadoCC('xar', xar, okDados);
+      mostrarResultadoCC('conc', conc, okConc);
+      mostrarResultadoCC('acu', acu, okDados);
     }
 
     function calcC() {
+      if (!dadosPreenchidos(['q_cl', 'c_cl', 'p_cl'])) { limparResultadosCC(['sal']); return; }
       const q = n('q_cl'), c = n('c_cl'), p = n('p_cl');
       const sal = (q * (p - c)) / 100;
       document.getElementById('sal').innerHTML = fmt(sal);
     }
 
     function calcR() {
+      if (!dadosPreenchidos(['b_ra', 'c_ra'])) { limparResultadosCC(['rat']); return; }
       const b = n('b_ra'), c = n('c_ra');
       const rat = c !== 0 ? b / c : 0;
       document.getElementById('rat').innerHTML = fmt(rat);
     }
 
     function calcT() {
+      if (!dadosPreenchidos(['te'])) { limparResultadosCC(['cres']); return; }
       const te = n('te');
       const cres = te / 2;
       document.getElementById('cres').innerHTML = fmt(cres);
     }
 
     function calcG() {
+      const okDados = dadosPreenchidos(['q_gu', 'c_gu', 'p_gu']);
+      const okConc = okDados && dadosPreenchidos(['a_gu']);
       const q = n('q_gu'), c = n('c_gu'), p = n('p_gu'), a = n('a_gu');
       const fac = (p - c) * q / 100;
       const clim = a !== 0 ? (fac / a) * 100 : 0;
       const aci = fac * 1.07;
 
-      document.getElementById('fac_gu').innerHTML = fmt(fac);
-      document.getElementById('clim_gu').innerHTML = fmt(clim);
-      document.getElementById('aci_gu').innerHTML = fmt(aci);
+      mostrarResultadoCC('fac_gu', fac, okDados);
+      mostrarResultadoCC('clim_gu', clim, okConc);
+      mostrarResultadoCC('aci_gu', aci, okDados);
     }
 
     function navegarEnter(event, proximoId) {
@@ -3151,7 +3371,19 @@
       obs.observe(document.getElementById("backHeaderBtn"), { attributes: true, attributeFilter: ["style"] });
     })();
 
+    /* Correção de Cargas: células editáveis com a cor de letra das Médias das Colas (azul quando preenchidas, escuro quando vazias) */
+    function corInputCC(inp) {
+      inp.style.color = String(inp.value) !== "" ? "#2563eb" : "#0f172a";
+    }
+    function atualizarCoresInputsCC() {
+      document.querySelectorAll("#ccPage input").forEach(corInputCC);
+    }
+    document.addEventListener("input", function (e) {
+      if (e.target && e.target.matches && e.target.matches("#ccPage input")) corInputCC(e.target);
+    });
+
     window.onload = function() {
+      atualizarCoresInputsCC();
       const ano = new Date().getFullYear();
       document.querySelectorAll(".ano-atual").forEach(el => { el.textContent = ano; });
       renderAppState();
