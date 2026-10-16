@@ -682,10 +682,8 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 12px;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(10px);
+      background: transparent;
       z-index: 2000;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
     .header-left, .header-right {
@@ -1543,10 +1541,10 @@
     /* --zoom = restantes páginas (75% do tamanho anterior em ecrãs grandes); --zoom-cc = Correção de Cargas (mantém o tamanho que já estava bom) */
     :root { --zoom: 1; --zoom-cc: 1; }
     @media (min-width: 1280px) { :root { --zoom: 1; --zoom-cc: 1.05; } }
-    @media (min-width: 1500px) { :root { --zoom: 1; --zoom-cc: 1.125; } }
-    @media (min-width: 1800px) { :root { --zoom: 0.94; --zoom-cc: 1.25; } }
-    @media (min-width: 2200px) { :root { --zoom: 1.05; --zoom-cc: 1.4; } }
-    @media (min-width: 2800px) { :root { --zoom: 1.2; --zoom-cc: 1.6; } }
+    @media (min-width: 1500px) { :root { --zoom: 0.95; --zoom-cc: 1.125; } }
+    @media (min-width: 1800px) { :root { --zoom: 0.85; --zoom-cc: 1.25; } }
+    @media (min-width: 2200px) { :root { --zoom: 0.95; --zoom-cc: 1.4; } }
+    @media (min-width: 2800px) { :root { --zoom: 1.1; --zoom-cc: 1.6; } }
     html.pg-cc { --zoom: var(--zoom-cc); }
 
     .container, .page-bottom, .login-box, .modal-content, #caixaMensagemOverlay > div { zoom: var(--zoom); }
@@ -2010,7 +2008,7 @@
 
   <script>
     /* Data da última atualização: mudar só aqui (aparece ao carregar em "Agajota" no rodapé) */
-    const DATA_ATUALIZACAO = "15 de Outubro de 2026";
+    const DATA_ATUALIZACAO = "16 de Outubro de 2026";
 
     const correctPassword = "0";
 
