@@ -1540,12 +1540,14 @@
 
 
     /* ZOOM AUTOMÁTICO: em ecrãs grandes o site cresce proporcionalmente (o telemóvel e o tablet ficam como estão) */
-    :root { --zoom: 1; }
-    @media (min-width: 1280px) { :root { --zoom: 1.05; } }
-    @media (min-width: 1500px) { :root { --zoom: 1.125; } }
-    @media (min-width: 1800px) { :root { --zoom: 1.25; } }
-    @media (min-width: 2200px) { :root { --zoom: 1.4; } }
-    @media (min-width: 2800px) { :root { --zoom: 1.6; } }
+    /* --zoom = restantes páginas (75% do tamanho anterior em ecrãs grandes); --zoom-cc = Correção de Cargas (mantém o tamanho que já estava bom) */
+    :root { --zoom: 1; --zoom-cc: 1; }
+    @media (min-width: 1280px) { :root { --zoom: 1; --zoom-cc: 1.05; } }
+    @media (min-width: 1500px) { :root { --zoom: 1; --zoom-cc: 1.125; } }
+    @media (min-width: 1800px) { :root { --zoom: 0.94; --zoom-cc: 1.25; } }
+    @media (min-width: 2200px) { :root { --zoom: 1.05; --zoom-cc: 1.4; } }
+    @media (min-width: 2800px) { :root { --zoom: 1.2; --zoom-cc: 1.6; } }
+    html.pg-cc { --zoom: var(--zoom-cc); }
 
     .container, .page-bottom, .login-box, .modal-content, #caixaMensagemOverlay > div { zoom: var(--zoom); }
     .header-bar { zoom: var(--zoom); }
@@ -2060,6 +2062,8 @@
       const botaoVoltar = document.getElementById("backHeaderBtn");
       const emHome = botaoVoltar.style.display === "none";
       const logado = localStorage.getItem("isLoggedIn") === "true";
+      /* Correção de Cargas tem o seu próprio zoom */
+      document.documentElement.classList.toggle("pg-cc", document.getElementById("ccPage").style.display === "block");
       /* o nome da página aparece só por baixo do título; a barra do cabeçalho fica sem nome */
       document.getElementById("headerTitle").textContent = "";
 
