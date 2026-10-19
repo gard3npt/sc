@@ -266,8 +266,7 @@
     }
 
     .input-index-style:hover:not(:focus) {
-      background: #dbeafe;
-      border-color: #3b82f6;
+      background: #f1f5f9;
     }
 
     .input-index-style:focus {
@@ -646,11 +645,6 @@
       transition: all 0.3s ease;
     }
 
-    .password-input:hover:not(:focus) {
-      background: rgba(255, 255, 255, 0.18);
-      border-color: rgba(255, 255, 255, 0.7);
-    }
-
     .password-input:focus {
       background: rgba(255, 255, 255, 0.12);
       border-color: #ffffff;
@@ -835,8 +829,8 @@
     }
 
     .cell:hover:not(:focus-within) {
-      background: #dbeafe;
-      border-color: #3b82f6;
+      background: #f1f5f9;
+      border-color: #cbd5e1;
     }
 
     .cell:focus-within {
@@ -868,13 +862,7 @@
     }
 
     .inline-acid-cell:hover:not(:focus-within) {
-      background: #dbeafe;
-      border-color: #3b82f6;
-    }
-
-    /* Médias das bisnagas (células editáveis com cores de estado): realce por sombra para não apagar o verde/vermelho */
-    .calc-table input.media-input:hover:not(:focus) {
-      box-shadow: 0 0 0 3px rgba(59,130,246,.35);
+      background: #f1f5f9;
     }
 
     .inline-acid-cell:focus-within {
@@ -1551,16 +1539,17 @@
 
     /* ZOOM AUTOMÁTICO: em ecrãs grandes o site cresce proporcionalmente (o telemóvel e o tablet ficam como estão) */
     /* --zoom = restantes páginas (75% do tamanho anterior em ecrãs grandes); --zoom-cc = Correção de Cargas (mantém o tamanho que já estava bom) */
-    :root { --zoom: 1; --zoom-cc: 1; }
-    @media (min-width: 1280px) { :root { --zoom: 1; --zoom-cc: 1.05; } }
-    @media (min-width: 1500px) { :root { --zoom: 0.9; --zoom-cc: 1.075; } }
-    @media (min-width: 1800px) { :root { --zoom: 0.8; --zoom-cc: 1.2; } }
-    @media (min-width: 2200px) { :root { --zoom: 0.9; --zoom-cc: 1.35; } }
-    @media (min-width: 2800px) { :root { --zoom: 1.05; --zoom-cc: 1.55; } }
+    :root { --zoom-base: 1; --zoom-cc: 1; --zoom: var(--zoom-base); }
+    @media (min-width: 1280px) { :root { --zoom-base: 1; --zoom-cc: 1.05; } }
+    @media (min-width: 1500px) { :root { --zoom-base: 0.9; --zoom-cc: 1.075; } }
+    @media (min-width: 1800px) { :root { --zoom-base: 0.8; --zoom-cc: 1.2; } }
+    @media (min-width: 2200px) { :root { --zoom-base: 0.9; --zoom-cc: 1.35; } }
+    @media (min-width: 2800px) { :root { --zoom-base: 1.05; --zoom-cc: 1.55; } }
     html.pg-cc { --zoom: var(--zoom-cc); }
 
-    .container, .page-bottom, .login-box, .modal-content, #caixaMensagemOverlay > div { zoom: var(--zoom); }
-    .header-bar { zoom: var(--zoom); }
+    /* conteúdo da página: usa --zoom (a Correção de Cargas tem o seu); cabeçalho, rodapé, login e janelas usam sempre --zoom-base, iguais em todas as páginas */
+    .container { zoom: var(--zoom); }
+    .header-bar, .page-bottom, .login-box, .modal-content, #caixaMensagemOverlay > div { zoom: var(--zoom-base); }
 
     /* CORREÇÃO DE CARGAS: mesmo estilo das tabelas de Bisnagas e Médias de Colas */
     #ccPage .tabs {
@@ -1642,18 +1631,12 @@
       align-items: center;
       justify-content: center;
       background: #eff6ff;
-      color: #2563eb;
+      color: #1e40af;
       border: 2px solid #cbd5e1;
       border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
-    #ccPage .rvalue span.neg { color: rgb(255, 0, 0) !important; }
-    #ccPage .rvalue:has(span.neg) {
-      background: #fef2f2;
-      border-color: #fca5a5;
+      padding: 8px;
+      font-size: 15px;
+      font-weight: 700;
     }
     #ccPage .or-separator {
       display: flex;
@@ -2181,7 +2164,7 @@
   <div class="page-bottom">
   <div id="footerNote" class="footer-note">Nota: Alguns links apenas estão acessíveis através da rede interna da empresa.</div>
   <footer id="loginFooter" class="footer-login"><span>© <span class="ano-atual">2026</span> <span class="agajota-nome">AGAJOTA</span></span></footer>
-  <footer id="appFooter" class="footer-app"><span>© <span class="ano-atual">2026</span> <button type="button" class="agajota-btn" onclick="mostrarDataAtualizacao()" title="Ver data da última atualização" aria-label="Ver data da última atualização">AGAJOTA</button></span><span>Laboratório C.Q. - Almeirim</span></footer>
+  <footer id="appFooter" class="footer-app"><span>© <span class="ano-atual">2026</span> <button type="button" class="agajota-btn" onclick="mostrarDataAtualizacao()" title="Ver data da última atualização" aria-label="Ver data da última atualização">AGAJOTA</button></span><span>Laboratório C. Q. - Almeirim</span></footer>
   </div>
 
   <div id="contactsModal" class="modal">
@@ -2195,7 +2178,7 @@
 
   <script>
     /* Data da última atualização: mudar só aqui (aparece ao carregar em "Agajota" no rodapé) */
-    const DATA_ATUALIZACAO = "16 de Outubro de 2026";
+    const DATA_ATUALIZACAO = "19 de Outubro de 2026";
 
     const correctPassword = "0";
 
@@ -2445,98 +2428,65 @@
       return valor.toFixed(2).replace(".", ",");
     };
 
-    /* Correção de Cargas: resultados em números inteiros (de ,5 a ,9 sobe; de ,1 a ,4 desce; negativos simétricos) */
-    const arredondarInteiro = (v) => {
-      const abs = Math.round(Number(Math.abs(v).toFixed(9)));
-      const r = v < 0 ? -abs : abs;
-      return r === 0 ? 0 : r;
-    };
     const fmt = (v) => {
-      const r = arredondarInteiro(v);
       const el = document.createElement('span');
-      el.textContent = String(r);
-      if (r < 0) el.className = 'neg';
+      el.textContent = formatarComVirgula(v);
+      if (v < 0) el.className = 'neg';
       return el.outerHTML;
     };
 
     /* ---------------- LÓGICA CORREÇÃO DE CARGAS ---------------- */
-    /* Só mostra resultados quando todos os campos do ponto 1 (Dados) estão preenchidos */
-    function dadosPreenchidos(ids) {
-      return ids.every(id => {
-        const v = document.getElementById(id).value;
-        return String(v).trim() !== "" && !isNaN(parseFloat(v));
-      });
-    }
-    function limparResultadosCC(ids) {
-      ids.forEach(id => { document.getElementById(id).textContent = "---"; });
-    }
-
-    /* Mostra o valor no resultado, ou "---" se os campos necessários não estiverem preenchidos */
-    function mostrarResultadoCC(id, valor, ok) {
-      const el = document.getElementById(id);
-      if (ok) el.innerHTML = fmt(valor); else el.textContent = "---";
-    }
-
     function calcA() {
-      const okDados = dadosPreenchidos(['q_ac', 'c_ac', 'p_ac']);
-      const okConc = okDados && dadosPreenchidos(['a_ac']);
       const q = n('q_ac'), c = n('c_ac'), p = n('p_ac'), a = n('a_ac');
       const fac = (p - c) * q / 100;
       const clim = a !== 0 ? (fac / a) * 100 : 0;
       const aci = fac * 1.07;
 
-      mostrarResultadoCC('fac', fac, okDados);
-      mostrarResultadoCC('clim', clim, okConc);
-      mostrarResultadoCC('aci', aci, okDados);
+      document.getElementById('fac').innerHTML = fmt(fac);
+      document.getElementById('clim').innerHTML = fmt(clim);
+      document.getElementById('aci').innerHTML = fmt(aci);
     }
 
     function calcB() {
-      const okDados = dadosPreenchidos(['q_bx', 'c_bx', 'p_bx']);
-      const okConc = okDados && dadosPreenchidos(['b_bx']);
       const q = n('q_bx'), c = n('c_bx'), p = n('p_bx'), b = n('b_bx');
       const agua = p !== 0 ? (q * (c - p)) / p : 0;
       const xar = (67 - p) !== 0 ? (q * (p - c)) / (67 - p) : 0;
       const conc = (b - p) !== 0 ? (q * (p - c)) / (b - p) : 0;
       const acu = (100 - p) !== 0 ? (q * (p - c)) / (100 - p) : 0;
 
-      mostrarResultadoCC('agua', agua, okDados);
-      mostrarResultadoCC('xar', xar, okDados);
-      mostrarResultadoCC('conc', conc, okConc);
-      mostrarResultadoCC('acu', acu, okDados);
+      document.getElementById('agua').innerHTML = fmt(agua);
+      document.getElementById('xar').innerHTML = fmt(xar);
+      document.getElementById('conc').innerHTML = fmt(conc);
+      document.getElementById('acu').innerHTML = fmt(acu);
     }
 
     function calcC() {
-      if (!dadosPreenchidos(['q_cl', 'c_cl', 'p_cl'])) { limparResultadosCC(['sal']); return; }
       const q = n('q_cl'), c = n('c_cl'), p = n('p_cl');
       const sal = (q * (p - c)) / 100;
       document.getElementById('sal').innerHTML = fmt(sal);
     }
 
     function calcR() {
-      if (!dadosPreenchidos(['b_ra', 'c_ra'])) { limparResultadosCC(['rat']); return; }
       const b = n('b_ra'), c = n('c_ra');
       const rat = c !== 0 ? b / c : 0;
       document.getElementById('rat').innerHTML = fmt(rat);
     }
 
     function calcT() {
-      if (!dadosPreenchidos(['te'])) { limparResultadosCC(['cres']); return; }
       const te = n('te');
       const cres = te / 2;
       document.getElementById('cres').innerHTML = fmt(cres);
     }
 
     function calcG() {
-      const okDados = dadosPreenchidos(['q_gu', 'c_gu', 'p_gu']);
-      const okConc = okDados && dadosPreenchidos(['a_gu']);
       const q = n('q_gu'), c = n('c_gu'), p = n('p_gu'), a = n('a_gu');
       const fac = (p - c) * q / 100;
       const clim = a !== 0 ? (fac / a) * 100 : 0;
       const aci = fac * 1.07;
 
-      mostrarResultadoCC('fac_gu', fac, okDados);
-      mostrarResultadoCC('clim_gu', clim, okConc);
-      mostrarResultadoCC('aci_gu', aci, okDados);
+      document.getElementById('fac_gu').innerHTML = fmt(fac);
+      document.getElementById('clim_gu').innerHTML = fmt(clim);
+      document.getElementById('aci_gu').innerHTML = fmt(aci);
     }
 
     function navegarEnter(event, proximoId) {
@@ -3371,19 +3321,7 @@
       obs.observe(document.getElementById("backHeaderBtn"), { attributes: true, attributeFilter: ["style"] });
     })();
 
-    /* Correção de Cargas: células editáveis com a cor de letra das Médias das Colas (azul quando preenchidas, escuro quando vazias) */
-    function corInputCC(inp) {
-      inp.style.color = String(inp.value) !== "" ? "#2563eb" : "#0f172a";
-    }
-    function atualizarCoresInputsCC() {
-      document.querySelectorAll("#ccPage input").forEach(corInputCC);
-    }
-    document.addEventListener("input", function (e) {
-      if (e.target && e.target.matches && e.target.matches("#ccPage input")) corInputCC(e.target);
-    });
-
     window.onload = function() {
-      atualizarCoresInputsCC();
       const ano = new Date().getFullYear();
       document.querySelectorAll(".ano-atual").forEach(el => { el.textContent = ano; });
       renderAppState();
