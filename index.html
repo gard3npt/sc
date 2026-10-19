@@ -1653,6 +1653,7 @@
       #ccPage .resultrow { grid-template-columns: 1fr; gap: 6px; }
       #ccPage .rlabel, #ccPage .rlabel-split { text-align: center; justify-content: center; }
     }
+    html.pg-calculo #mainTitle { display: none; }
   </style>
 </head>
 <body>
@@ -2230,6 +2231,8 @@
       const botaoVoltar = document.getElementById("backHeaderBtn");
       const emHome = botaoVoltar.style.display === "none";
       const logado = localStorage.getItem("isLoggedIn") === "true";
+      /* páginas de cálculo (Correção de Cargas, Bisnagas, Médias de Colas): sem o título "Laboratório C.Q." */
+      document.documentElement.classList.toggle("pg-calculo", subtitle.classList.contains("cc-active"));
       /* Correção de Cargas tem o seu próprio zoom */
       document.documentElement.classList.toggle("pg-cc", document.getElementById("ccPage").style.display === "block");
       /* o nome da página aparece só por baixo do título; a barra do cabeçalho fica sem nome */
