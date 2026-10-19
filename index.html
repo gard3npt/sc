@@ -1654,6 +1654,8 @@
       #ccPage .rlabel, #ccPage .rlabel-split { text-align: center; justify-content: center; }
     }
     html.pg-calculo #mainTitle { display: none; }
+    /* Correção de Cargas, Bisnagas e Médias de Colas: as três com o mesmo zoom (85% do base) e a mesma largura; cabeçalho e rodapé não mudam */
+    html.pg-calculo .container { zoom: calc(var(--zoom-base) * 0.85); }
   </style>
 </head>
 <body>
