@@ -2338,8 +2338,9 @@
     });
 
     /* Zoom contínuo: interpola entre pontos de referência (largura do ecrã -> zoom do site).
-       Telemóvel/tablet (até 1100 px) = 100%; portátil 1366 = 90%; Full HD = 80%; ecrãs muito grandes voltam a crescer. */
-    const PONTOS_ZOOM = [[1100, 1.00], [1366, 0.90], [1920, 0.80], [2560, 0.90], [3840, 1.15]];
+       Telemóvel/tablet (até 1100 px) = 100%; portátil 1366 = 90%; a partir daí cresce com o ecrã:
+       Full HD = 95%, 2560 = 115%, 4K = 150%. */
+    const PONTOS_ZOOM = [[1100, 1.00], [1366, 0.90], [1920, 0.95], [2560, 1.15], [3840, 1.50]];
     function calcularZoom(largura){
       const p = PONTOS_ZOOM;
       if (largura <= p[0][0]) return p[0][1];
