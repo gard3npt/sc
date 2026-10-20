@@ -1545,6 +1545,8 @@
     @media (min-width: 1800px) { :root { --zoom-base: 0.8; --zoom-cc: 1.2; } }
     @media (min-width: 2200px) { :root { --zoom-base: 0.9; --zoom-cc: 1.35; } }
     @media (min-width: 2800px) { :root { --zoom-base: 1.05; --zoom-cc: 1.55; } }
+    /* portáteis 1360x768 / 1366x768: site 10% mais pequeno (os restantes ecrãs não mudam) */
+    @media (min-width: 1300px) and (max-width: 1399px) and (max-height: 800px) { :root { --zoom-base: 0.9; --zoom-cc: 0.9; } }
     html.pg-cc { --zoom: var(--zoom-cc); }
 
     /* conteúdo da página: usa --zoom (a Correção de Cargas tem o seu); cabeçalho, rodapé, login e janelas usam sempre --zoom-base, iguais em todas as páginas */
@@ -1656,6 +1658,51 @@
     html.pg-calculo #mainTitle { display: none; }
     /* Correção de Cargas, Bisnagas e Médias de Colas: as três com o mesmo zoom (85% do base) e a mesma largura; cabeçalho e rodapé não mudam */
     html.pg-calculo .container { zoom: calc(var(--zoom-base) * 0.85); }
+
+    /* Aviso da data de atualização (botão AGAJOTA do rodapé), igual ao da calculadora de juros */
+    .toast-atualizacao {
+      position: fixed;
+      left: 50%;
+      bottom: 76px;
+      transform: translateX(-50%) translateY(10px);
+      max-width: calc(100% - 24px);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      background: #0f172a;
+      color: #ffffff;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .2s, transform .2s, visibility .2s;
+      z-index: 3000;
+      cursor: pointer;
+    }
+    .toast-atualizacao.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+    /* Página inicial: "Apoio Produção" abre um menu por baixo do botão (como o ACCEPT em Embalagens) */
+    @media (min-width: 769px) {
+      #mainMenu > #apoioDropdownBtn { order: 1; grid-column: 1; }
+      #mainMenu > .hub-button:not(.dropdown-toggle) { order: 2; grid-column: 2; }
+      #mainMenu > #apoioDropdown { order: 3; grid-column: 1; margin-top: 0; }
+      #mainMenu > .dropdown-toggle.active {
+        border-color: rgba(96,165,250,0.85);
+        box-shadow: 0 0 0 1px rgba(96,165,250,0.3), 0 0 16px rgba(96,165,250,0.25);
+      }
+    }
+
+    /* Menus do SharePoint e do ACCEPT (Embalagens): texto dos botões alinhado à esquerda */
+    #sharepointDropdown .hub-button, #acceptDropdown .hub-button { justify-content: flex-start; text-align: left; }
+
+    /* contorno visível ao navegar com o teclado */
+    .hub-button:focus-visible, .header-btn:focus-visible, [role="button"]:focus-visible, .footer-link:focus-visible, .agajota-btn:focus-visible {
+      outline: 3px solid #93c5fd;
+      outline-offset: 2px;
+    }
   </style>
 </head>
 <body>
@@ -1691,7 +1738,13 @@
     <div id="departmentsSection">
       <h2 class="section-title">Departamentos:</h2>
       <div class="button-grid" id="mainMenu">
-        <div onclick="showApoio()" class="hub-button">Apoio Produção</div>
+        <div onclick="toggleApoioDropdown()" id="apoioDropdownBtn" class="hub-button dropdown-toggle">Apoio Produção</div>
+        <div id="apoioDropdown" class="dropdown-content">
+          <div class="button-grid" style="margin-bottom: 0; gap: 10px;">
+            <div onclick="showCC()" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Correção de Cargas</div>
+            <a href="https://sumolcompal.sharepoint.com/:w:/r/sites/SIG-Operacoes/_layouts/15/Doc.aspx?sourcedoc=%7B3E28EE17-DB93-426B-9FDB-29F57BB66642%7D&file=D0203.docx&action=default&mobileredirect=true&DefaultItemOpen=1%3Fweb%3D1" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Formulas: D0203</a>
+          </div>
+        </div>
         <div onclick="showEmbalagens()" class="hub-button">Embalagens</div>
       </div>
 
@@ -2164,6 +2217,7 @@
     </div>
   </div>
 
+  <div class="toast-atualizacao" id="toastAtualizacao" role="status" aria-live="polite"></div>
   <div class="page-bottom">
   <div id="footerNote" class="footer-note">Nota: Alguns links apenas estão acessíveis através da rede interna da empresa.</div>
   <footer id="loginFooter" class="footer-login"><span>© <span class="ano-atual">2026</span> <span class="agajota-nome">AGAJOTA</span></span></footer>
@@ -2181,7 +2235,7 @@
 
   <script>
     /* Data da última atualização: mudar só aqui (aparece ao carregar em "Agajota" no rodapé) */
-    const DATA_ATUALIZACAO = "19 de Outubro de 2026";
+    const DATA_ATUALIZACAO = "20 de Outubro de 2026";
 
     const correctPassword = "0";
 
@@ -2219,8 +2273,17 @@
       renderAppState();
     }
 
+    let toastAtualizacaoTimer;
+    function esconderToastAtualizacao() {
+      document.getElementById("toastAtualizacao").classList.remove("show");
+    }
     function mostrarDataAtualizacao() {
-      caixaMensagem("Atualizado a " + DATA_ATUALIZACAO);
+      const el = document.getElementById("toastAtualizacao");
+      el.textContent = "Última atualização: " + DATA_ATUALIZACAO;
+      el.onclick = esconderToastAtualizacao;
+      el.classList.add("show");
+      clearTimeout(toastAtualizacaoTimer);
+      toastAtualizacaoTimer = setTimeout(esconderToastAtualizacao, 4000);
     }
 
     function pedirLogout() {
@@ -2262,8 +2325,33 @@
       if (!e.target.closest(".contact-btn")) closeContacts();
     });
     document.addEventListener("keydown", function(e){
-      if (e.key === "Escape") closeContacts();
+      /* Enter / Espaço ativam os botões que não são <button> */
+      if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches('[role="button"]')) {
+        e.preventDefault();
+        e.target.click();
+        return;
+      }
+      if (e.key !== "Escape") return;
+      const suporte = document.getElementById("contactsModal");
+      if (getComputedStyle(suporte).display !== "none") { closeContacts(); return; }
+      if (document.getElementById("caixaMensagemOverlay")) return; /* a caixa tem o seu próprio Esc */
+      if (document.getElementById("backHeaderBtn").style.display !== "none") showHome();
     });
+
+    /* Acessibilidade: elementos clicáveis que não são <button> passam a ser focáveis e anunciados como botões */
+    function tornarAcessivel(){
+      document.querySelectorAll("[onclick]:not(button):not(a):not(input):not(select):not(textarea):not([role])").forEach(function(el){
+        el.setAttribute("role", "button");
+        el.setAttribute("tabindex", "0");
+      });
+      sincronizarAriaMenus();
+    }
+    function sincronizarAriaMenus(){
+      document.querySelectorAll(".dropdown-toggle").forEach(function(b){
+        b.setAttribute("aria-expanded", b.classList.contains("active") ? "true" : "false");
+      });
+    }
+    tornarAcessivel();
 
     function sendMessage(){
       window.location.href = "mailto:helder.fernandes@sumolcompal.pt?subject=SC Lab - Pedido de Suporte&body=Descreva aqui o que pretende:";
@@ -2295,6 +2383,16 @@
         document.getElementById("acceptDropdown").style.display = "none";
         document.getElementById("acceptDropdownBtn").classList.remove("active");
       }
+      sincronizarAriaMenus();
+    }
+
+    function toggleApoioDropdown() {
+      const dropdown = document.getElementById("apoioDropdown");
+      const btn = document.getElementById("apoioDropdownBtn");
+      const aberto = dropdown.style.display === "block";
+      dropdown.style.display = aberto ? "none" : "block";
+      btn.classList.toggle("active", !aberto);
+      sincronizarAriaMenus();
     }
 
     function toggleAcceptDropdown() {
@@ -2310,10 +2408,12 @@
         document.getElementById("sharepointDropdown").style.display = "none";
         document.getElementById("spDropdownBtn").classList.remove("active");
       }
+      sincronizarAriaMenus();
     }
 
     function showCC(){
       hideAllPages();
+      registarPaginaInterna();
       document.getElementById("ccPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
       
@@ -2325,6 +2425,7 @@
 
     function showApoio(){
       hideAllPages();
+      registarPaginaInterna();
       document.getElementById("apoioPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
       const subtitle = document.getElementById("mainSubtitle");
@@ -2335,6 +2436,7 @@
 
     function showEmbalagens(){
       hideAllPages();
+      registarPaginaInterna();
       document.getElementById("embalagensPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
       const subtitle = document.getElementById("mainSubtitle");
@@ -2345,6 +2447,7 @@
 
     function showVarios(){
       hideAllPages();
+      registarPaginaInterna();
       document.getElementById("variosPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
       const subtitle = document.getElementById("mainSubtitle");
@@ -2355,6 +2458,7 @@
 
     function showMediasBisnagas() {
       hideAllPages();
+      registarPaginaInterna();
       document.getElementById("mediasBisnagasPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
       
@@ -2366,6 +2470,7 @@
 
     function showColas() {
       hideAllPages();
+      registarPaginaInterna();
       document.getElementById("colasPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
       
@@ -2375,7 +2480,23 @@
       subtitle.classList.add("cc-active");
     }
 
+    /* Histórico do browser: o botão "voltar" do telemóvel (e o Esc) fazem o mesmo que "← Voltar" */
     function showHome(){
+      if (history.state && history.state.paginaInterna) { history.back(); return; }
+      irParaHome();
+    }
+
+    function registarPaginaInterna(){
+      if (!(history.state && history.state.paginaInterna)) {
+        try { history.pushState({ paginaInterna: true }, ""); } catch (e) {}
+      }
+    }
+
+    window.addEventListener("popstate", function(){
+      if (document.getElementById("backHeaderBtn").style.display !== "none") irParaHome();
+    });
+
+    function irParaHome(){
       showMainSections();
       hideInternalPages();
       document.getElementById("backHeaderBtn").style.display = "none";
@@ -2385,15 +2506,25 @@
       subtitle.textContent = "Centro de atalhos:";
       subtitle.classList.remove("cc-active");
 
-      document.getElementById("sharepointDropdown").style.display = "none";
-      document.getElementById("spDropdownBtn").classList.remove("active");
-      document.getElementById("acceptDropdown").style.display = "none";
-      document.getElementById("acceptDropdownBtn").classList.remove("active");
+      fecharTodosMenus();
+    }
+
+    /* fecha os menus (Apoio Produção, ACCEPT, SharePoint): voltam sempre fechados */
+    function fecharTodosMenus(){
+      ["apoioDropdown","acceptDropdown","sharepointDropdown"].forEach(function(id){
+        document.getElementById(id).style.display = "none";
+      });
+      ["apoioDropdownBtn","acceptDropdownBtn","spDropdownBtn"].forEach(function(id){
+        const b = document.getElementById(id);
+        b.classList.remove("active");
+        b.setAttribute("aria-expanded", "false");
+      });
     }
 
     function hideAllPages(){
       hideMainSections();
       hideInternalPages();
+      fecharTodosMenus();
     }
 
     function hideInternalPages(){
