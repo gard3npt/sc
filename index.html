@@ -1537,17 +1537,9 @@
     }
 
 
-    /* ZOOM AUTOMÁTICO: em ecrãs grandes o site cresce proporcionalmente (o telemóvel e o tablet ficam como estão) */
-    /* --zoom = restantes páginas (75% do tamanho anterior em ecrãs grandes); --zoom-cc = Correção de Cargas (mantém o tamanho que já estava bom) */
-    :root { --zoom-base: 1; --zoom-cc: 1; --zoom: var(--zoom-base); }
-    @media (min-width: 1280px) { :root { --zoom-base: 1; --zoom-cc: 1.05; } }
-    @media (min-width: 1500px) { :root { --zoom-base: 0.9; --zoom-cc: 1.075; } }
-    @media (min-width: 1800px) { :root { --zoom-base: 0.8; --zoom-cc: 1.2; } }
-    @media (min-width: 2200px) { :root { --zoom-base: 0.9; --zoom-cc: 1.35; } }
-    @media (min-width: 2800px) { :root { --zoom-base: 1.05; --zoom-cc: 1.55; } }
-    /* portáteis 1360x768 / 1366x768: site 10% mais pequeno (os restantes ecrãs não mudam) */
-    @media (min-width: 1300px) and (max-width: 1399px) and (max-height: 800px) { :root { --zoom-base: 0.9; --zoom-cc: 0.9; } }
-    html.pg-cc { --zoom: var(--zoom-cc); }
+    /* ZOOM AUTOMÁTICO: --zoom-base é calculado em JavaScript (função aplicarZoom) de forma contínua pela largura do ecrã,
+       sem saltos entre tamanhos. Aqui fica só o valor de reserva (100%). */
+    :root { --zoom-base: 1; --zoom: var(--zoom-base); }
 
     /* conteúdo da página: usa --zoom (a Correção de Cargas tem o seu); cabeçalho, rodapé, login e janelas usam sempre --zoom-base, iguais em todas as páginas */
     .container { zoom: var(--zoom); }
@@ -1703,6 +1695,9 @@
       outline: 3px solid #93c5fd;
       outline-offset: 2px;
     }
+
+    /* botão Início: só o ícone da casa */
+    .header-btn-icon { width: 38px; padding: 0; }
   </style>
 </head>
 <body>
@@ -1718,7 +1713,10 @@
 
   <header class="header-bar">
     <div class="header-left">
-      <button id="backHeaderBtn" class="header-btn" style="display:none;" onclick="showHome()">← Voltar</button>
+      <button id="homeHeaderBtn" class="header-btn header-btn-icon" style="display:none;" onclick="showHome()" title="Início" aria-label="Início">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>
+      </button>
+      <button id="backHeaderBtn" class="header-btn" style="display:none;" onclick="voltarPagina()">← Voltar</button>
     </div>
     <div id="headerTitle" class="header-title"></div>
     <div class="header-right">
@@ -2270,6 +2268,8 @@
 
     function logout() {
       localStorage.removeItem("isLoggedIn");
+      try { history.replaceState(null, ""); } catch (e) {}
+      irParaHome();
       renderAppState();
     }
 
@@ -2295,11 +2295,10 @@
       const subtitle = document.getElementById("mainSubtitle");
       const botaoVoltar = document.getElementById("backHeaderBtn");
       const emHome = botaoVoltar.style.display === "none";
+      document.getElementById("homeHeaderBtn").style.display = botaoVoltar.style.display;
       const logado = localStorage.getItem("isLoggedIn") === "true";
       /* páginas de cálculo (Correção de Cargas, Bisnagas, Médias de Colas): sem o título "Laboratório C.Q." */
       document.documentElement.classList.toggle("pg-calculo", subtitle.classList.contains("cc-active"));
-      /* Correção de Cargas tem o seu próprio zoom */
-      document.documentElement.classList.toggle("pg-cc", document.getElementById("ccPage").style.display === "block");
       /* o nome da página aparece só por baixo do título; a barra do cabeçalho fica sem nome */
       document.getElementById("headerTitle").textContent = "";
 
@@ -2335,8 +2334,29 @@
       const suporte = document.getElementById("contactsModal");
       if (getComputedStyle(suporte).display !== "none") { closeContacts(); return; }
       if (document.getElementById("caixaMensagemOverlay")) return; /* a caixa tem o seu próprio Esc */
-      if (document.getElementById("backHeaderBtn").style.display !== "none") showHome();
+      if (document.getElementById("backHeaderBtn").style.display !== "none") voltarPagina();
     });
+
+    /* Zoom contínuo: interpola entre pontos de referência (largura do ecrã -> zoom do site).
+       Telemóvel/tablet (até 1100 px) = 100%; portátil 1366 = 90%; Full HD = 80%; ecrãs muito grandes voltam a crescer. */
+    const PONTOS_ZOOM = [[1100, 1.00], [1366, 0.90], [1920, 0.80], [2560, 0.90], [3840, 1.15]];
+    function calcularZoom(largura){
+      const p = PONTOS_ZOOM;
+      if (largura <= p[0][0]) return p[0][1];
+      if (largura >= p[p.length - 1][0]) return p[p.length - 1][1];
+      for (let i = 1; i < p.length; i++) {
+        if (largura <= p[i][0]) {
+          const t = (largura - p[i - 1][0]) / (p[i][0] - p[i - 1][0]);
+          return p[i - 1][1] + t * (p[i][1] - p[i - 1][1]);
+        }
+      }
+      return 1;
+    }
+    function aplicarZoom(){
+      document.documentElement.style.setProperty("--zoom-base", calcularZoom(window.innerWidth).toFixed(3));
+    }
+    aplicarZoom();
+    window.addEventListener("resize", aplicarZoom);
 
     /* Acessibilidade: elementos clicáveis que não são <button> passam a ser focáveis e anunciados como botões */
     function tornarAcessivel(){
@@ -2413,7 +2433,7 @@
 
     function showCC(){
       hideAllPages();
-      registarPaginaInterna();
+      registarPaginaInterna("cc");
       document.getElementById("ccPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
       
@@ -2425,7 +2445,7 @@
 
     function showApoio(){
       hideAllPages();
-      registarPaginaInterna();
+      registarPaginaInterna("apoio");
       document.getElementById("apoioPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
       const subtitle = document.getElementById("mainSubtitle");
@@ -2436,7 +2456,7 @@
 
     function showEmbalagens(){
       hideAllPages();
-      registarPaginaInterna();
+      registarPaginaInterna("embalagens");
       document.getElementById("embalagensPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
       const subtitle = document.getElementById("mainSubtitle");
@@ -2447,7 +2467,7 @@
 
     function showVarios(){
       hideAllPages();
-      registarPaginaInterna();
+      registarPaginaInterna("varios");
       document.getElementById("variosPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
       const subtitle = document.getElementById("mainSubtitle");
@@ -2458,7 +2478,7 @@
 
     function showMediasBisnagas() {
       hideAllPages();
-      registarPaginaInterna();
+      registarPaginaInterna("bisnagas");
       document.getElementById("mediasBisnagasPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
       
@@ -2470,7 +2490,7 @@
 
     function showColas() {
       hideAllPages();
-      registarPaginaInterna();
+      registarPaginaInterna("colas");
       document.getElementById("colasPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
       
@@ -2480,20 +2500,41 @@
       subtitle.classList.add("cc-active");
     }
 
-    /* Histórico do browser: o botão "voltar" do telemóvel (e o Esc) fazem o mesmo que "← Voltar" */
+    /* Histórico do browser: "← Voltar" e o botão "voltar" do telemóvel vão para a página anterior;
+       o botão da casa vai sempre para o início */
+    let restaurandoPagina = false;
+
+    function registarPaginaInterna(nome){
+      if (restaurandoPagina) return;
+      const atual = history.state;
+      if (atual && atual.pagina === nome) return;
+      const d = (atual && atual.pagina) ? atual.d : 0;
+      try { history.pushState({ pagina: nome, d: d + 1 }, ""); } catch (e) {}
+    }
+
+    function voltarPagina(){
+      if (history.state && history.state.pagina) history.back();
+      else irParaHome();
+    }
+
     function showHome(){
-      if (history.state && history.state.paginaInterna) { history.back(); return; }
-      irParaHome();
+      const st = history.state;
+      if (st && st.pagina && st.d > 0) history.go(-st.d);
+      else irParaHome();
     }
 
-    function registarPaginaInterna(){
-      if (!(history.state && history.state.paginaInterna)) {
-        try { history.pushState({ paginaInterna: true }, ""); } catch (e) {}
+    window.addEventListener("popstate", function(e){
+      if (localStorage.getItem("isLoggedIn") !== "true") return;
+      const st = e.state;
+      if (st && st.pagina) {
+        const paginas = { cc: showCC, apoio: showApoio, embalagens: showEmbalagens, varios: showVarios, bisnagas: showMediasBisnagas, colas: showColas };
+        if (paginas[st.pagina]) {
+          restaurandoPagina = true;
+          try { paginas[st.pagina](); } finally { restaurandoPagina = false; }
+        }
+      } else if (document.getElementById("backHeaderBtn").style.display !== "none") {
+        irParaHome();
       }
-    }
-
-    window.addEventListener("popstate", function(){
-      if (document.getElementById("backHeaderBtn").style.display !== "none") irParaHome();
     });
 
     function irParaHome(){
@@ -3460,6 +3501,8 @@
     window.onload = function() {
       const ano = new Date().getFullYear();
       document.querySelectorAll(".ano-atual").forEach(el => { el.textContent = ano; });
+      /* ao recarregar a página começa-se sempre no início */
+      if (history.state && history.state.pagina) { try { history.replaceState(null, ""); } catch (e) {} }
       renderAppState();
     };
   </script>
