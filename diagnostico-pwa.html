@@ -54,6 +54,7 @@
   var linhas = [];
   var erros = 0, avisos = 0;
   var pedidoInstalar = null;
+  var concluido = false, disparou = false;
 
   // Endereços a testar (podem ser alterados com ?m=caminho/do/manifesto&s=caminho/do/sw.js)
   var params = new URLSearchParams(location.search);
@@ -70,7 +71,12 @@
   window.addEventListener('beforeinstallprompt', function (e) {
     e.preventDefault();
     pedidoInstalar = e;
+    disparou = true;
     btnInstalar.hidden = false;
+    if (concluido) add('ok', 'O browser ofereceu a instalação (evento tardio)', 'Toque em «Instalar a app» em baixo.');
+  });
+  window.addEventListener('appinstalled', function () {
+    add('ok', 'Evento appinstalled recebido', 'O browser confirma que a app foi instalada agora.');
   });
   btnInstalar.addEventListener('click', function () {
     if (!pedidoInstalar) return;
@@ -247,14 +253,15 @@
   function aguardarOferta() {
     return new Promise(function (resolve) {
       setTimeout(function () {
-        if (pedidoInstalar) add('ok', 'O browser considera a app instalável', 'Toque em «Instalar a app» em baixo.');
-        else add('aviso', 'O browser ainda não ofereceu a instalação', 'Se tudo acima estiver ✔, pode já estar instalada ou o browser pode demorar; experimente o menu ⋮ → «Instalar app».');
+        if (disparou) add('ok', 'beforeinstallprompt DISPAROU: o browser considera a app instalável', 'Toque em «Instalar a app» em baixo.');
+        else add('aviso', 'beforeinstallprompt NÃO disparou em 10 s', 'Com os ficheiros todos ✔, isto quer dizer que o browser acha que já existe uma instalação (WebAPK), ou o telemóvel/política da empresa não permite instalar. Veja chrome://webapks e o menu ⋮ do Chrome.');
         resolve();
-      }, 6000);
+      }, 10000);
     });
   }
 
   function resumir() {
+    concluido = true;
     resumo.className = erros ? 'erro' : 'ok';
     resumo.textContent = erros
       ? 'Foram encontrados ' + erros + ' problema(s). Veja os pontos com ✘.'
@@ -262,7 +269,7 @@
   }
 
   function analisar() {
-    lista.textContent = ''; linhas = []; erros = 0; avisos = 0;
+    lista.textContent = ''; linhas = []; erros = 0; avisos = 0; concluido = false;
     resumo.className = ''; resumo.textContent = 'A analisar…';
     ambiente();
     return manifesto()
@@ -276,6 +283,7 @@
 
   document.getElementById('btnRepetir').addEventListener('click', analisar);
   document.getElementById('btnCopiar').addEventListener('click', function () {
+    if (!concluido) { this.textContent = 'Aguarde ~10 s…'; var b0 = this; setTimeout(function () { b0.textContent = 'Copiar resultado'; }, 2000); return; }
     var texto = 'Diagnóstico — ' + location.href + '\n' + resumo.textContent + '\n' + linhas.join('\n');
     var botao = this;
     function feito() { botao.textContent = 'Copiado!'; setTimeout(function () { botao.textContent = 'Copiar resultado'; }, 2000); }
