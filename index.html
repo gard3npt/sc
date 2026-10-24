@@ -1647,7 +1647,7 @@
       #ccPage .resultrow, #srvPage .resultrow { grid-template-columns: 1fr; gap: 6px; }
       #ccPage .rlabel, #ccPage .rlabel-split, #srvPage .rlabel, #srvPage .rlabel-split { text-align: center; justify-content: center; }
     }
-    html.pg-calculo #mainTitle { display: none; }
+    html.pg-calculo #mainTitle, html.pg-sem-titulo #mainTitle { display: none; }
     /* Correção de Cargas, Bisnagas e Médias de Colas: as três com o mesmo zoom (85% do base) e a mesma largura; cabeçalho e rodapé não mudam */
     html.pg-calculo .container { zoom: calc(var(--zoom-base) * 0.85); }
 
@@ -1735,10 +1735,17 @@
     .escala-estado button { display: block; margin: 14px auto 0; padding: 10px 18px; border: 2px solid #2563eb; background: #ffffff; color: #2563eb; border-radius: 10px; font: inherit; font-weight: 700; cursor: pointer; }
     .escala-imagem { max-width: 100%; max-height: 70vh; border: 1px solid #cbd5e1; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,.12); cursor: zoom-in; }
     .escala-data { font-size: 0.8rem; color: #64748b; margin-top: 10px; }
-    .escala-acoes { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; max-width: 740px; margin: 0 auto; align-items: center; }
+    .escala-acoes { display: grid; grid-template-columns: 1fr; gap: 12px; max-width: 740px; margin: 0 auto; align-items: center; }
+    #escalaCarregarBtn { width: 100%; max-width: 360px; justify-self: center; }
+    #escalaDonoGatilho { touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+    /* botões do dono (Cortar e Apagar): só aparecem depois de entrar com a senha */
+    .escala-dono-grupo { display: none; margin-left: auto; gap: 8px; }
+    #escalaPage.modo-dono .escala-dono-grupo { display: flex; }
+    .escala-dono-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 34px; padding: 6px 12px; border-radius: 10px; border: 2px solid #dc2626; background: #ffffff; color: #dc2626; font: inherit; font-size: 0.85rem; font-weight: 700; line-height: 1.2; cursor: pointer; }
+    .escala-dono-btn:hover { background: #fef2f2; }
+    .escala-dono-btn[disabled] { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
     .escala-acoes .escala-btn { max-width: none; padding: 8px 10px; text-align: center; line-height: 1.2; }
     .escala-acoes .escala-ajuda { grid-column: 1 / -1; }
-    .escala-acoes #escalaApagarBtn { min-height: 42px; font-size: 0.88rem; border-radius: 12px; }
     .escala-btn { width: 100%; max-width: 360px; min-height: 56px; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 14px; border: 2px solid transparent; font: inherit; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,.15); -webkit-tap-highlight-color: transparent; }
     .escala-btn-azul { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; }
     .escala-btn-vermelho { background: #ffffff; color: #dc2626; border-color: #dc2626; }
@@ -1750,9 +1757,6 @@
     #escalaGrande .eg-barra { position: fixed; top: 12px; right: 12px; z-index: 1; display: flex; gap: 8px; }
     #escalaGrande button { min-width: 44px; padding: 10px 14px; border: none; border-radius: 10px; background: #ffffff; color: #0f172a; font: inherit; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
 
-    .escala-icone-btn { margin-left: auto; width: 36px; height: 36px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; box-shadow: none; color: #0f172a; font-size: 1.6rem; line-height: 1; cursor: pointer; }
-    .escala-icone-btn:hover { color: #2563eb; }
-    .escala-icone-btn[disabled] { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
 
     /* caixa da senha do dono */
     #senhaDonoOverlay > div { zoom: var(--zoom-base); }
@@ -2307,15 +2311,17 @@
           <div id="escalaData" class="escala-data"></div>
         </div>
         <div class="bisnaga-section-header">
-          <span class="step-num">2</span>
+          <span class="step-num" id="escalaDonoGatilho">2</span>
           <h3>Atualizar</h3>
-          <button type="button" id="escalaCortarBtn" class="escala-icone-btn" onclick="pedirCortarEscala()" title="Cortar a imagem (área do dono)" aria-label="Cortar a imagem" disabled>✂&#xFE0E;</button>
+          <div class="escala-dono-grupo">
+            <button type="button" id="escalaCortarBtn" class="escala-dono-btn" onclick="pedirCortarEscala()" disabled>✂&#xFE0E; Cortar</button>
+            <button type="button" id="escalaApagarBtn" class="escala-dono-btn" onclick="pedirApagarEscala()" disabled>🗑 Apagar</button>
+          </div>
         </div>
         <div class="escala-corpo escala-acoes">
-          <label id="escalaCarregarBtn" class="escala-btn escala-btn-azul" for="escalaFicheiro" role="button" tabindex="0">📷 Carregar fotografia</label>
+          <label id="escalaCarregarBtn" class="escala-btn escala-btn-azul" for="escalaFicheiro" role="button" tabindex="0">📷 Carregar imagem</label>
           <input type="file" id="escalaFicheiro" accept="image/*" hidden onchange="escolherFotoEscala(this)">
-          <button type="button" id="escalaApagarBtn" class="escala-btn escala-btn-vermelho" onclick="pedirApagarEscala()" disabled>🗑 Apagar</button>
-          <p class="escala-ajuda">Ao carregar uma fotografia nova, a anterior é substituída.</p>
+          <p class="escala-ajuda">Ao carregar uma imagem nova, a anterior é substituída.</p>
         </div>
       </div>
     </div>
@@ -2437,6 +2443,8 @@
       const logado = localStorage.getItem("isLoggedIn") === "true";
       /* páginas de cálculo (Correção de Cargas, Bisnagas, Médias de Colas): sem o título "Laboratório C.Q." */
       document.documentElement.classList.toggle("pg-calculo", subtitle.classList.contains("cc-active"));
+      /* página da Escala Semanal: também sem o título, mas mantém o zoom normal */
+      document.documentElement.classList.toggle("pg-sem-titulo", document.getElementById("escalaPage").style.display === "block");
       /* o nome da página aparece só por baixo do título; a barra do cabeçalho fica sem nome */
       document.getElementById("headerTitle").textContent = "";
 
@@ -2666,7 +2674,7 @@
         if (!res.ok) throw new Error("HTTP " + res.status);
         const dados = await res.json();
         if (!dados || !dados.imagem) {
-          escalaMostrarEstado("Ainda não há nenhuma escala. Carregue uma fotografia.");
+          escalaMostrarEstado("Ainda não há nenhuma escala. Carregue uma imagem.");
         } else {
           escalaAtual = dados;
           const img = document.getElementById("escalaImagem");
@@ -2724,9 +2732,9 @@
       const ficheiro = input.files && input.files[0];
       input.value = "";
       if (!ficheiro) return;
-      if (!/^image\//.test(ficheiro.type)) { caixaMensagem("Escolha uma fotografia (imagem)."); return; }
+      if (!/^image\//.test(ficheiro.type)) { caixaMensagem("Escolha uma imagem."); return; }
       if (escalaAtual) {
-        caixaMensagem("Vai substituir a escala atual por esta fotografia. Continuar?", function(){ enviarEscala(ficheiro); }, null, "Continuar");
+        caixaMensagem("Vai substituir a escala atual por esta imagem. Continuar?", function(){ enviarEscala(ficheiro); }, null, "Continuar");
       } else {
         enviarEscala(ficheiro);
       }
@@ -2734,7 +2742,7 @@
 
     async function enviarEscala(ficheiro){
       escalaAtualizarBotoes(true);
-      escalaMostrarEstado("A enviar a fotografia...");
+      escalaMostrarEstado("A enviar a imagem...");
       try {
         const imagem = await reduzirFotografia(ficheiro);
         const res = await fetch(escalaUrl(), {
@@ -2747,12 +2755,12 @@
         caixaMensagem("Escala atualizada com sucesso.");
       } catch (e) {
         await carregarEscala();
-        caixaMensagem("Não foi possível enviar a fotografia. Tente de novo.");
+        caixaMensagem("Não foi possível enviar a imagem. Tente de novo.");
       }
     }
 
     function pedirApagarEscala(){
-      if (!escalaAtual) return;
+      if (!escalaAtual || !escalaModoDono()) return;
       caixaMensagem("Apagar a escala atual?", apagarEscala, null, "Apagar");
     }
 
@@ -2769,9 +2777,9 @@
       }
     }
 
-    /* Senha do dono do site: pedida antes de cortar a escala. Para a mudar, alterar só o texto entre aspas.
+    /* Senha do dono do site: pedida para abrir a área de controlo (botões Cortar e Apagar da escala). Para a mudar, alterar só o texto entre aspas.
        Atenção: como o site corre no navegador, esta senha serve para evitar toques acidentais e não é uma proteção forte. */
-    const SENHA_DONO = "dono";
+    const SENHA_DONO = "helder";
 
     function pedirSenhaDono(aoValidar){
       const antigo = document.getElementById("senhaDonoOverlay");
@@ -2783,7 +2791,7 @@
       caixa.style.cssText = "background:#ffffff; border-radius:14px; padding:20px; max-width:340px; width:100%; box-shadow:0 10px 30px rgba(0,0,0,0.3); text-align:center;";
       const titulo = document.createElement("div");
       titulo.style.cssText = "font-size:16px; font-weight:700; color:#0f172a; margin-bottom:12px;";
-      titulo.textContent = "Área do dono — introduza a senha";
+      titulo.textContent = "Área de controlo — introduza a senha";
       const campo = document.createElement("input");
       campo.type = "password";
       campo.autocomplete = "off";
@@ -2824,10 +2832,30 @@
       campo.focus();
     }
 
+    function escalaModoDono(){ return document.getElementById("escalaPage").classList.contains("modo-dono"); }
+
     function pedirCortarEscala(){
-      if (!escalaAtual) return;
-      pedirSenhaDono(abrirCortarEscala);
+      if (!escalaAtual || !escalaModoDono()) return;
+      abrirCortarEscala();
     }
+
+    /* Botão escondido: 3 cliques seguidos no círculo "2" (cabeçalho "Atualizar") pedem a senha do dono.
+       Com a senha certa aparecem os botões de Cortar e Apagar; 3 cliques outra vez voltam a escondê-los. */
+    (function(){
+      const gatilho = document.getElementById("escalaDonoGatilho");
+      let cliques = 0, temporizador = null;
+      gatilho.addEventListener("click", function(){
+        cliques++;
+        clearTimeout(temporizador);
+        temporizador = setTimeout(function(){ cliques = 0; }, 1200);
+        if (cliques < 3) return;
+        cliques = 0;
+        clearTimeout(temporizador);
+        const pagina = document.getElementById("escalaPage");
+        if (pagina.classList.contains("modo-dono")) { pagina.classList.remove("modo-dono"); return; }
+        pedirSenhaDono(function(){ pagina.classList.add("modo-dono"); });
+      });
+    })();
 
     function abrirCortarEscala(){
       if (!escalaAtual) return;
@@ -3061,6 +3089,7 @@
 
     function showEscala(){
       hideAllPages();
+      document.getElementById("escalaPage").classList.remove("modo-dono");
       registarPaginaInterna("escala");
       document.getElementById("escalaPage").style.display = "block";
       document.getElementById("backHeaderBtn").style.display = "flex";
