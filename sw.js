@@ -5,7 +5,7 @@
    - Tudo o resto (base de dados da escala, anúncios, ligações externas…) passa direto, sem ser guardado,
      para os dados da escala estarem sempre atualizados.
    Quando mudares ficheiros da app (index, ícones, manifesto), sobe o número da VERSAO para limpar caches antigas. */
-const VERSAO = 'v1';
+const VERSAO = 'v2';
 const CACHE_APP = 'sc-app-' + VERSAO;
 const CACHE_EXTRA = 'sc-extra-' + VERSAO;
 const FICHEIROS_APP = [
