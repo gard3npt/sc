@@ -2985,7 +2985,7 @@
 
     function abrirEscalaGrande(){
       if (!escalaAtual) return;
-      const ZMIN = 1, ZMAX = 8;
+      const ZMIN = 0.3, ZMAX = 8; /* 1 = tamanho standard (imagem inteira no ecrã); pode afastar até 30% */
       let z = 1, tx = 0, ty = 0;
       const ov = document.createElement("div");
       ov.id = "escalaGrande";
@@ -2995,7 +2995,8 @@
       img.draggable = false;
 
       function aplicar(){
-        if (z <= ZMIN) { z = ZMIN; tx = 0; ty = 0; }
+        if (z < ZMIN) z = ZMIN;
+        if (z <= 1) { tx = 0; ty = 0; } /* no tamanho standard ou mais pequena, a imagem fica centrada */
         img.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + z + ")";
       }
       /* zoom em torno de um ponto do ecrã (px, py), medido a partir do centro */
@@ -3022,11 +3023,17 @@
       /* arrastar com o rato/dedo e pinça com dois dedos */
       const ponteiros = new Map();
       let distAnt = 0;
+      let toque = null; /* um toque/clique simples: se for fora da imagem, fecha */
       ov.addEventListener("pointerdown", function(e){
         if (e.target.closest(".eg-barra")) return;
         ponteiros.set(e.pointerId, { x: e.clientX, y: e.clientY });
         ov.setPointerCapture(e.pointerId);
         img.classList.add("a-arrastar");
+        if (ponteiros.size === 1) {
+          const r = img.getBoundingClientRect();
+          toque = { x: e.clientX, y: e.clientY, mexeu: false,
+                    fora: e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom };
+        } else { toque = null; }
         if (ponteiros.size === 2) {
           const [a, b] = [...ponteiros.values()];
           distAnt = Math.hypot(a.x - b.x, a.y - b.y);
@@ -3035,8 +3042,9 @@
       ov.addEventListener("pointermove", function(e){
         const ant = ponteiros.get(e.pointerId);
         if (!ant) return;
+        if (toque && Math.hypot(e.clientX - toque.x, e.clientY - toque.y) > 6) toque.mexeu = true;
         if (ponteiros.size === 1) {
-          if (z > ZMIN) { tx += e.clientX - ant.x; ty += e.clientY - ant.y; aplicar(); }
+          if (z > 1) { tx += e.clientX - ant.x; ty += e.clientY - ant.y; aplicar(); }
           ponteiros.set(e.pointerId, { x: e.clientX, y: e.clientY });
         } else if (ponteiros.size === 2) {
           ponteiros.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -3052,16 +3060,18 @@
         }
       });
       function largar(e){
+        const eraToque = toque && !toque.mexeu && toque.fora && e.type === "pointerup" && ponteiros.size === 1;
         ponteiros.delete(e.pointerId);
         distAnt = 0;
-        if (ponteiros.size === 0) img.classList.remove("a-arrastar");
+        if (ponteiros.size === 0) { img.classList.remove("a-arrastar"); toque = null; }
+        if (eraToque) ov.remove();
       }
       ov.addEventListener("pointerup", largar);
       ov.addEventListener("pointercancel", largar);
       /* duplo clique: volta ao tamanho inicial (ou aproxima, se já estiver no tamanho inicial) */
       ov.addEventListener("dblclick", function(e){
         if (e.target.closest(".eg-barra")) return;
-        if (z > ZMIN) { z = ZMIN; aplicar(); }
+        if (z !== 1) { z = 1; aplicar(); }
         else { const c = centro(e); zoomEm(3, c.x, c.y); }
       });
 
@@ -3078,7 +3088,7 @@
       barra.className = "eg-barra";
       barra.appendChild(botao("−", "Afastar", function(){ zoomEm(z / 1.4, 0, 0); }));
       barra.appendChild(botao("+", "Aproximar", function(){ zoomEm(z * 1.4, 0, 0); }));
-      barra.appendChild(botao("Ajustar", "Tamanho inicial", function(){ z = ZMIN; aplicar(); }));
+      barra.appendChild(botao("Ajustar", "Tamanho inicial", function(){ z = 1; aplicar(); }));
       barra.appendChild(botao("✕ Fechar", "Fechar", function(){ ov.remove(); }));
 
       ov.appendChild(img);
