@@ -1744,9 +1744,38 @@
     .escala-btn-vermelho { background: #ffffff; color: #dc2626; border-color: #dc2626; }
     .escala-btn[disabled], .escala-btn.escala-desativado { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
     .escala-ajuda { margin: 0; font-size: 0.78rem; color: #64748b; }
-    #escalaGrande { position: fixed; inset: 0; z-index: 99990; background: rgba(15,23,42,0.94); overflow: auto; -webkit-overflow-scrolling: touch; }
-    #escalaGrande img { display: block; width: 100%; max-width: none; height: auto; }
-    #escalaGrande button { position: fixed; top: 12px; right: 12px; z-index: 1; padding: 10px 16px; border: none; border-radius: 10px; background: #ffffff; color: #0f172a; font: inherit; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
+    #escalaGrande { position: fixed; inset: 0; z-index: 99990; background: rgba(15,23,42,0.94); overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; display: flex; align-items: center; justify-content: center; }
+    #escalaGrande img { max-width: 100%; max-height: 100%; transform-origin: center center; cursor: grab; -webkit-user-drag: none; will-change: transform; }
+    #escalaGrande img.a-arrastar { cursor: grabbing; }
+    #escalaGrande .eg-barra { position: fixed; top: 12px; right: 12px; z-index: 1; display: flex; gap: 8px; }
+    #escalaGrande button { min-width: 44px; padding: 10px 14px; border: none; border-radius: 10px; background: #ffffff; color: #0f172a; font: inherit; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
+
+    .escala-icone-btn { margin-left: auto; width: 36px; height: 36px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; box-shadow: none; color: #0f172a; font-size: 1.6rem; line-height: 1; cursor: pointer; }
+    .escala-icone-btn:hover { color: #2563eb; }
+    .escala-icone-btn[disabled] { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+    /* caixa da senha do dono */
+    #senhaDonoOverlay > div { zoom: var(--zoom-base); }
+
+    /* ferramenta de cortar a escala */
+    #escalaCortar { position: fixed; inset: 0; z-index: 99991; background: rgba(15,23,42,0.97); overflow: hidden; display: flex; align-items: center; justify-content: center; user-select: none; -webkit-user-select: none; }
+    #escalaCortar .ec-topo { position: fixed; top: 0; left: 0; right: 0; z-index: 2; padding: 12px 16px; text-align: center; color: #e2e8f0; font-size: 0.95rem; font-weight: 600; }
+    #escalaCortar .ec-caixa { position: relative; line-height: 0; }
+    #escalaCortar .ec-caixa img { display: block; max-width: 92vw; max-height: calc(100vh - 150px); -webkit-user-drag: none; }
+    #escalaCortar .ec-sel { position: absolute; box-sizing: border-box; border: 2px solid #ffffff; box-shadow: 0 0 0 9999px rgba(15,23,42,0.62); cursor: move; touch-action: none; }
+    #escalaCortar .ec-h { position: absolute; width: 22px; height: 22px; margin: -11px 0 0 -11px; box-sizing: border-box; background: #ffffff; border: 3px solid #2563eb; border-radius: 50%; touch-action: none; }
+    #escalaCortar .ec-nw { left: 0; top: 0; cursor: nwse-resize; }
+    #escalaCortar .ec-n  { left: 50%; top: 0; cursor: ns-resize; }
+    #escalaCortar .ec-ne { left: 100%; top: 0; cursor: nesw-resize; }
+    #escalaCortar .ec-e  { left: 100%; top: 50%; cursor: ew-resize; }
+    #escalaCortar .ec-se { left: 100%; top: 100%; cursor: nwse-resize; }
+    #escalaCortar .ec-s  { left: 50%; top: 100%; cursor: ns-resize; }
+    #escalaCortar .ec-sw { left: 0; top: 100%; cursor: nesw-resize; }
+    #escalaCortar .ec-w  { left: 0; top: 50%; cursor: ew-resize; }
+    #escalaCortar .ec-barra { position: fixed; left: 0; right: 0; bottom: 0; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 14px 16px; }
+    #escalaCortar .ec-info { color: #e2e8f0; font-size: 0.9rem; font-weight: 600; min-width: 110px; text-align: center; }
+    #escalaCortar .ec-barra button { padding: 11px 16px; border: none; border-radius: 10px; font: inherit; font-weight: 700; cursor: pointer; background: #ffffff; color: #0f172a; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
+    #escalaCortar .ec-barra button.ec-guardar { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; }
 
     /* SRV: texto das células editáveis a azul */
     #srvPage .cell { position: relative; }
@@ -2280,6 +2309,7 @@
         <div class="bisnaga-section-header">
           <span class="step-num">2</span>
           <h3>Atualizar</h3>
+          <button type="button" id="escalaCortarBtn" class="escala-icone-btn" onclick="pedirCortarEscala()" title="Cortar a imagem (área do dono)" aria-label="Cortar a imagem" disabled>✂&#xFE0E;</button>
         </div>
         <div class="escala-corpo escala-acoes">
           <label id="escalaCarregarBtn" class="escala-btn escala-btn-azul" for="escalaFicheiro" role="button" tabindex="0">📷 Carregar fotografia</label>
@@ -2341,7 +2371,7 @@
 
   <script>
     /* Data da última atualização: mudar só aqui (aparece ao carregar em "Agajota" no rodapé) */
-    const DATA_ATUALIZACAO = "23 de Outubro de 2026";
+    const DATA_ATUALIZACAO = "24 de Outubro de 2026";
 
     const correctPassword = "0";
 
@@ -2442,6 +2472,9 @@
       const suporte = document.getElementById("contactsModal");
       if (getComputedStyle(suporte).display !== "none") { closeContacts(); return; }
       if (document.getElementById("caixaMensagemOverlay")) return; /* a caixa tem o seu próprio Esc */
+      if (document.getElementById("senhaDonoOverlay")) return; /* a caixa da senha tem o seu próprio Esc */
+      const cortar = document.getElementById("escalaCortar");
+      if (cortar) { cortar.remove(); return; }
       const grande = document.getElementById("escalaGrande");
       if (grande) { grande.remove(); return; }
       if (document.getElementById("backHeaderBtn").style.display !== "none") voltarPagina();
@@ -2615,6 +2648,7 @@
     function escalaAtualizarBotoes(ocupado){
       const temEscala = !!escalaAtual;
       document.getElementById("escalaApagarBtn").disabled = ocupado || !temEscala;
+      document.getElementById("escalaCortarBtn").disabled = ocupado || !temEscala;
       document.getElementById("escalaCarregarBtn").classList.toggle("escala-desativado", !!ocupado || !escalaConfigurada());
     }
 
@@ -2735,20 +2769,294 @@
       }
     }
 
+    /* Senha do dono do site: pedida antes de cortar a escala. Para a mudar, alterar só o texto entre aspas.
+       Atenção: como o site corre no navegador, esta senha serve para evitar toques acidentais e não é uma proteção forte. */
+    const SENHA_DONO = "dono";
+
+    function pedirSenhaDono(aoValidar){
+      const antigo = document.getElementById("senhaDonoOverlay");
+      if (antigo) antigo.remove();
+      const ov = document.createElement("div");
+      ov.id = "senhaDonoOverlay";
+      ov.style.cssText = "position:fixed; inset:0; background:rgba(15,23,42,0.55); z-index:99998; display:flex; align-items:center; justify-content:center; padding:16px;";
+      const caixa = document.createElement("div");
+      caixa.style.cssText = "background:#ffffff; border-radius:14px; padding:20px; max-width:340px; width:100%; box-shadow:0 10px 30px rgba(0,0,0,0.3); text-align:center;";
+      const titulo = document.createElement("div");
+      titulo.style.cssText = "font-size:16px; font-weight:700; color:#0f172a; margin-bottom:12px;";
+      titulo.textContent = "Área do dono — introduza a senha";
+      const campo = document.createElement("input");
+      campo.type = "password";
+      campo.autocomplete = "off";
+      campo.placeholder = "Senha";
+      campo.style.cssText = "width:100%; box-sizing:border-box; padding:11px 12px; border:2px solid #cbd5e1; border-radius:10px; font-size:16px; text-align:center;";
+      const erro = document.createElement("div");
+      erro.style.cssText = "color:#dc2626; font-size:14px; font-weight:700; margin-top:8px; min-height:18px;";
+      const botoes = document.createElement("div");
+      botoes.style.cssText = "display:flex; gap:10px; margin-top:12px;";
+      const estiloBtn = "flex:1; padding:11px 14px; border-radius:10px; border:none; font-size:15px; font-weight:700; cursor:pointer;";
+      const cancelar = document.createElement("button");
+      cancelar.type = "button";
+      cancelar.style.cssText = estiloBtn + "background:#e2e8f0; color:#0f172a;";
+      cancelar.textContent = "Cancelar";
+      cancelar.onclick = function(){ ov.remove(); };
+      const entrar = document.createElement("button");
+      entrar.type = "button";
+      entrar.style.cssText = estiloBtn + "background:#2563eb; color:#ffffff;";
+      entrar.textContent = "Entrar";
+      function validar(){
+        if (campo.value === SENHA_DONO) { ov.remove(); aoValidar(); }
+        else { erro.textContent = "Senha incorreta."; campo.value = ""; campo.focus(); }
+      }
+      entrar.onclick = validar;
+      campo.addEventListener("keydown", function(e){
+        if (e.key === "Enter") { e.preventDefault(); e.stopPropagation(); validar(); }
+        else if (e.key === "Escape") { e.stopPropagation(); ov.remove(); }
+      });
+      botoes.appendChild(cancelar);
+      botoes.appendChild(entrar);
+      caixa.appendChild(titulo);
+      caixa.appendChild(campo);
+      caixa.appendChild(erro);
+      caixa.appendChild(botoes);
+      ov.appendChild(caixa);
+      ov.addEventListener("click", function(e){ if (e.target === ov) ov.remove(); });
+      document.body.appendChild(ov);
+      campo.focus();
+    }
+
+    function pedirCortarEscala(){
+      if (!escalaAtual) return;
+      pedirSenhaDono(abrirCortarEscala);
+    }
+
+    function abrirCortarEscala(){
+      if (!escalaAtual) return;
+      const MIN = 0.05; /* a zona escolhida tem de ter pelo menos 5% de cada lado */
+      let sel = { x: 0, y: 0, w: 1, h: 1 };
+
+      const ov = document.createElement("div");
+      ov.id = "escalaCortar";
+      const topo = document.createElement("div");
+      topo.className = "ec-topo";
+      topo.textContent = "Arraste os cantos e os lados para escolher a zona a manter";
+      const caixa = document.createElement("div");
+      caixa.className = "ec-caixa";
+      const img = document.createElement("img");
+      img.alt = "Escala semanal";
+      img.draggable = false;
+      img.src = escalaAtual.imagem;
+      const rec = document.createElement("div");
+      rec.className = "ec-sel";
+      ["nw","n","ne","e","se","s","sw","w"].forEach(function(h){
+        const d = document.createElement("div");
+        d.className = "ec-h ec-" + h;
+        d.dataset.h = h;
+        rec.appendChild(d);
+      });
+      caixa.appendChild(img);
+      caixa.appendChild(rec);
+
+      const barra = document.createElement("div");
+      barra.className = "ec-barra";
+      const info = document.createElement("div");
+      info.className = "ec-info";
+      function botao(texto, classe, acao){
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = texto;
+        if (classe) b.className = classe;
+        b.onclick = acao;
+        return b;
+      }
+      function desenhar(){
+        rec.style.left = (sel.x * 100) + "%";
+        rec.style.top = (sel.y * 100) + "%";
+        rec.style.width = (sel.w * 100) + "%";
+        rec.style.height = (sel.h * 100) + "%";
+        info.textContent = img.naturalWidth ? Math.round(sel.w * img.naturalWidth) + " × " + Math.round(sel.h * img.naturalHeight) + " px" : "";
+      }
+
+      /* mover a zona (arrastando o interior) ou redimensioná-la (arrastando os cantos e os lados) */
+      let modo = null, inicio = null;
+      rec.addEventListener("pointerdown", function(e){
+        modo = e.target.dataset.h || "mover";
+        const r = img.getBoundingClientRect();
+        inicio = { px: e.clientX, py: e.clientY, w: r.width, h: r.height, s: { x: sel.x, y: sel.y, w: sel.w, h: sel.h } };
+        rec.setPointerCapture(e.pointerId);
+        e.preventDefault();
+      });
+      rec.addEventListener("pointermove", function(e){
+        if (!modo) return;
+        const dx = (e.clientX - inicio.px) / inicio.w;
+        const dy = (e.clientY - inicio.py) / inicio.h;
+        const s = inicio.s;
+        let x1 = s.x, y1 = s.y, x2 = s.x + s.w, y2 = s.y + s.h;
+        if (modo === "mover") {
+          x1 = Math.min(Math.max(s.x + dx, 0), 1 - s.w); x2 = x1 + s.w;
+          y1 = Math.min(Math.max(s.y + dy, 0), 1 - s.h); y2 = y1 + s.h;
+        } else {
+          if (modo.indexOf("w") >= 0) x1 = Math.min(Math.max(s.x + dx, 0), x2 - MIN);
+          if (modo.indexOf("e") >= 0) x2 = Math.max(Math.min(x2 + dx, 1), x1 + MIN);
+          if (modo.indexOf("n") >= 0) y1 = Math.min(Math.max(s.y + dy, 0), y2 - MIN);
+          if (modo.indexOf("s") >= 0) y2 = Math.max(Math.min(y2 + dy, 1), y1 + MIN);
+        }
+        sel = { x: x1, y: y1, w: x2 - x1, h: y2 - y1 };
+        desenhar();
+      });
+      function largar(){ modo = null; }
+      rec.addEventListener("pointerup", largar);
+      rec.addEventListener("pointercancel", largar);
+      img.addEventListener("load", desenhar);
+
+      async function guardar(){
+        const nw = img.naturalWidth, nh = img.naturalHeight;
+        const sx = Math.round(sel.x * nw), sy = Math.round(sel.y * nh);
+        const sw = Math.max(1, Math.round(sel.w * nw)), sh = Math.max(1, Math.round(sel.h * nh));
+        try {
+          const canvas = document.createElement("canvas");
+          canvas.width = sw; canvas.height = sh;
+          const ctx = canvas.getContext("2d");
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, sw, sh);
+          ctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+          let q = 0.9, resultado = "";
+          while (q >= 0.45) {
+            resultado = canvas.toDataURL("image/jpeg", q);
+            if (resultado.length < ESCALA_MAX_CARACTERES) break;
+            q -= 0.1;
+          }
+          const res = await fetch(escalaUrl(), {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            /* cortar não conta como nova escala: mantém a data de atualização original */
+            body: JSON.stringify({ imagem: resultado, atualizada: escalaAtual.atualizada || new Date().toISOString() })
+          });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          ov.remove();
+          await carregarEscala();
+          caixaMensagem("Escala cortada e guardada.");
+        } catch (e) {
+          caixaMensagem("Não foi possível cortar a escala. Tente de novo.");
+        }
+      }
+
+      barra.appendChild(botao("Cancelar", "", function(){ ov.remove(); }));
+      barra.appendChild(botao("Repor", "", function(){ sel = { x: 0, y: 0, w: 1, h: 1 }; desenhar(); }));
+      barra.appendChild(info);
+      barra.appendChild(botao("✂ Cortar e guardar", "ec-guardar", function(){
+        if (sel.w > 0.995 && sel.h > 0.995) { caixaMensagem("Escolha primeiro a zona a manter, arrastando os cantos."); return; }
+        caixaMensagem("Cortar a escala e guardar? A imagem atual será substituída pela zona escolhida.", guardar, null, "Cortar");
+      }));
+
+      ov.appendChild(topo);
+      ov.appendChild(caixa);
+      ov.appendChild(barra);
+      document.body.appendChild(ov);
+      desenhar();
+    }
+
     function abrirEscalaGrande(){
       if (!escalaAtual) return;
+      const ZMIN = 1, ZMAX = 8;
+      let z = 1, tx = 0, ty = 0;
       const ov = document.createElement("div");
       ov.id = "escalaGrande";
-      const fechar = document.createElement("button");
-      fechar.type = "button";
-      fechar.textContent = "✕ Fechar";
-      fechar.onclick = function(){ ov.remove(); };
       const img = document.createElement("img");
       img.src = escalaAtual.imagem;
       img.alt = "Escala semanal";
-      ov.appendChild(fechar);
+      img.draggable = false;
+
+      function aplicar(){
+        if (z <= ZMIN) { z = ZMIN; tx = 0; ty = 0; }
+        img.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + z + ")";
+      }
+      /* zoom em torno de um ponto do ecrã (px, py), medido a partir do centro */
+      function zoomEm(novoZ, px, py){
+        novoZ = Math.max(ZMIN, Math.min(ZMAX, novoZ));
+        const f = novoZ / z;
+        tx = px - (px - tx) * f;
+        ty = py - (py - ty) * f;
+        z = novoZ;
+        aplicar();
+      }
+      function centro(ev){
+        const r = ov.getBoundingClientRect();
+        return { x: ev.clientX - r.left - r.width / 2, y: ev.clientY - r.top - r.height / 2 };
+      }
+
+      /* roda do rato: para a frente aproxima, para trás afasta */
+      ov.addEventListener("wheel", function(e){
+        e.preventDefault();
+        const c = centro(e);
+        zoomEm(z * (e.deltaY < 0 ? 1.2 : 1 / 1.2), c.x, c.y);
+      }, { passive: false });
+
+      /* arrastar com o rato/dedo e pinça com dois dedos */
+      const ponteiros = new Map();
+      let distAnt = 0;
+      ov.addEventListener("pointerdown", function(e){
+        if (e.target.closest(".eg-barra")) return;
+        ponteiros.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        ov.setPointerCapture(e.pointerId);
+        img.classList.add("a-arrastar");
+        if (ponteiros.size === 2) {
+          const [a, b] = [...ponteiros.values()];
+          distAnt = Math.hypot(a.x - b.x, a.y - b.y);
+        }
+      });
+      ov.addEventListener("pointermove", function(e){
+        const ant = ponteiros.get(e.pointerId);
+        if (!ant) return;
+        if (ponteiros.size === 1) {
+          if (z > ZMIN) { tx += e.clientX - ant.x; ty += e.clientY - ant.y; aplicar(); }
+          ponteiros.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        } else if (ponteiros.size === 2) {
+          ponteiros.set(e.pointerId, { x: e.clientX, y: e.clientY });
+          const [a, b] = [...ponteiros.values()];
+          const dist = Math.hypot(a.x - b.x, a.y - b.y);
+          if (distAnt > 0) {
+            const r = ov.getBoundingClientRect();
+            const mx = (a.x + b.x) / 2 - r.left - r.width / 2;
+            const my = (a.y + b.y) / 2 - r.top - r.height / 2;
+            zoomEm(z * dist / distAnt, mx, my);
+          }
+          distAnt = dist;
+        }
+      });
+      function largar(e){
+        ponteiros.delete(e.pointerId);
+        distAnt = 0;
+        if (ponteiros.size === 0) img.classList.remove("a-arrastar");
+      }
+      ov.addEventListener("pointerup", largar);
+      ov.addEventListener("pointercancel", largar);
+      /* duplo clique: volta ao tamanho inicial (ou aproxima, se já estiver no tamanho inicial) */
+      ov.addEventListener("dblclick", function(e){
+        if (e.target.closest(".eg-barra")) return;
+        if (z > ZMIN) { z = ZMIN; aplicar(); }
+        else { const c = centro(e); zoomEm(3, c.x, c.y); }
+      });
+
+      /* botões */
+      function botao(texto, titulo, acao){
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = texto;
+        b.title = titulo;
+        b.onclick = acao;
+        return b;
+      }
+      const barra = document.createElement("div");
+      barra.className = "eg-barra";
+      barra.appendChild(botao("−", "Afastar", function(){ zoomEm(z / 1.4, 0, 0); }));
+      barra.appendChild(botao("+", "Aproximar", function(){ zoomEm(z * 1.4, 0, 0); }));
+      barra.appendChild(botao("Ajustar", "Tamanho inicial", function(){ z = ZMIN; aplicar(); }));
+      barra.appendChild(botao("✕ Fechar", "Fechar", function(){ ov.remove(); }));
+
       ov.appendChild(img);
+      ov.appendChild(barra);
       document.body.appendChild(ov);
+      aplicar();
     }
 
     function showEscala(){
