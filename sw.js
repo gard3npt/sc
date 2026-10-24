@@ -5,7 +5,7 @@
    - Tudo o resto (base de dados da escala, anúncios, ligações externas…) passa direto, sem ser guardado,
      para os dados da escala estarem sempre atualizados.
    Quando mudares ficheiros da app (index, ícones, manifesto), sobe o número da VERSAO para limpar caches antigas. */
-const VERSAO = 'v2';
+const VERSAO = 'v3';
 const CACHE_APP = 'sc-app-' + VERSAO;
 const CACHE_EXTRA = 'sc-extra-' + VERSAO;
 const FICHEIROS_APP = [
@@ -52,6 +52,17 @@ self.addEventListener('fetch', function (e) {
           return r;
         })
         .catch(function () { return caches.match('index.html').then(function (r) { return r || caches.match('./'); }); })
+    );
+    return;
+  }
+
+  // Manifesto: rede primeiro (para alterações ao manifesto chegarem logo), cópia guardada só sem ligação
+  if (url.origin === location.origin && /manifest\.webmanifest$/.test(url.pathname)) {
+    e.respondWith(
+      fetch(req).then(function (resp) {
+        if (resp && resp.ok) { const copia = resp.clone(); caches.open(CACHE_APP).then(function (c) { c.put(req, copia); }); }
+        return resp;
+      }).catch(function () { return caches.match(req); })
     );
     return;
   }
