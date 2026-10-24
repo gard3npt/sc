@@ -3088,6 +3088,7 @@
       barra.className = "eg-barra";
       barra.appendChild(botao("−", "Afastar", function(){ zoomEm(z / 1.4, 0, 0); }));
       barra.appendChild(botao("+", "Aproximar", function(){ zoomEm(z * 1.4, 0, 0); }));
+      barra.appendChild(botao("Ajustar", "Tamanho inicial", function(){ z = 1; aplicar(); }));
       barra.appendChild(botao("✕ Fechar", "Fechar", function(){ ov.remove(); }));
 
       ov.appendChild(img);
