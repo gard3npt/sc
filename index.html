@@ -15,23 +15,69 @@
   <!-- App instalável (PWA) -->
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <!-- Botão «Instalar app»: só aparece quando o Chrome permite instalar -->
+  <!-- Instalar app: tocar em «© ano» no rodapé mostra sempre o estado (instalar / já instalada / instruções) -->
   <script>
     (function () {
       var pedido = null;
-      function botao() { return document.getElementById("btnInstalarApp"); }
-      function mostrar(v) { var b = botao(); if (b) b.style.display = v ? "" : "none"; }
-      window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); pedido = e; mostrar(true); });
-      window.addEventListener("appinstalled", function () { pedido = null; mostrar(false); });
-      document.addEventListener("DOMContentLoaded", function () {
-        if (pedido) mostrar(true);
-        var b = botao(); if (!b) return;
-        b.addEventListener("click", function () {
-          if (!pedido) return;
-          var p = pedido; pedido = null; mostrar(false);
-          p.prompt();
-        });
-      });
+      var CHAVE = "sc-app-instalada";
+      var inicio = Date.now(), recusou = false;
+      function emApp() {
+        try { return (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true; }
+        catch (e) { return false; }
+      }
+      function lembrar(v) {
+        try { if (v) localStorage.setItem(CHAVE, "1"); else localStorage.removeItem(CHAVE); } catch (e) {}
+      }
+      function lembrada() {
+        try { return localStorage.getItem(CHAVE) === "1"; } catch (e) { return false; }
+      }
+      /* Chrome/Edge/Samsung só disparam o pedido de instalação quando a app NÃO está instalada:
+         passados uns segundos sem pedido, assume-se que já está instalada (a não ser que o visitante tenha recusado) */
+      function provavel() {
+        if (!("BeforeInstallPromptEvent" in window)) return false;
+        if (/FBAN|FBAV|Instagram|Line\/|MicroMessenger|Snapchat|TikTok|; wv\)/.test(navigator.userAgent)) return false;
+        return !pedido && !recusou && (Date.now() - inicio > 4000);
+      }
+      function textoAjuda() {
+        var ua = navigator.userAgent;
+        if (/FBAN|FBAV|Instagram|Line\/|MicroMessenger|Snapchat|TikTok|; wv\)/.test(ua))
+          return "Esta página está aberta dentro de outra aplicação, que não permite instalar. Abra o endereço diretamente no Chrome (ou no Safari, no iPhone).";
+        if (/iPhone|iPad|iPod/.test(ua))
+          return "No iPhone/iPad: toque em Partilhar (o quadrado com a seta) na barra do Safari e escolha «Adicionar ao ecrã principal».";
+        return "Abra o menu do browser (⋮) e escolha «Instalar aplicação» ou «Adicionar ao ecrã principal». No computador, use o ícone de instalar na barra de endereço. Se aparecer «Abrir» com o nome da app, já está instalada: procure o ícone no ecrã ou na lista de aplicações.";
+      }
+      function estado() {
+        if (emApp() || (!pedido && (lembrada() || provavel())))
+          return { msg: "✅ App já instalada. Procure o ícone no ecrã ou na lista de aplicações.", botao: false, tempo: 6000 };
+        if (pedido) return { msg: "📲 Instale o SC Lab no ecrã principal para o abrir como uma aplicação.", botao: true, tempo: 12000 };
+        return { msg: "📲 Instalar app. " + textoAjuda(), botao: false, tempo: 14000 };
+      }
+      window.instalarApp = function () {
+        if (!pedido) return;
+        var p = pedido; pedido = null;
+        p.prompt();
+        if (p.userChoice) p.userChoice.then(function (r) { if (r && r.outcome === "accepted") lembrar(true); else recusou = true; });
+      };
+      /* «© ano» no rodapé: mostra sempre o estado da app no aviso */
+      window.mostrarEstadoApp = function () {
+        var el = document.getElementById("toastAtualizacao"); if (!el) return;
+        var est = estado();
+        el.textContent = "";
+        var m = document.createElement("span"); m.textContent = est.msg; el.appendChild(m);
+        if (est.botao) {
+          var b = document.createElement("button");
+          b.type = "button"; b.textContent = "Instalar";
+          b.onclick = function (e) { e.stopPropagation(); el.classList.remove("show"); window.instalarApp(); };
+          el.appendChild(b);
+        }
+        el.onclick = function () { el.classList.remove("show"); };
+        el.classList.add("show");
+        clearTimeout(window._toastTimer);
+        window._toastTimer = setTimeout(function () { el.classList.remove("show"); }, est.tempo);
+      };
+      window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); pedido = e; lembrar(false); });
+      window.addEventListener("appinstalled", function () { pedido = null; lembrar(true); });
+      document.addEventListener("DOMContentLoaded", function () { if (emApp()) lembrar(true); });
     })();
   </script>
 
@@ -1052,6 +1098,7 @@
       -webkit-tap-highlight-color: transparent;
     }
     .agajota-btn:hover { color: #cbd5e1; text-decoration: underline; text-underline-offset: 2px; }
+    .copia-btn { font-weight: 400; letter-spacing: normal; }
     .agajota-nome { font-weight: 700; letter-spacing: .04em; padding: 6px 4px; }
 
     .footer-note {
@@ -1705,6 +1752,7 @@
       cursor: pointer;
     }
     .toast-atualizacao.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+    .toast-atualizacao button { background: none; border: 0; color: #93c5fd; font: inherit; font-weight: 800; text-decoration: underline; cursor: pointer; padding: 4px; }
 
     /* Página inicial: "Apoio Produção" abre um menu por baixo do botão (como o ACCEPT em Embalagens) */
     @media (min-width: 769px) {
@@ -2393,7 +2441,7 @@
   <div class="page-bottom">
   <div id="footerNote" class="footer-note">Nota: Alguns links apenas estão acessíveis através da rede interna da empresa.</div>
   <footer id="loginFooter" class="footer-login"><span>© <span class="ano-atual">2026</span> <span class="agajota-nome">AGAJOTA</span></span></footer>
-  <footer id="appFooter" class="footer-app"><span>© <span class="ano-atual">2026</span> <button type="button" class="agajota-btn" onclick="mostrarDataAtualizacao()" title="Ver data da última atualização" aria-label="Ver data da última atualização">AGAJOTA</button></span><span>Laboratório C. Q. - Almeirim</span></footer>
+  <footer id="appFooter" class="footer-app"><span><button type="button" class="agajota-btn copia-btn" onclick="mostrarEstadoApp()" title="Instalar app" aria-label="Instalar app ou ver se já está instalada">© <span class="ano-atual">2026</span></button> <button type="button" class="agajota-btn" onclick="mostrarDataAtualizacao()" title="Ver data da última atualização" aria-label="Ver data da última atualização">AGAJOTA</button></span><span>Laboratório C. Q. - Almeirim</span></footer>
   </div>
 
   <div id="contactsModal" class="modal">
@@ -2402,7 +2450,6 @@
       <h2 style="margin-bottom:15px; letter-spacing: 1px;">Suporte:</h2>
       <p style="line-height:2; font-size:1rem;"><strong>Nome:</strong> Hélder Fernandes</p>
       <button class="contact-btn" onclick="sendMessage()">Enviar mensagem</button>
-      <button id="btnInstalarApp" class="contact-btn" style="display:none;">Instalar app</button>
     </div>
   </div>
 
@@ -2448,7 +2495,6 @@
       renderAppState();
     }
 
-    let toastAtualizacaoTimer;
     function esconderToastAtualizacao() {
       document.getElementById("toastAtualizacao").classList.remove("show");
     }
@@ -2457,8 +2503,8 @@
       el.textContent = "Última atualização: " + DATA_ATUALIZACAO;
       el.onclick = esconderToastAtualizacao;
       el.classList.add("show");
-      clearTimeout(toastAtualizacaoTimer);
-      toastAtualizacaoTimer = setTimeout(esconderToastAtualizacao, 4000);
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(esconderToastAtualizacao, 4000);
     }
 
     function pedirLogout() {
