@@ -15,6 +15,26 @@
   <!-- App instalável (PWA) -->
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!-- Botão «Instalar app»: só aparece quando o Chrome permite instalar -->
+  <script>
+    (function () {
+      var pedido = null;
+      function botao() { return document.getElementById("btnInstalarApp"); }
+      function mostrar(v) { var b = botao(); if (b) b.style.display = v ? "" : "none"; }
+      window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); pedido = e; mostrar(true); });
+      window.addEventListener("appinstalled", function () { pedido = null; mostrar(false); });
+      document.addEventListener("DOMContentLoaded", function () {
+        if (pedido) mostrar(true);
+        var b = botao(); if (!b) return;
+        b.addEventListener("click", function () {
+          if (!pedido) return;
+          var p = pedido; pedido = null; mostrar(false);
+          p.prompt();
+        });
+      });
+    })();
+  </script>
+
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="SC Lab">
@@ -1817,6 +1837,7 @@
     </div>
     <div id="headerTitle" class="header-title"></div>
     <div class="header-right">
+      <button id="btnInstalarApp" class="header-btn" style="display:none;" title="Instalar a app no telemóvel">Instalar</button>
       <button class="header-btn" onclick="openContacts()">Suporte</button>
       <button class="header-btn" onclick="pedirLogout()">Logout</button>
     </div>
