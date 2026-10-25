@@ -48,7 +48,7 @@
       }
       function estado() {
         if (emApp() || (!pedido && (lembrada() || provavel())))
-          return { msg: "✅ App já instalada. Procure o ícone no ecrã ou na lista de aplicações.", botao: false, tempo: 6000 };
+          return { msg: "✅ App já instalada.", botao: false, tempo: 6000 };
         if (pedido) return { msg: "📲 Instale o SC Lab no ecrã principal para o abrir como uma aplicação.", botao: true, tempo: 12000 };
         return { msg: "📲 Instalar app. " + textoAjuda(), botao: false, tempo: 14000 };
       }
@@ -57,6 +57,10 @@
         var p = pedido; pedido = null;
         p.prompt();
         if (p.userChoice) p.userChoice.then(function (r) { if (r && r.outcome === "accepted") lembrar(true); else recusou = true; });
+      };
+      /* Suporte > Instalar app: abre o pedido de instalação se existir; senão mostra o estado/instruções */
+      window.instalarOuEstado = function () {
+        if (pedido) window.instalarApp(); else window.mostrarEstadoApp();
       };
       /* «© ano» no rodapé: mostra sempre o estado da app no aviso */
       window.mostrarEstadoApp = function () {
@@ -1172,6 +1176,66 @@
       background: #eeeeee;
       transform: translateY(-1px);
     }
+
+    /* SUPORTE (cartão claro com opções) */
+    .suporte-box {
+      max-width: 440px;
+      background: #ffffff;
+      color: #1e293b;
+      border: 0;
+      border-radius: 18px;
+      padding: 26px 28px 24px;
+      text-align: left;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+    }
+    .suporte-box .close-modal { top: 14px; right: 18px; color: #94a3b8; }
+    .suporte-box .close-modal:hover { color: #475569; }
+    .suporte-titulo {
+      margin: 0;
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #1e3a8a;
+      font-size: 1.5rem;
+      letter-spacing: 0;
+      border-bottom: 2px solid #1e3a8a;
+    }
+    .suporte-nuvem { flex: none; width: 1.45em; height: 1.2em; }
+    .suporte-sub { text-align: center; color: #475569; font-size: 1rem; margin: 18px 0 16px; }
+    .suporte-op {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      margin: 0 0 12px;
+      padding: 12px 16px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      color: #0f172a;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    }
+    .suporte-op:hover { background: #eef2ff; border-color: #a5b4fc; transform: translateY(-1px); }
+    .suporte-ico {
+      flex: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: #e0e7ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .suporte-txt strong { display: block; font-size: 0.95rem; }
+    .suporte-txt small { display: block; margin-top: 2px; color: #64748b; font-size: 0.78rem; font-weight: 600; }
+    .suporte-sep { border: 0; border-top: 1px solid #e2e8f0; margin: 18px 0 14px; }
+    .suporte-sec { text-align: center; margin-bottom: 12px; color: #64748b; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; }
 
     /* RESPONSIVIDADE (MOBILE) */
     @media(max-width: 768px){
@@ -2445,17 +2509,22 @@
   </div>
 
   <div id="contactsModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content suporte-box" role="dialog" aria-modal="true" aria-labelledby="suporteTitulo">
       <span class="close-modal" onclick="closeContacts()">×</span>
-      <h2 style="margin-bottom:15px; letter-spacing: 1px;">Suporte:</h2>
-      <p style="line-height:2; font-size:1rem;"><strong>Nome:</strong> Hélder Fernandes</p>
-      <button class="contact-btn" onclick="sendMessage()">Enviar mensagem</button>
+      <h2 id="suporteTitulo" class="suporte-titulo"><svg class="suporte-nuvem" viewBox="0 0 32 26" aria-hidden="true"><defs><linearGradient id="sbg" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="0.6" stop-color="#efe9f8"/><stop offset="1" stop-color="#c9bbe6"/></linearGradient></defs><path d="M7.5 18.2 5.2 24.6 13.6 20.6Z" fill="#9d90d2" stroke="#9d90d2" stroke-width="1" stroke-linejoin="round"/><ellipse cx="16" cy="11.5" rx="14" ry="10" fill="url(#sbg)" stroke="#b9a9dd" stroke-width="1.2"/></svg>Suporte</h2>
+      <p class="suporte-sub">Selecione uma opção:</p>
+      <button type="button" class="suporte-op" onclick="enviarSugestao()"><span class="suporte-ico">💡</span><span class="suporte-txt"><strong>Sugestões</strong><small>Ideias para melhorar a página SC Lab</small></span></button>
+      <button type="button" class="suporte-op" onclick="reportarProblema()"><span class="suporte-ico">🐛</span><span class="suporte-txt"><strong>Reportar Problema</strong><small>Algo não funciona como esperado</small></span></button>
+      <button type="button" class="suporte-op" onclick="sendMessage()"><span class="suporte-ico">✉️</span><span class="suporte-txt"><strong>Contacto (E-mail)</strong><small>Enviar mensagem diretamente</small></span></button>
+      <hr class="suporte-sep">
+      <div class="suporte-sec">APLICAÇÃO</div>
+      <button type="button" class="suporte-op" onclick="instalarDoSuporte()"><span class="suporte-ico">📲</span><span class="suporte-txt"><strong>Instalar app</strong><small>Adicionar ao ecrã principal</small></span></button>
     </div>
   </div>
 
   <script>
     /* Data da última atualização: mudar só aqui (aparece ao carregar em "Agajota" no rodapé) */
-    const DATA_ATUALIZACAO = "24 de Outubro de 2026";
+    const DATA_ATUALIZACAO = "25 de Outubro de 2026";
 
     const correctPassword = "0";
 
@@ -2542,9 +2611,9 @@
       document.getElementById("contactsModal").style.display = "none";
     }
 
-    /* Suporte fecha ao tocar em qualquer ponto (exceto no botão "Enviar mensagem") ou com Esc */
+    /* Suporte fecha ao tocar fora do cartão, no × ou com Esc */
     document.getElementById("contactsModal").addEventListener("click", function(e){
-      if (!e.target.closest(".contact-btn")) closeContacts();
+      if (e.target === this) closeContacts();
     });
     document.addEventListener("keydown", function(e){
       /* Enter / Espaço ativam os botões que não são <button> */
@@ -2601,6 +2670,20 @@
       });
     }
     tornarAcessivel();
+
+    function abrirEmail(assunto, corpo){
+      window.location.href = "mailto:helder.fernandes@sumolcompal.pt?subject=" + encodeURIComponent(assunto) + "&body=" + encodeURIComponent(corpo);
+    }
+    function enviarSugestao(){
+      abrirEmail("SC Lab - Sugestão", "Descreva aqui a sua sugestão:\n\n");
+    }
+    function reportarProblema(){
+      abrirEmail("SC Lab - Reportar problema", "Descreva o problema (o que fez, o que esperava e o que aconteceu):\n\n");
+    }
+    function instalarDoSuporte(){
+      closeContacts();
+      window.instalarOuEstado();
+    }
 
     function sendMessage(){
       window.location.href = "mailto:helder.fernandes@sumolcompal.pt?subject=SC Lab - Pedido de Suporte&body=Descreva aqui o que pretende:";
@@ -2856,7 +2939,7 @@
 
     /* Senha do dono do site: pedida para abrir a área de controlo (botões Cortar e Apagar da escala). Para a mudar, alterar só o texto entre aspas.
        Atenção: como o site corre no navegador, esta senha serve para evitar toques acidentais e não é uma proteção forte. */
-    const SENHA_DONO = "helder";
+    const SENHA_DONO = "112";
 
     function pedirSenhaDono(aoValidar){
       const antigo = document.getElementById("senhaDonoOverlay");
