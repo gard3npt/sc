@@ -1911,6 +1911,8 @@
     .escala-estado button { display: block; margin: 14px auto 0; padding: 10px 18px; border: 2px solid #2563eb; background: #ffffff; color: #2563eb; border-radius: 10px; font: inherit; font-weight: 700; cursor: pointer; }
     .escala-imagem { max-width: 100%; max-height: 70vh; border: 1px solid #cbd5e1; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,.12); cursor: zoom-in; }
     .escala-data { font-size: 0.8rem; color: #64748b; margin-top: 10px; }
+    .escala-aviso { margin-top: 8px; font-size: 0.85rem; font-weight: 700; color: #dc2626; }
+    .escala-aviso:empty { display: none; }
     .escala-acoes { display: grid; grid-template-columns: 1fr; gap: 12px; max-width: 740px; margin: 0 auto; align-items: center; }
     #escalaCarregarBtn { width: 100%; max-width: 360px; justify-self: center; }
     #escalaDonoGatilho { touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
@@ -1935,9 +1937,9 @@
 
 
     /* caixa da senha do dono */
-    #senhaDonoOverlay > div { zoom: var(--zoom-base); }
+    #senhaDonoOverlay > div, #escalaNomeOverlay > div { zoom: var(--zoom-base); }
 
-    /* PAINEL DO ADMINISTRADOR (escondido: 3 cliques em "Suporte" + senha) */
+    /* ÁREA DE CONTROLO (escondido: 3 cliques em "Suporte" + senha) */
     #suporteTitulo { user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
     #painelDonoOverlay { position: fixed; inset: 0; z-index: 99997; background: rgba(15,23,42,.6); display: flex; align-items: center; justify-content: center; padding: 12px; }
     #painelDonoOverlay > div {
@@ -1948,7 +1950,8 @@
     .pd-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: #0f172a; color: #fff; font-size: 1rem; }
     .pd-x { cursor: pointer; font-size: 26px; line-height: 1; padding: 0 4px; color: #cbd5e1; }
     .pd-body { overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 4px 14px 16px; text-align: left; }
-    .pd-sec { margin: 16px 2px 6px; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #64748b; }
+    .pd-sec { margin: 18px 0 8px; padding: 16px 2px 0; border-top: 2px solid #cbd5e1; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #64748b; }
+    .pd-sec:first-child { margin-top: 10px; padding-top: 0; border-top: 0; }
     .pd-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 2px 12px; }
     .pd-row { display: grid; grid-template-columns: 40% 1fr; gap: 8px; padding: 7px 0; border-bottom: 1px solid #eef2f7; font-size: 13px; word-break: break-word; }
     .pd-row:last-child { border-bottom: 0; }
@@ -1957,7 +1960,7 @@
     .pd-aviso, .pd-ok { padding: 9px 12px; border-radius: 10px; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
     .pd-aviso { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
     .pd-ok { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
-    .pd-btn { display: block; width: 100%; margin-top: 8px; padding: 11px 14px; border: 0; border-radius: 10px; background: #e2e8f0; color: #0f172a; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; text-align: left; }
+    .pd-btn { display: block; box-sizing: border-box; width: 100%; margin-top: 8px; padding: 11px 14px; border: 0; border-radius: 10px; background: #e2e8f0; color: #0f172a; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; text-align: left; }
     .pd-btn:disabled { opacity: .6; cursor: default; }
     .pd-azul { background: #2563eb; color: #fff; }
     .pd-amarelo { background: #fde68a; color: #78350f; }
@@ -2509,12 +2512,13 @@
       <div class="table-canvas-wrapper">
         <div class="bisnaga-section-header">
           <span class="step-num">1</span>
-          <h3>Escala da semana</h3>
+          <h3>Escala da semana <span style="white-space: nowrap;">(plano de turnos)</span></h3>
         </div>
         <div class="escala-corpo">
           <div id="escalaEstado" class="escala-estado">A carregar...</div>
           <img id="escalaImagem" class="escala-imagem" alt="Escala semanal" style="display:none;" onclick="abrirEscalaGrande()">
           <div id="escalaData" class="escala-data"></div>
+          <div id="escalaAviso" class="escala-aviso" role="status"></div>
         </div>
         <div class="bisnaga-section-header">
           <span class="step-num" id="escalaDonoGatilho">2</span>
@@ -2709,6 +2713,7 @@
       if (getComputedStyle(suporte).display !== "none") { closeContacts(); return; }
       if (document.getElementById("caixaMensagemOverlay")) return; /* a caixa tem o seu próprio Esc */
       if (document.getElementById("senhaDonoOverlay")) return; /* a caixa da senha tem o seu próprio Esc */
+      if (document.getElementById("escalaNomeOverlay")) return; /* a caixa do nome tem o seu próprio Esc */
       if (document.getElementById("painelDonoOverlay")) { fecharPainelDono(); return; }
       const cortar = document.getElementById("escalaCortar");
       if (cortar) { cortar.remove(); return; }
@@ -2876,6 +2881,7 @@
     const ESCALA_DB_URL = "https://sc-lab-82af7-default-rtdb.europe-west1.firebasedatabase.app"; /* colar aqui o endereço da base de dados, ex.: "https://o-meu-projeto-default-rtdb.europe-west1.firebasedatabase.app" */
     const ESCALA_MAX_LADO = 1800;        /* a fotografia é reduzida para, no máximo, 1800 px */
     const ESCALA_MAX_CARACTERES = 1400000;
+    const ESCALA_AVISO_DIAS = 7;       /* a partir de quantos dias sem atualização aparece o aviso a vermelho */
     let escalaAtual = null;
 
     function escalaUrl(){ return ESCALA_DB_URL.trim().replace(/\/+$/, "") + "/escala.json"; }
@@ -2894,6 +2900,7 @@
       el.style.display = "block";
       document.getElementById("escalaImagem").style.display = "none";
       document.getElementById("escalaData").textContent = "";
+      document.getElementById("escalaAviso").textContent = "";
     }
 
     function escalaAtualizarBotoes(ocupado){
@@ -2927,7 +2934,10 @@
           const d = new Date(dados.atualizada);
           document.getElementById("escalaData").textContent = isNaN(d) ? "" :
             "Atualizada em " + d.toLocaleDateString("pt-PT", { day: "numeric", month: "long", year: "numeric" }) +
-            ", às " + d.toLocaleTimeString("pt-PT", { hour: "2-digit", minute: "2-digit" });
+            ", às " + d.toLocaleTimeString("pt-PT", { hour: "2-digit", minute: "2-digit" }) +
+            (dados.autor ? ", por " + dados.autor : "");
+          const dias = isNaN(d) ? 0 : (Date.now() - d.getTime()) / 86400000;
+          document.getElementById("escalaAviso").textContent = dias > ESCALA_AVISO_DIAS ? "⚠️ Escala com mais de " + ESCALA_AVISO_DIAS + " dias" : "";
         }
       } catch (e) {
         escalaMostrarEstado("Não foi possível ver a escala. Verifique a ligação à internet.", true);
@@ -2976,14 +2986,77 @@
       input.value = "";
       if (!ficheiro) return;
       if (!/^image\//.test(ficheiro.type)) { caixaMensagem("Escolha uma imagem."); return; }
+      /* o nome de quem atualiza é obrigatório e fica visível junto à data */
+      const seguir = function(){ pedirNomeEscala(function(nome){ enviarEscala(ficheiro, nome); }); };
       if (escalaAtual) {
-        caixaMensagem("Vai substituir a escala atual por esta imagem. Continuar?", function(){ enviarEscala(ficheiro); }, null, "Continuar");
+        caixaMensagem("Vai substituir a escala atual por esta imagem. Continuar?", seguir, null, "Continuar");
       } else {
-        enviarEscala(ficheiro);
+        seguir();
       }
     }
 
-    async function enviarEscala(ficheiro){
+    /* Caixa que pede o nome (obrigatório) de quem está a atualizar a escala; lembra o último nome usado neste dispositivo */
+    function pedirNomeEscala(aoConfirmar){
+      const antigo = document.getElementById("escalaNomeOverlay");
+      if (antigo) antigo.remove();
+      const ov = document.createElement("div");
+      ov.id = "escalaNomeOverlay";
+      ov.style.cssText = "position:fixed; inset:0; background:rgba(15,23,42,0.55); z-index:99998; display:flex; align-items:center; justify-content:center; padding:16px;";
+      const caixa = document.createElement("div");
+      caixa.style.cssText = "background:#ffffff; border-radius:14px; padding:20px; max-width:340px; width:100%; box-shadow:0 10px 30px rgba(0,0,0,0.3); text-align:center;";
+      const titulo = document.createElement("div");
+      titulo.style.cssText = "font-size:16px; font-weight:700; color:#0f172a; margin-bottom:6px;";
+      titulo.textContent = "Quem está a atualizar a escala?";
+      const nota = document.createElement("div");
+      nota.style.cssText = "font-size:13px; color:#64748b; margin-bottom:12px;";
+      nota.textContent = "O nome fica visível junto à data da atualização.";
+      const campo = document.createElement("input");
+      campo.type = "text";
+      campo.maxLength = 40;
+      campo.autocomplete = "off";
+      campo.placeholder = "O seu nome";
+      try { campo.value = localStorage.getItem("sc-escala-nome") || ""; } catch (e) {}
+      campo.style.cssText = "width:100%; box-sizing:border-box; padding:11px 12px; border:2px solid #cbd5e1; border-radius:10px; font-size:16px; text-align:center;";
+      const erro = document.createElement("div");
+      erro.style.cssText = "color:#dc2626; font-size:14px; font-weight:700; margin-top:8px; min-height:18px;";
+      const botoes = document.createElement("div");
+      botoes.style.cssText = "display:flex; gap:10px; margin-top:12px;";
+      const estiloBtn = "flex:1; padding:11px 14px; border-radius:10px; border:none; font-size:15px; font-weight:700; cursor:pointer;";
+      const cancelar = document.createElement("button");
+      cancelar.type = "button";
+      cancelar.style.cssText = estiloBtn + "background:#e2e8f0; color:#0f172a;";
+      cancelar.textContent = "Cancelar";
+      cancelar.onclick = function(){ ov.remove(); };
+      const enviar = document.createElement("button");
+      enviar.type = "button";
+      enviar.style.cssText = estiloBtn + "background:#2563eb; color:#ffffff;";
+      enviar.textContent = "Enviar";
+      function validar(){
+        const nome = campo.value.replace(/\s+/g, " ").trim();
+        if (nome.length < 2) { erro.textContent = "Escreva o seu nome para continuar."; campo.focus(); return; }
+        try { localStorage.setItem("sc-escala-nome", nome); } catch (e) {}
+        ov.remove();
+        aoConfirmar(nome);
+      }
+      enviar.onclick = validar;
+      campo.addEventListener("keydown", function(e){
+        if (e.key === "Enter") { e.preventDefault(); e.stopPropagation(); validar(); }
+        else if (e.key === "Escape") { e.stopPropagation(); ov.remove(); }
+      });
+      botoes.appendChild(cancelar);
+      botoes.appendChild(enviar);
+      caixa.appendChild(titulo);
+      caixa.appendChild(nota);
+      caixa.appendChild(campo);
+      caixa.appendChild(erro);
+      caixa.appendChild(botoes);
+      ov.appendChild(caixa);
+      ov.addEventListener("click", function(e){ if (e.target === ov) ov.remove(); });
+      document.body.appendChild(ov);
+      campo.focus();
+    }
+
+    async function enviarEscala(ficheiro, autor){
       escalaAtualizarBotoes(true);
       escalaMostrarEstado("A enviar a imagem...");
       try {
@@ -2991,7 +3064,7 @@
         const res = await fetch(escalaUrl(), {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ imagem: imagem, atualizada: new Date().toISOString() })
+          body: JSON.stringify({ imagem: imagem, atualizada: new Date().toISOString(), autor: autor })
         });
         if (!res.ok) throw new Error("HTTP " + res.status);
         await carregarEscala();
@@ -3199,8 +3272,8 @@
           const res = await fetch(escalaUrl(), {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            /* cortar não conta como nova escala: mantém a data de atualização original */
-            body: JSON.stringify({ imagem: resultado, atualizada: escalaAtual.atualizada || new Date().toISOString() })
+            /* cortar não conta como nova escala: mantém a data de atualização e o autor originais */
+            body: JSON.stringify({ imagem: resultado, atualizada: escalaAtual.atualizada || new Date().toISOString(), autor: escalaAtual.autor })
           });
           if (!res.ok) throw new Error("HTTP " + res.status);
           ov.remove();
@@ -4447,9 +4520,11 @@
       ccZoomAplicar(g);
     })();
 
-    /* ---------------- PAINEL DO ADMINISTRADOR (escondido) ----------------
+    /* ---------------- ÁREA DE CONTROLO (escondido) ----------------
        Abre com 3 cliques na palavra "Suporte" (dentro da janela Suporte) + senha do dono (SENHA_DONO). */
-    let dnDados = null, dnTeste = "";
+    /* Nome do ficheiro da página de diagnóstico da PWA (tem de estar na mesma pasta do index.html). Para o mudar, alterar só o texto entre aspas. */
+    const DIAGNOSTICO_PWA = "diagnostico-pwa.html";
+    let dnDados = null, dnTeste = "", dnEscalaMs = 0;
 
     function abrirPainelDono(){
       pedirSenhaDono(function(){ closeContacts(); montarPainelDono(); });
@@ -4526,9 +4601,9 @@
           if (!r.length) avisos.push("O service worker não está registado (confirme que o ficheiro sw.js está no servidor).");
         } catch (e) { sw = "erro ao ler"; }
       }
-      let cch;
+      let cch, cacheNomes = [];
       if ("caches" in window) {
-        try { const k = await caches.keys(); cch = k.length ? k.join(", ") : "nenhuma"; } catch (e) { cch = "erro ao ler"; }
+        try { cacheNomes = await caches.keys(); cch = cacheNomes.length ? cacheNomes.join(", ") : "nenhuma"; } catch (e) { cch = "erro ao ler"; }
       } else cch = "não suportado";
 
       const arm = [];
@@ -4556,7 +4631,7 @@
         : [["—", "Nenhum erro desde que a página abriu"]];
       if (er.length) avisos.push(er.length + " erro(s) desde que a página abriu (ver abaixo).");
 
-      return { avisos: avisos, grupos: [
+      return { avisos: avisos, fatos: { cacheNomes: cacheNomes, recursos: er.filter(function(x){ return x.tipo === "recurso"; }).length }, grupos: [
         { t: "Aplicação", l: app }, { t: "Dispositivo", l: disp },
         { t: "Armazenamento", l: arm }, { t: "Erros desde que abriu", l: erros }
       ] };
@@ -4573,6 +4648,7 @@
         const ms = Math.round(performance.now() - t0);
         if (!r.ok) return "erro HTTP " + r.status + " (" + ms + " ms)";
         const j = await r.json();
+        dnEscalaMs = ms;
         let txt = "ligação OK (" + ms + " ms)";
         if (!j || !j.imagem) return txt + " · ainda não há escala guardada";
         txt += " · há escala guardada";
@@ -4581,6 +4657,11 @@
           const a = r2.ok ? await r2.json() : null;
           const d = a ? new Date(a) : null;
           if (d && !isNaN(d)) txt += " · atualizada em " + d.toLocaleString("pt-PT", { dateStyle: "short", timeStyle: "short" });
+          try {
+            const r3 = await fetch(escalaUrl().replace(/\.json$/, "/autor.json"), { cache: "no-store", signal: ctl.signal });
+            const au = r3.ok ? await r3.json() : null;
+            if (au) txt += " por " + au;
+          } catch (y) {}
         } catch (x) {}
         return txt;
       } catch (e) {
@@ -4592,9 +4673,45 @@
       const el = document.getElementById("pdTeste");
       if (el) el.textContent = "a testar…";
       dnTeste = await dnTestarEscala();
-      const el2 = document.getElementById("pdTeste");
-      if (el2) el2.textContent = dnTeste;
-      btn.disabled = false;
+      const c = document.getElementById("pdCorpo");
+      if (c) dnRender(c);
+    }
+
+    /* dias desde uma data escrita como "26 de Outubro de 2026" (null se não conseguir ler) */
+    function dnDiasDesde(txt){
+      const meses = { janeiro: 0, fevereiro: 1, marco: 2, abril: 3, maio: 4, junho: 5, julho: 6, agosto: 7, setembro: 8, outubro: 9, novembro: 10, dezembro: 11 };
+      const m = String(txt).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").match(/(\d{1,2}) de ([a-z]+) de (\d{4})/);
+      if (!m || !(m[2] in meses)) return null;
+      return Math.floor((Date.now() - new Date(+m[3], meses[m[2]], +m[1]).getTime()) / 86400000);
+    }
+
+    /* sugestões calculadas a partir do estado atual; desaparecem sozinhas quando o ponto deixa de se aplicar */
+    function dnSugestoes(){
+      const s = [], f = (dnDados && dnDados.fatos) || {};
+      if (typeof VERSAO_SITE === "undefined")
+        s.push(["Número de versão", "O site ainda não tem número de versão. Mostrar, por exemplo, “v1.4” junto à data ajuda a saber que versão cada pessoa está a usar."]);
+      if (typeof SENHA_DONO === "string" && SENHA_DONO.length < 8)
+        s.push(["Senha curta no código", "A senha desta área tem só " + SENHA_DONO.length + " caracteres e está visível no código. Serve para evitar toques acidentais, não para proteger dados."]);
+      if (escalaConfigurada())
+        s.push(["Escala sem autenticação", "O site lê e escreve a escala sem login no Firebase, por isso quem tiver o endereço da base de dados pode alterá-la. Confirme as regras no Firebase."]);
+      if (typeof escalaAtual !== "undefined" && escalaAtual && escalaAtual.imagem) {
+        const bytes = Math.round(escalaAtual.imagem.length * 0.75);
+        if (bytes > 700 * 1024) s.push(["Imagem da escala grande", "A escala guardada tem cerca de " + dnBytes(bytes) + ". Imagens mais pequenas carregam mais depressa, sobretudo em dados móveis."]);
+      }
+      if (typeof escalaAtual !== "undefined" && escalaAtual && escalaAtual.atualizada) {
+        const dEsc = (Date.now() - new Date(escalaAtual.atualizada).getTime()) / 86400000;
+        if (dEsc > ESCALA_AVISO_DIAS) s.push(["Escala desatualizada", "A escala foi atualizada há " + Math.floor(dEsc) + " dias (o aviso vermelho aparece a partir de " + ESCALA_AVISO_DIAS + ")."]);
+      }
+      if (dnEscalaMs > 1500)
+        s.push(["Ligação à escala lenta", "O último teste demorou " + dnEscalaMs + " ms. Pode ser a rede, ou a imagem da escala ser grande."]);
+      if (f.cacheNomes && f.cacheNomes.length && !f.cacheNomes.some(function(n){ return /\d/.test(n); }))
+        s.push(["Cache sem número de versão", "O nome da cache (“" + f.cacheNomes.join(", ") + "”) não tem número. Mudá-lo a cada atualização garante que todos recebem a versão nova."]);
+      const dias = dnDiasDesde(DATA_ATUALIZACAO);
+      if (dias !== null && dias > 45)
+        s.push(["Data de atualização antiga", "A última atualização indicada foi há " + dias + " dias. Se mexeu no site desde então, atualize a data no código."]);
+      if (f.recursos)
+        s.push(["Ficheiros que não carregam", f.recursos + " ficheiro(s) não carregaram (ver Erros). Confirme se foram enviados para o servidor."]);
+      return s;
     }
 
     function dnTexto(){
@@ -4605,6 +4722,8 @@
         t += "\n[" + g.t + "]\n" + g.l.map(function(r){ return r[0] + ": " + r[1]; }).join("\n") + "\n";
       });
       t += "\n[Escala semanal (servidor)]\nLigação: " + (dnTeste || "não testada") + "\n";
+      const sg = dnSugestoes();
+      t += "\n[Sugestões automáticas]\n" + (sg.length ? sg.map(function(x){ return "- " + x[0] + ": " + x[1]; }).join("\n") : "nenhuma") + "\n";
       return t;
     }
     async function dnCopiar(btn){
@@ -4662,7 +4781,9 @@
       h += '<div class="pd-sec">Ferramentas</div>' +
         '<button type="button" class="pd-btn pd-azul" onclick="dnCopiar(this)">📋 Copiar diagnóstico</button>' +
         '<div class="pd-nota">Copia tudo isto como texto, para colar numa mensagem.</div>' +
-        '<button type="button" class="pd-btn" onclick="dnAtualizar()">🔃 Atualizar diagnóstico</button>';
+        '<button type="button" class="pd-btn" onclick="dnAtualizar()">🔃 Atualizar diagnóstico</button>' +
+        '<a class="pd-btn pd-azul" style="text-decoration:none;" href="' + dnEsc(DIAGNOSTICO_PWA) + '" target="_blank" rel="noopener">🩺 Diagnóstico da app instalável</a>' +
+        '<div class="pd-nota">Verifica se o site pode ser instalado como app no telemóvel (manifesto, ícones e service worker). Abre ' + dnEsc(DIAGNOSTICO_PWA) + ' num novo separador.</div>';
       h += '<div class="pd-sec">Reposição</div>' +
         '<button type="button" class="pd-btn pd-amarelo" onclick="dnLimparCache()">🧽 Atualizar app (limpar cache)</button>' +
         '<div class="pd-nota">Mantém a sessão e o zoom. Útil quando aparece uma versão antiga do site.</div>' +
@@ -4670,14 +4791,11 @@
         '<div class="pd-nota">O zoom da Correção de Cargas volta a 100%.</div>' +
         '<button type="button" class="pd-btn pd-vermelho" onclick="dnReporSite()">⚠️ Repor site original</button>' +
         '<div class="pd-nota">Apaga tudo o que está guardado neste dispositivo e termina a sessão. Não apaga a escala do servidor.</div>';
-      h += '<div class="pd-sec">Sugestões do Claude</div><ol class="pd-sug">' +
-        '<li><b>Senhas no código.</b> As senhas (login e dono) estão no código e qualquer pessoa pode lê-las. Servem para evitar toques acidentais, mas não protegem dados. Se houver informação sensível, o ideal é um login a sério (ex.: Firebase Authentication).</li>' +
-        '<li><b>Regras do Firebase.</b> O endereço da base de dados está no código; confirme nas regras que só se pode escrever e apagar a escala como pretende.</li>' +
-        '<li><b>Número de versão.</b> Mostrar “v1.4” junto à data, para saber logo que versão cada pessoa está a usar.</li>' +
-        '<li><b>Aviso de nova versão.</b> Mostrar “Há uma atualização — atualizar” em vez de cada pessoa ficar com a versão antiga em cache.</li>' +
-        '<li><b>Backup da escala.</b> Botão para descarregar a imagem atual antes de cortar ou apagar.</li>' +
-        '<li><b>Erros à distância.</b> Enviar os erros apanhados para a base de dados, para os ver aqui sem pedir capturas de ecrã.</li>' +
-        '</ol>';
+      const sg = dnSugestoes();
+      h += '<div class="pd-sec">Sugestões automáticas</div>' + (sg.length
+        ? '<ol class="pd-sug">' + sg.map(function(x){ return '<li><b>' + dnEsc(x[0]) + '.</b> ' + dnEsc(x[1]) + '</li>'; }).join("") + '</ol>'
+        : '<div class="pd-ok">✅ Nada a sugerir de momento</div>') +
+        '<div class="pd-nota">Calculadas a partir do estado atual do site; desaparecem quando o ponto deixa de se aplicar.</div>';
       c.innerHTML = h;
       c.scrollTop = pos;
     }
@@ -4690,12 +4808,12 @@
       fecharPainelDono();
       const ov = document.createElement("div");
       ov.id = "painelDonoOverlay";
-      ov.innerHTML = '<div role="dialog" aria-modal="true" aria-label="Painel do administrador">' +
-        '<div class="pd-head"><strong>🛠️ Painel do administrador</strong><span class="pd-x" onclick="fecharPainelDono()" aria-label="Fechar">×</span></div>' +
+      ov.innerHTML = '<div role="dialog" aria-modal="true" aria-label="Área de controlo">' +
+        '<div class="pd-head"><strong>🛠️ Área de controlo</strong><span class="pd-x" onclick="fecharPainelDono()" aria-label="Fechar">×</span></div>' +
         '<div class="pd-body" id="pdCorpo">A recolher diagnóstico…</div></div>';
       ov.addEventListener("click", function(e){ if (e.target === ov) fecharPainelDono(); });
       document.body.appendChild(ov);
-      dnTeste = "";
+      dnTeste = ""; dnEscalaMs = 0;
       dnAtualizar();
     }
 
