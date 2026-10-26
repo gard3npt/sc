@@ -12,6 +12,19 @@
 
   <meta name="theme-color" content="#121417">
 
+  <!-- Regista erros de JavaScript e recursos que não carregaram (aparecem no painel escondido do dono) -->
+  <script>
+    window.__scErros = [];
+    (function () {
+      function reg(tipo, msg) { try { if (window.__scErros.length < 30) window.__scErros.push({ t: Date.now(), tipo: tipo, msg: String(msg).slice(0, 200) }); } catch (e) {} }
+      window.addEventListener("error", function (e) {
+        if (e.target && e.target !== window && (e.target.src || e.target.href)) reg("recurso", e.target.src || e.target.href);
+        else reg("erro", (e.message || "erro") + (e.lineno ? " (linha " + e.lineno + ")" : ""));
+      }, true);
+      window.addEventListener("unhandledrejection", function (e) { reg("promessa", (e.reason && e.reason.message) || e.reason); });
+    })();
+  </script>
+
   <!-- App instalável (PWA) -->
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -48,10 +61,13 @@
       }
       function estado() {
         if (emApp() || (!pedido && (lembrada() || provavel())))
-          return { msg: "✅ App já instalada.", botao: false, tempo: 6000 };
+          return { msg: "✅ App já instalada.", botao: false, tempo: 5000 };
         if (pedido) return { msg: "📲 Instale o SC Lab no ecrã principal para o abrir como uma aplicação.", botao: true, tempo: 12000 };
         return { msg: "📲 Instalar app. " + textoAjuda(), botao: false, tempo: 14000 };
       }
+      window.appInstalada = function () {
+        return emApp() || (!pedido && (lembrada() || provavel()));
+      };
       window.instalarApp = function () {
         if (!pedido) return;
         var p = pedido; pedido = null;
@@ -1097,11 +1113,12 @@
       letter-spacing: .04em;
       padding: 6px 4px;
       margin: 0;
-      cursor: pointer;
+      cursor: default;
       text-decoration: none;
+      user-select: none;
+      -webkit-user-select: none;
       -webkit-tap-highlight-color: transparent;
     }
-    .agajota-btn:hover { color: #cbd5e1; text-decoration: underline; text-underline-offset: 2px; }
     .copia-btn { font-weight: 400; letter-spacing: normal; }
     .agajota-nome { font-weight: 700; letter-spacing: .04em; padding: 6px 4px; }
 
@@ -1791,6 +1808,25 @@
     html.pg-calculo #mainTitle, html.pg-sem-titulo #mainTitle { display: none; }
     /* Correção de Cargas, Bisnagas e Médias de Colas: as três com o mesmo zoom (85% do base) e a mesma largura; cabeçalho e rodapé não mudam */
     html.pg-calculo .container { zoom: calc(var(--zoom-base) * 0.85); }
+    /* Correção de Cargas: zoom próprio (100% = tamanho normal da página), ajustável em #ccZoomBox */
+    html.pg-cc .container { zoom: calc(var(--zoom-base) * 0.85 * var(--cc-zoom, 1)); }
+    #ccZoomBox {
+      display: none; position: fixed; right: 12px; bottom: 64px; z-index: 1500;
+      zoom: var(--zoom-base); align-items: center; gap: 4px; padding: 4px 6px;
+      background: rgba(15,23,42,.92); border: 1px solid rgba(148,163,184,.35);
+      border-radius: 12px; box-shadow: 0 4px 14px rgba(0,0,0,.35);
+      color: #e2e8f0; font-size: 13px; font-weight: 600; font-family: inherit;
+    }
+    html.pg-cc #ccZoomBox { display: flex; }
+    #ccZoomBox button {
+      width: 30px; height: 30px; border: none; border-radius: 8px; cursor: pointer;
+      background: rgba(148,163,184,.18); color: #fff; font-size: 18px; line-height: 1;
+    }
+    #ccZoomBox button:active { background: rgba(148,163,184,.35); }
+    #ccZoomBox input {
+      width: 42px; height: 30px; text-align: center; border: 1px solid rgba(148,163,184,.35);
+      border-radius: 8px; background: rgba(15,23,42,.6); color: #fff; font: inherit; padding: 0;
+    }
 
     /* Aviso da data de atualização (botão AGAJOTA do rodapé), igual ao da calculadora de juros */
     .toast-atualizacao {
@@ -1902,6 +1938,36 @@
 
     /* caixa da senha do dono */
     #senhaDonoOverlay > div { zoom: var(--zoom-base); }
+
+    /* PAINEL DO DONO (escondido: 3 cliques em "Suporte" + senha) */
+    #suporteTitulo { user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+    #painelDonoOverlay { position: fixed; inset: 0; z-index: 99997; background: rgba(15,23,42,.6); display: flex; align-items: center; justify-content: center; padding: 12px; }
+    #painelDonoOverlay > div {
+      zoom: var(--zoom-base); width: 100%; max-width: 480px; max-height: calc(90vh / var(--zoom-base));
+      display: flex; flex-direction: column; overflow: hidden;
+      background: #f8fafc; color: #0f172a; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.4);
+    }
+    .pd-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: #0f172a; color: #fff; font-size: 1rem; }
+    .pd-x { cursor: pointer; font-size: 26px; line-height: 1; padding: 0 4px; color: #cbd5e1; }
+    .pd-body { overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 4px 14px 16px; text-align: left; }
+    .pd-sec { margin: 16px 2px 6px; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #64748b; }
+    .pd-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 2px 12px; }
+    .pd-row { display: grid; grid-template-columns: 40% 1fr; gap: 8px; padding: 7px 0; border-bottom: 1px solid #eef2f7; font-size: 13px; word-break: break-word; }
+    .pd-row:last-child { border-bottom: 0; }
+    .pd-row span { color: #64748b; font-weight: 600; }
+    .pd-row b { font-weight: 700; }
+    .pd-aviso, .pd-ok { padding: 9px 12px; border-radius: 10px; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .pd-aviso { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    .pd-ok { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .pd-btn { display: block; width: 100%; margin-top: 8px; padding: 11px 14px; border: 0; border-radius: 10px; background: #e2e8f0; color: #0f172a; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; text-align: left; }
+    .pd-btn:disabled { opacity: .6; cursor: default; }
+    .pd-azul { background: #2563eb; color: #fff; }
+    .pd-amarelo { background: #fde68a; color: #78350f; }
+    .pd-vermelho { background: #dc2626; color: #fff; }
+    .pd-nota { margin: 3px 4px 0; font-size: 12px; color: #64748b; line-height: 1.35; }
+    .pd-sug { margin: 0; padding: 4px 12px 4px 30px; font-size: 13px; line-height: 1.4; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; }
+    .pd-sug li { padding: 7px 0; border-bottom: 1px solid #eef2f7; }
+    .pd-sug li:last-child { border-bottom: 0; }
 
     /* ferramenta de cortar a escala */
     #escalaCortar { position: fixed; inset: 0; z-index: 99991; background: rgba(15,23,42,0.97); overflow: hidden; display: flex; align-items: center; justify-content: center; user-select: none; -webkit-user-select: none; }
@@ -2505,26 +2571,35 @@
   <div class="page-bottom">
   <div id="footerNote" class="footer-note">Nota: Alguns links apenas estão acessíveis através da rede interna da empresa.</div>
   <footer id="loginFooter" class="footer-login"><span>© <span class="ano-atual">2026</span> <span class="agajota-nome">AGAJOTA</span></span></footer>
-  <footer id="appFooter" class="footer-app"><span><button type="button" class="agajota-btn copia-btn" onclick="mostrarEstadoApp()" title="Instalar app" aria-label="Instalar app ou ver se já está instalada">© <span class="ano-atual">2026</span></button> <button type="button" class="agajota-btn" onclick="mostrarDataAtualizacao()" title="Ver data da última atualização" aria-label="Ver data da última atualização">AGAJOTA</button></span><span>Laboratório C. Q. - Almeirim</span></footer>
+  <footer id="appFooter" class="footer-app"><span><button type="button" class="agajota-btn copia-btn" tabindex="-1" onclick="triploClique(this, mostrarEstadoApp)">© <span class="ano-atual">2026</span></button> <button type="button" class="agajota-btn" tabindex="-1" onclick="triploClique(this, mostrarDataAtualizacao)">AGAJOTA</button></span><span>Laboratório C. Q. - Almeirim</span></footer>
+  </div>
+
+  <div id="ccZoomBox" role="group" aria-label="Zoom da página">
+    <button type="button" onclick="ccZoomMudar(-10)" aria-label="Diminuir zoom" title="Diminuir">−</button>
+    <input type="text" id="ccZoomInput" inputmode="numeric" maxlength="3" value="100" aria-label="Percentagem de zoom" title="Escreva a percentagem (50 a 200) e prima Enter">
+    <span aria-hidden="true">%</span>
+    <button type="button" onclick="ccZoomMudar(10)" aria-label="Aumentar zoom" title="Aumentar">+</button>
   </div>
 
   <div id="contactsModal" class="modal">
     <div class="modal-content suporte-box" role="dialog" aria-modal="true" aria-labelledby="suporteTitulo">
       <span class="close-modal" onclick="closeContacts()">×</span>
-      <h2 id="suporteTitulo" class="suporte-titulo"><svg class="suporte-nuvem" viewBox="0 0 32 26" aria-hidden="true"><defs><linearGradient id="sbg" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="0.6" stop-color="#efe9f8"/><stop offset="1" stop-color="#c9bbe6"/></linearGradient></defs><path d="M7.5 18.2 5.2 24.6 13.6 20.6Z" fill="#9d90d2" stroke="#9d90d2" stroke-width="1" stroke-linejoin="round"/><ellipse cx="16" cy="11.5" rx="14" ry="10" fill="url(#sbg)" stroke="#b9a9dd" stroke-width="1.2"/></svg>Suporte</h2>
+      <h2 id="suporteTitulo" class="suporte-titulo" onclick="triploClique(this, abrirPainelDono)"><svg class="suporte-nuvem" viewBox="0 0 32 26" aria-hidden="true"><defs><linearGradient id="sbg" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="0.6" stop-color="#efe9f8"/><stop offset="1" stop-color="#c9bbe6"/></linearGradient></defs><path d="M7.5 18.2 5.2 24.6 13.6 20.6Z" fill="#9d90d2" stroke="#9d90d2" stroke-width="1" stroke-linejoin="round"/><ellipse cx="16" cy="11.5" rx="14" ry="10" fill="url(#sbg)" stroke="#b9a9dd" stroke-width="1.2"/></svg>Suporte</h2>
       <p class="suporte-sub">Selecione uma opção:</p>
       <button type="button" class="suporte-op" onclick="enviarSugestao()"><span class="suporte-ico">💡</span><span class="suporte-txt"><strong>Sugestões</strong><small>Ideias para melhorar a página SC Lab</small></span></button>
       <button type="button" class="suporte-op" onclick="reportarProblema()"><span class="suporte-ico">🐛</span><span class="suporte-txt"><strong>Reportar Problema</strong><small>Algo não funciona como esperado</small></span></button>
       <button type="button" class="suporte-op" onclick="sendMessage()"><span class="suporte-ico">✉️</span><span class="suporte-txt"><strong>Contacto (E-mail)</strong><small>Enviar mensagem diretamente</small></span></button>
-      <hr class="suporte-sep">
-      <div class="suporte-sec">APLICAÇÃO</div>
-      <button type="button" class="suporte-op" onclick="instalarDoSuporte()"><span class="suporte-ico">📲</span><span class="suporte-txt"><strong>Instalar app</strong><small>Adicionar ao ecrã principal</small></span></button>
+      <div id="suporteApp">
+        <hr class="suporte-sep">
+        <div class="suporte-sec">APLICAÇÃO</div>
+        <button type="button" class="suporte-op" onclick="instalarDoSuporte()"><span class="suporte-ico">📲</span><span class="suporte-txt"><strong>Instalar app</strong><small>Adicionar ao ecrã principal</small></span></button>
+      </div>
     </div>
   </div>
 
   <script>
     /* Data da última atualização: mudar só aqui (aparece ao carregar em "Agajota" no rodapé) */
-    const DATA_ATUALIZACAO = "25 de Outubro de 2026";
+    const DATA_ATUALIZACAO = "26 de Outubro de 2026";
 
     const correctPassword = "0";
 
@@ -2567,13 +2642,20 @@
     function esconderToastAtualizacao() {
       document.getElementById("toastAtualizacao").classList.remove("show");
     }
+    /* Rodapé escondido: só mostra a informação ao carregar 3 vezes seguidas (máx. 1,5 s entre cliques) */
+    function triploClique(el, fn) {
+      el._n = (el._n || 0) + 1;
+      clearTimeout(el._t);
+      if (el._n >= 3) { el._n = 0; fn(); return; }
+      el._t = setTimeout(function () { el._n = 0; }, 1500);
+    }
     function mostrarDataAtualizacao() {
       const el = document.getElementById("toastAtualizacao");
       el.textContent = "Última atualização: " + DATA_ATUALIZACAO;
       el.onclick = esconderToastAtualizacao;
       el.classList.add("show");
       clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(esconderToastAtualizacao, 4000);
+      window._toastTimer = setTimeout(esconderToastAtualizacao, 5000);
     }
 
     function pedirLogout() {
@@ -2589,6 +2671,7 @@
       const logado = localStorage.getItem("isLoggedIn") === "true";
       /* páginas de cálculo (Correção de Cargas, Bisnagas, Médias de Colas): sem o título "Laboratório C.Q." */
       document.documentElement.classList.toggle("pg-calculo", subtitle.classList.contains("cc-active"));
+      document.documentElement.classList.toggle("pg-cc", document.getElementById("ccPage").style.display === "block");
       /* página da Escala Semanal: também sem o título, mas mantém o zoom normal */
       document.documentElement.classList.toggle("pg-sem-titulo", document.getElementById("escalaPage").style.display === "block");
       /* o nome da página aparece só por baixo do título; a barra do cabeçalho fica sem nome */
@@ -2598,6 +2681,7 @@
     }
 
     function openContacts(){
+      document.getElementById("suporteApp").style.display = (window.appInstalada && window.appInstalada()) ? "none" : "";
       document.getElementById("contactsModal").style.display = "flex";
     }
 
@@ -2627,6 +2711,7 @@
       if (getComputedStyle(suporte).display !== "none") { closeContacts(); return; }
       if (document.getElementById("caixaMensagemOverlay")) return; /* a caixa tem o seu próprio Esc */
       if (document.getElementById("senhaDonoOverlay")) return; /* a caixa da senha tem o seu próprio Esc */
+      if (document.getElementById("painelDonoOverlay")) { fecharPainelDono(); return; }
       const cortar = document.getElementById("escalaCortar");
       if (cortar) { cortar.remove(); return; }
       const grande = document.getElementById("escalaGrande");
@@ -4340,6 +4425,278 @@
         atualizarLado(item.esq, document.getElementById(`cola_esq_${index}`), document.getElementById(`res_cola_esq_${index}`));
         atualizarLado(item.dir, document.getElementById(`cola_dir_${index}`), document.getElementById(`res_cola_dir_${index}`));
       });
+    }
+
+    /* Zoom da Correção de Cargas: percentagem (50–200 %), por + / − ou escrevendo o valor; fica guardado */
+    function ccZoomAplicar(p){
+      p = Math.round(parseInt(p, 10));
+      if (!isFinite(p)) p = 100;
+      p = Math.min(200, Math.max(50, p));
+      document.documentElement.style.setProperty("--cc-zoom", (p / 100).toFixed(2));
+      document.getElementById("ccZoomInput").value = p;
+      try { localStorage.setItem("cc-zoom", String(p)); } catch (e) {}
+    }
+    function ccZoomMudar(d){
+      const v = parseInt(document.getElementById("ccZoomInput").value, 10);
+      ccZoomAplicar((isFinite(v) ? v : 100) + d);
+    }
+    (function () {
+      const inp = document.getElementById("ccZoomInput");
+      inp.addEventListener("change", () => ccZoomAplicar(inp.value));
+      inp.addEventListener("keydown", e => { if (e.key === "Enter") { ccZoomAplicar(inp.value); inp.blur(); } });
+      inp.addEventListener("focus", () => inp.select());
+      let g = 100; try { g = parseInt(localStorage.getItem("cc-zoom"), 10) || 100; } catch (e) {}
+      ccZoomAplicar(g);
+    })();
+
+    /* ---------------- PAINEL DO DONO (escondido) ----------------
+       Abre com 3 cliques na palavra "Suporte" (dentro da janela Suporte) + senha do dono (SENHA_DONO). */
+    let dnDados = null, dnTeste = "";
+
+    function abrirPainelDono(){
+      pedirSenhaDono(function(){ closeContacts(); montarPainelDono(); });
+    }
+    function fecharPainelDono(){
+      const ov = document.getElementById("painelDonoOverlay");
+      if (ov) ov.remove();
+    }
+    function dnEsc(s){
+      return String(s).replace(/[&<>"']/g, function(c){ return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; });
+    }
+    function dnBytes(n){
+      if (!isFinite(n)) return "?";
+      if (n < 1024) return n + " B";
+      if (n < 1048576) return (n / 1024).toFixed(1) + " KB";
+      if (n < 1073741824) return (n / 1048576).toFixed(1) + " MB";
+      return (n / 1073741824).toFixed(2) + " GB";
+    }
+    function dnBrowser(){
+      const u = navigator.userAgent; let b = "Desconhecido", m;
+      if ((m = u.match(/Edg\/(\d+)/))) b = "Edge " + m[1];
+      else if ((m = u.match(/OPR\/(\d+)/))) b = "Opera " + m[1];
+      else if ((m = u.match(/SamsungBrowser\/(\d+)/))) b = "Samsung Internet " + m[1];
+      else if ((m = u.match(/(?:Chrome|CriOS)\/(\d+)/))) b = "Chrome " + m[1];
+      else if ((m = u.match(/(?:Firefox|FxiOS)\/(\d+)/))) b = "Firefox " + m[1];
+      else if ((m = u.match(/Version\/(\d+).*Safari/))) b = "Safari " + m[1];
+      let so = "";
+      if (/Android/.test(u)) { m = u.match(/Android ([\d.]+)/); so = "Android " + (m ? m[1] : ""); }
+      else if (/iPhone|iPad|iPod/.test(u)) so = "iOS";
+      else if (/Windows/.test(u)) so = "Windows";
+      else if (/Mac OS X/.test(u)) so = "macOS";
+      else if (/Linux/.test(u)) so = "Linux";
+      return so ? b + " · " + so : b;
+    }
+
+    /* recolhe o diagnóstico (só lê; não altera nada) */
+    async function dnColetar(){
+      const avisos = [];
+      let ls = null; try { ls = localStorage; } catch (e) {}
+      const cs = getComputedStyle(document.documentElement);
+      const pct = function(v){ const n = parseFloat(v); return isFinite(n) ? Math.round(n * 100) + "%" : "?"; };
+      const st = document.getElementById("mainSubtitle");
+      const pagina = (st && st.style.display !== "none" && st.textContent.trim()) ? st.textContent.trim() : "Início";
+      const standalone = (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+
+      const app = [
+        ["Última atualização", DATA_ATUALIZACAO],
+        ["Página aberta", pagina],
+        ["Sessão", (ls && ls.getItem("isLoggedIn") === "true") ? "iniciada" : "terminada"],
+        ["Aberta como", standalone ? "App instalada" : "Browser"],
+        ["Endereço", location.protocol === "file:" ? "ficheiro local" : location.host + location.pathname]
+      ];
+
+      const net = (navigator.connection && navigator.connection.effectiveType) ? " (" + navigator.connection.effectiveType + ")" : "";
+      const disp = [
+        ["Ecrã", innerWidth + " × " + innerHeight + " px · ×" + (window.devicePixelRatio || 1)],
+        ["Zoom automático", pct(cs.getPropertyValue("--zoom-base"))],
+        ["Zoom Correção de Cargas", pct(cs.getPropertyValue("--cc-zoom") || 1)],
+        ["Browser", dnBrowser()],
+        ["Idioma · fuso", navigator.language + " · " + (Intl.DateTimeFormat().resolvedOptions().timeZone || "?")],
+        ["Rede", (navigator.onLine ? "online" : "offline") + net]
+      ];
+      if (!navigator.onLine) avisos.push("Sem ligação à internet neste momento.");
+
+      let sw;
+      if (location.protocol === "file:") sw = "não aplicável (ficheiro local)";
+      else if (!("serviceWorker" in navigator)) sw = "não suportado";
+      else {
+        try {
+          const r = await navigator.serviceWorker.getRegistrations();
+          sw = r.length ? "ativo (" + r.length + ")" : "nenhum registado";
+          if (!r.length) avisos.push("O service worker não está registado (confirme que o ficheiro sw.js está no servidor).");
+        } catch (e) { sw = "erro ao ler"; }
+      }
+      let cch;
+      if ("caches" in window) {
+        try { const k = await caches.keys(); cch = k.length ? k.join(", ") : "nenhuma"; } catch (e) { cch = "erro ao ler"; }
+      } else cch = "não suportado";
+
+      const arm = [];
+      if (ls) {
+        const ks = Object.keys(ls); let tot = 0;
+        ks.forEach(function(k){ tot += k.length + (ls.getItem(k) || "").length; });
+        arm.push(["Dados locais", ks.length + " chave(s) · " + dnBytes(tot * 2)]);
+        ks.forEach(function(k){ const v = ls.getItem(k) || ""; arm.push(["· " + k, v.length > 40 ? v.slice(0, 40) + "…" : v]); });
+      } else arm.push(["Dados locais", "indisponíveis"]);
+      if (navigator.storage && navigator.storage.estimate) {
+        try {
+          const e = await navigator.storage.estimate();
+          if (e.quota) {
+            arm.push(["Espaço usado", dnBytes(e.usage) + " de " + dnBytes(e.quota)]);
+            if (e.usage / e.quota > 0.8) avisos.push("O armazenamento do browser está quase cheio.");
+          }
+        } catch (x) {}
+      }
+      arm.push(["Service worker", sw]);
+      arm.push(["Cache da app", cch]);
+
+      const er = window.__scErros || [];
+      const erros = er.length
+        ? er.slice(-8).map(function(x){ return [new Date(x.t).toLocaleTimeString("pt-PT"), (x.tipo === "recurso" ? "Não carregou: " : x.tipo === "promessa" ? "Falha: " : "Erro: ") + x.msg]; })
+        : [["—", "Nenhum erro desde que a página abriu"]];
+      if (er.length) avisos.push(er.length + " erro(s) desde que a página abriu (ver abaixo).");
+
+      return { avisos: avisos, grupos: [
+        { t: "Aplicação", l: app }, { t: "Dispositivo", l: disp },
+        { t: "Armazenamento", l: arm }, { t: "Erros desde que abriu", l: erros }
+      ] };
+    }
+
+    /* testa a ligação à base de dados da escala (pedidos pequenos: só lê a lista de campos e a data) */
+    async function dnTestarEscala(){
+      if (!escalaConfigurada()) return "endereço da base de dados não configurado";
+      const ctl = new AbortController();
+      const limite = setTimeout(function(){ ctl.abort(); }, 8000);
+      const t0 = performance.now();
+      try {
+        const r = await fetch(escalaUrl() + "?shallow=true", { cache: "no-store", signal: ctl.signal });
+        const ms = Math.round(performance.now() - t0);
+        if (!r.ok) return "erro HTTP " + r.status + " (" + ms + " ms)";
+        const j = await r.json();
+        let txt = "ligação OK (" + ms + " ms)";
+        if (!j || !j.imagem) return txt + " · ainda não há escala guardada";
+        txt += " · há escala guardada";
+        try {
+          const r2 = await fetch(escalaUrl().replace(/\.json$/, "/atualizada.json"), { cache: "no-store", signal: ctl.signal });
+          const a = r2.ok ? await r2.json() : null;
+          const d = a ? new Date(a) : null;
+          if (d && !isNaN(d)) txt += " · atualizada em " + d.toLocaleString("pt-PT", { dateStyle: "short", timeStyle: "short" });
+        } catch (x) {}
+        return txt;
+      } catch (e) {
+        return (e && e.name === "AbortError") ? "sem resposta ao fim de 8 s" : "sem ligação ao servidor";
+      } finally { clearTimeout(limite); }
+    }
+    async function dnTestarEscalaUI(btn){
+      btn.disabled = true;
+      const el = document.getElementById("pdTeste");
+      if (el) el.textContent = "a testar…";
+      dnTeste = await dnTestarEscala();
+      const el2 = document.getElementById("pdTeste");
+      if (el2) el2.textContent = dnTeste;
+      btn.disabled = false;
+    }
+
+    function dnTexto(){
+      let t = "SC Lab — diagnóstico (" + new Date().toLocaleString("pt-PT") + ")\n";
+      if (!dnDados) return t;
+      t += "\nAvisos: " + (dnDados.avisos.length ? "\n- " + dnDados.avisos.join("\n- ") : "nenhum") + "\n";
+      dnDados.grupos.forEach(function(g){
+        t += "\n[" + g.t + "]\n" + g.l.map(function(r){ return r[0] + ": " + r[1]; }).join("\n") + "\n";
+      });
+      t += "\n[Escala semanal (servidor)]\nLigação: " + (dnTeste || "não testada") + "\n";
+      return t;
+    }
+    async function dnCopiar(btn){
+      const t = dnTexto(); let ok = false;
+      try { await navigator.clipboard.writeText(t); ok = true; }
+      catch (e) {
+        try {
+          const ta = document.createElement("textarea");
+          ta.value = t; ta.style.cssText = "position:fixed; opacity:0;";
+          document.body.appendChild(ta); ta.select(); ok = document.execCommand("copy"); ta.remove();
+        } catch (x) {}
+      }
+      const antes = btn.textContent;
+      btn.textContent = ok ? "✅ Copiado" : "❌ Não foi possível copiar";
+      setTimeout(function(){ btn.textContent = antes; }, 1800);
+    }
+
+    /* reposições */
+    async function dnApagarCaches(){
+      try { if ("serviceWorker" in navigator) { const r = await navigator.serviceWorker.getRegistrations(); await Promise.all(r.map(function(x){ return x.unregister(); })); } } catch (e) {}
+      try { if ("caches" in window) { const k = await caches.keys(); await Promise.all(k.map(function(x){ return caches.delete(x); })); } } catch (e) {}
+    }
+    function dnLimparCache(){
+      caixaMensagem("Limpar a cache e recarregar a app? A sessão e as definições mantêm-se.", async function(){ await dnApagarCaches(); location.reload(); }, null, "Limpar");
+    }
+    function dnReporDefinicoes(){
+      caixaMensagem("Repor as definições? O zoom da Correção de Cargas volta a 100% e o aviso de instalação da app pode voltar a aparecer.", function(){
+        ccZoomAplicar(100);
+        try { localStorage.removeItem("cc-zoom"); localStorage.removeItem("sc-app-instalada"); } catch (e) {}
+        dnAtualizar();
+      }, null, "Repor");
+    }
+    function dnReporSite(){
+      caixaMensagem("Repor o site ao estado original? Apaga tudo o que está guardado neste dispositivo (sessão, zoom, cache) e volta ao início de sessão. A escala guardada no servidor não é afetada.", async function(){
+        try { localStorage.clear(); sessionStorage.clear(); } catch (e) {}
+        await dnApagarCaches();
+        try { history.replaceState(null, ""); } catch (e) {}
+        location.reload();
+      }, null, "Repor tudo");
+    }
+
+    function dnRender(c){
+      const pos = c.scrollTop;
+      let h = '<div class="pd-sec">Avisos</div>';
+      h += dnDados.avisos.length
+        ? dnDados.avisos.map(function(a){ return '<div class="pd-aviso">⚠️ ' + dnEsc(a) + '</div>'; }).join("")
+        : '<div class="pd-ok">✅ Sem avisos</div>';
+      dnDados.grupos.forEach(function(g){
+        h += '<div class="pd-sec">' + dnEsc(g.t) + '</div><div class="pd-card">' +
+          g.l.map(function(r){ return '<div class="pd-row"><span>' + dnEsc(r[0]) + '</span><b>' + dnEsc(r[1]) + '</b></div>'; }).join("") + '</div>';
+      });
+      h += '<div class="pd-sec">Escala semanal (servidor)</div>' +
+        '<div class="pd-card"><div class="pd-row"><span>Ligação</span><b id="pdTeste">' + dnEsc(dnTeste || "não testada") + '</b></div></div>' +
+        '<button type="button" class="pd-btn" onclick="dnTestarEscalaUI(this)">📡 Testar ligação à escala</button>';
+      h += '<div class="pd-sec">Ferramentas</div>' +
+        '<button type="button" class="pd-btn pd-azul" onclick="dnCopiar(this)">📋 Copiar diagnóstico</button>' +
+        '<div class="pd-nota">Copia tudo isto como texto, para colar numa mensagem.</div>' +
+        '<button type="button" class="pd-btn" onclick="dnAtualizar()">🔃 Atualizar diagnóstico</button>';
+      h += '<div class="pd-sec">Reposição</div>' +
+        '<button type="button" class="pd-btn pd-amarelo" onclick="dnLimparCache()">🧽 Atualizar app (limpar cache)</button>' +
+        '<div class="pd-nota">Mantém a sessão e o zoom. Útil quando aparece uma versão antiga do site.</div>' +
+        '<button type="button" class="pd-btn pd-amarelo" onclick="dnReporDefinicoes()">↩️ Repor definições</button>' +
+        '<div class="pd-nota">O zoom da Correção de Cargas volta a 100%.</div>' +
+        '<button type="button" class="pd-btn pd-vermelho" onclick="dnReporSite()">⚠️ Repor site original</button>' +
+        '<div class="pd-nota">Apaga tudo o que está guardado neste dispositivo e termina a sessão. Não apaga a escala do servidor.</div>';
+      h += '<div class="pd-sec">Sugestões do Claude</div><ol class="pd-sug">' +
+        '<li><b>Senhas no código.</b> As senhas (login e dono) estão no código e qualquer pessoa pode lê-las. Servem para evitar toques acidentais, mas não protegem dados. Se houver informação sensível, o ideal é um login a sério (ex.: Firebase Authentication).</li>' +
+        '<li><b>Regras do Firebase.</b> O endereço da base de dados está no código; confirme nas regras que só se pode escrever e apagar a escala como pretende.</li>' +
+        '<li><b>Número de versão.</b> Mostrar “v1.4” junto à data, para saber logo que versão cada pessoa está a usar.</li>' +
+        '<li><b>Aviso de nova versão.</b> Mostrar “Há uma atualização — atualizar” em vez de cada pessoa ficar com a versão antiga em cache.</li>' +
+        '<li><b>Backup da escala.</b> Botão para descarregar a imagem atual antes de cortar ou apagar.</li>' +
+        '<li><b>Erros à distância.</b> Enviar os erros apanhados para a base de dados, para os ver aqui sem pedir capturas de ecrã.</li>' +
+        '</ol>';
+      c.innerHTML = h;
+      c.scrollTop = pos;
+    }
+    async function dnAtualizar(){
+      dnDados = await dnColetar();
+      const c = document.getElementById("pdCorpo");
+      if (c) dnRender(c);
+    }
+    function montarPainelDono(){
+      fecharPainelDono();
+      const ov = document.createElement("div");
+      ov.id = "painelDonoOverlay";
+      ov.innerHTML = '<div role="dialog" aria-modal="true" aria-label="Painel do dono">' +
+        '<div class="pd-head"><strong>🛠️ Painel do dono</strong><span class="pd-x" onclick="fecharPainelDono()" aria-label="Fechar">×</span></div>' +
+        '<div class="pd-body" id="pdCorpo">A recolher diagnóstico…</div></div>';
+      ov.addEventListener("click", function(e){ if (e.target === ov) fecharPainelDono(); });
+      document.body.appendChild(ov);
+      dnTeste = "";
+      dnAtualizar();
     }
 
     /* Atualiza cabeçalho e nota do rodapé sempre que a página muda */
