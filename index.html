@@ -6,8 +6,6 @@
 
   <title>SC Lab</title>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4094039418988922" crossorigin="anonymous"></script>
-
   <link rel="icon" href="favicon.png">
 
   <meta name="theme-color" content="#121417">
@@ -1939,7 +1937,7 @@
     /* caixa da senha do dono */
     #senhaDonoOverlay > div { zoom: var(--zoom-base); }
 
-    /* PAINEL DO DONO (escondido: 3 cliques em "Suporte" + senha) */
+    /* PAINEL DO ADMINISTRADOR (escondido: 3 cliques em "Suporte" + senha) */
     #suporteTitulo { user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
     #painelDonoOverlay { position: fixed; inset: 0; z-index: 99997; background: rgba(15,23,42,.6); display: flex; align-items: center; justify-content: center; padding: 12px; }
     #painelDonoOverlay > div {
@@ -3084,8 +3082,8 @@
       abrirCortarEscala();
     }
 
-    /* Botão escondido: 3 cliques seguidos no círculo "2" (cabeçalho "Atualizar") pedem a senha do dono.
-       Com a senha certa aparecem os botões de Cortar e Apagar; 3 cliques outra vez voltam a escondê-los. */
+    /* Botão escondido: 3 cliques seguidos no círculo "2" (cabeçalho "Atualizar") mostram os botões de Cortar e Apagar
+       (sem senha); 3 cliques outra vez voltam a escondê-los. */
     (function(){
       const gatilho = document.getElementById("escalaDonoGatilho");
       let cliques = 0, temporizador = null;
@@ -3098,7 +3096,7 @@
         clearTimeout(temporizador);
         const pagina = document.getElementById("escalaPage");
         if (pagina.classList.contains("modo-dono")) { pagina.classList.remove("modo-dono"); return; }
-        pedirSenhaDono(function(){ pagina.classList.add("modo-dono"); });
+        pagina.classList.add("modo-dono");
       });
     })();
 
@@ -4449,7 +4447,7 @@
       ccZoomAplicar(g);
     })();
 
-    /* ---------------- PAINEL DO DONO (escondido) ----------------
+    /* ---------------- PAINEL DO ADMINISTRADOR (escondido) ----------------
        Abre com 3 cliques na palavra "Suporte" (dentro da janela Suporte) + senha do dono (SENHA_DONO). */
     let dnDados = null, dnTeste = "";
 
@@ -4494,7 +4492,9 @@
       const cs = getComputedStyle(document.documentElement);
       const pct = function(v){ const n = parseFloat(v); return isFinite(n) ? Math.round(n * 100) + "%" : "?"; };
       const st = document.getElementById("mainSubtitle");
-      const pagina = (st && st.style.display !== "none" && st.textContent.trim()) ? st.textContent.trim() : "Início";
+      const voltar = document.getElementById("backHeaderBtn");
+      const emInicio = !voltar || voltar.style.display === "none";
+      const pagina = (!emInicio && st && st.textContent.trim()) ? st.textContent.trim() : "Início";
       const standalone = (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
 
       const app = [
@@ -4690,8 +4690,8 @@
       fecharPainelDono();
       const ov = document.createElement("div");
       ov.id = "painelDonoOverlay";
-      ov.innerHTML = '<div role="dialog" aria-modal="true" aria-label="Painel do dono">' +
-        '<div class="pd-head"><strong>🛠️ Painel do dono</strong><span class="pd-x" onclick="fecharPainelDono()" aria-label="Fechar">×</span></div>' +
+      ov.innerHTML = '<div role="dialog" aria-modal="true" aria-label="Painel do administrador">' +
+        '<div class="pd-head"><strong>🛠️ Painel do administrador</strong><span class="pd-x" onclick="fecharPainelDono()" aria-label="Fechar">×</span></div>' +
         '<div class="pd-body" id="pdCorpo">A recolher diagnóstico…</div></div>';
       ov.addEventListener("click", function(e){ if (e.target === ov) fecharPainelDono(); });
       document.body.appendChild(ov);
