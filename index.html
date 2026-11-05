@@ -2589,7 +2589,7 @@
         <div class="cc-body">
           <div class="row">
             <div class="box"><div class="lbl">SRV</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="srv_srv" value="900" placeholder="Ex: 900" onclick="this.select()" oninput="limparSRV()" onblur="calcSRV()" onkeydown="navegarEnter(event, 'srv_pct')"></div></div>
-            <div class="box"><div class="lbl">% DE PRÉMIO</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="srv_pct" placeholder="Ex: 120,50%" onfocus="this.value = this.value.replace(/%/g, '')" onblur="formatarPctSRV(this); calcSRV()" onclick="this.select()" oninput="restringirPctSRV(this); limparSRV()" onkeydown="navegarEnter(event, null); if (event.key === 'Enter') this.blur()"></div></div>
+            <div class="box"><div class="lbl">% DE PRÉMIO</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="srv_pct" placeholder="Ex: 120,50%" onfocus="this.value = this.value.replace(/%/g, '')" onblur="formatarPctSRV(this); calcSRV()" onclick="this.select()" oninput="restringirPctSRV(this); limparSRV()" onkeydown="navegarEnter(event, null); if (event.key === 'Enter') this.blur()" value=""></div></div>
           </div>
         </div>
         <div class="bisnaga-section-header">
@@ -2645,7 +2645,7 @@
 
   <script>
     /* Data da última atualização (aparece ao carregar em "Agajota" no rodapé): pode ser mudada na área de controlo ou aqui */
-    let DATA_ATUALIZACAO = "5 de Novembro de 2026";
+    let DATA_ATUALIZACAO = "6 de Novembro de 2026";
 
     const correctPassword = "0";
 
