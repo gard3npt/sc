@@ -823,6 +823,28 @@
       background: #232931;
     }
 
+    /* Botão de reset (canto superior direito): só aparece nas páginas com campos editáveis */
+    #resetBtn { display: none; }
+    html.pg-resetavel #resetBtn { display: flex; }
+
+    /* Botão de menu (três linhas) no canto superior esquerdo, sempre visível: contém Suporte e Logout */
+    .menu-wrap { position: relative; }
+    .menu-panel {
+      position: absolute; top: 40px; left: 0; min-width: 150px; padding: 4px;
+      display: flex; flex-direction: column; gap: 4px;
+      background: rgba(27,31,36,0.96); border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,.35); z-index: 2100;
+    }
+    .menu-panel[hidden] { display: none; }
+    .menu-item {
+      display: flex; align-items: center; gap: 10px;
+      width: 100%; height: 36px; padding: 0 12px; text-align: left; cursor: pointer;
+      border: 0; border-radius: 5px; background: transparent; color: #fff;
+      font: inherit; font-size: 0.8rem; font-weight: 600;
+    }
+    .menu-item svg { flex: none; }
+    .menu-item:hover, .menu-item:focus-visible { background: rgba(255,255,255,.14); }
+
     /* TABS & CANVAS GERAIS */
     .tabs {
       display: grid;
@@ -1811,10 +1833,12 @@
     #ccZoomBox {
       display: none; position: fixed; right: 12px; bottom: 64px; z-index: 1500;
       zoom: var(--zoom-base); align-items: center; gap: 4px; padding: 4px 6px;
-      background: rgba(15,23,42,.92); border: 1px solid rgba(148,163,184,.35);
-      border-radius: 12px; box-shadow: 0 4px 14px rgba(0,0,0,.35);
+      background: rgba(15,23,42,.45); border: 1px solid rgba(148,163,184,.25);
+      border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
       color: #e2e8f0; font-size: 13px; font-weight: 600; font-family: inherit;
+      opacity: .6; transition: opacity .2s;
     }
+    #ccZoomBox:hover, #ccZoomBox:focus-within, #ccZoomBox:active { opacity: 1; }
     html.pg-cc #ccZoomBox { display: flex; }
     #ccZoomBox button {
       width: 30px; height: 30px; border: none; border-radius: 8px; cursor: pointer;
@@ -1966,9 +1990,19 @@
     .pd-amarelo { background: #fde68a; color: #78350f; }
     .pd-vermelho { background: #dc2626; color: #fff; }
     .pd-nota { margin: 3px 4px 0; font-size: 12px; color: #64748b; line-height: 1.35; }
-    .pd-sug { margin: 0; padding: 4px 12px 4px 30px; font-size: 13px; line-height: 1.4; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; }
-    .pd-sug li { padding: 7px 0; border-bottom: 1px solid #eef2f7; }
-    .pd-sug li:last-child { border-bottom: 0; }
+
+    /* edição dos valores predefinidos (área de controlo) */
+    #pdValoresOverlay { position: fixed; inset: 0; z-index: 99998; background: rgba(15,23,42,.6); display: flex; align-items: center; justify-content: center; padding: 12px; }
+    #pdValoresOverlay > div {
+      zoom: var(--zoom-base); width: 100%; max-width: 480px; max-height: calc(90vh / var(--zoom-base));
+      display: flex; flex-direction: column; overflow: hidden;
+      background: #f8fafc; color: #0f172a; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.4);
+    }
+    .pv-row { display: grid; grid-template-columns: 1fr 120px; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid #eef2f7; font-size: 13px; }
+    .pv-row:last-child { border-bottom: 0; }
+    .pv-row span { color: #475569; font-weight: 600; }
+    .pv-row input { box-sizing: border-box; width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; font: inherit; font-weight: 700; text-align: right; }
+    .pv-erro { color: #dc2626; font-size: 13px; font-weight: 700; margin: 8px 2px 0; min-height: 18px; }
 
     /* ferramenta de cortar a escala */
     #escalaCortar { position: fixed; inset: 0; z-index: 99991; background: rgba(15,23,42,0.97); overflow: hidden; display: flex; align-items: center; justify-content: center; user-select: none; -webkit-user-select: none; }
@@ -2009,6 +2043,15 @@
 
   <header class="header-bar">
     <div class="header-left">
+      <div class="menu-wrap">
+        <button id="menuBtn" class="header-btn header-btn-icon" onclick="toggleMenu(event)" title="Menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div id="menuPanel" class="menu-panel" role="menu" hidden>
+          <button type="button" class="menu-item" role="menuitem" onclick="fecharMenu(); openContacts()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="m4.93 4.93 4.24 4.24M14.83 9.17l4.24-4.24M14.83 14.83l4.24 4.24M9.17 14.83l-4.24 4.24"/></svg><span>Suporte</span></button>
+          <button type="button" class="menu-item" role="menuitem" onclick="fecharMenu(); pedirLogout()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg><span>Logout</span></button>
+        </div>
+      </div>
       <button id="homeHeaderBtn" class="header-btn header-btn-icon" style="display:none;" onclick="showHome()" title="Início" aria-label="Início">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>
       </button>
@@ -2016,8 +2059,9 @@
     </div>
     <div id="headerTitle" class="header-title"></div>
     <div class="header-right">
-      <button class="header-btn" onclick="openContacts()">Suporte</button>
-      <button class="header-btn" onclick="pedirLogout()">Logout</button>
+      <button id="resetBtn" class="header-btn header-btn-icon" onclick="pedirResetPagina()" title="Repor campos" aria-label="Repor os campos desta página">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+      </button>
     </div>
   </header>
 
@@ -2577,10 +2621,10 @@
   </div>
 
   <div id="ccZoomBox" role="group" aria-label="Zoom da página">
-    <button type="button" onclick="ccZoomMudar(-10)" aria-label="Diminuir zoom" title="Diminuir">−</button>
+    <button type="button" onclick="ccZoomMudar(-5)" aria-label="Diminuir zoom" title="Diminuir">−</button>
     <input type="text" id="ccZoomInput" inputmode="numeric" maxlength="3" value="100" aria-label="Percentagem de zoom" title="Escreva a percentagem (50 a 200) e prima Enter">
     <span aria-hidden="true">%</span>
-    <button type="button" onclick="ccZoomMudar(10)" aria-label="Aumentar zoom" title="Aumentar">+</button>
+    <button type="button" onclick="ccZoomMudar(5)" aria-label="Aumentar zoom" title="Aumentar">+</button>
   </div>
 
   <div id="contactsModal" class="modal">
@@ -2600,8 +2644,8 @@
   </div>
 
   <script>
-    /* Data da última atualização: mudar só aqui (aparece ao carregar em "Agajota" no rodapé) */
-    const DATA_ATUALIZACAO = "5 de Novembro de 2026";
+    /* Data da última atualização (aparece ao carregar em "Agajota" no rodapé): pode ser mudada na área de controlo ou aqui */
+    let DATA_ATUALIZACAO = "5 de Novembro de 2026";
 
     const correctPassword = "0";
 
@@ -2660,6 +2704,71 @@
       window._toastTimer = setTimeout(esconderToastAtualizacao, 5000);
     }
 
+    /* Menu de três linhas (Suporte e Logout): abre/fecha ao tocar, e fecha ao tocar fora ou com Esc */
+    function fecharMenu() {
+      document.getElementById("menuPanel").hidden = true;
+      document.getElementById("menuBtn").setAttribute("aria-expanded", "false");
+    }
+    function toggleMenu(e) {
+      if (e) e.stopPropagation();
+      const painel = document.getElementById("menuPanel");
+      painel.hidden = !painel.hidden;
+      document.getElementById("menuBtn").setAttribute("aria-expanded", painel.hidden ? "false" : "true");
+    }
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest(".menu-wrap")) fecharMenu();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") fecharMenu();
+    });
+
+    /* Reset dos campos editáveis da página aberta (pede confirmação).
+       Correção de Cargas: repõe o separador que está aberto aos valores iniciais. */
+    function pedirResetPagina() {
+      const aberta = function (id) { return document.getElementById(id).style.display === "block"; };
+      let msg = "Repor os campos desta página?";
+      if (aberta("ccPage")) msg = "Repor os campos deste separador aos valores iniciais?";
+      else if (aberta("srvPage")) msg = "Repor os campos do Cálculo de Prémio aos valores iniciais?";
+      else if (aberta("mediasBisnagasPage")) msg = "Apagar todos os valores desta página?";
+      else if (aberta("colasPage")) msg = "Apagar todos os valores de Tara e Cola?";
+      caixaMensagem(msg, resetPaginaAtual, null, "Repor");
+    }
+
+    function resetPaginaAtual() {
+      const aberta = function (id) { return document.getElementById(id).style.display === "block"; };
+      if (aberta("ccPage")) {
+        const folha = document.querySelector("#ccPage .sheet.active");
+        if (!folha) return;
+        folha.querySelectorAll("input").forEach(function (i) { i.value = i.defaultValue; });
+        const calcs = { ac: calcA, bx: calcB, cl: calcC, ra: calcR, co: calcT, gu: calcG };
+        if (calcs[folha.id]) calcs[folha.id]();
+      } else if (aberta("srvPage")) {
+        document.querySelectorAll("#srvPage input").forEach(function (i) { i.value = i.defaultValue; });
+        limparSRV();
+        calcSRV();
+      } else if (aberta("mediasBisnagasPage")) {
+        const esp = document.getElementById("espessura_folha");
+        if (esp) { esp.value = ""; esp.style.color = "#0f172a"; }
+        document.querySelectorAll("#bisnagasBody input").forEach(function (i) {
+          i.value = "";
+          i.style.color = "#0f172a";
+          delete i.dataset.manual;
+        });
+        definirNumeroLinhas(LINHAS_PADRAO_PONTO2);
+        const nl = document.getElementById("num_linhas_ponto2");
+        if (nl) nl.value = LINHAS_PADRAO_PONTO2;
+        if (typeof atualizarEstiloPresets === "function") atualizarEstiloPresets();
+        calcResultadoFinal();
+      } else if (aberta("colasPage")) {
+        tarasData = ["", "", "", ""];
+        colasData = [{ esq: "", dir: "" }];
+        renderTarasTable();
+        renderColasTable();
+        const nt = document.getElementById("num_linhas_taras"); if (nt) nt.value = 4;
+        const nc = document.getElementById("num_linhas_colas"); if (nc) nc.value = 1;
+      }
+    }
+
     function pedirLogout() {
       caixaMensagem("Terminar sessão?", logout, null, "Sair");
     }
@@ -2676,6 +2785,11 @@
       document.documentElement.classList.toggle("pg-cc", document.getElementById("ccPage").style.display === "block");
       /* página da Escala Semanal: também sem o título, mas mantém o zoom normal */
       document.documentElement.classList.toggle("pg-sem-titulo", document.getElementById("escalaPage").style.display === "block");
+      /* botão de reset: só nas páginas com campos editáveis */
+      const resetavel = logado && ["ccPage", "srvPage", "mediasBisnagasPage", "colasPage"].some(function (id) {
+        return document.getElementById(id).style.display === "block";
+      });
+      document.documentElement.classList.toggle("pg-resetavel", resetavel);
       /* o nome da página aparece só por baixo do título; a barra do cabeçalho fica sem nome */
       document.getElementById("headerTitle").textContent = "";
 
@@ -4680,42 +4794,6 @@
     }
 
     /* dias desde uma data escrita como "26 de Outubro de 2026" (null se não conseguir ler) */
-    function dnDiasDesde(txt){
-      const meses = { janeiro: 0, fevereiro: 1, marco: 2, abril: 3, maio: 4, junho: 5, julho: 6, agosto: 7, setembro: 8, outubro: 9, novembro: 10, dezembro: 11 };
-      const m = String(txt).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").match(/(\d{1,2}) de ([a-z]+) de (\d{4})/);
-      if (!m || !(m[2] in meses)) return null;
-      return Math.floor((Date.now() - new Date(+m[3], meses[m[2]], +m[1]).getTime()) / 86400000);
-    }
-
-    /* sugestões calculadas a partir do estado atual; desaparecem sozinhas quando o ponto deixa de se aplicar */
-    function dnSugestoes(){
-      const s = [], f = (dnDados && dnDados.fatos) || {};
-      if (typeof VERSAO_SITE === "undefined")
-        s.push(["Número de versão", "O site ainda não tem número de versão. Mostrar, por exemplo, “v1.4” junto à data ajuda a saber que versão cada pessoa está a usar."]);
-      if (typeof SENHA_DONO === "string" && SENHA_DONO.length < 8)
-        s.push(["Senha curta no código", "A senha desta área tem só " + SENHA_DONO.length + " caracteres e está visível no código. Serve para evitar toques acidentais, não para proteger dados."]);
-      if (escalaConfigurada())
-        s.push(["Escala sem autenticação", "O site lê e escreve a escala sem login no Firebase, por isso quem tiver o endereço da base de dados pode alterá-la. Confirme as regras no Firebase."]);
-      if (typeof escalaAtual !== "undefined" && escalaAtual && escalaAtual.imagem) {
-        const bytes = Math.round(escalaAtual.imagem.length * 0.75);
-        if (bytes > 700 * 1024) s.push(["Imagem da escala grande", "A escala guardada tem cerca de " + dnBytes(bytes) + ". Imagens mais pequenas carregam mais depressa, sobretudo em dados móveis."]);
-      }
-      if (typeof escalaAtual !== "undefined" && escalaAtual && escalaAtual.atualizada) {
-        const dEsc = (Date.now() - new Date(escalaAtual.atualizada).getTime()) / 86400000;
-        if (dEsc > ESCALA_AVISO_DIAS) s.push(["Escala desatualizada", "A escala foi atualizada há " + Math.floor(dEsc) + " dias (o aviso vermelho aparece a partir de " + ESCALA_AVISO_DIAS + ")."]);
-      }
-      if (dnEscalaMs > 1500)
-        s.push(["Ligação à escala lenta", "O último teste demorou " + dnEscalaMs + " ms. Pode ser a rede, ou a imagem da escala ser grande."]);
-      if (f.cacheNomes && f.cacheNomes.length && !f.cacheNomes.some(function(n){ return /\d/.test(n); }))
-        s.push(["Cache sem número de versão", "O nome da cache (“" + f.cacheNomes.join(", ") + "”) não tem número. Mudá-lo a cada atualização garante que todos recebem a versão nova."]);
-      const dias = dnDiasDesde(DATA_ATUALIZACAO);
-      if (dias !== null && dias > 45)
-        s.push(["Data de atualização antiga", "A última atualização indicada foi há " + dias + " dias. Se mexeu no site desde então, atualize a data no código."]);
-      if (f.recursos)
-        s.push(["Ficheiros que não carregam", f.recursos + " ficheiro(s) não carregaram (ver Erros). Confirme se foram enviados para o servidor."]);
-      return s;
-    }
-
     function dnTexto(){
       let t = "SC Lab — diagnóstico (" + new Date().toLocaleString("pt-PT") + ")\n";
       if (!dnDados) return t;
@@ -4724,8 +4802,6 @@
         t += "\n[" + g.t + "]\n" + g.l.map(function(r){ return r[0] + ": " + r[1]; }).join("\n") + "\n";
       });
       t += "\n[Escala semanal (servidor)]\nLigação: " + (dnTeste || "não testada") + "\n";
-      const sg = dnSugestoes();
-      t += "\n[Sugestões automáticas]\n" + (sg.length ? sg.map(function(x){ return "- " + x[0] + ": " + x[1]; }).join("\n") : "nenhuma") + "\n";
       return t;
     }
     async function dnCopiar(btn){
@@ -4758,6 +4834,134 @@
         dnAtualizar();
       }, null, "Repor");
     }
+    /* ---- Data de atualização (editável na área de controlo) ---- */
+    const DN_MESES = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    function dnDataISO(txt){
+      const sem = function(x){ return String(x).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); };
+      const m = sem(txt).match(/(\d{1,2}) de ([a-z]+) de (\d{4})/);
+      const i = m ? DN_MESES.map(sem).indexOf(m[2]) : -1;
+      if (i < 0) {
+        const h = new Date();
+        return h.getFullYear() + "-" + String(h.getMonth() + 1).padStart(2, "0") + "-" + String(h.getDate()).padStart(2, "0");
+      }
+      return m[3] + "-" + String(i + 1).padStart(2, "0") + "-" + String(m[1]).padStart(2, "0");
+    }
+    function dnGuardarData(){
+      const v = (document.getElementById("pdDataNova") || {}).value;
+      const m = v && v.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (!m) { caixaMensagem("Escolha uma data."); return; }
+      DATA_ATUALIZACAO = parseInt(m[3], 10) + " de " + DN_MESES[parseInt(m[2], 10) - 1] + " de " + m[1];
+      dnAtualizar();
+      caixaMensagem("Data de atualização: " + DATA_ATUALIZACAO + ". Para ficar no site, descarrega o index.");
+    }
+
+    /* ---- Valores predefinidos (editáveis na área de controlo) ---- */
+    const DN_VALORES = [
+      { t: "Correção de Cargas · Acidez", calc: "calcA", campos: [["q_ac", "Quantidade carga"], ["c_ac", "Acidez carga"], ["p_ac", "Acidez pretendida"], ["a_ac", "Acidez do concentrado de limão"]] },
+      { t: "Correção de Cargas · Brixº", calc: "calcB", campos: [["q_bx", "Quantidade carga"], ["c_bx", "Brix carga"], ["p_bx", "Brix pretendido"], ["b_bx", "Brix do concentrado"]] },
+      { t: "Correção de Cargas · Cloretos", calc: "calcC", campos: [["q_cl", "Quantidade carga"], ["c_cl", "Cloretos carga"], ["p_cl", "Cloretos pretendidos"]] },
+      { t: "Correção de Cargas · Ratio", calc: "calcR", campos: [["b_ra", "Brix"], ["c_ra", "Acidez"]] },
+      { t: "Correção de Cargas · Consistência", calc: "calcT", campos: [["te", "Tempo escorrimento"]] },
+      { t: "Correção de Cargas · Acidez GUD", calc: "calcG", campos: [["q_gu", "Quantidade carga"], ["c_gu", "Acidez carga"], ["p_gu", "Acidez pretendida"], ["a_gu", "Acidez do concentrado"]] },
+      { t: "Cálculo de Prémio", calc: "calcSRV", campos: [["srv_srv", "SRV"], ["srv_pct", "% de prémio"]] }
+    ];
+
+    function dnFecharValores(){
+      const ov = document.getElementById("pdValoresOverlay");
+      if (ov) ov.remove();
+    }
+
+    function dnEditarValores(){
+      dnFecharValores();
+      let h = "";
+      DN_VALORES.forEach(function(g){
+        h += '<div class="pd-sec">' + dnEsc(g.t) + '</div><div class="pd-card">';
+        g.campos.forEach(function(c){
+          const el = document.getElementById(c[0]);
+          h += '<div class="pv-row"><span>' + dnEsc(c[1]) + '</span><input type="text" inputmode="decimal" autocomplete="off" data-id="' + c[0] + '" value="' + dnEsc(el ? el.defaultValue : "") + '"></div>';
+        });
+        h += '</div>';
+      });
+      const ov = document.createElement("div");
+      ov.id = "pdValoresOverlay";
+      ov.innerHTML = '<div role="dialog" aria-modal="true" aria-label="Valores predefinidos">' +
+        '<div class="pd-head"><strong>✏️ Valores predefinidos</strong><span class="pd-x" onclick="dnFecharValores()" aria-label="Fechar">×</span></div>' +
+        '<div class="pd-body">' + h +
+        '<div class="pv-erro" id="pvErro"></div>' +
+        '<button type="button" class="pd-btn pd-azul" onclick="dnGuardarValores()">💾 Guardar</button>' +
+        '<button type="button" class="pd-btn" onclick="dnFecharValores()">Cancelar</button>' +
+        '</div></div>';
+      ov.addEventListener("click", function(e){ if (e.target === ov) dnFecharValores(); });
+      document.body.appendChild(ov);
+    }
+
+    function dnGuardarValores(){
+      const erro = document.getElementById("pvErro");
+      const novos = [];
+      let falha = null;
+      DN_VALORES.forEach(function(g){
+        g.campos.forEach(function(c){
+          if (falha) return;
+          const campo = document.querySelector('#pdValoresOverlay input[data-id="' + c[0] + '"]');
+          const el = document.getElementById(c[0]);
+          if (!campo || !el) return;
+          let v = campo.value.trim();
+          if (el.type === "number") {
+            v = v.replace(",", ".");
+            if (v !== "" && !isFinite(Number(v))) { falha = c[1] + " (" + g.t + "): escreva só um número."; return; }
+          }
+          novos.push([el, v, g.calc]);
+        });
+      });
+      if (falha) { erro.textContent = falha; return; }
+      const calcs = {};
+      novos.forEach(function(n){
+        n[0].defaultValue = n[1];
+        n[0].value = n[1];
+        calcs[n[2]] = true;
+      });
+      Object.keys(calcs).forEach(function(f){
+        if (f === "calcSRV") { limparSRV(); calcSRV(); } else if (typeof window[f] === "function") window[f]();
+      });
+      dnFecharValores();
+      caixaMensagem("Valores predefinidos guardados. Já valem para o botão ↺ neste dispositivo; para ficarem no site, descarrega o index e substitui-o no alojamento.");
+    }
+
+    /* lê o index.html publicado e troca só o atributo value dos campos predefinidos */
+    async function dnDescarregarIndex(btn){
+      const texto = btn.textContent;
+      btn.disabled = true; btn.textContent = "A preparar…";
+      try {
+        const url = location.href.split("#")[0];
+        const r = await fetch(url + (url.indexOf("?") < 0 ? "?" : "&") + "x=" + Date.now(), { cache: "no-store" });
+        if (!r.ok) throw new Error("http " + r.status);
+        let fonte = await r.text();
+        const valores = {};
+        DN_VALORES.forEach(function(g){ g.campos.forEach(function(c){ const el = document.getElementById(c[0]); if (el) valores[c[0]] = el.defaultValue; }); });
+        const esc = function(v){ return String(v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); };
+        fonte = fonte.replace(/<input\b((?:"[^"]*"|'[^']*'|[^>"'])*)>/g, function(m, attrs){
+          const idm = attrs.match(/\sid="([^"]*)"/);
+          if (!idm || !Object.prototype.hasOwnProperty.call(valores, idm[1])) return m;
+          const v = esc(valores[idm[1]]);
+          if (/\svalue="[^"]*"/.test(attrs)) attrs = attrs.replace(/(\svalue=")[^"]*(")/, function(a, p, q){ return p + v + q; });
+          else attrs = attrs + ' value="' + v + '"';
+          return "<input" + attrs + ">";
+        });
+        fonte = fonte.replace(/((?:const|let) DATA_ATUALIZACAO = ")[^"]*(")/, function(a, p, q){ return p + DATA_ATUALIZACAO + q; });
+        const blob = new Blob([fonte], { type: "text/html;charset=utf-8" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "index.html";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
+      } catch (e) {
+        caixaMensagem("Não consegui ler o index.html original. Abre o site pelo endereço publicado (https) e tenta outra vez; a partir de um ficheiro local o navegador não deixa.");
+      }
+      btn.disabled = false; btn.textContent = texto;
+    }
+
     function dnReporSite(){
       caixaMensagem("Repor o site ao estado original? Apaga tudo o que está guardado neste dispositivo (sessão, zoom, cache) e volta ao início de sessão. A escala guardada no servidor não é afetada.", async function(){
         try { localStorage.clear(); sessionStorage.clear(); } catch (e) {}
@@ -4786,6 +4990,16 @@
         '<button type="button" class="pd-btn" onclick="dnAtualizar()">🔃 Atualizar diagnóstico</button>' +
         '<a class="pd-btn pd-azul" style="text-decoration:none;" href="' + dnEsc(DIAGNOSTICO_PWA) + '" target="_blank" rel="noopener">🩺 Diagnóstico da app instalável</a>' +
         '<div class="pd-nota">Verifica se o site pode ser instalado como app no telemóvel (manifesto, ícones e service worker). Abre ' + dnEsc(DIAGNOSTICO_PWA) + ' num novo separador.</div>';
+      h += '<div class="pd-sec">Data de atualização</div>' +
+        '<div class="pd-card"><div class="pd-row"><span>Atual</span><b>' + dnEsc(DATA_ATUALIZACAO) + '</b></div>' +
+        '<div class="pd-row"><span>Nova data</span><input type="date" id="pdDataNova" value="' + dnDataISO(DATA_ATUALIZACAO) + '" style="box-sizing:border-box; width:100%; padding:7px 8px; border:1px solid #cbd5e1; border-radius:8px; font:inherit; font-weight:700;"></div></div>' +
+        '<button type="button" class="pd-btn pd-azul" onclick="dnGuardarData()">📅 Guardar data</button>' +
+        '<div class="pd-nota">É a data que aparece ao carregar em AGAJOTA no rodapé. Para ficar no site, descarrega o index.</div>';
+      h += '<div class="pd-sec">Valores predefinidos</div>' +
+        '<button type="button" class="pd-btn pd-azul" onclick="dnEditarValores()">✏️ Editar valores predefinidos</button>' +
+        '<div class="pd-nota">Valores iniciais dos campos da Correção de Cargas e do Cálculo de Prémio (os que o botão ↺ repõe).</div>' +
+        '<button type="button" class="pd-btn" onclick="dnDescarregarIndex(this)">⬇️ Descarregar index</button>' +
+        '<div class="pd-nota">Descarrega o index.html com estes valores predefinidos e a data de atualização. Para os outros utilizadores passarem a vê-los, substitui o index no alojamento.</div>';
       h += '<div class="pd-sec">Reposição</div>' +
         '<button type="button" class="pd-btn pd-amarelo" onclick="dnLimparCache()">🧽 Atualizar app (limpar cache)</button>' +
         '<div class="pd-nota">Mantém a sessão e o zoom. Útil quando aparece uma versão antiga do site.</div>' +
@@ -4793,11 +5007,6 @@
         '<div class="pd-nota">O zoom da Correção de Cargas volta a 100%.</div>' +
         '<button type="button" class="pd-btn pd-vermelho" onclick="dnReporSite()">⚠️ Repor site original</button>' +
         '<div class="pd-nota">Apaga tudo o que está guardado neste dispositivo e termina a sessão. Não apaga a escala do servidor.</div>';
-      const sg = dnSugestoes();
-      h += '<div class="pd-sec">Sugestões automáticas</div>' + (sg.length
-        ? '<ol class="pd-sug">' + sg.map(function(x){ return '<li><b>' + dnEsc(x[0]) + '.</b> ' + dnEsc(x[1]) + '</li>'; }).join("") + '</ol>'
-        : '<div class="pd-ok">✅ Nada a sugerir de momento</div>') +
-        '<div class="pd-nota">Calculadas a partir do estado atual do site; desaparecem quando o ponto deixa de se aplicar.</div>';
       c.innerHTML = h;
       c.scrollTop = pos;
     }
