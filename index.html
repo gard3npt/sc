@@ -2601,7 +2601,7 @@
 
   <script>
     /* Data da última atualização: mudar só aqui (aparece ao carregar em "Agajota" no rodapé) */
-    const DATA_ATUALIZACAO = "26 de Outubro de 2026";
+    const DATA_ATUALIZACAO = "5 de Novembro de 2026";
 
     const correctPassword = "0";
 
@@ -3622,9 +3622,10 @@
     /* ---------------- LÓGICA CORREÇÃO DE CARGAS ---------------- */
     function calcA() {
       const q = n('q_ac'), c = n('c_ac'), p = n('p_ac'), a = n('a_ac');
-      const fac = (p - c) * q / 100;
-      const clim = a !== 0 ? (fac / a) * 100 : 0;
-      const aci = fac * 1.07;
+      const acido = (p - c) * q / 100;
+      const fac = a !== 0 ? 100 / a : 0;
+      const clim = acido * fac;
+      const aci = acido;
 
       document.getElementById('fac').innerHTML = fmt(fac);
       document.getElementById('clim').innerHTML = fmt(clim);
@@ -3664,9 +3665,10 @@
 
     function calcG() {
       const q = n('q_gu'), c = n('c_gu'), p = n('p_gu'), a = n('a_gu');
-      const fac = (p - c) * q / 100;
-      const clim = a !== 0 ? (fac / a) * 100 : 0;
-      const aci = fac * 1.07;
+      const acido = (p - c) * q / 100;
+      const fac = a !== 0 ? 100 / a : 0;
+      const clim = acido * fac;
+      const aci = acido;
 
       document.getElementById('fac_gu').innerHTML = fmt(fac);
       document.getElementById('clim_gu').innerHTML = fmt(clim);
