@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
-<head>
+<head><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -9,6 +9,7 @@
   <link rel="icon" href="favicon.png">
 
   <meta name="theme-color" content="#121417">
+  <meta name="author" content="Helder Jardim Fernandes">
 
   <!-- Regista erros de JavaScript e recursos que não carregaram (aparecem no painel escondido do dono) -->
   <script>
@@ -1271,6 +1272,7 @@
     }
     .suporte-txt strong { display: block; font-size: 0.95rem; }
     .suporte-txt small { display: block; margin-top: 2px; color: #64748b; font-size: 0.78rem; font-weight: 600; }
+    .suporte-credito { margin-top: 16px; text-align: center; font-size: 0.68rem; color: #94a3b8; letter-spacing: 0.02em; user-select: none; }
     .suporte-sep { border: 0; border-top: 1px solid #e2e8f0; margin: 18px 0 14px; }
     .suporte-sec { text-align: center; margin-bottom: 12px; color: #64748b; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; }
 
@@ -2134,9 +2136,9 @@
           </div>
           <div class="cc-body">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" step="any" id="q_ac" value="12000" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'c_ac')"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" step="any" id="c_ac" value="0.17" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'p_ac')"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" step="any" id="p_ac" value="0.35" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'a_ac')"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="q_ac" value="4766" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'c_ac')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="c_ac" value="0,69" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'p_ac')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="p_ac" value="0,75" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, 'a_ac')"></div></div>
           </div>
           </div>
           <div class="bisnaga-section-header">
@@ -2152,7 +2154,7 @@
             <div class="rlabel-split">
               <span>Concentrado Limão:</span>
               <div class="inline-acid-cell">
-                <input type="number" step="any" id="a_ac" value="40" placeholder="Acidez" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, '')">
+                <input type="text" inputmode="decimal" autocomplete="off" id="a_ac" value="32,08" placeholder="Acidez" onclick="this.select()" oninput="calcA()" onkeydown="navegarEnter(event, '')">
               </div>
             </div>
             <div class="rvalue" id="clim"></div>
@@ -2174,9 +2176,9 @@
           </div>
           <div class="cc-body">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" step="any" id="q_bx" value="12000" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'c_bx')"></div></div>
-            <div class="box"><div class="lbl">BRIX CARGA</div><div class="cell"><input type="number" step="any" id="c_bx" value="10" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'p_bx')"></div></div>
-            <div class="box"><div class="lbl">BRIX PRETENDIDO</div><div class="cell"><input type="number" step="any" id="p_bx" value="12" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'b_bx')"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="q_bx" value="12000" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'c_bx')"></div></div>
+            <div class="box"><div class="lbl">BRIX CARGA</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="c_bx" value="10" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'p_bx')"></div></div>
+            <div class="box"><div class="lbl">BRIX PRETENDIDO</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="p_bx" value="12" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, 'b_bx')"></div></div>
           </div>
           </div>
           <div class="bisnaga-section-header">
@@ -2197,7 +2199,7 @@
             <div class="rlabel-split">
               <span>Concentrado:</span>
               <div class="inline-acid-cell">
-                <input type="number" step="any" id="b_bx" value="80" placeholder="Brix" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, '')">
+                <input type="text" inputmode="decimal" autocomplete="off" id="b_bx" value="80" placeholder="Brix" onclick="this.select()" oninput="calcB()" onkeydown="navegarEnter(event, '')">
               </div>
             </div>
             <div class="rvalue" id="conc"></div>
@@ -2219,9 +2221,9 @@
           </div>
           <div class="cc-body">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" step="any" id="q_cl" value="4600" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, 'c_cl')"></div></div>
-            <div class="box"><div class="lbl">CLORETOS CARGA</div><div class="cell"><input type="number" step="any" id="c_cl" value="0.2" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, 'p_cl')"></div></div>
-            <div class="box"><div class="lbl">CLORETOS PRETENDIDOS</div><div class="cell"><input type="number" step="any" id="p_cl" value="0.35" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, '')"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="q_cl" value="4600" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, 'c_cl')"></div></div>
+            <div class="box"><div class="lbl">CLORETOS CARGA</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="c_cl" value="0,2" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, 'p_cl')"></div></div>
+            <div class="box"><div class="lbl">CLORETOS PRETENDIDOS</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="p_cl" value="0,35" onclick="this.select()" oninput="calcC()" onkeydown="navegarEnter(event, '')"></div></div>
           </div>
           </div>
           <div class="bisnaga-section-header">
@@ -2245,8 +2247,8 @@
           </div>
           <div class="cc-body">
           <div class="row">
-            <div class="box"><div class="lbl">BRIX</div><div class="cell"><input type="number" step="any" id="b_ra" value="10" onclick="this.select()" oninput="calcR()" onkeydown="navegarEnter(event, 'c_ra')"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ</div><div class="cell"><input type="number" step="any" id="c_ra" value="0.4" onclick="this.select()" oninput="calcR()" onkeydown="navegarEnter(event, '')"></div></div>
+            <div class="box"><div class="lbl">BRIX</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="b_ra" value="10" onclick="this.select()" oninput="calcR()" onkeydown="navegarEnter(event, 'c_ra')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="c_ra" value="0,4" onclick="this.select()" oninput="calcR()" onkeydown="navegarEnter(event, '')"></div></div>
           </div>
           </div>
           <div class="bisnaga-section-header">
@@ -2270,7 +2272,7 @@
           </div>
           <div class="cc-body">
           <div class="row">
-            <div class="box"><div class="lbl">TEMPO ESCORRIMENTO</div><div class="cell"><input type="number" step="any" id="te" value="40" onclick="this.select()" oninput="calcT()" onkeydown="navegarEnter(event, '')"></div></div>
+            <div class="box"><div class="lbl">TEMPO ESCORRIMENTO</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="te" value="40" onclick="this.select()" oninput="calcT()" onkeydown="navegarEnter(event, '')"></div></div>
           </div>
           </div>
           <div class="bisnaga-section-header">
@@ -2294,9 +2296,9 @@
           </div>
           <div class="cc-body">
           <div class="row">
-            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="number" step="any" id="q_gu" value="11640" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'c_gu')"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="number" step="any" id="c_gu" value="2.94" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'p_gu')"></div></div>
-            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="number" step="any" id="p_gu" value="3" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'a_gu')"></div></div>
+            <div class="box"><div class="lbl">QUANTIDADE CARGA</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="q_gu" value="11640" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'c_gu')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ CARGA</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="c_gu" value="2,94" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'p_gu')"></div></div>
+            <div class="box"><div class="lbl">ACIDEZ PRETENDIDA</div><div class="cell"><input type="text" inputmode="decimal" autocomplete="off" id="p_gu" value="3" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, 'a_gu')"></div></div>
           </div>
           </div>
           <div class="bisnaga-section-header">
@@ -2312,7 +2314,7 @@
             <div class="rlabel-split">
               <span>Concentrado Limão:</span>
               <div class="inline-acid-cell">
-                <input type="number" step="any" id="a_gu" value="30.12" placeholder="Acidez" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, '')">
+                <input type="text" inputmode="decimal" autocomplete="off" id="a_gu" value="30,12" placeholder="Acidez" onclick="this.select()" oninput="calcG()" onkeydown="navegarEnter(event, '')">
               </div>
             </div>
             <div class="rvalue" id="clim_gu"></div>
@@ -2640,6 +2642,7 @@
         <div class="suporte-sec">APLICAÇÃO</div>
         <button type="button" class="suporte-op" onclick="instalarDoSuporte()"><span class="suporte-ico">📲</span><span class="suporte-txt"><strong>Instalar app</strong><small>Adicionar ao ecrã principal</small></span></button>
       </div>
+      <div class="suporte-credito">Desenvolvido por: Helder Jardim Fernandes</div>
     </div>
   </div>
 
@@ -3720,7 +3723,7 @@
       btn.classList.add('active');
     }
 
-    const n = (id) => parseFloat(document.getElementById(id).value) || 0;
+    const n = (id) => parseFloat(String(document.getElementById(id).value).replace(",", ".")) || 0;
     
     const formatarComVirgula = (valor) => {
       return valor.toFixed(2).replace(".", ",");
@@ -3732,6 +3735,25 @@
       if (v < 0) el.className = 'neg';
       return el.outerHTML;
     };
+
+    /* Células da Correção de Cargas: aceitam ponto ou vírgula (é igual) e mostram sempre vírgula; só números */
+    function limparDecimal(el, permitirPct) {
+      const antes = el.value;
+      let v = antes.replace(/\./g, ",").replace(permitirPct ? /[^0-9,%]/g : /[^0-9,]/g, "");
+      const i = v.indexOf(",");
+      if (i >= 0) v = v.slice(0, i + 1) + v.slice(i + 1).replace(/,/g, "");
+      if (permitirPct) v = v.replace(/%/g, "") + (v.indexOf("%") >= 0 ? "%" : "");
+      if (v !== antes) {
+        const pos = el.selectionStart;
+        el.value = v;
+        try { const d = Math.max(0, pos - (antes.length - v.length)); el.setSelectionRange(d, d); } catch (err) {}
+      }
+    }
+    document.getElementById("ccPage").addEventListener("input", function (e) {
+      const el = e.target;
+      if (!el || el.tagName !== "INPUT" || el.getAttribute("inputmode") !== "decimal") return;
+      limparDecimal(el, false);
+    }, true);
 
     /* ---------------- LÓGICA CORREÇÃO DE CARGAS ---------------- */
     function calcA() {
@@ -4892,6 +4914,10 @@
         '<button type="button" class="pd-btn" onclick="dnFecharValores()">Cancelar</button>' +
         '</div></div>';
       ov.addEventListener("click", function(e){ if (e.target === ov) dnFecharValores(); });
+      ov.addEventListener("input", function(e){
+        const el = e.target;
+        if (el && el.tagName === "INPUT" && el.dataset.id) limparDecimal(el, el.dataset.id === "srv_pct");
+      });
       document.body.appendChild(ov);
     }
 
@@ -4906,10 +4932,9 @@
           const el = document.getElementById(c[0]);
           if (!campo || !el) return;
           let v = campo.value.trim();
-          if (el.type === "number") {
-            v = v.replace(",", ".");
-            if (v !== "" && !isFinite(Number(v))) { falha = c[1] + " (" + g.t + "): escreva só um número."; return; }
-          }
+          const pctOk = c[0] === "srv_pct" ? "%?" : "";
+          if (v !== "" && !new RegExp("^(\\d+([.,]\\d*)?|[.,]\\d+)" + pctOk + "$").test(v)) { falha = c[1] + " (" + g.t + "): escreva só um número."; return; }
+          v = v.replace(".", ",");
           novos.push([el, v, g.calc]);
         });
       });
