@@ -846,6 +846,18 @@
     .menu-item svg { flex: none; }
     .menu-item:hover, .menu-item:focus-visible { background: rgba(255,255,255,.14); }
 
+    /* Layout do site (Automático / PC / Mobile): escolha permanente, dentro do menu de três linhas */
+    .menu-panel { min-width: 200px; }
+    .menu-versao { padding: 6px 8px 8px; border-top: 1px solid rgba(255,255,255,.18); margin-top: 2px; }
+    .menu-versao-tit { display: flex; align-items: center; gap: 8px; color: #cbd5e1; font-size: 0.68rem; font-weight: 700; letter-spacing: .08em; margin: 2px 4px 6px; }
+    .menu-versao-opcoes { display: flex; gap: 4px; }
+    .menu-versao-opcoes button {
+      flex: 1; height: 32px; cursor: pointer; border: 1px solid rgba(255,255,255,.28); border-radius: 6px;
+      background: transparent; color: #fff; font: inherit; font-size: 0.74rem; font-weight: 600;
+    }
+    .menu-versao-opcoes button:hover, .menu-versao-opcoes button:focus-visible { background: rgba(255,255,255,.14); }
+    .menu-versao-opcoes button.on { background: #2563eb; border-color: #60a5fa; }
+
     /* TABS & CANVAS GERAIS */
     .tabs {
       display: grid;
@@ -2031,6 +2043,56 @@
     #srvPage .cell input { color: #1d4ed8; font-weight: 700; }
     #srvPage .cell input::placeholder { color: #94a3b8; font-weight: 400; }
   </style>
+  <script>
+  /* Layout do site: Automático (predefinido), PC ou Mobile. A escolha fica guardada neste aparelho.
+     Funciona ligando/desligando as regras @media de 768 px e ajustando o viewport. */
+  (function () {
+    var CHAVE = "sc-versao", guardadas = null;
+    function obter() {
+      try { var v = localStorage.getItem(CHAVE); return (v === "pc" || v === "mobile") ? v : "auto"; } catch (e) { return "auto"; }
+    }
+    function recolher() {
+      guardadas = [];
+      for (var i = 0; i < document.styleSheets.length; i++) {
+        var regras; try { regras = document.styleSheets[i].cssRules; } catch (e) { continue; }
+        for (var j = 0; j < regras.length; j++) {
+          var r = regras[j];
+          if (r.type === 4 && /768|769/.test(r.media.mediaText) && /(max|min)-width/.test(r.media.mediaText))
+            guardadas.push({ regra: r, original: r.media.mediaText, max: /max-width/.test(r.media.mediaText) });
+        }
+      }
+    }
+    function aplicar() {
+      var modo = obter();
+      if (!guardadas) recolher();
+      guardadas.forEach(function (g) {
+        var texto = g.original;
+        if (modo === "pc") texto = g.max ? "not all" : "all";
+        else if (modo === "mobile") texto = g.max ? "all" : "not all";
+        try { g.regra.media.mediaText = texto; } catch (e) {}
+      });
+      var vp = document.querySelector('meta[name="viewport"]');
+      if (vp) vp.setAttribute("content", modo === "pc" ? "width=1100" : "width=device-width, initial-scale=1.0");
+      atualizarBotoes();
+    }
+    function atualizarBotoes() {
+      var modo = obter();
+      document.querySelectorAll("[data-versao]").forEach(function (b) {
+        var ativo = b.getAttribute("data-versao") === modo;
+        b.classList.toggle("on", ativo);
+        b.setAttribute("aria-pressed", ativo ? "true" : "false");
+      });
+    }
+    function definir(modo) {
+      try { if (modo === "auto") localStorage.removeItem(CHAVE); else localStorage.setItem(CHAVE, modo); } catch (e) {}
+      aplicar();
+      if (typeof aplicarZoom === "function") aplicarZoom();
+    }
+    window.scVersao = { obter: obter, definir: definir };
+    aplicar();
+    document.addEventListener("DOMContentLoaded", atualizarBotoes);
+  })();
+  </script>
 </head>
 <body>
 
@@ -2052,6 +2114,14 @@
         <div id="menuPanel" class="menu-panel" role="menu" hidden>
           <button type="button" class="menu-item" role="menuitem" onclick="fecharMenu(); openContacts()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="m4.93 4.93 4.24 4.24M14.83 9.17l4.24-4.24M14.83 14.83l4.24 4.24M9.17 14.83l-4.24 4.24"/></svg><span>Suporte</span></button>
           <button type="button" class="menu-item" role="menuitem" onclick="fecharMenu(); pedirLogout()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg><span>Logout</span></button>
+          <div class="menu-versao" role="group" aria-label="Layout do site">
+            <div class="menu-versao-tit"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="11" rx="1.5"/><path d="M6 19h6M9 15v4"/><rect x="17" y="8" width="5" height="10" rx="1.2"/></svg>LAYOUT</div>
+            <div class="menu-versao-opcoes">
+              <button type="button" data-versao="auto" aria-pressed="true" onclick="scVersao.definir('auto')">Auto</button>
+              <button type="button" data-versao="pc" aria-pressed="false" onclick="scVersao.definir('pc')">PC</button>
+              <button type="button" data-versao="mobile" aria-pressed="false" onclick="scVersao.definir('mobile')">Mobile</button>
+            </div>
+          </div>
         </div>
       </div>
       <button id="homeHeaderBtn" class="header-btn header-btn-icon" style="display:none;" onclick="showHome()" title="Início" aria-label="Início">
@@ -2648,7 +2718,7 @@
 
   <script>
     /* Data da última atualização (aparece ao carregar em "Agajota" no rodapé): pode ser mudada na área de controlo ou aqui */
-    let DATA_ATUALIZACAO = "6 de Novembro de 2026";
+    let DATA_ATUALIZACAO = "9 de Novembro de 2026";
 
     const correctPassword = "0";
 
@@ -2856,7 +2926,7 @@
       return 1;
     }
     function aplicarZoom(){
-      document.documentElement.style.setProperty("--zoom-base", calcularZoom(window.innerWidth).toFixed(3));
+      document.documentElement.style.setProperty("--zoom-base", (window.scVersao && scVersao.obter() === "mobile" ? 1 : calcularZoom(window.innerWidth)).toFixed(3));
     }
     aplicarZoom();
     window.addEventListener("resize", aplicarZoom);
