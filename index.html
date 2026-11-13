@@ -848,6 +848,26 @@
 
     /* Layout do site (Automático / PC / Mobile): escolha permanente, dentro do menu de três linhas */
     .menu-panel { min-width: 200px; }
+    .menu-sec-tit { display: flex; align-items: center; gap: 8px; color: #cbd5e1; font-size: 0.68rem; font-weight: 700; letter-spacing: .08em; margin: 6px 12px 2px; }
+    .menu-versao-toggle { width: 100%; background: transparent; border: 0; border-radius: 5px; padding: 6px 4px; margin: 0; cursor: pointer; font-family: inherit; }
+    .menu-versao-toggle:hover, .menu-versao-toggle:focus-visible { background: rgba(255,255,255,.1); }
+    .menu-versao-toggle .menu-chevron { color: #cbd5e1; margin-left: auto; transition: transform .15s; }
+    .menu-versao-toggle[aria-expanded="true"] .menu-chevron { transform: rotate(180deg); }
+    .menu-versao-opcoes[hidden] { display: none; }
+    .menu-versao-opcoes { margin-top: 4px; }
+    .menu-logout { margin-top: 2px; background: rgba(239,68,68,.16); color: #fecaca; border: 1px solid rgba(248,113,113,.55); }
+    .menu-logout:hover, .menu-logout:focus-visible { background: rgba(239,68,68,.32); color: #fff; }
+    .menu-rodape { margin-top: 4px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,.18); user-select: none; }
+    .menu-credito { padding-bottom: 0; font-size: 0.62rem; color: #7c8aa0; white-space: nowrap; }
+    .menu-panel { width: max-content; max-width: calc(100vw - 16px); }
+    .menu-data { padding: 4px 8px 4px; text-align: center; color: #94a3b8; font-size: 0.66rem; font-weight: 600; letter-spacing: .02em; }
+    .menu-sep { height: 1px; margin: 4px 0 2px; background: rgba(255,255,255,.18); }
+    .ic-amarelo > svg { color: #fbbf24; }
+    .ic-laranja > svg { color: #fb923c; }
+    .ic-azul > svg { color: #60a5fa; }
+    .ic-verde > svg { color: #4ade80; }
+    .ic-roxo > svg { color: #a78bfa; }
+    .ic-turquesa > svg { color: #2dd4bf; }
     .menu-versao { padding: 6px 8px 8px; border-top: 1px solid rgba(255,255,255,.18); margin-top: 2px; }
     .menu-versao-tit { display: flex; align-items: center; gap: 8px; color: #cbd5e1; font-size: 0.68rem; font-weight: 700; letter-spacing: .08em; margin: 2px 4px 6px; }
     .menu-versao-opcoes { display: flex; gap: 4px; }
@@ -1986,6 +2006,16 @@
       background: #f8fafc; color: #0f172a; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.4);
     }
     .pd-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: #0f172a; color: #fff; font-size: 1rem; }
+    .pd-head .pd-modo { display: inline-flex; gap: 6px; margin-left: 10px; vertical-align: middle; }
+    .pd-head .pd-modo button { width: 32px; height: 30px; padding: 0; border: 0; border-radius: 8px; background: rgba(255,255,255,.14); color: #e2e8f0; font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; line-height: 1; }
+    .pd-head .pd-modo button.on { background: #2563eb; color: #fff; cursor: default; }
+    .lg-item { padding: 6px 0 12px; border-bottom: 1px solid #eef2f7; }
+    .lg-item:last-child { border-bottom: 0; }
+    .lg-acoes { display: flex; gap: 6px; margin-top: 8px; }
+    .lg-acoes button { flex: 1; padding: 8px 6px; border: 0; border-radius: 8px; background: #e2e8f0; color: #0f172a; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .lg-acoes .lg-del { background: #fee2e2; color: #991b1b; flex: 2; }
+    .pd-lbl { display: block; margin-top: 8px; font-size: 12px; font-weight: 700; color: #475569; }
+    .pd-input { display: block; box-sizing: border-box; width: 100%; margin-top: 4px; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 10px; background: #fff; color: #0f172a; font: inherit; font-size: 15px; font-weight: 600; }
     .pd-x { cursor: pointer; font-size: 26px; line-height: 1; padding: 0 4px; color: #cbd5e1; }
     .pd-body { overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 4px 14px 16px; text-align: left; }
     .pd-sec { margin: 18px 0 8px; padding: 16px 2px 0; border-top: 2px solid #cbd5e1; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #64748b; }
@@ -2112,15 +2142,28 @@
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
         <div id="menuPanel" class="menu-panel" role="menu" hidden>
-          <button type="button" class="menu-item" role="menuitem" onclick="fecharMenu(); openContacts()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="m4.93 4.93 4.24 4.24M14.83 9.17l4.24-4.24M14.83 14.83l4.24 4.24M9.17 14.83l-4.24 4.24"/></svg><span>Suporte</span></button>
-          <button type="button" class="menu-item" role="menuitem" onclick="fecharMenu(); pedirLogout()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg><span>Logout</span></button>
+          <div class="menu-sec-tit ic-azul" role="presentation"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="m4.93 4.93 4.24 4.24M14.83 9.17l4.24-4.24M14.83 14.83l4.24 4.24M9.17 14.83l-4.24 4.24"/></svg>SUPORTE</div>
+          <button type="button" class="menu-item ic-amarelo" role="menuitem" onclick="fecharMenu(); enviarSugestao()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/></svg><span>Reportar sugestão</span></button>
+          <button type="button" class="menu-item ic-laranja" role="menuitem" onclick="fecharMenu(); reportarProblema()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8a4 4 0 0 1 8 0v1H8Z"/><rect x="7" y="9" width="10" height="11" rx="5"/><path d="M12 9v11M3 13h4M17 13h4M4 7l3 2M20 7l-3 2M4 19l3-2M20 19l-3-2"/></svg><span>Reportar problema</span></button>
+          <button type="button" class="menu-item ic-azul" role="menuitem" onclick="fecharMenu(); sendMessage()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>Contacto (E-mail)</span></button>
+          <div class="menu-sep" role="separator"></div>
+          <div class="menu-sec-tit ic-verde" role="presentation"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>APLICAÇÃO</div>
+          <button type="button" class="menu-item ic-verde" role="menuitem" id="menuInstalar" onclick="fecharMenu(); window.instalarOuEstado()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M12 8v6m-3-3 3 3 3-3"/></svg><span>Instalar app</span></button>
+          <button type="button" class="menu-item ic-roxo" role="menuitem" onclick="fecharMenu(); partilharSite()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span>Partilhar o site</span></button>
+          <button type="button" class="menu-item ic-turquesa" role="menuitem" onclick="fecharMenu(); dnLimparCache()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg><span>Atualizar (F5)</span></button>
           <div class="menu-versao" role="group" aria-label="Layout do site">
-            <div class="menu-versao-tit"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="11" rx="1.5"/><path d="M6 19h6M9 15v4"/><rect x="17" y="8" width="5" height="10" rx="1.2"/></svg>LAYOUT</div>
-            <div class="menu-versao-opcoes">
+            <button type="button" class="menu-versao-tit menu-versao-toggle ic-azul" id="layoutToggle" aria-expanded="false" aria-controls="layoutOpcoes" onclick="toggleLayout()"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="11" rx="1.5"/><path d="M6 19h6M9 15v4"/><rect x="17" y="8" width="5" height="10" rx="1.2"/></svg>LAYOUT<svg class="menu-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="menu-versao-opcoes" id="layoutOpcoes" hidden>
               <button type="button" data-versao="auto" aria-pressed="true" onclick="scVersao.definir('auto')">Auto</button>
               <button type="button" data-versao="pc" aria-pressed="false" onclick="scVersao.definir('pc')">PC</button>
               <button type="button" data-versao="mobile" aria-pressed="false" onclick="scVersao.definir('mobile')">Mobile</button>
             </div>
+          </div>
+          <div class="menu-sep" role="separator"></div>
+          <button type="button" class="menu-item menu-logout" role="menuitem" onclick="fecharMenu(); pedirLogout()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg><span>Logout</span></button>
+          <div class="menu-rodape">
+            <div class="menu-data menu-credito">Desenvolvido por: Helder Jardim Fernandes</div>
+            <div id="menuData" class="menu-data" role="presentation" onclick="triploClique(this, function () { fecharMenu(); abrirPainelDono(); })"></div>
           </div>
         </div>
       </div>
@@ -2150,7 +2193,7 @@
       <div class="button-grid" id="mainMenu">
         <div onclick="toggleApoioDropdown()" id="apoioDropdownBtn" class="hub-button dropdown-toggle">Apoio Produção</div>
         <div id="apoioDropdown" class="dropdown-content">
-          <div class="button-grid" style="margin-bottom: 0; gap: 10px;">
+          <div data-lg="apoio" class="button-grid" style="margin-bottom: 0; gap: 10px;">
             <div onclick="showCC()" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Correção de Cargas</div>
             <a href="https://sumolcompal.sharepoint.com/:w:/r/sites/SIG-Operacoes/_layouts/15/Doc.aspx?sourcedoc=%7B3E28EE17-DB93-426B-9FDB-29F57BB66642%7D&file=D0203.docx&action=default&mobileredirect=true&DefaultItemOpen=1%3Fweb%3D1" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Formulas: D0203</a>
           </div>
@@ -2159,7 +2202,7 @@
       </div>
 
       <h2 class="section-title" style="margin-top:20px;">Links Gerais:</h2>
-      <div class="button-grid" id="linksMenu">
+      <div data-lg="gerais" class="button-grid" id="linksMenu">
         <a href="https://intranet.sumolcompal.pt" target="_blank" rel="noopener noreferrer" class="hub-button">Intranet</a>
         <a href="https://sumolcompal.sharepoint.com/sites/SIG" target="_blank" rel="noopener noreferrer" class="hub-button">SIG</a>
         <a href="https://sumolcompal.atlassian.net/servicedesk/customer/user/login?destination=portals" target="_blank" rel="noopener noreferrer" class="hub-button">Jira</a>
@@ -2182,7 +2225,7 @@
     </div>
 
     <div id="apoioPage" style="display:none; margin-top:15px;">
-      <div class="button-grid">
+      <div data-lg="apoiopg" class="button-grid">
         <div onclick="showCC()" class="hub-button">Correção de Cargas</div>
         <a href="https://sumolcompal.sharepoint.com/:w:/r/sites/SIG-Operacoes/_layouts/15/Doc.aspx?sourcedoc=%7B3E28EE17-DB93-426B-9FDB-29F57BB66642%7D&file=D0203.docx&action=default&mobileredirect=true&DefaultItemOpen=1%3Fweb%3D1" target="_blank" rel="noopener noreferrer" class="hub-button">Formulas: D0203</a>
       </div>
@@ -2400,12 +2443,12 @@
     </div>
 
     <div id="embalagensPage" style="display:none; margin-top:15px;">
-      <div class="button-grid">
+      <div data-lg="embalagens" class="button-grid">
         
         <div onclick="toggleAcceptDropdown()" id="acceptDropdownBtn" class="hub-button dropdown-toggle">ACCEPT</div>
         
         <div id="acceptDropdown" class="dropdown-content">
-          <div class="button-grid" style="margin-bottom: 0; gap: 10px;">
+          <div data-lg="accept" class="button-grid" style="margin-bottom: 0; gap: 10px;">
             <a href="http://10.167.1.4/login" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Accept</a>
             <a href="http://10.167.1.4:8181/pt/home#/" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Accept MSA</a>
           </div>
@@ -2414,7 +2457,7 @@
         <div onclick="toggleSharepointDropdown()" id="spDropdownBtn" class="hub-button dropdown-toggle">SharePoint</div>
         
         <div id="sharepointDropdown" class="dropdown-content">
-          <div class="button-grid" style="margin-bottom: 0; gap: 10px;">
+          <div data-lg="sharepoint" class="button-grid" style="margin-bottom: 0; gap: 10px;">
             <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual_Almeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem&viewid=cc397437-7114-4d36-a30a-c5729209ff32&sharingv2=true&fromShare=true&at=9&CID=1a77d6a1-e0e3-e000-7cf3-b5bfacfe038a&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&ovuser=c966f82c-42fb-40e2-9370-3a7a3da6cbee%2CSCU00137%40sumolcompal%2Ept&OR=Teams-HL&CT=1770079823283&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNipro0OS8yNjAxMDQwMDkyMyIsIkhhc0Fzc29jaWF0ZWQiOnRydWV9" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">03. Embalagens</a>
             
             <a href="https://sumolcompal.sharepoint.com/sites/QualidadeAmbiente/Qual_Almeirim/Forms/AllItems.aspx?id=%2Fsites%2FQualidadeAmbiente%2FQual%5FAlmeirim%2F04%2E%20Actividades%2F03%2E%20Embalagem%2F04%20%2D%20Medidas%20Membranas%20Stelos&viewid=cc397437%2D7114%2D4d36%2Da30a%2Dc5729209ff32&sharingv2=true&fromShare=true&at=9&CID=1a77d6a1%2De0e3%2De000%2D7cf3%2Db5bfacfe038a&cidOR=SPO&FolderCTID=0x0120002EAA8AF434FADD4B82052C2C6ADB17AB&ovuser=c966f82c%2D42fb%2D40e2%2D9370%2D3a7a3da6cbee%2CSCU00137%40sumolcompal%2Ept&OR=Teams%2DHL&CT=1770079823283&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNipro0OS8yNjAxMDQwMDkyMyIsIkhhc0Fzc29jaWF0ZWQiOnRydWV9" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">04 Medidas Membranas Stelos</a>
@@ -2675,7 +2718,7 @@
     </div>
 
     <div id="variosPage" style="display:none; margin-top:15px;">
-      <div class="button-grid">
+      <div data-lg="varios" class="button-grid">
         <a href="https://www.ipma.pt/" target="_blank" rel="noopener noreferrer" class="hub-button">IPMA</a>
         <a href="https://radioonline.com.pt/" target="_blank" rel="noopener noreferrer" class="hub-button">Rádio</a>
         <a href="https://www.deepl.com/pt-PT/translator" target="_blank" rel="noopener noreferrer" class="hub-button">Tradutor DeepL</a>
@@ -2702,7 +2745,7 @@
   <div id="contactsModal" class="modal">
     <div class="modal-content suporte-box" role="dialog" aria-modal="true" aria-labelledby="suporteTitulo">
       <span class="close-modal" onclick="closeContacts()">×</span>
-      <h2 id="suporteTitulo" class="suporte-titulo" onclick="triploClique(this, abrirPainelDono)"><svg class="suporte-nuvem" viewBox="0 0 32 26" aria-hidden="true"><defs><linearGradient id="sbg" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="0.6" stop-color="#efe9f8"/><stop offset="1" stop-color="#c9bbe6"/></linearGradient></defs><path d="M7.5 18.2 5.2 24.6 13.6 20.6Z" fill="#9d90d2" stroke="#9d90d2" stroke-width="1" stroke-linejoin="round"/><ellipse cx="16" cy="11.5" rx="14" ry="10" fill="url(#sbg)" stroke="#b9a9dd" stroke-width="1.2"/></svg>Suporte</h2>
+      <h2 id="suporteTitulo" class="suporte-titulo"><svg class="suporte-nuvem" viewBox="0 0 32 26" aria-hidden="true"><defs><linearGradient id="sbg" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="0.6" stop-color="#efe9f8"/><stop offset="1" stop-color="#c9bbe6"/></linearGradient></defs><path d="M7.5 18.2 5.2 24.6 13.6 20.6Z" fill="#9d90d2" stroke="#9d90d2" stroke-width="1" stroke-linejoin="round"/><ellipse cx="16" cy="11.5" rx="14" ry="10" fill="url(#sbg)" stroke="#b9a9dd" stroke-width="1.2"/></svg>Suporte</h2>
       <p class="suporte-sub">Selecione uma opção:</p>
       <button type="button" class="suporte-op" onclick="enviarSugestao()"><span class="suporte-ico">💡</span><span class="suporte-txt"><strong>Sugestões</strong><small>Ideias para melhorar a página SC Lab</small></span></button>
       <button type="button" class="suporte-op" onclick="reportarProblema()"><span class="suporte-ico">🐛</span><span class="suporte-txt"><strong>Reportar Problema</strong><small>Algo não funciona como esperado</small></span></button>
@@ -2717,8 +2760,15 @@
   </div>
 
   <script>
-    /* Data da última atualização (aparece ao carregar em "Agajota" no rodapé): pode ser mudada na área de controlo ou aqui */
-    let DATA_ATUALIZACAO = "9 de Novembro de 2026";
+    /* Data da última atualização (AAAA-MM-DD): aparece no fim do menu (☰) e ao carregar em "Agajota" no rodapé; alterável na área de controlo (2) ou aqui */
+    let ULTIMA_ATUALIZACAO = '2026-11-09';
+    /* Botões e links editados no administrador 3 (vazio = os que estão no site). Uma linha: é reescrita ao descarregar o index */
+    let LINKS_CONFIG = {};
+    function dataAtualizacaoTxt() {
+      const d = new Date(ULTIMA_ATUALIZACAO + 'T12:00:00');
+      return isNaN(d) ? ULTIMA_ATUALIZACAO : d.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+    function textoUltimaAtualizacao() { return 'Última atualização: ' + dataAtualizacaoTxt(); }
 
     const correctPassword = "0";
 
@@ -2770,22 +2820,56 @@
     }
     function mostrarDataAtualizacao() {
       const el = document.getElementById("toastAtualizacao");
-      el.textContent = "Última atualização: " + DATA_ATUALIZACAO;
+      el.textContent = textoUltimaAtualizacao();
       el.onclick = esconderToastAtualizacao;
       el.classList.add("show");
       clearTimeout(window._toastTimer);
       window._toastTimer = setTimeout(esconderToastAtualizacao, 5000);
     }
 
-    /* Menu de três linhas (Suporte e Logout): abre/fecha ao tocar, e fecha ao tocar fora ou com Esc */
+    /* Partilhar o site: folha de partilha do sistema; se não existir, copia o endereço */
+    async function partilharSite() {
+      const url = location.protocol === "file:" ? location.href : location.origin + location.pathname;
+      const copiar = async function () {
+        let ok = false;
+        try { await navigator.clipboard.writeText(url); ok = true; }
+        catch (e) {
+          try {
+            const ta = document.createElement("textarea");
+            ta.value = url; ta.style.cssText = "position:fixed; opacity:0;";
+            document.body.appendChild(ta); ta.select(); ok = document.execCommand("copy"); ta.remove();
+          } catch (x) {}
+        }
+        caixaMensagem(ok ? "Link do site copiado." : "Não foi possível copiar o link do site.");
+      };
+      if (navigator.share) {
+        try { await navigator.share({ title: document.title, url: url }); }
+        catch (e) { if (!e || e.name !== "AbortError") copiar(); }
+        return;
+      }
+      copiar();
+    }
+
+    /* Menu de três linhas (Suporte, Layout e Logout): abre/fecha ao tocar, e fecha ao tocar fora ou com Esc */
     function fecharMenu() {
       document.getElementById("menuPanel").hidden = true;
       document.getElementById("menuBtn").setAttribute("aria-expanded", "false");
+      definirLayoutAberto(false); /* o Layout volta a ficar minimizado */
+    }
+    function definirLayoutAberto(aberto) {
+      document.getElementById("layoutOpcoes").hidden = !aberto;
+      document.getElementById("layoutToggle").setAttribute("aria-expanded", aberto ? "true" : "false");
+    }
+    function toggleLayout() {
+      definirLayoutAberto(document.getElementById("layoutOpcoes").hidden);
     }
     function toggleMenu(e) {
       if (e) e.stopPropagation();
       const painel = document.getElementById("menuPanel");
       painel.hidden = !painel.hidden;
+      document.getElementById("menuData").textContent = textoUltimaAtualizacao();
+      const mi = document.getElementById("menuInstalar");
+      if (mi) mi.style.display = (window.appInstalada && window.appInstalada()) ? "none" : "";
       document.getElementById("menuBtn").setAttribute("aria-expanded", painel.hidden ? "false" : "true");
     }
     document.addEventListener("click", function (e) {
@@ -4781,7 +4865,7 @@
       const standalone = (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
 
       const app = [
-        ["Última atualização", DATA_ATUALIZACAO],
+        ["Última atualização", dataAtualizacaoTxt()],
         ["Página aberta", pagina],
         ["Sessão", (ls && ls.getItem("isLoggedIn") === "true") ? "iniciada" : "terminada"],
         ["Aberta como", standalone ? "App instalada" : "Browser"],
@@ -4917,7 +5001,7 @@
       try { if ("caches" in window) { const k = await caches.keys(); await Promise.all(k.map(function(x){ return caches.delete(x); })); } } catch (e) {}
     }
     function dnLimparCache(){
-      caixaMensagem("Limpar a cache e recarregar a app? A sessão e as definições mantêm-se.", async function(){ await dnApagarCaches(); location.reload(); }, null, "Limpar");
+      caixaMensagem("Limpar a cache e recarregar o site para mostrar a versão mais recente? A sessão e as definições mantêm-se.", async function(){ await dnApagarCaches(); location.reload(); }, null, "Atualizar");
     }
     function dnReporDefinicoes(){
       caixaMensagem("Repor as definições? O zoom da Correção de Cargas volta a 100% e o aviso de instalação da app pode voltar a aparecer.", function(){
@@ -4926,25 +5010,43 @@
         dnAtualizar();
       }, null, "Repor");
     }
-    /* ---- Data de atualização (editável na área de controlo) ---- */
-    const DN_MESES = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-    function dnDataISO(txt){
-      const sem = function(x){ return String(x).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); };
-      const m = sem(txt).match(/(\d{1,2}) de ([a-z]+) de (\d{4})/);
-      const i = m ? DN_MESES.map(sem).indexOf(m[2]) : -1;
-      if (i < 0) {
-        const h = new Date();
-        return h.getFullYear() + "-" + String(h.getMonth() + 1).padStart(2, "0") + "-" + String(h.getDate()).padStart(2, "0");
-      }
-      return m[3] + "-" + String(i + 1).padStart(2, "0") + "-" + String(m[1]).padStart(2, "0");
+    /* ---- Data de atualização (editável na área de controlo 2, como no simulador) ---- */
+    let dnDataEd = "";
+    function dnFeedback(btn, txt){
+      const antes = btn.textContent;
+      btn.textContent = txt;
+      setTimeout(function(){ btn.textContent = antes; }, 2000);
     }
-    function dnGuardarData(){
-      const v = (document.getElementById("pdDataNova") || {}).value;
-      const m = v && v.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-      if (!m) { caixaMensagem("Escolha uma data."); return; }
-      DATA_ATUALIZACAO = parseInt(m[3], 10) + " de " + DN_MESES[parseInt(m[2], 10) - 1] + " de " + m[1];
-      dnAtualizar();
-      caixaMensagem("Data de atualização: " + DATA_ATUALIZACAO + ". Para ficar no site, descarrega o index.");
+    function dnLerData(btn){
+      const d = (document.getElementById("pdSiteData") || {}).value || dnDataEd;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) { dnFeedback(btn, "❌ Escolha uma data válida"); return null; }
+      return d;
+    }
+    let dnDataManual = false; /* true se escolheste tu uma data no calendário: então não é mudada sozinha */
+    function dnHojeISO(){
+      const t = new Date();
+      return t.getFullYear() + "-" + String(t.getMonth() + 1).padStart(2, "0") + "-" + String(t.getDate()).padStart(2, "0");
+    }
+    function dnDataHoje(){
+      dnDataEd = dnHojeISO();
+      const el = document.getElementById("pdSiteData");
+      if (el) el.value = dnDataEd;
+    }
+    /* Sempre que há alterações (valores guardados, index descarregado) a data passa para hoje, salvo se a escolheste à mão */
+    function dnDataAuto(){
+      if (dnDataManual) return;
+      dnDataHoje();
+      ULTIMA_ATUALIZACAO = dnDataEd;
+      const md = document.getElementById("menuData");
+      if (md) md.textContent = textoUltimaAtualizacao();
+    }
+    function dnAplicarData(btn){
+      const d = dnLerData(btn); if (!d) return;
+      ULTIMA_ATUALIZACAO = d;
+      dnDataEd = d;
+      const md = document.getElementById("menuData");
+      if (md) md.textContent = textoUltimaAtualizacao();
+      dnFeedback(btn, "✅ Aplicado");
     }
 
     /* ---- Valores predefinidos (editáveis na área de controlo) ---- */
@@ -5019,11 +5121,14 @@
         if (f === "calcSRV") { limparSRV(); calcSRV(); } else if (typeof window[f] === "function") window[f]();
       });
       dnFecharValores();
-      caixaMensagem("Valores predefinidos guardados. Já valem para o botão ↺ neste dispositivo; para ficarem no site, descarrega o index e substitui-o no alojamento.");
+      dnDataAuto();
+      caixaMensagem("Valores predefinidos guardados e data de atualização passada para hoje. Já valem para o botão ↺ neste dispositivo; para ficarem no site, descarrega o index e substitui-o no alojamento.");
     }
 
     /* lê o index.html publicado e troca só o atributo value dos campos predefinidos */
     async function dnDescarregarIndex(btn){
+      dnDataAuto();
+      const dataNova = dnLerData(btn); if (!dataNova) return;
       const texto = btn.textContent;
       btn.disabled = true; btn.textContent = "A preparar…";
       try {
@@ -5042,7 +5147,13 @@
           else attrs = attrs + ' value="' + v + '"';
           return "<input" + attrs + ">";
         });
-        fonte = fonte.replace(/((?:const|let) DATA_ATUALIZACAO = ")[^"]*(")/, function(a, p, q){ return p + DATA_ATUALIZACAO + q; });
+        let achou = 0;
+        fonte = fonte.replace(/((?:const|let)\s+ULTIMA_ATUALIZACAO\s*=\s*')[^']*(')/, function(a, p, q){ achou++; return p + dataNova + q; });
+        if (achou !== 1) throw new Error("data");
+        let achouL = 0;
+        const jsonL = JSON.stringify(LINKS_CONFIG).replace(/</g, "\\u003c");
+        fonte = fonte.replace(/(let\s+LINKS_CONFIG\s*=\s*)\{[^\n]*\};/, function(a, p){ achouL++; return p + jsonL + ";"; });
+        if (achouL !== 1) throw new Error("links");
         const blob = new Blob([fonte], { type: "text/html;charset=utf-8" });
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
@@ -5066,9 +5177,51 @@
       }, null, "Repor tudo");
     }
 
+    /* Administrador 1 = diagnóstico e ferramentas; Administrador 2 = data de atualização, valores predefinidos e guardar */
+    let dnModo = 1;
+    function dnIrModo(n){
+      dnModo = n;
+      const ov = document.getElementById("painelDonoOverlay");
+      if (ov) ov.querySelectorAll(".pd-modo button").forEach(function(b, i){
+        b.classList.toggle("on", i + 1 === n);
+        if (i + 1 === n) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current");
+      });
+      const c = document.getElementById("pdCorpo");
+      if (c) { c.scrollTop = 0; dnRender(c); }
+    }
+
     function dnRender(c){
       const pos = c.scrollTop;
-      let h = '<div class="pd-sec">Avisos</div>';
+      let h = "";
+      if (dnModo === 3) {
+        c.innerHTML = dnLgHtml();
+        c.scrollTop = pos;
+        return;
+      }
+      if (dnModo === 2) {
+        h += '<div class="pd-sec">Data de atualização do site (se necessário)</div>' +
+          '<div class="pd-card" style="padding:4px 12px 12px;">' +
+          '<label class="pd-lbl" for="pdSiteData">Data mostrada no menu (☰) e no rodapé</label>' +
+          '<input id="pdSiteData" class="pd-input" type="date" value="' + dnEsc(dnDataEd) + '" oninput="dnDataEd = this.value; dnDataManual = true">' +
+          '</div>' +
+          '<button type="button" class="pd-btn" onclick="dnDataHoje(); dnDataManual = false">📅 Usar a data de hoje</button>' +
+          '<div class="pd-nota">Muda sozinha para o dia de hoje quando guardas valores predefinidos ou descarregas o index. Só precisas do calendário se quiseres outra data.</div>';
+        h += '<div class="pd-sec">Valores predefinidos</div>' +
+          '<button type="button" class="pd-btn pd-azul" onclick="dnEditarValores()">✏️ Editar valores predefinidos</button>' +
+          '<div class="pd-nota">Valores iniciais dos campos da Correção de Cargas e do Cálculo de Prémio (os que o botão ↺ repõe).</div>';
+        h += '<div class="pd-sec">Escala semanal (servidor)</div>' +
+          '<div class="pd-card"><div class="pd-row"><span>Ligação</span><b id="pdTeste">' + dnEsc(dnTeste || "não testada") + '</b></div></div>' +
+          '<button type="button" class="pd-btn" onclick="dnTestarEscalaUI(this)">📡 Testar ligação à escala</button>';
+        h += '<div class="pd-sec">Guardar alterações</div>' +
+          '<button type="button" class="pd-btn pd-azul" onclick="dnAplicarData(this)">✅ Aplicar neste ecrã</button>' +
+          '<div class="pd-nota">Mostra já a nova data, só para ver. Não fica guardada no site.</div>' +
+          '<button type="button" class="pd-btn pd-azul" onclick="dnDescarregarIndex(this)">⬇️ Descarregar index.html corrigido</button>' +
+          '<div class="pd-nota">Descarrega o index.html com esta data e estes valores predefinidos já escritos. Depois é só substituir o ficheiro no alojamento.</div>';
+        c.innerHTML = h;
+        c.scrollTop = pos;
+        return;
+      }
+      h += '<div class="pd-sec">Avisos</div>';
       h += dnDados.avisos.length
         ? dnDados.avisos.map(function(a){ return '<div class="pd-aviso">⚠️ ' + dnEsc(a) + '</div>'; }).join("")
         : '<div class="pd-ok">✅ Sem avisos</div>';
@@ -5076,27 +5229,14 @@
         h += '<div class="pd-sec">' + dnEsc(g.t) + '</div><div class="pd-card">' +
           g.l.map(function(r){ return '<div class="pd-row"><span>' + dnEsc(r[0]) + '</span><b>' + dnEsc(r[1]) + '</b></div>'; }).join("") + '</div>';
       });
-      h += '<div class="pd-sec">Escala semanal (servidor)</div>' +
-        '<div class="pd-card"><div class="pd-row"><span>Ligação</span><b id="pdTeste">' + dnEsc(dnTeste || "não testada") + '</b></div></div>' +
-        '<button type="button" class="pd-btn" onclick="dnTestarEscalaUI(this)">📡 Testar ligação à escala</button>';
       h += '<div class="pd-sec">Ferramentas</div>' +
         '<button type="button" class="pd-btn pd-azul" onclick="dnCopiar(this)">📋 Copiar diagnóstico</button>' +
         '<div class="pd-nota">Copia tudo isto como texto, para colar numa mensagem.</div>' +
         '<button type="button" class="pd-btn" onclick="dnAtualizar()">🔃 Atualizar diagnóstico</button>' +
         '<a class="pd-btn pd-azul" style="text-decoration:none;" href="' + dnEsc(DIAGNOSTICO_PWA) + '" target="_blank" rel="noopener">🩺 Diagnóstico da app instalável</a>' +
         '<div class="pd-nota">Verifica se o site pode ser instalado como app no telemóvel (manifesto, ícones e service worker). Abre ' + dnEsc(DIAGNOSTICO_PWA) + ' num novo separador.</div>';
-      h += '<div class="pd-sec">Data de atualização</div>' +
-        '<div class="pd-card"><div class="pd-row"><span>Atual</span><b>' + dnEsc(DATA_ATUALIZACAO) + '</b></div>' +
-        '<div class="pd-row"><span>Nova data</span><input type="date" id="pdDataNova" value="' + dnDataISO(DATA_ATUALIZACAO) + '" style="box-sizing:border-box; width:100%; padding:7px 8px; border:1px solid #cbd5e1; border-radius:8px; font:inherit; font-weight:700;"></div></div>' +
-        '<button type="button" class="pd-btn pd-azul" onclick="dnGuardarData()">📅 Guardar data</button>' +
-        '<div class="pd-nota">É a data que aparece ao carregar em AGAJOTA no rodapé. Para ficar no site, descarrega o index.</div>';
-      h += '<div class="pd-sec">Valores predefinidos</div>' +
-        '<button type="button" class="pd-btn pd-azul" onclick="dnEditarValores()">✏️ Editar valores predefinidos</button>' +
-        '<div class="pd-nota">Valores iniciais dos campos da Correção de Cargas e do Cálculo de Prémio (os que o botão ↺ repõe).</div>' +
-        '<button type="button" class="pd-btn" onclick="dnDescarregarIndex(this)">⬇️ Descarregar index</button>' +
-        '<div class="pd-nota">Descarrega o index.html com estes valores predefinidos e a data de atualização. Para os outros utilizadores passarem a vê-los, substitui o index no alojamento.</div>';
       h += '<div class="pd-sec">Reposição</div>' +
-        '<button type="button" class="pd-btn pd-amarelo" onclick="dnLimparCache()">🧽 Atualizar app (limpar cache)</button>' +
+        '<button type="button" class="pd-btn pd-amarelo" onclick="dnLimparCache()">🧽 Atualizar (F5) e limpar cache</button>' +
         '<div class="pd-nota">Mantém a sessão e o zoom. Útil quando aparece uma versão antiga do site.</div>' +
         '<button type="button" class="pd-btn pd-amarelo" onclick="dnReporDefinicoes()">↩️ Repor definições</button>' +
         '<div class="pd-nota">O zoom da Correção de Cargas volta a 100%.</div>' +
@@ -5112,15 +5252,136 @@
     }
     function montarPainelDono(){
       fecharPainelDono();
+      dnModo = 1; dnDataEd = ULTIMA_ATUALIZACAO; dnDataManual = false; dnLgLista = null;
       const ov = document.createElement("div");
       ov.id = "painelDonoOverlay";
       ov.innerHTML = '<div role="dialog" aria-modal="true" aria-label="Área de controlo">' +
-        '<div class="pd-head"><strong>🛠️ Área de controlo</strong><span class="pd-x" onclick="fecharPainelDono()" aria-label="Fechar">×</span></div>' +
+        '<div class="pd-head"><span style="display:flex;align-items:center;"><strong>🛠️ Área de controlo</strong>' +
+        '<span class="pd-modo" role="group" aria-label="Modo do administrador">' +
+        '<button type="button" class="on" aria-current="true" title="1: diagnóstico e ferramentas" aria-label="Administrador 1" onclick="dnIrModo(1)">1</button>' +
+        '<button type="button" title="2: data de atualização, valores predefinidos, escala e guardar" aria-label="Administrador 2" onclick="dnIrModo(2)">2</button>' +
+        '<button type="button" title="3: adicionar e editar botões e links do site" aria-label="Administrador 3" onclick="dnIrModo(3)">3</button>' +
+        '</span></span><span class="pd-x" onclick="fecharPainelDono()" aria-label="Fechar">×</span></div>' +
         '<div class="pd-body" id="pdCorpo">A recolher diagnóstico…</div></div>';
       ov.addEventListener("click", function(e){ if (e.target === ov) fecharPainelDono(); });
       document.body.appendChild(ov);
       dnTeste = ""; dnEscalaMs = 0;
       dnAtualizar();
+    }
+
+    /* ===== Botões e links editáveis (administrador 3) ===== */
+    const LG_NOMES = { gerais: "Links Gerais", apoio: "Apoio Produção (menu inicial)", apoiopg: "Apoio Produção (página)", accept: "ACCEPT", sharepoint: "SharePoint", embalagens: "Embalagens", varios: "Vários" };
+    const LG_MOD = {}, LG_ORIG = {};
+    function lgContainer(id){ return document.querySelector('[data-lg="' + id + '"]'); }
+    function lgLer(id){
+      const c = lgContainer(id); if (!c) return [];
+      return Array.from(c.querySelectorAll(":scope > a.hub-button")).map(function(a){ return { t: a.textContent.trim(), u: a.getAttribute("href") || "" }; });
+    }
+    function lgModelo(id){
+      if (LG_MOD[id]) return LG_MOD[id];
+      const m = document.createElement("a");
+      m.className = "hub-button"; m.target = "_blank"; m.rel = "noopener noreferrer";
+      return m;
+    }
+    /* troca os links do grupo pela lista; os botões internos (sem link) ficam onde estavam */
+    function lgAplicar(id, lista){
+      const c = lgContainer(id); if (!c) return;
+      const atuais = Array.from(c.querySelectorAll(":scope > a.hub-button"));
+      const marca = document.createComment("lg");
+      if (atuais.length) c.insertBefore(marca, atuais[0]); else c.appendChild(marca);
+      const usados = new Set();
+      const novos = lista.map(function(it){
+        const a = atuais.find(function(x){ return !usados.has(x) && x.textContent.trim() === it.t && x.getAttribute("href") === it.u; });
+        if (a) { usados.add(a); return a; }
+        const n = lgModelo(id).cloneNode(false);
+        n.textContent = it.t; n.setAttribute("href", it.u);
+        return n;
+      });
+      atuais.forEach(function(x){ x.remove(); });
+      novos.forEach(function(a){ c.insertBefore(a, marca); });
+      marca.remove();
+    }
+    function lgIniciar(){
+      Object.keys(LG_NOMES).forEach(function(id){
+        const c = lgContainer(id); if (!c) return;
+        const a0 = c.querySelector(":scope > a.hub-button");
+        if (a0) LG_MOD[id] = a0.cloneNode(false);
+        LG_ORIG[id] = lgLer(id);
+      });
+      Object.keys(LINKS_CONFIG || {}).forEach(function(id){
+        if (LG_NOMES[id] && Array.isArray(LINKS_CONFIG[id])) lgAplicar(id, LINKS_CONFIG[id]);
+      });
+    }
+    function lgUrl(u){
+      u = String(u || "").trim();
+      if (!u || /^(javascript|data|vbscript):/i.test(u)) return "";
+      if (!/^(https?:\/\/|mailto:|tel:)/i.test(u)) u = "https://" + u.replace(/^\/+/, "");
+      return /^(https?:\/\/\S+|mailto:\S+|tel:\S+)$/i.test(u) ? u : "";
+    }
+    lgIniciar();
+
+    /* painel: estado e ações */
+    let dnLgSel = "gerais", dnLgLista = null;
+    function dnLgCarregar(){ dnLgLista = lgLer(dnLgSel); }
+    function dnLgRender(){ const c = document.getElementById("pdCorpo"); if (c) dnRender(c); }
+    function dnLgGrupo(id){ dnLgSel = id; dnLgCarregar(); dnLgRender(); }
+    function dnLgSetT(i, v){ if (dnLgLista[i]) dnLgLista[i].t = v; }
+    function dnLgSetU(i, v){ if (dnLgLista[i]) dnLgLista[i].u = v; }
+    function dnLgMover(i, d){
+      const j = i + d; if (j < 0 || j >= dnLgLista.length) return;
+      const x = dnLgLista[i]; dnLgLista[i] = dnLgLista[j]; dnLgLista[j] = x; dnLgRender();
+    }
+    function dnLgApagar(i){ dnLgLista.splice(i, 1); dnLgRender(); }
+    function dnLgNovo(){ dnLgLista.push({ t: "", u: "" }); dnLgRender(); }
+    function dnLgAplicar(btn){
+      const out = [];
+      for (let i = 0; i < dnLgLista.length; i++) {
+        const t = String(dnLgLista[i].t || "").trim().slice(0, 60), u = lgUrl(dnLgLista[i].u);
+        if (!t || !u) { dnFeedback(btn, "❌ Botão " + (i + 1) + ": falta nome ou endereço válido"); return; }
+        out.push({ t: t, u: u });
+      }
+      LINKS_CONFIG[dnLgSel] = out;
+      lgAplicar(dnLgSel, out);
+      dnLgCarregar();
+      dnDataAuto();
+      dnLgRender();
+      const b = document.getElementById("lgBtnAplicar"); if (b) dnFeedback(b, "✅ Aplicado");
+    }
+    function dnLgRepor(){
+      caixaMensagem("Repor os botões originais de «" + LG_NOMES[dnLgSel] + "»? As tuas alterações a este grupo perdem-se.", function(){
+        lgAplicar(dnLgSel, LG_ORIG[dnLgSel] || []);
+        delete LINKS_CONFIG[dnLgSel];
+        dnLgCarregar(); dnLgRender();
+      }, null, "Repor");
+    }
+    function dnLgHtml(){
+      if (!dnLgLista) dnLgCarregar();
+      const ids = Object.keys(LG_NOMES).filter(function(id){ return lgContainer(id); });
+      let h = '<div class="pd-sec">Botões e links do site</div>' +
+        '<label class="pd-lbl" for="lgGrupo">Grupo de botões</label>' +
+        '<select id="lgGrupo" class="pd-input" onchange="dnLgGrupo(this.value)">' +
+        ids.map(function(id){ return '<option value="' + id + '"' + (id === dnLgSel ? ' selected' : '') + '>' + dnEsc(LG_NOMES[id]) + (LINKS_CONFIG[id] ? ' ✏️' : '') + '</option>'; }).join("") +
+        '</select><div class="pd-nota">✏️ = grupo com alterações. Os botões que abrem páginas do próprio site (ex.: Correção de Cargas) não aparecem aqui.</div>';
+      h += '<div class="pd-sec">' + dnEsc(LG_NOMES[dnLgSel] || "") + ' (' + dnLgLista.length + ')</div><div class="pd-card">';
+      if (!dnLgLista.length) h += '<div class="pd-nota" style="padding:10px 0;">Sem botões neste grupo. Usa «Adicionar botão».</div>';
+      dnLgLista.forEach(function(it, i){
+        h += '<div class="lg-item"><label class="pd-lbl">Nome do botão</label>' +
+          '<input class="pd-input" type="text" maxlength="60" autocomplete="off" value="' + dnEsc(it.t) + '" oninput="dnLgSetT(' + i + ', this.value)">' +
+          '<label class="pd-lbl">Endereço (link)</label>' +
+          '<input class="pd-input" type="text" inputmode="url" autocapitalize="off" autocomplete="off" spellcheck="false" value="' + dnEsc(it.u) + '" oninput="dnLgSetU(' + i + ', this.value)">' +
+          '<div class="lg-acoes"><button type="button" onclick="dnLgMover(' + i + ', -1)" aria-label="Subir">▲</button>' +
+          '<button type="button" onclick="dnLgMover(' + i + ', 1)" aria-label="Descer">▼</button>' +
+          '<button type="button" class="lg-del" onclick="dnLgApagar(' + i + ')">🗑 Apagar</button></div></div>';
+      });
+      h += '</div>' +
+        '<button type="button" class="pd-btn" onclick="dnLgNovo()">➕ Adicionar botão</button>' +
+        '<button type="button" id="lgBtnAplicar" class="pd-btn pd-azul" onclick="dnLgAplicar(this)">✅ Aplicar neste ecrã</button>' +
+        '<div class="pd-nota">Mostra já as alterações neste dispositivo. Para ficarem no site para todos, descarrega o index.</div>' +
+        '<button type="button" class="pd-btn pd-amarelo" onclick="dnLgRepor()">↩️ Repor botões originais deste grupo</button>' +
+        '<div class="pd-sec">Guardar alterações</div>' +
+        '<button type="button" class="pd-btn pd-azul" onclick="dnDescarregarIndex(this)">⬇️ Descarregar index.html corrigido</button>' +
+        '<div class="pd-nota">Descarrega o index.html com a data, os valores predefinidos e todos os grupos de botões que aplicaste. Depois é só substituir o ficheiro no alojamento.</div>';
+      return h;
     }
 
     /* Atualiza cabeçalho e nota do rodapé sempre que a página muda */
