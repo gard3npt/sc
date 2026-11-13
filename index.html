@@ -1923,9 +1923,9 @@
 
     /* Ferramentas: o menu "Colaborador" abre por baixo do próprio botão, igual ao "Apoio Produção" */
     @media (min-width: 769px) {
-      #toolsMenu > .hub-button:not(.dropdown-toggle) { order: 1; grid-column: 1; }
-      #toolsMenu > #pessoalDropdownBtn { order: 2; grid-column: 2; }
-      #toolsMenu > #pessoalDropdown { order: 3; grid-column: 2; margin-top: 0; }
+      #toolsMenu > #pessoalDropdownBtn { order: 1; grid-column: 1; }
+      #toolsMenu > .hub-button:not(.dropdown-toggle) { order: 2; grid-column: 2; }
+      #toolsMenu > #pessoalDropdown { order: 3; grid-column: 1; margin-top: 0; }
       #toolsMenu > .dropdown-toggle.active {
         border-color: rgba(96,165,250,0.85);
         box-shadow: 0 0 0 1px rgba(96,165,250,0.3), 0 0 16px rgba(96,165,250,0.25);
@@ -2009,11 +2009,31 @@
     .pd-head .pd-modo { display: inline-flex; gap: 6px; margin-left: 10px; vertical-align: middle; }
     .pd-head .pd-modo button { width: 32px; height: 30px; padding: 0; border: 0; border-radius: 8px; background: rgba(255,255,255,.14); color: #e2e8f0; font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; line-height: 1; }
     .pd-head .pd-modo button.on { background: #2563eb; color: #fff; cursor: default; }
-    .lg-item { padding: 6px 0 12px; border-bottom: 1px solid #eef2f7; }
-    .lg-item:last-child { border-bottom: 0; }
-    .lg-acoes { display: flex; gap: 6px; margin-top: 8px; }
-    .lg-acoes button { flex: 1; padding: 8px 6px; border: 0; border-radius: 8px; background: #e2e8f0; color: #0f172a; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
-    .lg-acoes .lg-del { background: #fee2e2; color: #991b1b; flex: 2; }
+    .lg-bloco { margin-top: 8px; padding: 4px; border: 1px solid #dbe3ec; border-radius: 12px; background: #fff; }
+    .lg-grupo, .lg-it-nome { display: flex; align-items: center; gap: 8px; width: 100%; padding: 10px 8px; border: 0; background: transparent; color: #0f172a; font: inherit; text-align: left; cursor: pointer; }
+    .lg-grupo { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; }
+    .lg-grupo small { font-size: 11px; font-weight: 800; }
+    .lg-tri { font-size: 11px; width: 12px; flex: none; }
+    .lg-nome, .lg-txt { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .lg-it { margin: 6px 4px 0; border: 1px solid #dbe3ec; border-radius: 12px; background: #fff; }
+    .lg-it-cab { display: flex; align-items: center; }
+    .lg-it-nome { font-size: 14px; font-weight: 700; }
+    .lg-setas { display: flex; gap: 4px; padding-right: 8px; flex: none; }
+    .lg-seta-b { width: 30px; height: 28px; padding: 0; border: 0; border-radius: 9px; background: #dbe5f1; font-size: 14px; line-height: 1; cursor: pointer; }
+    .lg-sub { margin: 2px 0 4px 10px; padding-left: 6px; border-left: 2px solid #dbe3ec; }
+    .lg-it.pasta em { font-size: 11px; font-style: normal; font-weight: 800; color: #b45309; }
+    .lg-it.pasta small { font-size: 11px; font-weight: 800; }
+    .lg-botoes { display: flex; gap: 8px; margin-top: 12px; }
+    .lg-botoes button { padding: 10px; border: 0; border-radius: 8px; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .lg-cancel { flex: 1; background: #e2e8f0; color: #0f172a; }
+    .lg-add { flex: 2; background: #16a34a; color: #fff; }
+    .lg-it.fixo { background: #f8fafc; }
+    .lg-it.fixo .lg-it-nome { cursor: default; }
+    .lg-seta-b.lg-x { background: #fee2e2; }
+    .lg-it.oculto .lg-txt { opacity: .55; text-decoration: line-through; }
+    .lg-seta-b:disabled { opacity: .35; cursor: default; }
+    .lg-edit { padding: 0 12px 12px; }
+    .lg-del { display: block; width: 100%; margin-top: 10px; padding: 9px; border: 0; border-radius: 8px; background: #fee2e2; color: #991b1b; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
     .pd-lbl { display: block; margin-top: 8px; font-size: 12px; font-weight: 700; color: #475569; }
     .pd-input { display: block; box-sizing: border-box; width: 100%; margin-top: 4px; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 10px; background: #fff; color: #0f172a; font: inherit; font-size: 15px; font-weight: 600; }
     .pd-x { cursor: pointer; font-size: 26px; line-height: 1; padding: 0 4px; color: #cbd5e1; }
@@ -2212,7 +2232,6 @@
 
       <h2 class="section-title" style="margin-top:20px;">Ferramentas:</h2>
       <div class="button-grid" id="toolsMenu">
-        <div onclick="showVarios()" class="hub-button">Atalhos Úteis</div>
         <!-- menu "Colaborador": agrupa a Escala Semanal e o botão SRV (para mudar o nome, alterar só o texto abaixo) -->
         <div onclick="togglePessoalDropdown()" id="pessoalDropdownBtn" class="hub-button dropdown-toggle">Colaborador</div>
         <div id="pessoalDropdown" class="dropdown-content">
@@ -2221,6 +2240,7 @@
             <div onclick="showSRV()" id="srvBtn" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Cálculo de Prémio</div>
           </div>
         </div>
+        <div onclick="showVarios()" class="hub-button">Atalhos Úteis</div>
       </div>
     </div>
 
@@ -2761,7 +2781,7 @@
 
   <script>
     /* Data da última atualização (AAAA-MM-DD): aparece no fim do menu (☰) e ao carregar em "Agajota" no rodapé; alterável na área de controlo (2) ou aqui */
-    let ULTIMA_ATUALIZACAO = '2026-11-13';
+    let ULTIMA_ATUALIZACAO = '2026-11-09';
     /* Botões e links editados no administrador 3 (vazio = os que estão no site). Uma linha: é reescrita ao descarregar o index */
     let LINKS_CONFIG = {};
     function dataAtualizacaoTxt() {
@@ -5040,14 +5060,6 @@
       const md = document.getElementById("menuData");
       if (md) md.textContent = textoUltimaAtualizacao();
     }
-    function dnAplicarData(btn){
-      const d = dnLerData(btn); if (!d) return;
-      ULTIMA_ATUALIZACAO = d;
-      dnDataEd = d;
-      const md = document.getElementById("menuData");
-      if (md) md.textContent = textoUltimaAtualizacao();
-      dnFeedback(btn, "✅ Aplicado");
-    }
 
     /* ---- Valores predefinidos (editáveis na área de controlo) ---- */
     const DN_VALORES = [
@@ -5127,6 +5139,8 @@
 
     /* lê o index.html publicado e troca só o atributo value dos campos predefinidos */
     async function dnDescarregarIndex(btn){
+      const errL = dnLgAplicarSujos();
+      if (errL) { dnFeedback(btn, errL); return; }
       dnDataAuto();
       const dataNova = dnLerData(btn); if (!dataNova) return;
       const texto = btn.textContent;
@@ -5193,11 +5207,6 @@
     function dnRender(c){
       const pos = c.scrollTop;
       let h = "";
-      if (dnModo === 3) {
-        c.innerHTML = dnLgHtml();
-        c.scrollTop = pos;
-        return;
-      }
       if (dnModo === 2) {
         h += '<div class="pd-sec">Data de atualização do site (se necessário)</div>' +
           '<div class="pd-card" style="padding:4px 12px 12px;">' +
@@ -5206,6 +5215,7 @@
           '</div>' +
           '<button type="button" class="pd-btn" onclick="dnDataHoje(); dnDataManual = false">📅 Usar a data de hoje</button>' +
           '<div class="pd-nota">Muda sozinha para o dia de hoje quando guardas valores predefinidos ou descarregas o index. Só precisas do calendário se quiseres outra data.</div>';
+        h += dnLgArvoreHtml();
         h += '<div class="pd-sec">Valores predefinidos</div>' +
           '<button type="button" class="pd-btn pd-azul" onclick="dnEditarValores()">✏️ Editar valores predefinidos</button>' +
           '<div class="pd-nota">Valores iniciais dos campos da Correção de Cargas e do Cálculo de Prémio (os que o botão ↺ repõe).</div>';
@@ -5213,10 +5223,10 @@
           '<div class="pd-card"><div class="pd-row"><span>Ligação</span><b id="pdTeste">' + dnEsc(dnTeste || "não testada") + '</b></div></div>' +
           '<button type="button" class="pd-btn" onclick="dnTestarEscalaUI(this)">📡 Testar ligação à escala</button>';
         h += '<div class="pd-sec">Guardar alterações</div>' +
-          '<button type="button" class="pd-btn pd-azul" onclick="dnAplicarData(this)">✅ Aplicar neste ecrã</button>' +
-          '<div class="pd-nota">Mostra já a nova data, só para ver. Não fica guardada no site.</div>' +
+          '<button type="button" id="lgBtnAplicar" class="pd-btn pd-azul" onclick="dnAplicarTudo(this)">✅ Aplicar alterações neste ecrã</button>' +
+          '<div class="pd-nota">Aplica a data e todas as pastas com «• por aplicar». Mostra as alterações só neste dispositivo.</div>' +
           '<button type="button" class="pd-btn pd-azul" onclick="dnDescarregarIndex(this)">⬇️ Descarregar index.html corrigido</button>' +
-          '<div class="pd-nota">Descarrega o index.html com esta data e estes valores predefinidos já escritos. Depois é só substituir o ficheiro no alojamento.</div>';
+          '<div class="pd-nota">Aplica o que faltar e descarrega o index.html com a data, os botões e links e os valores predefinidos já escritos. Depois é só substituir o ficheiro no alojamento.</div>';
         c.innerHTML = h;
         c.scrollTop = pos;
         return;
@@ -5252,15 +5262,14 @@
     }
     function montarPainelDono(){
       fecharPainelDono();
-      dnModo = 1; dnDataEd = ULTIMA_ATUALIZACAO; dnDataManual = false; dnLgLista = null;
+      dnModo = 1; dnDataEd = ULTIMA_ATUALIZACAO; dnDataManual = false; dnLgReset();
       const ov = document.createElement("div");
       ov.id = "painelDonoOverlay";
       ov.innerHTML = '<div role="dialog" aria-modal="true" aria-label="Área de controlo">' +
         '<div class="pd-head"><span style="display:flex;align-items:center;"><strong>🛠️ Área de controlo</strong>' +
         '<span class="pd-modo" role="group" aria-label="Modo do administrador">' +
         '<button type="button" class="on" aria-current="true" title="1: diagnóstico e ferramentas" aria-label="Administrador 1" onclick="dnIrModo(1)">1</button>' +
-        '<button type="button" title="2: data de atualização, valores predefinidos, escala e guardar" aria-label="Administrador 2" onclick="dnIrModo(2)">2</button>' +
-        '<button type="button" title="3: adicionar e editar botões e links do site" aria-label="Administrador 3" onclick="dnIrModo(3)">3</button>' +
+        '<button type="button" title="2: data de atualização, botões e links, valores predefinidos, escala e guardar" aria-label="Administrador 2" onclick="dnIrModo(2)">2</button>' +
         '</span></span><span class="pd-x" onclick="fecharPainelDono()" aria-label="Fechar">×</span></div>' +
         '<div class="pd-body" id="pdCorpo">A recolher diagnóstico…</div></div>';
       ov.addEventListener("click", function(e){ if (e.target === ov) fecharPainelDono(); });
@@ -5270,42 +5279,84 @@
     }
 
     /* ===== Botões e links editáveis (administrador 3) ===== */
-    const LG_NOMES = { gerais: "Links Gerais", apoio: "Apoio Produção (menu inicial)", apoiopg: "Apoio Produção (página)", accept: "ACCEPT", sharepoint: "SharePoint", embalagens: "Embalagens", varios: "Vários" };
+    /* grupos por ordem do site; sel = seletor do contentor (por defeito data-lg) */
+    const LG_NOMES = { deps: "Departamentos", apoio: "Apoio Produção", gerais: "Links Gerais", ferram: "Ferramentas", colab: "Colaborador", apoiopg: "Apoio Produção (página)", embalagens: "Embalagens", accept: "ACCEPT", sharepoint: "SharePoint", varios: "Atalhos Úteis" };
+    /* árvore do administrador 3: Centro de atalhos → pastas; LG_SUB liga um botão do site à pasta (grupo) que ele abre */
+    const LG_RAIZ = ["deps", "gerais", "ferram"];
+    const LG_SUB = { "apoioDropdownBtn": "apoio", "showEmbalagens()": "embalagens", "showVarios()": "varios", "pessoalDropdownBtn": "colab", "acceptDropdownBtn": "accept", "spDropdownBtn": "sharepoint" };
+    const LG_SEL = { deps: "#mainMenu", ferram: "#toolsMenu", colab: "#pessoalDropdown > .button-grid" };
     const LG_MOD = {}, LG_ORIG = {};
-    function lgContainer(id){ return document.querySelector('[data-lg="' + id + '"]'); }
+    function lgContainer(id){ return document.querySelector(LG_SEL[id] || '[data-lg="' + id + '"]'); }
+    /* unidades do contentor: links (a.hub-button, editáveis) e botões do próprio site (fixos; uma pasta leva o seu menu atrás) */
+    function lgUnidades(c){
+      const out = [], els = Array.from(c.children);
+      for (let i = 0; i < els.length; i++) {
+        const el = els[i];
+        if (!el.classList.contains("hub-button")) continue;
+        if (el.tagName === "A") { out.push({ el: el, nodes: [el], t: el.textContent.trim(), u: el.getAttribute("href") || "" }); continue; }
+        const nodes = [el], nx = els[i + 1];
+        let p = 0;
+        if (el.classList.contains("dropdown-toggle") && nx && nx.classList.contains("dropdown-content")) { nodes.push(nx); i++; p = 1; }
+        const t = el.textContent.trim().replace(/\s+/g, " ");
+        out.push({ el: el, nodes: nodes, k: el.id || el.getAttribute("onclick") || t, t: t, p: p });
+      }
+      return out;
+    }
     function lgLer(id){
       const c = lgContainer(id); if (!c) return [];
-      return Array.from(c.querySelectorAll(":scope > a.hub-button")).map(function(a){ return { t: a.textContent.trim(), u: a.getAttribute("href") || "" }; });
+      return lgUnidades(c).map(function(x){ return x.k !== undefined ? { k: x.k, t: x.t, p: x.p } : { t: x.t, u: x.u }; });
     }
     function lgModelo(id){
       if (LG_MOD[id]) return LG_MOD[id];
       const m = document.createElement("a");
       m.className = "hub-button"; m.target = "_blank"; m.rel = "noopener noreferrer";
+      const c = lgContainer(id), ref = c && c.querySelector(":scope > .hub-button:not(.dropdown-toggle)");
+      if (ref && ref.getAttribute("style")) m.setAttribute("style", ref.getAttribute("style"));
       return m;
     }
-    /* troca os links do grupo pela lista; os botões internos (sem link) ficam onde estavam */
+    /* aplica a ordem e os links; botões do site (k) só mudam de ordem */
     function lgAplicar(id, lista){
       const c = lgContainer(id); if (!c) return;
-      const atuais = Array.from(c.querySelectorAll(":scope > a.hub-button"));
+      const un = lgUnidades(c);
       const marca = document.createComment("lg");
-      if (atuais.length) c.insertBefore(marca, atuais[0]); else c.appendChild(marca);
-      const usados = new Set();
-      const novos = lista.map(function(it){
-        const a = atuais.find(function(x){ return !usados.has(x) && x.textContent.trim() === it.t && x.getAttribute("href") === it.u; });
-        if (a) { usados.add(a); return a; }
+      if (un.length) c.insertBefore(marca, un[0].nodes[0]); else c.appendChild(marca);
+      const usados = new Set(), ordem = [];
+      lista.forEach(function(it){
+        if (it.k) {
+          const u = un.find(function(x){ return !usados.has(x) && x.k === it.k; });
+          if (u) { usados.add(u); u.nodes.forEach(function(nd){ ordem.push(nd); }); }
+          return;
+        }
+        if (it.o) return;
+        const u = un.find(function(x){ return !usados.has(x) && x.k === undefined && x.t === it.t && x.u === it.u; });
+        if (u) { usados.add(u); ordem.push(u.el); return; }
         const n = lgModelo(id).cloneNode(false);
         n.textContent = it.t; n.setAttribute("href", it.u);
-        return n;
+        ordem.push(n);
       });
-      atuais.forEach(function(x){ x.remove(); });
-      novos.forEach(function(a){ c.insertBefore(a, marca); });
+      un.forEach(function(x){ if (!usados.has(x) && x.k !== undefined) x.nodes.forEach(function(nd){ ordem.push(nd); }); });
+      un.forEach(function(x){ x.nodes.forEach(function(nd){ nd.remove(); }); });
+      ordem.forEach(function(nd){ c.insertBefore(nd, marca); });
       marca.remove();
+    }
+    /* lista guardada + botões do site que entretanto tenham aparecido/desaparecido */
+    function lgMesclar(id, cfg){
+      const orig = LG_ORIG[id] || [];
+      const fixos = orig.filter(function(x){ return x.k; });
+      const out = [];
+      cfg.forEach(function(x){
+        if (!x.k) { out.push(x); return; }
+        const f = fixos.find(function(y){ return y.k === x.k; });
+        if (f) out.push({ k: f.k, t: f.t, p: f.p });
+      });
+      fixos.forEach(function(f){ if (!out.some(function(x){ return x.k === f.k; })) out.push({ k: f.k, t: f.t, p: f.p }); });
+      return out;
     }
     function lgIniciar(){
       Object.keys(LG_NOMES).forEach(function(id){
         const c = lgContainer(id); if (!c) return;
-        const a0 = c.querySelector(":scope > a.hub-button");
-        if (a0) LG_MOD[id] = a0.cloneNode(false);
+        const l0 = lgUnidades(c).find(function(x){ return x.k === undefined; });
+        if (l0) LG_MOD[id] = l0.el.cloneNode(false);
         LG_ORIG[id] = lgLer(id);
       });
       Object.keys(LINKS_CONFIG || {}).forEach(function(id){
@@ -5320,67 +5371,155 @@
     }
     lgIniciar();
 
-    /* painel: estado e ações */
-    let dnLgSel = "gerais", dnLgLista = null;
-    function dnLgCarregar(){ dnLgLista = lgLer(dnLgSel); }
-    function dnLgRender(){ const c = document.getElementById("pdCorpo"); if (c) dnRender(c); }
-    function dnLgGrupo(id){ dnLgSel = id; dnLgCarregar(); dnLgRender(); }
-    function dnLgSetT(i, v){ if (dnLgLista[i]) dnLgLista[i].t = v; }
-    function dnLgSetU(i, v){ if (dnLgLista[i]) dnLgLista[i].u = v; }
-    function dnLgMover(i, d){
-      const j = i + d; if (j < 0 || j >= dnLgLista.length) return;
-      const x = dnLgLista[i]; dnLgLista[i] = dnLgLista[j]; dnLgLista[j] = x; dnLgRender();
+    /* painel: estado e ações (árvore tipo pastas do Windows) */
+    let dnLgAberto = { raiz: false }, dnLgListas = {}, dnLgSujo = {}, dnLgAb = null, dnLgRascunho = null;
+    const LG_ICONES = { deps: "🏢", gerais: "🔗", ferram: "🛠️" };
+    function dnLgReset(){ dnLgAberto = { raiz: false }; dnLgListas = {}; dnLgSujo = {}; dnLgAb = null; dnLgRascunho = null; }
+    function dnLgCarregar(g){
+      const base = LINKS_CONFIG[g] ? lgMesclar(g, LINKS_CONFIG[g]) : lgLer(g);
+      dnLgListas[g] = base.map(function(x){ return x.k ? { k: x.k, t: x.t, p: x.p } : { t: x.t, u: x.u, o: x.o ? 1 : 0 }; });
+      dnLgSujo[g] = false;
     }
-    function dnLgApagar(i){ dnLgLista.splice(i, 1); dnLgRender(); }
-    function dnLgNovo(){ dnLgLista.push({ t: "", u: "" }); dnLgRender(); }
-    function dnLgAplicar(btn){
-      const out = [];
-      for (let i = 0; i < dnLgLista.length; i++) {
-        const t = String(dnLgLista[i].t || "").trim().slice(0, 60), u = lgUrl(dnLgLista[i].u);
-        if (!t || !u) { dnFeedback(btn, "❌ Botão " + (i + 1) + ": falta nome ou endereço válido"); return; }
-        out.push({ t: t, u: u });
+    function dnLgGet(g){ if (!dnLgListas[g]) dnLgCarregar(g); return dnLgListas[g]; }
+    function dnLgContar(g){ return dnLgListas[g] ? dnLgListas[g].length : (LINKS_CONFIG[g] ? lgMesclar(g, LINKS_CONFIG[g]) : (LG_ORIG[g] || [])).length; }
+    function dnLgRender(){ const c = document.getElementById("pdCorpo"); if (c) dnRender(c); }
+    function dnLgPasta(g){ dnLgAberto[g] = !dnLgAberto[g]; if (dnLgAberto[g] && g !== "raiz") dnLgGet(g); dnLgRender(); }
+    function dnLgItem(g, i){ dnLgAb = (dnLgAb && dnLgAb.g === g && dnLgAb.i === i) ? null : { g: g, i: i }; dnLgRender(); }
+    function dnLgSetT(g, i, v){ const l = dnLgListas[g]; if (l && l[i]) { l[i].t = v; dnLgSujo[g] = true; } }
+    function dnLgSetU(g, i, v){ const l = dnLgListas[g]; if (l && l[i]) { l[i].u = v; dnLgSujo[g] = true; } }
+    function dnLgMover(g, i, d){
+      const l = dnLgListas[g], j = i + d; if (!l || j < 0 || j >= l.length) return;
+      const x = l[i]; l[i] = l[j]; l[j] = x; dnLgSujo[g] = true;
+      if (dnLgAb && dnLgAb.g === g) { if (dnLgAb.i === i) dnLgAb.i = j; else if (dnLgAb.i === j) dnLgAb.i = i; }
+      dnLgRender();
+    }
+    function dnLgOcultar(g, i){ const l = dnLgListas[g]; if (l && l[i]) { l[i].o = l[i].o ? 0 : 1; dnLgSujo[g] = true; dnLgRender(); } }
+    function dnLgApagar(g, i){
+      const l = dnLgListas[g]; if (!l || !l[i]) return;
+      caixaMensagem("Apagar o botão «" + (l[i].t || "(sem nome)") + "»?", function(){ l.splice(i, 1); dnLgSujo[g] = true; dnLgAb = null; dnLgRender(); }, null, "Apagar");
+    }
+    function dnLgNovo(g){
+      dnLgAb = null;
+      dnLgRascunho = (dnLgRascunho && dnLgRascunho.g === g) ? null : { g: g, t: "", u: "" };
+      dnLgRender();
+      const e = document.getElementById("lgNovoNome"); if (e) e.focus();
+    }
+    function dnLgRascSet(k, v){ if (dnLgRascunho) dnLgRascunho[k] = v; }
+    function dnLgCancelar(){ dnLgRascunho = null; dnLgRender(); }
+    function dnLgAdicionar(btn){
+      const r = dnLgRascunho; if (!r) return;
+      const t = String(r.t || "").trim().slice(0, 60), u = lgUrl(r.u);
+      if (!t || !u) { dnFeedback(btn, "❌ Falta o nome ou o endereço válido"); return; }
+      dnLgGet(r.g).push({ t: t, u: u, o: 0 });
+      dnLgSujo[r.g] = true;
+      dnLgRascunho = null;
+      dnLgRender();
+    }
+    /* aplica as pastas com alterações; devolve "" se correu bem (ou o texto do erro) */
+    function dnLgAplicarSujos(){
+      const gs = Object.keys(dnLgSujo).filter(function(g){ return dnLgSujo[g] && dnLgListas[g]; });
+      const res = {};
+      for (let k = 0; k < gs.length; k++) {
+        const g = gs[k], out = [];
+        for (let i = 0; i < dnLgListas[g].length; i++) {
+          const x = dnLgListas[g][i];
+          if (x.k) { out.push({ k: x.k }); continue; }
+          const t = String(x.t || "").trim().slice(0, 60), u = lgUrl(x.u);
+          if (!t || !u) return "❌ " + LG_NOMES[g] + ", botão " + (i + 1) + ": falta nome ou endereço válido";
+          out.push(x.o ? { t: t, u: u, o: 1 } : { t: t, u: u });
+        }
+        res[g] = out;
       }
-      LINKS_CONFIG[dnLgSel] = out;
-      lgAplicar(dnLgSel, out);
-      dnLgCarregar();
-      dnDataAuto();
+      gs.forEach(function(g){ LINKS_CONFIG[g] = res[g]; lgAplicar(g, res[g]); dnLgCarregar(g); });
+      if (gs.length) { dnLgAb = null; dnDataAuto(); }
+      return "";
+    }
+    function dnAplicarTudo(btn){
+      const campo = document.getElementById("pdSiteData");
+      if (!/^\d{4}-\d{2}-\d{2}$/.test((campo && campo.value) || dnDataEd)) { dnFeedback(btn, "❌ Escolha uma data válida"); return; }
+      const err = dnLgAplicarSujos();
+      if (err) { dnFeedback(btn, err); return; }
+      const d = dnLerData(btn); if (!d) return;
+      ULTIMA_ATUALIZACAO = d; dnDataEd = d;
+      const md = document.getElementById("menuData"); if (md) md.textContent = textoUltimaAtualizacao();
       dnLgRender();
       const b = document.getElementById("lgBtnAplicar"); if (b) dnFeedback(b, "✅ Aplicado");
     }
-    function dnLgRepor(){
-      caixaMensagem("Repor os botões originais de «" + LG_NOMES[dnLgSel] + "»? As tuas alterações a este grupo perdem-se.", function(){
-        lgAplicar(dnLgSel, LG_ORIG[dnLgSel] || []);
-        delete LINKS_CONFIG[dnLgSel];
-        dnLgCarregar(); dnLgRender();
+    function dnLgRepor(g){
+      caixaMensagem("Repor os botões originais de «" + LG_NOMES[g] + "»? As tuas alterações a esta pasta perdem-se.", function(){
+        lgAplicar(g, LG_ORIG[g] || []);
+        delete LINKS_CONFIG[g];
+        dnLgAb = null; dnLgCarregar(g); dnLgRender();
       }, null, "Repor");
     }
-    function dnLgHtml(){
-      if (!dnLgLista) dnLgCarregar();
-      const ids = Object.keys(LG_NOMES).filter(function(id){ return lgContainer(id); });
-      let h = '<div class="pd-sec">Botões e links do site</div>' +
-        '<label class="pd-lbl" for="lgGrupo">Grupo de botões</label>' +
-        '<select id="lgGrupo" class="pd-input" onchange="dnLgGrupo(this.value)">' +
-        ids.map(function(id){ return '<option value="' + id + '"' + (id === dnLgSel ? ' selected' : '') + '>' + dnEsc(LG_NOMES[id]) + (LINKS_CONFIG[id] ? ' ✏️' : '') + '</option>'; }).join("") +
-        '</select><div class="pd-nota">✏️ = grupo com alterações. Os botões que abrem páginas do próprio site (ex.: Correção de Cargas) não aparecem aqui.</div>';
-      h += '<div class="pd-sec">' + dnEsc(LG_NOMES[dnLgSel] || "") + ' (' + dnLgLista.length + ')</div><div class="pd-card">';
-      if (!dnLgLista.length) h += '<div class="pd-nota" style="padding:10px 0;">Sem botões neste grupo. Usa «Adicionar botão».</div>';
-      dnLgLista.forEach(function(it, i){
-        h += '<div class="lg-item"><label class="pd-lbl">Nome do botão</label>' +
-          '<input class="pd-input" type="text" maxlength="60" autocomplete="off" value="' + dnEsc(it.t) + '" oninput="dnLgSetT(' + i + ', this.value)">' +
-          '<label class="pd-lbl">Endereço (link)</label>' +
-          '<input class="pd-input" type="text" inputmode="url" autocapitalize="off" autocomplete="off" spellcheck="false" value="' + dnEsc(it.u) + '" oninput="dnLgSetU(' + i + ', this.value)">' +
-          '<div class="lg-acoes"><button type="button" onclick="dnLgMover(' + i + ', -1)" aria-label="Subir">▲</button>' +
-          '<button type="button" onclick="dnLgMover(' + i + ', 1)" aria-label="Descer">▼</button>' +
-          '<button type="button" class="lg-del" onclick="dnLgApagar(' + i + ')">🗑 Apagar</button></div></div>';
+    /* cabeçalho de pasta (linha com triângulo, ícone, nome e contagem) */
+    function dnLgPastaHtml(g, nome, icone, setas){
+      const ab = !!dnLgAberto[g];
+      return '<div class="lg-it pasta"><div class="lg-it-cab"><button type="button" class="lg-it-nome" aria-expanded="' + ab + '" onclick="dnLgPasta(\'' + g + '\')">' +
+        '<span class="lg-tri" aria-hidden="true">' + (ab ? '▼' : '▶') + '</span><span class="lg-txt">' + (ab ? '📂' : '📁') + ' ' + dnEsc(nome) +
+        (LINKS_CONFIG[g] ? ' ✏️' : '') + (dnLgSujo[g] ? ' <em>• por aplicar</em>' : '') + ' <small>(' + dnLgContar(g) + ')</small></span></button>' + (setas ? '<span class="lg-setas">' + setas + '</span>' : '') + '</div>';
+    }
+    /* conteúdo de uma pasta: links editáveis, botões fixos (🔒) e sub-pastas (recursivo) */
+    function dnLgConteudo(g){
+      const lista = dnLgGet(g), ult = lista.length - 1;
+      let h = '';
+      lista.forEach(function(it, i){
+        const setas = '<button type="button" class="lg-seta-b" aria-label="Subir"' + (i === 0 ? ' disabled' : '') + ' onclick="dnLgMover(\'' + g + '\', ' + i + ', -1)">⬆️</button>' +
+          '<button type="button" class="lg-seta-b" aria-label="Descer"' + (i === ult ? ' disabled' : '') + ' onclick="dnLgMover(\'' + g + '\', ' + i + ', 1)">⬇️</button>';
+        if (it.k) {
+          const sub = LG_SUB[it.k];
+          if (sub && lgContainer(sub)) {
+            h += dnLgPastaHtml(sub, it.t, "", setas);
+            if (dnLgAberto[sub]) h += '<div class="lg-sub">' + dnLgConteudo(sub) + '</div>';
+            h += '</div>';
+          } else {
+            h += '<div class="lg-it fixo"><div class="lg-it-cab"><div class="lg-it-nome"><span class="lg-tri" aria-hidden="true">🔒</span><span class="lg-txt">' + dnEsc(it.t) + '</span></div><span class="lg-setas">' + setas + '</span></div></div>';
+          }
+          return;
+        }
+        const ab = dnLgAb && dnLgAb.g === g && dnLgAb.i === i;
+        h += '<div class="lg-it' + (it.o ? ' oculto' : '') + '"><div class="lg-it-cab"><button type="button" class="lg-it-nome" aria-expanded="' + !!ab + '" onclick="dnLgItem(\'' + g + '\', ' + i + ')">' +
+          '<span class="lg-tri" aria-hidden="true">' + (ab ? '▼' : '▶') + '</span><span class="lg-txt">🔗 ' + (it.t ? dnEsc(it.t) : '(sem nome)') + (it.o ? ' · oculto' : '') + '</span></button>' +
+          '<span class="lg-setas">' + setas +
+          '<button type="button" class="lg-seta-b" aria-label="' + (it.o ? 'Mostrar no site' : 'Ocultar do site') + '" title="' + (it.o ? 'Oculto: tocar para mostrar' : 'Visível: tocar para ocultar') + '" onclick="dnLgOcultar(\'' + g + '\', ' + i + ')">' + (it.o ? '🙈' : '👁️') + '</button>' +
+          '<button type="button" class="lg-seta-b lg-x" aria-label="Apagar" title="Apagar" onclick="dnLgApagar(\'' + g + '\', ' + i + ')">🗑️</button></span></div>';
+        if (ab) {
+          h += '<div class="lg-edit"><label class="pd-lbl">Nome do botão</label>' +
+            '<input id="lgNome" class="pd-input" type="text" maxlength="60" autocomplete="off" value="' + dnEsc(it.t) + '" oninput="dnLgSetT(\'' + g + '\', ' + i + ', this.value)">' +
+            '<label class="pd-lbl">Endereço (link)</label>' +
+            '<input class="pd-input" type="text" inputmode="url" autocapitalize="off" autocomplete="off" spellcheck="false" value="' + dnEsc(it.u) + '" oninput="dnLgSetU(\'' + g + '\', ' + i + ', this.value)">' + '</div>';
+        }
+        h += '</div>';
       });
-      h += '</div>' +
-        '<button type="button" class="pd-btn" onclick="dnLgNovo()">➕ Adicionar botão</button>' +
-        '<button type="button" id="lgBtnAplicar" class="pd-btn pd-azul" onclick="dnLgAplicar(this)">✅ Aplicar neste ecrã</button>' +
-        '<div class="pd-nota">Mostra já as alterações neste dispositivo. Para ficarem no site para todos, descarrega o index.</div>' +
-        '<button type="button" class="pd-btn pd-amarelo" onclick="dnLgRepor()">↩️ Repor botões originais deste grupo</button>' +
-        '<div class="pd-sec">Guardar alterações</div>' +
-        '<button type="button" class="pd-btn pd-azul" onclick="dnDescarregarIndex(this)">⬇️ Descarregar index.html corrigido</button>' +
-        '<div class="pd-nota">Descarrega o index.html com a data, os valores predefinidos e todos os grupos de botões que aplicaste. Depois é só substituir o ficheiro no alojamento.</div>';
+      const novo = !!(dnLgRascunho && dnLgRascunho.g === g);
+      h += '<div class="lg-it"><div class="lg-it-cab"><button type="button" class="lg-it-nome" aria-expanded="' + novo + '" onclick="dnLgNovo(\'' + g + '\')"><span class="lg-tri" aria-hidden="true">' + (novo ? '▼' : '▶') + '</span><span class="lg-txt">➕ NOVO LINK</span></button>' +
+        (LINKS_CONFIG[g] || dnLgSujo[g] ? '<span class="lg-setas"><button type="button" class="lg-seta-b" style="width:auto;padding:0 8px;" title="Repor os botões originais desta pasta" onclick="dnLgRepor(\'' + g + '\')">↩️ Repor</button></span>' : '') + '</div>';
+      if (novo) {
+        h += '<div class="lg-edit"><label class="pd-lbl">Nome do botão</label>' +
+          '<input id="lgNovoNome" class="pd-input" type="text" maxlength="60" autocomplete="off" placeholder="Ex.: Intranet" value="' + dnEsc(dnLgRascunho.t) + '" oninput="dnLgRascSet(\'t\', this.value)">' +
+          '<label class="pd-lbl">Endereço (link)</label>' +
+          '<input class="pd-input" type="text" inputmode="url" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="https://..." value="' + dnEsc(dnLgRascunho.u) + '" oninput="dnLgRascSet(\'u\', this.value)">' +
+          '<div class="lg-botoes"><button type="button" class="lg-cancel" onclick="dnLgCancelar()">✖ Cancelar</button>' +
+          '<button type="button" class="lg-add" onclick="dnLgAdicionar(this)">➕ Adicionar</button></div></div>';
+      }
+      h += '</div>';
+      return h;
+    }
+    function dnLgArvoreHtml(){
+      const ab = !!dnLgAberto.raiz;
+      let h = '<div class="pd-sec">Botões e links do site</div>' +
+        '<div class="lg-bloco' + (ab ? ' on' : '') + '"><button type="button" class="lg-grupo" aria-expanded="' + ab + '" onclick="dnLgPasta(\'raiz\')">' +
+        '<span class="lg-tri" aria-hidden="true">' + (ab ? '▼' : '▶') + '</span><span class="lg-nome">🏠 Centro de atalhos <small>(' + LG_RAIZ.length + ')</small>' + (Object.keys(dnLgSujo).some(function(g){ return dnLgSujo[g]; }) ? ' <em style="font-size:11px;font-style:normal;color:#b45309;">• por aplicar</em>' : '') + '</span></button>';
+      if (ab) {
+        h += '<div class="pd-nota" style="margin-top:0;">Organizado como pastas: abre uma pasta para ver o que tem lá dentro. 🔗 = link (podes editar, ocultar 👁️ ou apagar 🗑️); 🔒 = botão do próprio site (ex.: Correção de Cargas), só muda de ordem com ⬆️⬇️; 📁 = pasta.</div>';
+        LG_RAIZ.forEach(function(g){
+          if (!lgContainer(g)) return;
+          h += dnLgPastaHtml(g, LG_NOMES[g], LG_ICONES[g], "").replace('📁', LG_ICONES[g] || '📁').replace('📂', LG_ICONES[g] || '📂');
+          if (dnLgAberto[g]) h += '<div class="lg-sub">' + dnLgConteudo(g) + '</div>';
+          h += '</div>';
+        });
+      }
+      h += '</div>';
       return h;
     }
 
