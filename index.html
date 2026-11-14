@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
-<head><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
+<head><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -1727,18 +1727,17 @@
       .container .hub-button { animation: none; opacity: 1; transition: none; }
     }
 
-    /* Embalagens (computador): ACCEPT e SharePoint lado a lado; cada menu abre por baixo do seu próprio botão,
-       sem mexer na posição dos botões */
+    /* Computador: página inicial (2 colunas), Ferramentas (2) e Embalagens (3). Os botões seguem a ordem do código
+       (a que se define no administrador); cada menu abre por baixo do seu próprio botão, na mesma coluna, e os botões
+       seguintes descem para a linha de baixo. --ord e --col são calculados por lgLayout(). Nada se sobrepõe nem fica escondido:
+       o texto parte linha em vez de sair do botão. */
     @media (min-width: 769px) {
-      #embalagensPage > .button-grid > #acceptDropdownBtn { order: 1; grid-column: 1; }
-      #embalagensPage > .button-grid > #spDropdownBtn { order: 2; grid-column: 2; }
-      #embalagensPage > .button-grid > #acceptDropdown { order: 3; grid-column: 1; margin-top: 0; }
-      #embalagensPage > .button-grid > #sharepointDropdown { order: 3; grid-column: 2; margin-top: 0; }
-      /* com um menu aberto, os botões a seguir ao 04AL descem para uma linha por baixo do menu */
-      #embalagensPage > .button-grid:has(> .dropdown-content[style*="block"])::after { content: ""; order: 4; grid-column: 1 / -1; height: 0; margin-top: -14px; }
-      #embalagensPage > .button-grid > .hub-button:not(.dropdown-toggle) { order: 5; }
-      /* 04AL fica sempre na 1.ª linha, ao lado do SharePoint, mesmo com um menu aberto */
-      #embalagensPage > .button-grid > #sharepointDropdown + .hub-button { order: 2; grid-column: 3; }
+      #mainMenu > .hub-button, #mainMenu > .dropdown-content,
+      #toolsMenu > .hub-button, #toolsMenu > .dropdown-content,
+      #embalagensPage > .button-grid > .hub-button, #embalagensPage > .button-grid > .dropdown-content { order: var(--ord, 0); grid-column: var(--col, auto); min-width: 0; overflow-wrap: anywhere; }
+      #mainMenu > .dropdown-content, #toolsMenu > .dropdown-content, #embalagensPage > .button-grid > .dropdown-content { margin-top: 0; }
+      /* espaço igual dos dois lados: o texto fica centrado e a seta (›, ↗, ▼) nunca toca nas letras, mesmo em colunas estreitas */
+      #mainMenu > .hub-button, #toolsMenu > .hub-button, #embalagensPage > .button-grid > .hub-button { padding-left: 38px; padding-right: 38px; }
       /* todos os botões desta página com a mesma altura (a de dois linhas), mesmo os de uma só linha */
       #embalagensPage > .button-grid > .hub-button { min-height: 64px; }
       /* botão do menu aberto com a borda azul acesa */
@@ -1748,6 +1747,48 @@
       }
     }
 
+
+    /* CALENDÁRIO JULIANO */
+    #calendarioPage .cc-canvas { max-width: 1100px; margin: 15px auto 30px; padding: 0; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,.12), 0 4px 10px rgba(0,0,0,.08); backdrop-filter: none; }
+    #calendarioPage .cc-body { padding: 16px; background: #ffffff; }
+    .cal-topo { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 28px; }
+    .cal-info { flex: 0 1 auto; min-width: 0; text-align: center; color: #1e293b; font-size: 0.9rem; font-weight: 800; }
+    .cal-barra { display: flex; align-items: center; gap: 8px; }
+    .cal-barra button { min-width: 40px; height: 34px; padding: 0 12px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f1f5f9; color: #0f172a; font: inherit; font-weight: 700; cursor: pointer; }
+    .cal-barra button:hover { background: #dbeafe; border-color: #93c5fd; }
+    .cal-barra .cal-hoje-btn { background: #2563eb; border-color: #2563eb; color: #fff; }
+    .cal-barra .cal-hoje-btn:hover { background: #1d4ed8; }
+    .cal-ano { display: inline-block; width: 72px; text-align: center; font-variant-numeric: tabular-nums; font-size: 1.3rem; font-weight: 800; color: #0f172a; }
+    .cal-meses { margin-top: 12px !important; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 14px; }
+    .cal-mes { padding: 10px; border: 1px solid #cbd5e1; border-radius: 12px; background: #ffffff; min-width: 0; cursor: zoom-in; transition: box-shadow .15s, border-color .15s; }
+    .cal-mes:hover, .cal-mes:focus-visible { border-color: #60a5fa; box-shadow: 0 4px 14px rgba(37,99,235,.18); outline: none; }
+    .cal-mes h4 { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 6px; color: #1e3a8a; font-size: 0.95rem; text-transform: uppercase; letter-spacing: .5px; }
+    .cal-mes h4 small { color: #64748b; font-size: 0.7rem; font-weight: 700; letter-spacing: 0; }
+    .cal-sem, .cal-dias { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; text-align: center; }
+    .cal-sem span { padding-bottom: 3px; color: #64748b; font-size: 0.65rem; font-weight: 700; }
+    .cal-sem span.fds { color: #b91c1c; }
+    .cal-d { aspect-ratio: 1 / 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px solid transparent; border-radius: 50%; line-height: 1.05; color: #0f172a; }
+    .cal-d b { font-size: 0.8rem; }
+    .cal-d i { font-style: normal; font-size: 0.55rem; color: #64748b; }
+    .cal-d.fds b { color: #b91c1c; }
+    .cal-d.vazio { visibility: hidden; }
+    .cal-d.hoje { border-color: #e11d48; background: #fff1f2; box-shadow: 0 0 0 2px rgba(225,29,72,.18); }
+    .cal-d.hoje i { color: #be123c; font-weight: 700; }
+    .cal-leg { margin-top: 14px; text-align: center; color: #475569; font-size: 0.78rem; }
+    #calZoomOv { position: fixed; inset: 0; z-index: 99996; display: flex; align-items: center; justify-content: center; padding: 12px; background: rgba(15,23,42,.6); }
+    #calZoomOv > div { zoom: var(--zoom-base); width: 100%; max-width: 560px; max-height: calc(92vh / var(--zoom-base)); overflow: auto; padding: 14px 16px 18px; background: #ffffff; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+    .cal-zhead { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .cal-zhead h3 { flex: 1; margin: 0; text-align: center; color: #1e3a8a; font-size: 1.2rem; text-transform: uppercase; letter-spacing: .5px; }
+    .cal-zhead h3 small { display: block; color: #64748b; font-size: 0.75rem; font-weight: 700; letter-spacing: 0; }
+    .cal-zhead button { min-width: 38px; height: 36px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f1f5f9; color: #0f172a; font: inherit; font-weight: 700; cursor: pointer; }
+    .cal-zhead button:hover:not(:disabled) { background: #dbeafe; border-color: #93c5fd; }
+    .cal-zhead button:disabled { opacity: .35; cursor: default; }
+    #calZoomOv .cal-sem, #calZoomOv .cal-dias { gap: 4px; }
+    #calZoomOv .cal-sem span { font-size: 0.8rem; }
+    #calZoomOv .cal-d b { font-size: 1.15rem; }
+    #calZoomOv .cal-d i { font-size: 0.7rem; }
+    #calZoomOv .cal-d.hoje { border-width: 3px; }
+    .cal-bola { display: inline-block; width: 12px; height: 12px; vertical-align: -1px; border: 2px solid #e11d48; border-radius: 50%; background: #fff1f2; }
 
     /* ZOOM AUTOMÁTICO: --zoom-base é calculado em JavaScript (função aplicarZoom) de forma contínua pela largura do ecrã,
        sem saltos entre tamanhos. Aqui fica só o valor de reserva (100%). */
@@ -1912,9 +1953,6 @@
 
     /* Página inicial: "Apoio Produção" abre um menu por baixo do botão (como o ACCEPT em Embalagens) */
     @media (min-width: 769px) {
-      #mainMenu > #apoioDropdownBtn { order: 1; grid-column: 1; }
-      #mainMenu > .hub-button:not(.dropdown-toggle) { order: 2; grid-column: 2; }
-      #mainMenu > #apoioDropdown { order: 3; grid-column: 1; margin-top: 0; }
       #mainMenu > .dropdown-toggle.active {
         border-color: rgba(96,165,250,0.85);
         box-shadow: 0 0 0 1px rgba(96,165,250,0.3), 0 0 16px rgba(96,165,250,0.25);
@@ -1923,9 +1961,6 @@
 
     /* Ferramentas: o menu "Colaborador" abre por baixo do próprio botão, igual ao "Apoio Produção" */
     @media (min-width: 769px) {
-      #toolsMenu > #pessoalDropdownBtn { order: 1; grid-column: 1; }
-      #toolsMenu > .hub-button:not(.dropdown-toggle) { order: 2; grid-column: 2; }
-      #toolsMenu > #pessoalDropdown { order: 3; grid-column: 1; margin-top: 0; }
       #toolsMenu > .dropdown-toggle.active {
         border-color: rgba(96,165,250,0.85);
         box-shadow: 0 0 0 1px rgba(96,165,250,0.3), 0 0 16px rgba(96,165,250,0.25);
@@ -2027,8 +2062,10 @@
     .lg-botoes button { padding: 10px; border: 0; border-radius: 8px; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
     .lg-cancel { flex: 1; background: #e2e8f0; color: #0f172a; }
     .lg-add { flex: 2; background: #16a34a; color: #fff; }
+    [data-lg-oculto] { display: none !important; }
     .lg-it.fixo { background: #f8fafc; }
     .lg-it.fixo .lg-it-nome { cursor: default; }
+    .lg-seta-b.lg-vazio { visibility: hidden; pointer-events: none; }
     .lg-seta-b.lg-x { background: #fee2e2; }
     .lg-it.oculto .lg-txt { opacity: .55; text-decoration: line-through; }
     .lg-seta-b:disabled { opacity: .35; cursor: default; }
@@ -2216,6 +2253,7 @@
           <div data-lg="apoio" class="button-grid" style="margin-bottom: 0; gap: 10px;">
             <div onclick="showCC()" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Correção de Cargas</div>
             <a href="https://sumolcompal.sharepoint.com/:w:/r/sites/SIG-Operacoes/_layouts/15/Doc.aspx?sourcedoc=%7B3E28EE17-DB93-426B-9FDB-29F57BB66642%7D&file=D0203.docx&action=default&mobileredirect=true&DefaultItemOpen=1%3Fweb%3D1" target="_blank" rel="noopener noreferrer" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Formulas: D0203</a>
+            <div onclick="showCalendario()" class="hub-button" style="padding: 12px 10px; font-size: 0.95rem; background: rgba(30, 41, 59, 0.9);">Calendário Juliano</div>
           </div>
         </div>
         <div onclick="showEmbalagens()" class="hub-button">Embalagens</div>
@@ -2737,6 +2775,28 @@
       </div>
     </div>
 
+    <div id="calendarioPage" style="display:none; margin-top:15px;">
+      <div class="canvas cc-canvas">
+        <div class="bisnaga-section-header">
+          <span class="step-num">J</span>
+          <h3>Calendário Juliano</h3>
+        </div>
+        <div class="cc-body">
+          <div class="cal-topo">
+            <div class="cal-barra">
+              <button type="button" onclick="calMudarAno(-1)" aria-label="Ano anterior">◀</button>
+              <span class="cal-ano" id="calAnoTxt" aria-live="polite"></span>
+              <button type="button" onclick="calMudarAno(1)" aria-label="Ano seguinte">▶</button>
+              <button type="button" class="cal-hoje-btn" onclick="calHoje()">Hoje</button>
+            </div>
+            <div class="cal-info" id="calInfo"></div>
+          </div>
+          <div class="cal-meses" id="calConteudo"></div>
+          <div class="cal-leg"><b id="calAnoDias"></b> &nbsp;·&nbsp; <span class="cal-bola" aria-hidden="true"></span> Hoje &nbsp;·&nbsp; número grande = dia do mês &nbsp;·&nbsp; número pequeno = dia juliano (001 a 365/366) &nbsp;·&nbsp; clica num mês para ampliar</div>
+        </div>
+      </div>
+    </div>
+
     <div id="variosPage" style="display:none; margin-top:15px;">
       <div data-lg="varios" class="button-grid">
         <a href="https://www.ipma.pt/" target="_blank" rel="noopener noreferrer" class="hub-button">IPMA</a>
@@ -2781,7 +2841,7 @@
 
   <script>
     /* Data da última atualização (AAAA-MM-DD): aparece no fim do menu (☰) e ao carregar em "Agajota" no rodapé; alterável na área de controlo (2) ou aqui */
-    let ULTIMA_ATUALIZACAO = '2026-11-13';
+    let ULTIMA_ATUALIZACAO = '2026-11-14';
     /* Botões e links editados no administrador 3 (vazio = os que estão no site). Uma linha: é reescrita ao descarregar o index */
     let LINKS_CONFIG = {};
     function dataAtualizacaoTxt() {
@@ -3761,6 +3821,87 @@
       subtitle.classList.add("cc-active");
     }
 
+    /* ===== Calendário Juliano: ano civil completo, círculo no dia de hoje ===== */
+    const CAL_MESES = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    const CAL_SEMANA = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
+    let calAno = new Date().getFullYear();
+    function calPad3(n){ return String(n).padStart(3, "0"); }
+    function calBissexto(a){ return (a % 4 === 0 && a % 100 !== 0) || a % 400 === 0; }
+    /* dia juliano = posição do dia no ano (1 de janeiro = 001) */
+    function calDiaDoAno(a, m, d){ return Math.round((Date.UTC(a, m, d) - Date.UTC(a, 0, 1)) / 864e5) + 1; }
+    function calMudarAno(d){ calAno = Math.min(2200, Math.max(1900, calAno + d)); renderCalendario(); }
+    function calHoje(){ calAno = new Date().getFullYear(); renderCalendario(); }
+    /* grelha de um mês (dias da semana + dias com o dia juliano por baixo) */
+    function calMesGrelha(m, seisSemanas){
+      const hj = new Date(), hA = hj.getFullYear(), hM = hj.getMonth(), hD = hj.getDate();
+      const nd = new Date(calAno, m + 1, 0).getDate();
+      const ini = (new Date(calAno, m, 1).getDay() + 6) % 7; /* segunda-feira = 0 */
+      let h = '<div class="cal-sem">' + CAL_SEMANA.map(function(x, i){ return '<span' + (i > 4 ? ' class="fds"' : '') + '>' + x + '</span>'; }).join("") + '</div><div class="cal-dias">';
+      for (let i = 0; i < ini; i++) h += '<span></span>';
+      for (let d = 1; d <= nd; d++) {
+        const fds = (ini + d - 1) % 7 >= 5, hoje = (calAno === hA && m === hM && d === hD);
+        h += '<div class="cal-d' + (fds ? ' fds' : '') + (hoje ? ' hoje' : '') + '"' + (hoje ? ' aria-current="date" title="Hoje"' : '') + '><b>' + d + '</b><i>' + calPad3(calDiaDoAno(calAno, m, d)) + '</i></div>';
+      }
+      /* na janela ampliada preenche até 6 semanas: a altura é igual em todos os meses */
+      if (seisSemanas) for (let i = ini + nd; i < 42; i++) h += '<div class="cal-d vazio" aria-hidden="true"><b>&nbsp;</b><i>&nbsp;</i></div>';
+      return h + '</div>';
+    }
+    function calIntervalo(m){ return calPad3(calDiaDoAno(calAno, m, 1)) + '–' + calPad3(calDiaDoAno(calAno, m, new Date(calAno, m + 1, 0).getDate())); }
+    function renderCalendario(){
+      const el = document.getElementById("calConteudo"); if (!el) return;
+      calZoomFechar();
+      const hj = new Date(), hA = hj.getFullYear(), hM = hj.getMonth(), hD = hj.getDate();
+      let h = "";
+      for (let m = 0; m < 12; m++) {
+        h += '<div class="cal-mes" tabindex="0" role="button" title="Ampliar" aria-label="Ampliar ' + CAL_MESES[m] + '"><h4><span>' + CAL_MESES[m] + '</span><small>' + calIntervalo(m) + '</small></h4>' + calMesGrelha(m) + '</div>';
+      }
+      el.innerHTML = h;
+      el.querySelectorAll(".cal-mes").forEach(function(c, m){
+        c.addEventListener("click", function(){ calZoom(m); });
+        c.addEventListener("keydown", function(e){ if (e.key === "Enter" || e.key === " ") { e.preventDefault(); calZoom(m); } });
+      });
+      document.getElementById("calAnoTxt").textContent = calAno;
+      const dataHoje = hj.toLocaleDateString("pt-PT", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+      document.getElementById("calInfo").textContent = dataHoje.charAt(0).toUpperCase() + dataHoje.slice(1) +
+        " · dia juliano " + calPad3(calDiaDoAno(hA, hM, hD));
+      document.getElementById("calAnoDias").textContent = calAno + " tem " + (calBissexto(calAno) ? "366 dias (bissexto)" : "365 dias");
+    }
+    /* ampliar um mês ao carregar nele (◀ ▶ mudam de mês; Esc, ✕ ou fora da janela fecham) */
+    let calZoomM = -1;
+    function calZoomFechar(){ const o = document.getElementById("calZoomOv"); if (o) o.remove(); calZoomM = -1; }
+    function calZoom(m){
+      m = Math.max(0, Math.min(11, m)); calZoomM = m;
+      let o = document.getElementById("calZoomOv");
+      if (!o) {
+        o = document.createElement("div"); o.id = "calZoomOv";
+        o.addEventListener("click", function(e){ if (e.target === o) calZoomFechar(); });
+        document.body.appendChild(o);
+      }
+      o.innerHTML = '<div role="dialog" aria-modal="true" aria-label="' + CAL_MESES[m] + ' ' + calAno + '">' +
+        '<div class="cal-zhead"><button type="button" onclick="calZoom(' + (m - 1) + ')" aria-label="Mês anterior"' + (m === 0 ? ' disabled' : '') + '>◀</button>' +
+        '<h3>' + CAL_MESES[m] + ' ' + calAno + ' <small>' + calIntervalo(m) + '</small></h3>' +
+        '<button type="button" onclick="calZoom(' + (m + 1) + ')" aria-label="Mês seguinte"' + (m === 11 ? ' disabled' : '') + '>▶</button>' +
+        '<button type="button" onclick="calZoomFechar()" aria-label="Fechar">✕</button></div>' + calMesGrelha(m, true) + '</div>';
+    }
+    document.addEventListener("keydown", function(e){
+      if (calZoomM < 0) return;
+      if (e.key === "Escape") calZoomFechar();
+      else if (e.key === "ArrowLeft") calZoom(calZoomM - 1);
+      else if (e.key === "ArrowRight") calZoom(calZoomM + 1);
+    });
+    function showCalendario(){
+      hideAllPages();
+      registarPaginaInterna("calendario");
+      calAno = new Date().getFullYear();
+      renderCalendario();
+      document.getElementById("calendarioPage").style.display = "block";
+      document.getElementById("backHeaderBtn").style.display = "flex";
+      const subtitle = document.getElementById("mainSubtitle");
+      subtitle.style.display = "block";
+      subtitle.textContent = "Calendário Juliano";
+      subtitle.classList.add("cc-active");
+    }
+
     function showVarios(){
       hideAllPages();
       registarPaginaInterna("varios");
@@ -3823,7 +3964,7 @@
       if (localStorage.getItem("isLoggedIn") !== "true") return;
       const st = e.state;
       if (st && st.pagina) {
-        const paginas = { cc: showCC, apoio: showApoio, embalagens: showEmbalagens, varios: showVarios, escala: showEscala, srv: showSRV, bisnagas: showMediasBisnagas, colas: showColas };
+        const paginas = { cc: showCC, apoio: showApoio, embalagens: showEmbalagens, varios: showVarios, calendario: showCalendario, escala: showEscala, srv: showSRV, bisnagas: showMediasBisnagas, colas: showColas };
         if (paginas[st.pagina]) {
           restaurandoPagina = true;
           try { paginas[st.pagina](); } finally { restaurandoPagina = false; }
@@ -3868,6 +4009,8 @@
       document.getElementById("apoioPage").style.display = "none";
       document.getElementById("embalagensPage").style.display = "none";
       document.getElementById("variosPage").style.display = "none";
+      document.getElementById("calendarioPage").style.display = "none";
+      calZoomFechar();
       document.getElementById("escalaPage").style.display = "none";
       document.getElementById("srvPage").style.display = "none";
       document.getElementById("ccPage").style.display = "none";
@@ -5324,7 +5467,10 @@
       lista.forEach(function(it){
         if (it.k) {
           const u = un.find(function(x){ return !usados.has(x) && x.k === it.k; });
-          if (u) { usados.add(u); u.nodes.forEach(function(nd){ ordem.push(nd); }); }
+          if (u) {
+            usados.add(u);
+            u.nodes.forEach(function(nd){ if (it.o) nd.setAttribute("data-lg-oculto", ""); else nd.removeAttribute("data-lg-oculto"); ordem.push(nd); });
+          }
           return;
         }
         if (it.o) return;
@@ -5338,6 +5484,7 @@
       un.forEach(function(x){ x.nodes.forEach(function(nd){ nd.remove(); }); });
       ordem.forEach(function(nd){ c.insertBefore(nd, marca); });
       marca.remove();
+      lgLayout();
     }
     /* lista guardada + botões do site que entretanto tenham aparecido/desaparecido */
     function lgMesclar(id, cfg){
@@ -5347,10 +5494,32 @@
       cfg.forEach(function(x){
         if (!x.k) { out.push(x); return; }
         const f = fixos.find(function(y){ return y.k === x.k; });
-        if (f) out.push({ k: f.k, t: f.t, p: f.p });
+        if (f) out.push({ k: f.k, t: f.t, p: f.p, o: x.o ? 1 : 0 });
       });
       fixos.forEach(function(f){ if (!out.some(function(x){ return x.k === f.k; })) out.push({ k: f.k, t: f.t, p: f.p }); });
       return out;
+    }
+    /* posições dos botões no computador: n colunas; cada menu fica logo abaixo da linha do seu botão, na coluna dele */
+    const LG_COLS = { deps: 2, ferram: 2, embalagens: 3 };
+    function lgLayout(){
+      Object.keys(LG_COLS).forEach(function(id){
+        const c = lgContainer(id); if (!c) return;
+        const n = LG_COLS[id];
+        let k = -1;
+        Array.from(c.children).forEach(function(el){
+          if (el.hasAttribute("data-lg-oculto")) return;
+          if (el.classList.contains("dropdown-content")) {
+            if (k < 0) return;
+            el.style.setProperty("--ord", Math.floor(k / n) * 100 + 50 + (k % n));
+            el.style.setProperty("--col", (k % n) + 1);
+            return;
+          }
+          if (!el.classList.contains("hub-button")) return;
+          k++;
+          el.style.setProperty("--ord", Math.floor(k / n) * 100 + (k % n));
+          el.style.setProperty("--col", (k % n) + 1);
+        });
+      });
     }
     function lgIniciar(){
       Object.keys(LG_NOMES).forEach(function(id){
@@ -5362,6 +5531,7 @@
       Object.keys(LINKS_CONFIG || {}).forEach(function(id){
         if (LG_NOMES[id] && Array.isArray(LINKS_CONFIG[id])) lgAplicar(id, LINKS_CONFIG[id]);
       });
+      lgLayout();
     }
     function lgUrl(u){
       u = String(u || "").trim();
@@ -5377,7 +5547,7 @@
     function dnLgReset(){ dnLgAberto = { raiz: false }; dnLgListas = {}; dnLgSujo = {}; dnLgAb = null; dnLgRascunho = null; }
     function dnLgCarregar(g){
       const base = LINKS_CONFIG[g] ? lgMesclar(g, LINKS_CONFIG[g]) : lgLer(g);
-      dnLgListas[g] = base.map(function(x){ return x.k ? { k: x.k, t: x.t, p: x.p } : { t: x.t, u: x.u, o: x.o ? 1 : 0 }; });
+      dnLgListas[g] = base.map(function(x){ return x.k ? { k: x.k, t: x.t, p: x.p, o: x.o ? 1 : 0 } : { t: x.t, u: x.u, o: x.o ? 1 : 0 }; });
       dnLgSujo[g] = false;
     }
     function dnLgGet(g){ if (!dnLgListas[g]) dnLgCarregar(g); return dnLgListas[g]; }
@@ -5423,7 +5593,7 @@
         const g = gs[k], out = [];
         for (let i = 0; i < dnLgListas[g].length; i++) {
           const x = dnLgListas[g][i];
-          if (x.k) { out.push({ k: x.k }); continue; }
+          if (x.k) { out.push(x.o ? { k: x.k, o: 1 } : { k: x.k }); continue; }
           const t = String(x.t || "").trim().slice(0, 60), u = lgUrl(x.u);
           if (!t || !u) return "❌ " + LG_NOMES[g] + ", botão " + (i + 1) + ": falta nome ou endereço válido";
           out.push(x.o ? { t: t, u: u, o: 1 } : { t: t, u: u });
@@ -5453,36 +5623,38 @@
       }, null, "Repor");
     }
     /* cabeçalho de pasta (linha com triângulo, ícone, nome e contagem) */
-    function dnLgPastaHtml(g, nome, icone, setas){
+    function dnLgPastaHtml(g, nome, icone, setas, oculto){
       const ab = !!dnLgAberto[g];
-      return '<div class="lg-it pasta"><div class="lg-it-cab"><button type="button" class="lg-it-nome" aria-expanded="' + ab + '" onclick="dnLgPasta(\'' + g + '\')">' +
+      return '<div class="lg-it pasta' + (oculto ? ' oculto' : '') + '"><div class="lg-it-cab"><button type="button" class="lg-it-nome" aria-expanded="' + ab + '" onclick="dnLgPasta(\'' + g + '\')">' +
         '<span class="lg-tri" aria-hidden="true">' + (ab ? '▼' : '▶') + '</span><span class="lg-txt">' + (ab ? '📂' : '📁') + ' ' + dnEsc(nome) +
-        (LINKS_CONFIG[g] ? ' ✏️' : '') + (dnLgSujo[g] ? ' <em>• por aplicar</em>' : '') + ' <small>(' + dnLgContar(g) + ')</small></span></button>' + (setas ? '<span class="lg-setas">' + setas + '</span>' : '') + '</div>';
+        (oculto ? ' · oculto' : '') + (LINKS_CONFIG[g] ? ' ✏️' : '') + (dnLgSujo[g] ? ' <em>• por aplicar</em>' : '') + ' <small>(' + dnLgContar(g) + ')</small></span></button>' + (setas ? '<span class="lg-setas">' + setas + '</span>' : '') + '</div>';
     }
     /* conteúdo de uma pasta: links editáveis, botões fixos (🔒) e sub-pastas (recursivo) */
     function dnLgConteudo(g){
       const lista = dnLgGet(g), ult = lista.length - 1;
       let h = '';
       lista.forEach(function(it, i){
-        const setas = '<button type="button" class="lg-seta-b" aria-label="Subir"' + (i === 0 ? ' disabled' : '') + ' onclick="dnLgMover(\'' + g + '\', ' + i + ', -1)">⬆️</button>' +
-          '<button type="button" class="lg-seta-b" aria-label="Descer"' + (i === ult ? ' disabled' : '') + ' onclick="dnLgMover(\'' + g + '\', ' + i + ', 1)">⬇️</button>';
+        const subir = '<button type="button" class="lg-seta-b" aria-label="Subir"' + (i === 0 ? ' disabled' : '') + ' onclick="dnLgMover(\'' + g + '\', ' + i + ', -1)">⬆️</button>';
+        const descer = '<button type="button" class="lg-seta-b" aria-label="Descer"' + (i === ult ? ' disabled' : '') + ' onclick="dnLgMover(\'' + g + '\', ' + i + ', 1)">⬇️</button>';
+        const ocultarBtn = '<button type="button" class="lg-seta-b" aria-label="' + (it.o ? 'Mostrar no site' : 'Ocultar do site') + '" title="' + (it.o ? 'Oculto: tocar para mostrar' : 'Visível: tocar para ocultar') + '" onclick="dnLgOcultar(\'' + g + '\', ' + i + ')">' + (it.o ? '🙈' : '👁️') + '</button>';
+        const apagarBtn = '<button type="button" class="lg-seta-b lg-x" aria-label="Apagar" title="Apagar" onclick="dnLgApagar(\'' + g + '\', ' + i + ')">🗑️</button>';
+        const vazio = '<span class="lg-seta-b lg-vazio" aria-hidden="true"></span>';
         if (it.k) {
           const sub = LG_SUB[it.k];
+          const setasK = ocultarBtn + vazio + subir + descer;
           if (sub && lgContainer(sub)) {
-            h += dnLgPastaHtml(sub, it.t, "", setas);
+            h += dnLgPastaHtml(sub, it.t, "", setasK, it.o);
             if (dnLgAberto[sub]) h += '<div class="lg-sub">' + dnLgConteudo(sub) + '</div>';
             h += '</div>';
           } else {
-            h += '<div class="lg-it fixo"><div class="lg-it-cab"><div class="lg-it-nome"><span class="lg-tri" aria-hidden="true">🔒</span><span class="lg-txt">' + dnEsc(it.t) + '</span></div><span class="lg-setas">' + setas + '</span></div></div>';
+            h += '<div class="lg-it fixo' + (it.o ? ' oculto' : '') + '"><div class="lg-it-cab"><div class="lg-it-nome"><span class="lg-tri" aria-hidden="true">🔒</span><span class="lg-txt">' + dnEsc(it.t) + (it.o ? ' · oculto' : '') + '</span></div><span class="lg-setas">' + setasK + '</span></div></div>';
           }
           return;
         }
         const ab = dnLgAb && dnLgAb.g === g && dnLgAb.i === i;
         h += '<div class="lg-it' + (it.o ? ' oculto' : '') + '"><div class="lg-it-cab"><button type="button" class="lg-it-nome" aria-expanded="' + !!ab + '" onclick="dnLgItem(\'' + g + '\', ' + i + ')">' +
           '<span class="lg-tri" aria-hidden="true">' + (ab ? '▼' : '▶') + '</span><span class="lg-txt">🔗 ' + (it.t ? dnEsc(it.t) : '(sem nome)') + (it.o ? ' · oculto' : '') + '</span></button>' +
-          '<span class="lg-setas">' + setas +
-          '<button type="button" class="lg-seta-b" aria-label="' + (it.o ? 'Mostrar no site' : 'Ocultar do site') + '" title="' + (it.o ? 'Oculto: tocar para mostrar' : 'Visível: tocar para ocultar') + '" onclick="dnLgOcultar(\'' + g + '\', ' + i + ')">' + (it.o ? '🙈' : '👁️') + '</button>' +
-          '<button type="button" class="lg-seta-b lg-x" aria-label="Apagar" title="Apagar" onclick="dnLgApagar(\'' + g + '\', ' + i + ')">🗑️</button></span></div>';
+          '<span class="lg-setas">' + ocultarBtn + apagarBtn + subir + descer + '</span></div>';
         if (ab) {
           h += '<div class="lg-edit"><label class="pd-lbl">Nome do botão</label>' +
             '<input id="lgNome" class="pd-input" type="text" maxlength="60" autocomplete="off" value="' + dnEsc(it.t) + '" oninput="dnLgSetT(\'' + g + '\', ' + i + ', this.value)">' +
@@ -5511,7 +5683,7 @@
         '<div class="lg-bloco' + (ab ? ' on' : '') + '"><button type="button" class="lg-grupo" aria-expanded="' + ab + '" onclick="dnLgPasta(\'raiz\')">' +
         '<span class="lg-tri" aria-hidden="true">' + (ab ? '▼' : '▶') + '</span><span class="lg-nome">🏠 Centro de atalhos <small>(' + LG_RAIZ.length + ')</small>' + (Object.keys(dnLgSujo).some(function(g){ return dnLgSujo[g]; }) ? ' <em style="font-size:11px;font-style:normal;color:#b45309;">• por aplicar</em>' : '') + '</span></button>';
       if (ab) {
-        h += '<div class="pd-nota" style="margin-top:0;">Organizado como pastas: abre uma pasta para ver o que tem lá dentro. 🔗 = link (podes editar, ocultar 👁️ ou apagar 🗑️); 🔒 = botão do próprio site (ex.: Correção de Cargas), só muda de ordem com ⬆️⬇️; 📁 = pasta.</div>';
+        h += '<div class="pd-nota" style="margin-top:0;">Organizado como pastas: abre uma pasta para ver o que tem lá dentro. 🔗 = link (podes editar, ocultar 👁️ ou apagar 🗑️); 🔒 = botão do próprio site (ex.: Correção de Cargas): muda de ordem com ⬆️⬇️ e pode ser ocultado 👁️, mas não editado nem apagado; 📁 = pasta (se a ocultares, o seu menu também desaparece).</div>';
         LG_RAIZ.forEach(function(g){
           if (!lgContainer(g)) return;
           h += dnLgPastaHtml(g, LG_NOMES[g], LG_ICONES[g], "").replace('📁', LG_ICONES[g] || '📁').replace('📂', LG_ICONES[g] || '📂');
