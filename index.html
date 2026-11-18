@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
-<head><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
+<head><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -2835,11 +2835,11 @@
 
   <script>
     /* Data da última atualização (AAAA-MM-DD): aparece no fim do menu (☰) e ao carregar em "Agajota" no rodapé; alterável na área de controlo (2) ou aqui */
-    let ULTIMA_ATUALIZACAO = '2026-11-15';
+    let ULTIMA_ATUALIZACAO = '2026-11-18';
     /* Normalmente false: a data é automática (a em que o index.html foi substituído no alojamento; a de cima é a reserva). Fica true só nas atualizações em que escreveste uma data no calendário do administrador: nessa, vale a data de cima. */
     let DATA_MANUAL = false;
     /* Botões e links editados no administrador 3 (vazio = os que estão no site). Uma linha: é reescrita ao descarregar o index */
-    let LINKS_CONFIG = {};
+    let LINKS_CONFIG = {"gerais":[{"t":"TVBOX20","u":"https://sumolcompal.nos.thinkdigital.pt/dashboard/videowalls/e073ec24-8ddd-46b3-b46a-0fca81a436d4","o":1},{"t":"Intranet","u":"https://intranet.sumolcompal.pt"},{"t":"SIG","u":"https://sumolcompal.sharepoint.com/sites/SIG"},{"t":"Jira","u":"https://sumolcompal.atlassian.net/servicedesk/customer/user/login?destination=portals"},{"t":"Saborista","u":"https://www.saborista.pt"},{"t":"Successfactors","u":"https://performancemanager.successfactors.eu"}]};
     function dataAtualizacaoTxt() {
       const d = new Date(ULTIMA_ATUALIZACAO + 'T12:00:00');
       return isNaN(d) ? ULTIMA_ATUALIZACAO : d.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
