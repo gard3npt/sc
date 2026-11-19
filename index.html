@@ -1764,7 +1764,7 @@
     .cal-mes:hover, .cal-mes:focus-visible { border-color: #60a5fa; box-shadow: 0 4px 14px rgba(37,99,235,.18); outline: none; }
     .cal-mes h4 { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 6px; color: #1e3a8a; font-size: 0.95rem; text-transform: uppercase; letter-spacing: .5px; }
     .cal-mes h4 small { color: #64748b; font-size: 0.7rem; font-weight: 700; letter-spacing: 0; }
-    .cal-sem, .cal-dias { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; text-align: center; }
+    .cal-sem, .cal-dias { display: grid; grid-template-columns: minmax(26px, 1.2fr) repeat(7, minmax(0, 1fr)); gap: 2px; text-align: center; }
     .cal-sem span { padding-bottom: 3px; color: #64748b; font-size: 0.65rem; font-weight: 700; }
     .cal-sem span.fds { color: #b91c1c; }
     .cal-d { aspect-ratio: 1 / 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px solid transparent; border-radius: 50%; line-height: 1.05; color: #0f172a; }
@@ -1772,6 +1772,9 @@
     .cal-d i { font-style: normal; font-size: 0.55rem; color: #64748b; }
     .cal-d.fds b { color: #b91c1c; }
     .cal-d.vazio { visibility: hidden; }
+    .cal-w { display: flex; align-items: center; justify-content: center; color: #2563eb; font-size: 0.6rem; font-weight: 800; }
+    .cal-sem span.cal-w { padding-bottom: 3px; color: #2563eb; font-size: 0.65rem; }
+    .cal-w.hoje { color: #be123c; }
     .cal-d.hoje { border-color: #e11d48; background: #fff1f2; box-shadow: 0 0 0 2px rgba(225,29,72,.18); }
     .cal-d.hoje i { color: #be123c; font-weight: 700; }
     .cal-leg { margin-top: 14px; text-align: center; color: #475569; font-size: 0.78rem; }
@@ -1788,6 +1791,7 @@
     #calZoomOv .cal-d b { font-size: 1.15rem; }
     #calZoomOv .cal-d i { font-size: 0.7rem; }
     #calZoomOv .cal-d.hoje { border-width: 3px; }
+    #calZoomOv .cal-w, #calZoomOv .cal-sem span.cal-w { font-size: 0.8rem; }
     .cal-bola { display: inline-block; width: 12px; height: 12px; vertical-align: -1px; border: 2px solid #e11d48; border-radius: 50%; background: #fff1f2; }
 
     /* ZOOM AUTOMÁTICO: --zoom-base é calculado em JavaScript (função aplicarZoom) de forma contínua pela largura do ecrã,
@@ -2002,13 +2006,15 @@
     .escala-corpo { padding: 16px; background: #ffffff; text-align: center; }
     .escala-estado { color: #475569; font-weight: 600; font-size: 0.95rem; padding: 22px 8px; line-height: 1.5; }
     .escala-estado button { display: block; margin: 14px auto 0; padding: 10px 18px; border: 2px solid #2563eb; background: #ffffff; color: #2563eb; border-radius: 10px; font: inherit; font-weight: 700; cursor: pointer; }
+    .escala-estado.erro { color: #dc2626; font-weight: 700; }
     .escala-imagem { max-width: 100%; max-height: 70vh; border: 1px solid #cbd5e1; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,.12); cursor: zoom-in; }
-    .escala-data { font-size: 0.8rem; color: #64748b; margin-top: 10px; }
-    .escala-aviso { margin-top: 8px; font-size: 0.85rem; font-weight: 700; color: #dc2626; }
+    .escala-data { font-size: 0.8rem; color: #64748b; margin: 0 0 8px; }
+    .escala-aviso { margin: 0 0 10px; font-size: 0.85rem; font-weight: 700; color: #dc2626; }
     .escala-aviso:empty { display: none; }
     .escala-corpo.a-arrastar { outline: 3px dashed #2563eb; outline-offset: -6px; background: #eff6ff; }
     .escala-barra { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 14px; }
     .escala-ic { width: 52px; height: 52px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border-radius: 50%; border: 2px solid #2563eb; background: #ffffff; color: #2563eb; font-size: 1.5rem; line-height: 1; cursor: pointer; box-shadow: 0 3px 8px rgba(0,0,0,.15); -webkit-tap-highlight-color: transparent; }
+    .escala-ic-txt { width: auto; height: 48px; padding: 0 18px; border-radius: 999px; gap: 8px; font-size: 0.95rem; font-weight: 700; white-space: nowrap; }
     .escala-ic-azul { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; }
     .escala-ic-dono { display: none; border-color: #dc2626; color: #dc2626; }
     #escalaPage.modo-dono .escala-ic-dono { display: inline-flex; }
@@ -2024,6 +2030,37 @@
     #escalaGrande img.a-arrastar { cursor: grabbing; }
     #escalaGrande .eg-barra { position: fixed; top: 12px; right: 12px; z-index: 1; display: flex; gap: 8px; }
     #escalaGrande button { min-width: 44px; padding: 10px 14px; border: none; border-radius: 10px; background: #ffffff; color: #0f172a; font: inherit; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
+
+    /* etiqueta «Nova» junto à data e nota de estado (sem rede / a verificar) */
+    .escala-nova { display: inline-block; margin-right: 6px; padding: 2px 8px; border-radius: 999px; background: #16a34a; color: #ffffff; font-size: 0.7rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; vertical-align: 1px; }
+    .escala-nota { margin: 0 0 10px; padding: 7px 12px; border-radius: 8px; border: 1px solid #bfdbfe; background: #eff6ff; font-size: 0.82rem; font-weight: 700; color: #1d4ed8; }
+    .escala-nota.sem-rede { border-color: #fcd34d; background: #fffbeb; color: #b45309; }
+    .escala-nota:empty { display: none; }
+
+    /* pré-visualização antes de enviar */
+    #escalaPrevia { position: fixed; inset: 0; z-index: 99991; background: rgba(15,23,42,0.97); display: flex; flex-direction: column; align-items: stretch; user-select: none; -webkit-user-select: none; }
+    #escalaPrevia .ep-topo { flex: 0 0 auto; background: #0f172a; padding: 12px 16px; text-align: center; color: #e2e8f0; font-size: 0.95rem; font-weight: 600; white-space: pre-line; }
+    #escalaPrevia .ep-area { position: relative; flex: 1 1 auto; min-height: 0; }
+    #escalaPrevia .ep-area img { position: absolute; top: 16px; left: 16px; width: calc(100% - 32px); height: calc(100% - 32px); object-fit: contain; background: #ffffff; border-radius: 6px; cursor: zoom-in; -webkit-user-drag: none; }
+    #escalaPrevia .ep-barra { flex: 0 0 auto; background: #0f172a; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px)); }
+    #escalaPrevia .ep-barra button { padding: 11px 18px; border: none; border-radius: 10px; font: inherit; font-weight: 700; cursor: pointer; background: #ffffff; color: #0f172a; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
+    #escalaPrevia .ep-barra button.ep-usar { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; }
+    #escalaPrevia .ep-barra button:disabled { opacity: .5; cursor: default; }
+
+    /* escolher entre a escala atual e a anterior */
+    #escalaEscolher { position: fixed; inset: 0; z-index: 99991; background: rgba(15,23,42,0.97); display: flex; flex-direction: column; align-items: stretch; }
+    #escalaEscolher .ee-topo { flex: 0 0 auto; padding: 14px 16px; text-align: center; color: #e2e8f0; font-size: 1rem; font-weight: 700; }
+    #escalaEscolher .ee-corpo { flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; align-content: flex-start; padding: 4px 16px 16px; }
+    #escalaEscolher .ee-card { flex: 1 1 220px; max-width: 360px; display: flex; flex-direction: column; gap: 6px; padding: 12px; border-radius: 14px; background: #1e293b; border: 2px solid #334155; color: #e2e8f0; text-align: center; }
+    #escalaEscolher .ee-card.ee-atual { border-color: #2563eb; }
+    #escalaEscolher .ee-tit { font-size: 0.8rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #93c5fd; }
+    #escalaEscolher .ee-card img { width: 100%; height: 34vh; object-fit: contain; background: #ffffff; border-radius: 8px; cursor: zoom-in; }
+    #escalaEscolher .ee-vazio { height: 34vh; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: #0f172a; color: #94a3b8; font-weight: 600; }
+    #escalaEscolher .ee-info { font-size: 0.85rem; font-weight: 600; min-height: 2.4em; }
+    #escalaEscolher .ee-card button { padding: 11px 14px; border: none; border-radius: 10px; font: inherit; font-weight: 700; cursor: pointer; background: #ffffff; color: #0f172a; }
+    #escalaEscolher .ee-card button.ee-usar { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; }
+    #escalaEscolher .ee-rodape { flex: 0 0 auto; display: flex; justify-content: center; padding: 12px 16px calc(14px + env(safe-area-inset-bottom, 0px)); background: #0f172a; }
+    #escalaEscolher .ee-rodape button { padding: 11px 22px; border: none; border-radius: 10px; font: inherit; font-weight: 700; cursor: pointer; background: #ffffff; color: #0f172a; }
 
 
     /* caixa da senha do dono */
@@ -2731,16 +2768,19 @@
           <h3>Escala da semana <span style="white-space: nowrap;">(plano de turnos)</span></h3>
         </div>
         <div class="escala-corpo" id="escalaAcoes">
-          <div id="escalaEstado" class="escala-estado">A carregar...</div>
-          <img id="escalaImagem" class="escala-imagem" alt="Escala semanal" style="display:none;" onclick="abrirEscalaGrande()">
           <div id="escalaData" class="escala-data"></div>
           <div id="escalaAviso" class="escala-aviso" role="status"></div>
+          <div id="escalaNota" class="escala-nota" role="status"></div>
+          <div id="escalaEstado" class="escala-estado">A carregar...</div>
+          <img id="escalaImagem" class="escala-imagem" alt="Escala semanal" style="display:none;" onclick="abrirEscalaGrande()">
           <div class="escala-barra">
-            <label id="escalaFotoBtn" class="escala-ic escala-ic-azul" for="escalaCamara" role="button" tabindex="0" title="Tirar fotografia" aria-label="Tirar fotografia">📷</label>
-            <label id="escalaCarregarBtn" class="escala-ic" for="escalaFicheiro" role="button" tabindex="0" title="Escolher imagem ou PDF" aria-label="Escolher imagem ou PDF">📁</label>
+            <label id="escalaFotoBtn" class="escala-ic escala-ic-txt escala-ic-azul" for="escalaCamara" role="button" tabindex="0" title="Tirar fotografia" aria-label="Tirar fotografia">📷 Tirar foto</label>
+            <label id="escalaCarregarBtn" class="escala-ic escala-ic-txt" for="escalaFicheiro" role="button" tabindex="0" title="Escolher imagem ou PDF" aria-label="Escolher imagem ou PDF">📁 Escolher ficheiro</label>
             <button type="button" id="escalaCortarBtn" class="escala-ic escala-ic-dono" onclick="pedirCortarEscala()" title="Cortar" aria-label="Cortar" disabled>✂&#xFE0E;</button>
+            <button type="button" id="escalaReporBtn" class="escala-ic escala-ic-dono" onclick="pedirReporEscala()" title="Repor original" aria-label="Repor original" disabled>↩&#xFE0E;</button>
             <button type="button" id="escalaApagarBtn" class="escala-ic escala-ic-dono" onclick="pedirApagarEscala()" title="Apagar" aria-label="Apagar" disabled>🗑</button>
           </div>
+          <p class="escala-ajuda" style="margin-top:10px;">Fotografia, imagem ou PDF. Antes de enviar, vê a pré-visualização e confirma que está legível.</p>
           <input type="file" id="escalaCamara" accept="image/*" capture="environment" hidden onchange="escolherFotoEscala(this)">
           <input type="file" id="escalaFicheiro" accept="image/*,application/pdf,.pdf" hidden onchange="escolherFotoEscala(this)">
         </div>
@@ -2786,7 +2826,7 @@
             <div class="cal-info" id="calInfo"></div>
           </div>
           <div class="cal-meses" id="calConteudo"></div>
-          <div class="cal-leg"><b id="calAnoDias"></b> &nbsp;·&nbsp; <span class="cal-bola" aria-hidden="true"></span> Hoje &nbsp;·&nbsp; número grande = dia do mês &nbsp;·&nbsp; número pequeno = dia juliano (001 a 365/366) &nbsp;·&nbsp; clica num mês para ampliar</div>
+          <div class="cal-leg"><b id="calAnoDias"></b> &nbsp;·&nbsp; <span class="cal-bola" aria-hidden="true"></span> Hoje &nbsp;·&nbsp; número grande = dia do mês &nbsp;·&nbsp; número pequeno = dia juliano (001 a 365/366) &nbsp;·&nbsp; número azul à esquerda = semana do ano (ISO, segunda a domingo) &nbsp;·&nbsp; clica num mês para ampliar</div>
         </div>
       </div>
     </div>
@@ -2835,11 +2875,11 @@
 
   <script>
     /* Data da última atualização (AAAA-MM-DD): aparece no fim do menu (☰) e ao carregar em "Agajota" no rodapé; alterável na área de controlo (2) ou aqui */
-    let ULTIMA_ATUALIZACAO = '2026-11-18';
+    let ULTIMA_ATUALIZACAO = '2026-11-19';
     /* Normalmente false: a data é automática (a em que o index.html foi substituído no alojamento; a de cima é a reserva). Fica true só nas atualizações em que escreveste uma data no calendário do administrador: nessa, vale a data de cima. */
     let DATA_MANUAL = false;
     /* Botões e links editados no administrador 3 (vazio = os que estão no site). Uma linha: é reescrita ao descarregar o index */
-    let LINKS_CONFIG = {"gerais":[{"t":"TVBOX20","u":"https://sumolcompal.nos.thinkdigital.pt/dashboard/videowalls/e073ec24-8ddd-46b3-b46a-0fca81a436d4","o":1},{"t":"Intranet","u":"https://intranet.sumolcompal.pt"},{"t":"SIG","u":"https://sumolcompal.sharepoint.com/sites/SIG"},{"t":"Jira","u":"https://sumolcompal.atlassian.net/servicedesk/customer/user/login?destination=portals"},{"t":"Saborista","u":"https://www.saborista.pt"},{"t":"Successfactors","u":"https://performancemanager.successfactors.eu"}]};
+    let LINKS_CONFIG = {};
     function dataAtualizacaoTxt() {
       const d = new Date(ULTIMA_ATUALIZACAO + 'T12:00:00');
       return isNaN(d) ? ULTIMA_ATUALIZACAO : d.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -3080,6 +3120,10 @@
       if (cortar) { cortar.remove(); return; }
       const grande = document.getElementById("escalaGrande");
       if (grande) { grande.remove(); return; }
+      const previa = document.getElementById("escalaPrevia");
+      if (previa) { previa.remove(); return; }
+      const escolher = document.getElementById("escalaEscolher");
+      if (escolher) { escolher.remove(); return; }
       if (document.getElementById("backHeaderBtn").style.display !== "none") voltarPagina();
     });
 
@@ -3244,68 +3288,197 @@
     const ESCALA_MAX_CARACTERES = 1400000;
     const ESCALA_AVISO_DIAS = 7;       /* a partir de quantos dias sem atualização aparece o aviso a vermelho */
     let escalaAtual = null;
+    let escalaDeCache = false;   /* true quando a imagem mostrada é a cópia guardada no telemóvel (ainda sem confirmação do servidor) */
+    let escalaPedido = 0;        /* conta os carregamentos, para ignorar respostas antigas */
+    const ESCALA_TIMEOUT_MS = 25000;
+    const ESCALA_NOTA_MIN_MS = 5000; /* a nota «A verificar» fica pelo menos 5 s, mesmo que a verificação seja rápida */
+    const ESCALA_VISTA_CHAVE = "sc-escala-vista";
 
     function escalaUrl(){ return ESCALA_DB_URL.trim().replace(/\/+$/, "") + "/escala.json"; }
     function escalaConfigurada(){ return ESCALA_DB_URL.trim() !== ""; }
+    function escalaAnteriorUrl(){ return ESCALA_DB_URL.trim().replace(/\/+$/, "") + "/escala_anterior.json"; }
 
     function escalaMostrarEstado(texto, comBotaoRepetir){
       const el = document.getElementById("escalaEstado");
       el.textContent = texto;
+      el.classList.toggle("erro", !!comBotaoRepetir); /* a mensagem de erro (com «Tentar de novo») aparece a vermelho */
       if (comBotaoRepetir) {
         const b = document.createElement("button");
         b.type = "button";
         b.textContent = "Tentar de novo";
-        b.onclick = carregarEscala;
+        b.onclick = function(){ carregarEscala(); };
         el.appendChild(b);
       }
       el.style.display = "block";
       document.getElementById("escalaImagem").style.display = "none";
       document.getElementById("escalaData").textContent = "";
       document.getElementById("escalaAviso").textContent = "";
+      escalaDefinirNota("");
+    }
+
+    function escalaDefinirNota(texto, semRede){
+      const el = document.getElementById("escalaNota");
+      el.textContent = texto || "";
+      el.classList.toggle("sem-rede", !!semRede);
+    }
+
+    /* ----- Cópia da última escala no telemóvel (IndexedDB): abre sem rede ou com rede fraca ----- */
+    function escalaIdb(){
+      return new Promise(function(resolve, reject){
+        if (!window.indexedDB) { reject(new Error("sem IndexedDB")); return; }
+        let pedido;
+        try { pedido = indexedDB.open("sc-lab", 1); } catch (e) { reject(e); return; }
+        pedido.onupgradeneeded = function(){ pedido.result.createObjectStore("escala"); };
+        pedido.onsuccess = function(){ resolve(pedido.result); };
+        pedido.onerror = function(){ reject(pedido.error); };
+        pedido.onblocked = function(){ reject(new Error("bloqueado")); };
+      });
+    }
+    function escalaIdbOp(modo, fazer){
+      return escalaIdb().then(function(db){
+        return new Promise(function(resolve, reject){
+          try {
+            const t = db.transaction("escala", modo);
+            const r = fazer(t.objectStore("escala"));
+            t.oncomplete = function(){ db.close(); resolve(r && r.result !== undefined ? r.result : null); };
+            t.onerror = t.onabort = function(){ db.close(); reject(t.error || new Error("erro")); };
+          } catch (e) { try { db.close(); } catch (x) {} reject(e); }
+        });
+      });
+    }
+    function escalaCacheLer(){
+      return Promise.race([
+        escalaIdbOp("readonly", function(s){ return s.get("ultima"); }),
+        new Promise(function(resolve){ setTimeout(function(){ resolve(null); }, 2000); })
+      ]).catch(function(){ return null; });
+    }
+    function escalaCacheGuardar(dados){
+      return escalaIdbOp("readwrite", function(s){
+        return s.put({ imagem: dados.imagem, atualizada: dados.atualizada || "", autor: dados.autor || "" }, "ultima");
+      }).catch(function(){});
+    }
+    function escalaCacheApagar(){
+      return escalaIdbOp("readwrite", function(s){ return s.delete("ultima"); }).catch(function(){});
+    }
+
+    /* ----- «Nova»: guarda a data da última escala que esta pessoa viu ----- */
+    function escalaVistaLer(){ try { return localStorage.getItem(ESCALA_VISTA_CHAVE); } catch (e) { return null; } }
+    function escalaMarcarVista(sig){ try { if (sig) localStorage.setItem(ESCALA_VISTA_CHAVE, sig); } catch (e) {} }
+
+    /* ----- Escala anterior (guardada em «escala_anterior» antes de cada substituição, corte ou remoção) ----- */
+    async function escalaGuardarAnterior(dados){
+      if (!dados || !dados.imagem) return true;
+      try {
+        const res = await fetch(escalaAnteriorUrl(), {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ imagem: dados.imagem, atualizada: dados.atualizada || "", autor: dados.autor || "" })
+        });
+        return res.ok;
+      } catch (e) { return false; }
+    }
+
+    /* Corte/rotação: guarda a imagem original da escala. Se já existe a original desta mesma escala (mesma data),
+       mantém-na, para vários cortes seguidos não a substituírem por versões já cortadas. */
+    async function escalaGuardarOriginal(dados){
+      try {
+        const r = await fetch(escalaAnteriorUrl().replace(/\.json$/, "/atualizada.json"), { cache: "no-store" });
+        if (r.ok) {
+          const a = await r.json();
+          if (a && dados.atualizada && a === dados.atualizada) return true;
+        }
+      } catch (e) {}
+      return escalaGuardarAnterior(dados);
     }
 
     function escalaAtualizarBotoes(ocupado){
-      const temEscala = !!escalaAtual;
-      document.getElementById("escalaApagarBtn").disabled = ocupado || !temEscala;
-      document.getElementById("escalaCortarBtn").disabled = ocupado || !temEscala;
+      const editavel = !!escalaAtual && !escalaDeCache;
+      document.getElementById("escalaApagarBtn").disabled = ocupado || !editavel;
+      document.getElementById("escalaCortarBtn").disabled = ocupado || !editavel;
+      document.getElementById("escalaReporBtn").disabled = ocupado || escalaDeCache || !escalaConfigurada();
       ["escalaCarregarBtn", "escalaFotoBtn"].forEach(function(id){
         document.getElementById(id).classList.toggle("escala-desativado", !!ocupado || !escalaConfigurada());
       });
     }
 
+    function escalaMostrarImagem(dados, vistaAntes){
+      escalaAtual = dados;
+      const img = document.getElementById("escalaImagem");
+      img.src = dados.imagem;
+      img.style.display = "inline-block";
+      document.getElementById("escalaEstado").style.display = "none";
+      const el = document.getElementById("escalaData");
+      el.textContent = "";
+      /* «Nova»: a escala mudou desde a última vez que esta pessoa a viu (não aparece na primeira utilização) */
+      if (vistaAntes && dados.atualizada && dados.atualizada !== vistaAntes) {
+        const nova = document.createElement("span");
+        nova.className = "escala-nova";
+        nova.textContent = "Nova";
+        el.appendChild(nova);
+      }
+      const d = new Date(dados.atualizada);
+      if (!isNaN(d)) {
+        el.appendChild(document.createTextNode(
+          "Atualizada em " + d.toLocaleDateString("pt-PT", { day: "numeric", month: "long", year: "numeric" }) +
+          ", às " + d.toLocaleTimeString("pt-PT", { hour: "2-digit", minute: "2-digit" }) +
+          (dados.autor ? ", por " + dados.autor : "")));
+      }
+      const dias = isNaN(d) ? 0 : (Date.now() - d.getTime()) / 86400000;
+      document.getElementById("escalaAviso").textContent = dias > ESCALA_AVISO_DIAS ? "⚠️ Escala com mais de " + ESCALA_AVISO_DIAS + " dias" : "";
+    }
+
     async function carregarEscala(){
+      const meu = ++escalaPedido;
       escalaAtual = null;
+      escalaDeCache = false;
       escalaAtualizarBotoes(true);
       if (!escalaConfigurada()) {
         escalaMostrarEstado("A escala ainda não está ligada ao site. Peça a quem gere o site para a configurar.");
         escalaAtualizarBotoes(false);
         return;
       }
-      escalaMostrarEstado("A carregar...");
+      const vistaAntes = escalaVistaLer();
+      /* 1.º mostra já a cópia guardada no telemóvel (se existir); 2.º verifica na rede se há uma mais recente */
+      const copia = await escalaCacheLer();
+      if (meu !== escalaPedido) return;
+      const temCopia = !!(copia && copia.imagem);
+      let tNota = 0;
+      if (temCopia) {
+        escalaDeCache = true;
+        escalaMostrarImagem(copia, vistaAntes);
+        escalaDefinirNota("⏳ A verificar se há uma escala mais recente...");
+        tNota = Date.now();
+        escalaAtualizarBotoes(false);
+      } else {
+        escalaMostrarEstado("A carregar...");
+      }
+      const ctl = new AbortController();
+      const limite = setTimeout(function(){ ctl.abort(); }, ESCALA_TIMEOUT_MS);
       try {
-        const res = await fetch(escalaUrl(), { cache: "no-store" });
+        const res = await fetch(escalaUrl(), { cache: "no-store", signal: ctl.signal });
         if (!res.ok) throw new Error("HTTP " + res.status);
         const dados = await res.json();
+        if (meu !== escalaPedido) return;
+        escalaDeCache = false;
         if (!dados || !dados.imagem) {
+          escalaAtual = null;
+          escalaCacheApagar();
           escalaMostrarEstado("Ainda não há nenhuma escala. Use 📷 para tirar uma fotografia ou 📁 para escolher um ficheiro.");
         } else {
-          escalaAtual = dados;
-          const img = document.getElementById("escalaImagem");
-          img.src = dados.imagem;
-          img.style.display = "inline-block";
-          document.getElementById("escalaEstado").style.display = "none";
-          const d = new Date(dados.atualizada);
-          document.getElementById("escalaData").textContent = isNaN(d) ? "" :
-            "Atualizada em " + d.toLocaleDateString("pt-PT", { day: "numeric", month: "long", year: "numeric" }) +
-            ", às " + d.toLocaleTimeString("pt-PT", { hour: "2-digit", minute: "2-digit" }) +
-            (dados.autor ? ", por " + dados.autor : "");
-          const dias = isNaN(d) ? 0 : (Date.now() - d.getTime()) / 86400000;
-          document.getElementById("escalaAviso").textContent = dias > ESCALA_AVISO_DIAS ? "⚠️ Escala com mais de " + ESCALA_AVISO_DIAS + " dias" : "";
+          escalaMostrarImagem(dados, vistaAntes);
+          /* a imagem atualiza já; a nota só desaparece passados 5 s desde que apareceu */
+          setTimeout(function(){ if (meu === escalaPedido) escalaDefinirNota(""); }, Math.max(0, ESCALA_NOTA_MIN_MS - (Date.now() - tNota)));
+          escalaCacheGuardar(dados);
+          escalaMarcarVista(dados.atualizada);
         }
       } catch (e) {
-        escalaMostrarEstado("Não foi possível ver a escala. Verifique a ligação à internet.", true);
+        if (meu !== escalaPedido) return;
+        if (temCopia) escalaDefinirNota("📴 Sem ligação ou rede fraca: a mostrar a última escala guardada neste telemóvel.", true);
+        else escalaMostrarEstado("Não foi possível ver a escala. Verifique a ligação à internet.", true);
+      } finally {
+        clearTimeout(limite);
       }
-      escalaAtualizarBotoes(false);
+      if (meu === escalaPedido) escalaAtualizarBotoes(false);
     }
 
     function escalaEPdf(ficheiro){
@@ -3391,22 +3564,139 @@
 
     function escolherFotoEscala(input){
       const ficheiro = input.files && input.files[0];
+      const origem = input.id;
       input.value = "";
       if (!ficheiro) return;
-      receberFicheiroEscala(ficheiro);
+      receberFicheiroEscala(ficheiro, origem);
     }
 
-    /* ponto comum: câmara, escolher ficheiro e arrastar para a caixa */
-    function receberFicheiroEscala(ficheiro){
+    /* ponto comum: câmara, escolher ficheiro e arrastar para a caixa.
+       A imagem é preparada e mostrada numa pré-visualização; só se envia depois de tocar em «Usar». */
+    async function receberFicheiroEscala(ficheiro, origemId){
       if (document.getElementById("escalaCarregarBtn").classList.contains("escala-desativado")) return;
       if (!escalaEPdf(ficheiro) && !/^image\//.test(ficheiro.type)) { caixaMensagem("Escolha uma imagem ou um PDF."); return; }
-      /* o nome de quem atualiza é obrigatório e fica visível junto à data */
-      const seguir = function(){ pedirNomeEscala(function(nome){ enviarEscala(ficheiro, nome); }); };
-      if (escalaAtual) {
-        caixaMensagem("Vai substituir a escala atual por esta nova escala. Continuar?", seguir, null, "Continuar");
-      } else {
-        seguir();
+      const fechar = escalaOcupado(escalaEPdf(ficheiro) ? "A converter o PDF..." : "A preparar a imagem...");
+      let imagem;
+      try { imagem = await reduzirFotografia(ficheiro); }
+      catch (e) {
+        fechar();
+        caixaMensagem("Não foi possível preparar o ficheiro. Se for um PDF, confirme que há ligação à internet.");
+        return;
       }
+      fechar();
+      abrirPreviaEscala(imagem, origemId || "escalaFicheiro");
+    }
+
+    /* aviso simples enquanto se prepara a imagem; devolve a função que o fecha */
+    function escalaOcupado(texto){
+      const antigo = document.getElementById("escalaOcupado");
+      if (antigo) antigo.remove();
+      const ov = document.createElement("div");
+      ov.id = "escalaOcupado";
+      ov.style.cssText = "position:fixed; inset:0; z-index:99997; background:rgba(15,23,42,0.55); display:flex; align-items:center; justify-content:center; padding:16px;";
+      const c = document.createElement("div");
+      c.style.cssText = "background:#ffffff; border-radius:14px; padding:18px 22px; font-size:15px; font-weight:700; color:#0f172a; box-shadow:0 10px 30px rgba(0,0,0,0.3);";
+      c.textContent = texto;
+      ov.appendChild(c);
+      document.body.appendChild(ov);
+      return function(){ ov.remove(); };
+    }
+
+    /* roda uma imagem (data URL) 90/180/270° no sentido dos ponteiros do relógio; parte sempre da original para não perder qualidade */
+    function escalaCarregarImg(src){
+      return new Promise(function(resolve, reject){
+        const im = new Image();
+        im.onload = function(){ resolve(im); };
+        im.onerror = function(){ reject(new Error("imagem inválida")); };
+        im.src = src;
+      });
+    }
+    async function escalaRodar(src, graus){
+      graus = ((graus % 360) + 360) % 360;
+      if (!graus) return src;
+      const im = await escalaCarregarImg(src);
+      const w = im.naturalWidth, h = im.naturalHeight;
+      const troca = graus === 90 || graus === 270;
+      const canvas = document.createElement("canvas");
+      canvas.width = troca ? h : w;
+      canvas.height = troca ? w : h;
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.rotate(graus * Math.PI / 180);
+      ctx.drawImage(im, -w / 2, -h / 2);
+      let q = 0.9;
+      while (q >= 0.45) {
+        const r = canvas.toDataURL("image/jpeg", q);
+        if (r.length < ESCALA_MAX_CARACTERES) return r;
+        q -= 0.1;
+      }
+      throw new Error("imagem demasiado grande");
+    }
+
+    /* Pré-visualização: «Repetir» volta a abrir a câmara/ficheiros, ↻ roda, «Usar» segue para o nome e envia */
+    function abrirPreviaEscala(base, origemId){
+      const antigo = document.getElementById("escalaPrevia");
+      if (antigo) antigo.remove();
+      let angulo = 0, atual = base, ocupado = false;
+      const ov = document.createElement("div");
+      ov.id = "escalaPrevia";
+      ov.setAttribute("role", "dialog");
+      ov.setAttribute("aria-modal", "true");
+      const topo = document.createElement("div");
+      topo.className = "ep-topo";
+      topo.textContent = "Veja se a imagem está nítida e legível (toque nela para ampliar)." + (escalaAtual ? "\n«Usar» substitui a escala atual." : "");
+      const area = document.createElement("div");
+      area.className = "ep-area";
+      const img = document.createElement("img");
+      img.alt = "Pré-visualização da escala";
+      img.draggable = false;
+      img.src = base;
+      img.onclick = function(){ abrirEscalaGrande(atual); };
+      area.appendChild(img);
+      const barra = document.createElement("div");
+      barra.className = "ep-barra";
+      function botao(texto, classe, acao, titulo){
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = texto;
+        if (classe) b.className = classe;
+        if (titulo) b.setAttribute("aria-label", titulo);
+        b.onclick = acao;
+        barra.appendChild(b);
+        return b;
+      }
+      botao("Cancelar", "", function(){
+        if (ocupado) return;
+        ov.remove();
+      });
+      botao("Repetir", "", function(){
+        if (ocupado) return;
+        ov.remove();
+        const inp = document.getElementById(origemId);
+        if (inp) inp.click();
+      });
+      const bRodar = botao("↻ Rodar", "", async function(){
+        if (ocupado) return;
+        ocupado = true; bRodar.disabled = true; bUsar.disabled = true;
+        try {
+          const novo = (angulo + 90) % 360;
+          atual = await escalaRodar(base, novo);
+          angulo = novo;
+          img.src = atual;
+        } catch (e) { caixaMensagem("Não foi possível rodar a imagem."); }
+        ocupado = false; bRodar.disabled = false; bUsar.disabled = false;
+      }, "Rodar a imagem");
+      const bUsar = botao("Usar", "ep-usar", function(){
+        if (ocupado) return;
+        /* a pré-visualização só fecha depois de confirmar o nome: se cancelar, não perde a fotografia */
+        pedirNomeEscala(function(nome){ ov.remove(); enviarEscala(atual, nome); });
+      });
+      ov.appendChild(topo);
+      ov.appendChild(area);
+      ov.appendChild(barra);
+      document.body.appendChild(ov);
     }
 
     /* Caixa que pede o nome (obrigatório) de quem está a atualizar a escala; lembra o último nome usado neste dispositivo */
@@ -3470,19 +3760,23 @@
       campo.focus();
     }
 
-    async function enviarEscala(ficheiro, autor){
+    async function enviarEscala(imagem, autor){
       escalaAtualizarBotoes(true);
-      escalaMostrarEstado(escalaEPdf(ficheiro) ? "A converter o PDF e a enviar..." : "A enviar a imagem...");
+      escalaMostrarEstado("A enviar a imagem...");
       try {
-        const imagem = await reduzirFotografia(ficheiro);
+        /* antes de substituir, guarda a escala atual para o dono a poder repor (↩) */
+        const guardou = (escalaAtual && !escalaDeCache) ? await escalaGuardarAnterior(escalaAtual) : true;
+        const atualizada = new Date().toISOString();
         const res = await fetch(escalaUrl(), {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ imagem: imagem, atualizada: new Date().toISOString(), autor: autor })
+          body: JSON.stringify({ imagem: imagem, atualizada: atualizada, autor: autor })
         });
         if (!res.ok) throw new Error("HTTP " + res.status);
+        escalaMarcarVista(atualizada); /* quem enviou não vê a sua própria escala como «Nova» */
+        await escalaCacheGuardar({ imagem: imagem, atualizada: atualizada, autor: autor });
         await carregarEscala();
-        caixaMensagem("Escala atualizada com sucesso.");
+        caixaMensagem("Escala atualizada com sucesso." + (guardou ? "" : " Não foi possível guardar a escala original."));
       } catch (e) {
         await carregarEscala();
         caixaMensagem("Não foi possível enviar a escala. Verifique a ligação e tente de novo.");
@@ -3509,20 +3803,138 @@
     })();
 
     function pedirApagarEscala(){
-      if (!escalaAtual || !escalaModoDono()) return;
-      caixaMensagem("Apagar a escala atual?", apagarEscala, null, "Apagar");
+      if (!escalaAtual || escalaDeCache || !escalaModoDono()) return;
+      caixaMensagem("Apagar a escala atual? Poderá repô-la com o botão ↩.", apagarEscala, null, "Apagar");
     }
 
     async function apagarEscala(){
       escalaAtualizarBotoes(true);
       try {
+        const guardou = await escalaGuardarAnterior(escalaAtual);
         const res = await fetch(escalaUrl(), { method: "DELETE" });
         if (!res.ok) throw new Error("HTTP " + res.status);
+        await escalaCacheApagar();
         await carregarEscala();
-        caixaMensagem("Escala apagada.");
+        caixaMensagem("Escala apagada." + (guardou ? "" : " Não foi possível guardar uma cópia para repor."));
       } catch (e) {
         await carregarEscala();
         caixaMensagem("Não foi possível apagar a escala. Tente de novo.");
+      }
+    }
+
+    /* Repor anterior (botão ↩, escondido como o resto do modo dono): a escala atual e a anterior trocam de lugar */
+    function pedirReporEscala(){
+      if (!escalaModoDono() || escalaDeCache || !escalaConfigurada()) return;
+      escalaReporAnterior();
+    }
+
+    async function escalaReporAnterior(){
+      escalaAtualizarBotoes(true);
+      let ant = null;
+      try {
+        const r = await fetch(escalaAnteriorUrl(), { cache: "no-store" });
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        ant = await r.json();
+      } catch (e) {
+        escalaAtualizarBotoes(false);
+        caixaMensagem("Não foi possível ver a escala original. Verifique a ligação.");
+        return;
+      }
+      escalaAtualizarBotoes(false);
+      if (!ant || !ant.imagem) { caixaMensagem("Não há nenhuma escala original guardada."); return; }
+      abrirEscolhaEscala(escalaAtual, ant);
+    }
+
+    /* Lista para escolher qual das duas escalas fica ativa: a atual (não muda nada) ou a anterior (troca) */
+    function abrirEscolhaEscala(atual, ant){
+      const antigo = document.getElementById("escalaEscolher");
+      if (antigo) antigo.remove();
+      const ov = document.createElement("div");
+      ov.id = "escalaEscolher";
+      ov.setAttribute("role", "dialog");
+      ov.setAttribute("aria-modal", "true");
+      const topo = document.createElement("div");
+      topo.className = "ee-topo";
+      topo.textContent = "Qual escala quer usar?";
+      const corpo = document.createElement("div");
+      corpo.className = "ee-corpo";
+      function descrever(d){
+        if (!d) return "";
+        const t = new Date(d.atualizada);
+        return (isNaN(t) ? "Data desconhecida" : t.toLocaleDateString("pt-PT", { day: "numeric", month: "long", year: "numeric" }) + ", " + t.toLocaleTimeString("pt-PT", { hour: "2-digit", minute: "2-digit" })) +
+          (d.autor ? "\nPor " + d.autor : "");
+      }
+      function cartao(titulo, dados, classe, textoBtn, destaque, acao){
+        const c = document.createElement("div");
+        c.className = "ee-card " + classe;
+        const t = document.createElement("div");
+        t.className = "ee-tit";
+        t.textContent = titulo;
+        c.appendChild(t);
+        if (dados && dados.imagem) {
+          const im = document.createElement("img");
+          im.src = dados.imagem;
+          im.alt = titulo;
+          im.onclick = function(){ abrirEscalaGrande(dados.imagem); };
+          c.appendChild(im);
+        } else {
+          const v = document.createElement("div");
+          v.className = "ee-vazio";
+          v.textContent = "Sem escala (foi apagada)";
+          c.appendChild(v);
+        }
+        const inf = document.createElement("div");
+        inf.className = "ee-info";
+        inf.style.whiteSpace = "pre-line";
+        inf.textContent = descrever(dados);
+        c.appendChild(inf);
+        if (dados && dados.imagem) {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.textContent = textoBtn;
+          if (destaque) b.className = "ee-usar";
+          b.onclick = acao;
+          c.appendChild(b);
+        }
+        return c;
+      }
+      corpo.appendChild(cartao("Original", ant, "", "Usar esta", true, function(){ ov.remove(); aplicarReporEscala(ant); }));
+      corpo.appendChild(cartao("Atual", atual, "ee-atual", "Manter esta", false, function(){ ov.remove(); }));
+      const rodape = document.createElement("div");
+      rodape.className = "ee-rodape";
+      const cancelar = document.createElement("button");
+      cancelar.type = "button";
+      cancelar.textContent = "Cancelar";
+      cancelar.onclick = function(){ ov.remove(); };
+      rodape.appendChild(cancelar);
+      ov.appendChild(topo);
+      ov.appendChild(corpo);
+      ov.appendChild(rodape);
+      document.body.appendChild(ov);
+    }
+
+    async function aplicarReporEscala(ant){
+      const atual = escalaAtual;
+      escalaAtualizarBotoes(true);
+      escalaMostrarEstado("A repor a escala original...");
+      try {
+        const atualizada = ant.atualizada || new Date().toISOString();
+        const res = await fetch(escalaUrl(), {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ imagem: ant.imagem, atualizada: atualizada, autor: ant.autor || "" })
+        });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        /* se era outra escala, a que estava atual passa a ser guardada (a reposição também se desfaz) */
+        if (atual && atual.atualizada !== ant.atualizada) await escalaGuardarAnterior(atual); /* mesma escala (só cortada): a original mantém-se */
+        else if (!atual) { try { await fetch(escalaAnteriorUrl(), { method: "DELETE" }); } catch (x) {} }
+        escalaMarcarVista(atualizada);
+        await escalaCacheGuardar({ imagem: ant.imagem, atualizada: atualizada, autor: ant.autor || "" });
+        await carregarEscala();
+        caixaMensagem("Escala original reposta.");
+      } catch (e) {
+        await carregarEscala();
+        caixaMensagem("Não foi possível repor a escala original. Tente de novo.");
       }
     }
 
@@ -3615,7 +4027,7 @@
       ov.id = "escalaCortar";
       const topo = document.createElement("div");
       topo.className = "ec-topo";
-      topo.textContent = "Arraste os cantos e os lados para escolher a zona a manter";
+      topo.textContent = "Arraste os cantos e os lados para escolher a zona a manter. Use ↻ para rodar a imagem.";
       const caixa = document.createElement("div");
       caixa.className = "ec-caixa";
       const img = document.createElement("img");
@@ -3696,44 +4108,77 @@
       rec.addEventListener("pointercancel", largar);
       img.addEventListener("load", desenhar);
 
-      async function guardar(){
-        const nw = img.naturalWidth, nh = img.naturalHeight;
-        const sx = Math.round(sel.x * nw), sy = Math.round(sel.y * nh);
-        const sw = Math.max(1, Math.round(sel.w * nw)), sh = Math.max(1, Math.round(sel.h * nh));
+      const base = escalaAtual.imagem;
+      let angulo = 0, ocupadoR = false;
+      async function rodar(){
+        if (ocupadoR) return;
+        ocupadoR = true;
         try {
-          const canvas = document.createElement("canvas");
-          canvas.width = sw; canvas.height = sh;
-          const ctx = canvas.getContext("2d");
-          ctx.fillStyle = "#ffffff";
-          ctx.fillRect(0, 0, sw, sh);
-          ctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
-          let q = 0.9, resultado = "";
-          while (q >= 0.45) {
-            resultado = canvas.toDataURL("image/jpeg", q);
-            if (resultado.length < ESCALA_MAX_CARACTERES) break;
-            q -= 0.1;
+          const novo = (angulo + 90) % 360;
+          const src = await escalaRodar(base, novo);
+          angulo = novo;
+          sel = { x: 0, y: 0, w: 1, h: 1 };
+          img.src = src; /* o evento load volta a desenhar a seleção */
+        } catch (e) { caixaMensagem("Não foi possível rodar a imagem."); }
+        ocupadoR = false;
+      }
+
+      async function guardar(cortou){
+        const atualOrig = escalaAtual;
+        try {
+          let resultado;
+          if (!cortou) {
+            resultado = img.src; /* só rodada: já está pronta, sem nova compressão */
+          } else {
+            const nw = img.naturalWidth, nh = img.naturalHeight;
+            const sx = Math.round(sel.x * nw), sy = Math.round(sel.y * nh);
+            const sw = Math.max(1, Math.round(sel.w * nw)), sh = Math.max(1, Math.round(sel.h * nh));
+            const canvas = document.createElement("canvas");
+            canvas.width = sw; canvas.height = sh;
+            const ctx = canvas.getContext("2d");
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, sw, sh);
+            ctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+            let q = 0.9;
+            resultado = "";
+            while (q >= 0.45) {
+              resultado = canvas.toDataURL("image/jpeg", q);
+              if (resultado.length < ESCALA_MAX_CARACTERES) break;
+              q -= 0.1;
+            }
           }
+          /* guarda a original (antes do corte/rotação), para a poder repor com ↩ */
+          const guardou = await escalaGuardarOriginal(atualOrig);
           const res = await fetch(escalaUrl(), {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            /* cortar não conta como nova escala: mantém a data de atualização e o autor originais */
-            body: JSON.stringify({ imagem: resultado, atualizada: escalaAtual.atualizada || new Date().toISOString(), autor: escalaAtual.autor })
+            /* cortar/rodar não conta como nova escala: mantém a data de atualização e o autor originais */
+            body: JSON.stringify({ imagem: resultado, atualizada: atualOrig.atualizada || new Date().toISOString(), autor: atualOrig.autor })
           });
           if (!res.ok) throw new Error("HTTP " + res.status);
+          await escalaCacheGuardar({ imagem: resultado, atualizada: atualOrig.atualizada, autor: atualOrig.autor });
           ov.remove();
           await carregarEscala();
-          caixaMensagem("Escala cortada e guardada.");
+          caixaMensagem((cortou && angulo ? "Escala rodada, cortada e guardada." : (angulo ? "Escala rodada e guardada." : "Escala cortada e guardada.")) +
+            (guardou ? "" : " Não foi possível guardar a original."));
         } catch (e) {
-          caixaMensagem("Não foi possível cortar a escala. Tente de novo.");
+          caixaMensagem("Não foi possível guardar a escala. Tente de novo.");
         }
       }
 
       barra.appendChild(botao("Cancelar", "", function(){ ov.remove(); }));
-      barra.appendChild(botao("Repor", "", function(){ sel = { x: 0, y: 0, w: 1, h: 1 }; desenhar(); }));
+      barra.appendChild(botao("Repor", "", function(){
+        sel = { x: 0, y: 0, w: 1, h: 1 };
+        if (angulo) { angulo = 0; img.src = base; } /* o evento load volta a desenhar */
+        desenhar();
+      }));
+      barra.appendChild(botao("↻ Rodar", "", rodar));
       barra.appendChild(info);
-      barra.appendChild(botao("✂ Cortar e guardar", "ec-guardar", function(){
-        if (sel.w > 0.995 && sel.h > 0.995) { caixaMensagem("Escolha primeiro a zona a manter, arrastando os cantos."); return; }
-        caixaMensagem("Cortar a escala e guardar? A imagem atual será substituída pela zona escolhida.", guardar, null, "Cortar");
+      barra.appendChild(botao("✓ Guardar", "ec-guardar", function(){
+        const cortou = !(sel.w > 0.995 && sel.h > 0.995);
+        if (!cortou && !angulo) { caixaMensagem("Escolha primeiro a zona a manter (arraste os cantos) ou rode a imagem com ↻."); return; }
+        const que = cortou && angulo ? "rodada e cortada" : (angulo ? "rodada" : "cortada");
+        caixaMensagem("Guardar a escala " + que + "? A imagem atual será substituída (poderá repô-la com ↩).", function(){ guardar(cortou); }, null, "Guardar");
       }));
 
       ov.appendChild(topo);
@@ -3746,14 +4191,16 @@
       desenhar();
     }
 
-    function abrirEscalaGrande(){
-      if (!escalaAtual) return;
+    function abrirEscalaGrande(src){
+      const fonte = (typeof src === "string" && src) ? src : (escalaAtual && escalaAtual.imagem);
+      if (!fonte) return;
       const ZMIN = 0.3, ZMAX = 8; /* 1 = tamanho standard (imagem inteira no ecrã); pode afastar até 30% */
       let z = 1, tx = 0, ty = 0;
       const ov = document.createElement("div");
       ov.id = "escalaGrande";
+      if (typeof src === "string" && src) ov.style.zIndex = "99995"; /* por cima da pré-visualização */
       const img = document.createElement("img");
-      img.src = escalaAtual.imagem;
+      img.src = fonte;
       img.alt = "Escala semanal";
       img.draggable = false;
 
@@ -3927,19 +4374,36 @@
     function calDiaDoAno(a, m, d){ return Math.round((Date.UTC(a, m, d) - Date.UTC(a, 0, 1)) / 864e5) + 1; }
     function calMudarAno(d){ calAno = Math.min(2200, Math.max(1900, calAno + d)); renderCalendario(); }
     function calHoje(){ calAno = new Date().getFullYear(); renderCalendario(); }
-    /* grelha de um mês (dias da semana + dias com o dia juliano por baixo) */
+    /* semana ISO 8601 (segunda a domingo; a W1 é a que tem a primeira quinta-feira do ano) */
+    function calSemanaISO(a, m, d){
+      const t = new Date(Date.UTC(a, m, d));
+      const dia = t.getUTCDay() || 7;
+      t.setUTCDate(t.getUTCDate() + 4 - dia);
+      const ini = Date.UTC(t.getUTCFullYear(), 0, 1);
+      return Math.ceil(((t - ini) / 864e5 + 1) / 7);
+    }
+    /* grelha de um mês: coluna das semanas (W) + dias da semana + dias com o dia juliano por baixo */
     function calMesGrelha(m, seisSemanas){
       const hj = new Date(), hA = hj.getFullYear(), hM = hj.getMonth(), hD = hj.getDate();
       const nd = new Date(calAno, m + 1, 0).getDate();
       const ini = (new Date(calAno, m, 1).getDay() + 6) % 7; /* segunda-feira = 0 */
-      let h = '<div class="cal-sem">' + CAL_SEMANA.map(function(x, i){ return '<span' + (i > 4 ? ' class="fds"' : '') + '>' + x + '</span>'; }).join("") + '</div><div class="cal-dias">';
-      for (let i = 0; i < ini; i++) h += '<span></span>';
-      for (let d = 1; d <= nd; d++) {
-        const fds = (ini + d - 1) % 7 >= 5, hoje = (calAno === hA && m === hM && d === hD);
-        h += '<div class="cal-d' + (fds ? ' fds' : '') + (hoje ? ' hoje' : '') + '"' + (hoje ? ' aria-current="date" title="Hoje"' : '') + '><b>' + d + '</b><i>' + calPad3(calDiaDoAno(calAno, m, d)) + '</i></div>';
+      let h = '<div class="cal-sem"><span class="cal-w" title="Semana do ano (ISO)"></span>' + CAL_SEMANA.map(function(x, i){ return '<span' + (i > 4 ? ' class="fds"' : '') + '>' + x + '</span>'; }).join("") + '</div><div class="cal-dias">';
+      /* na janela ampliada preenche sempre 6 semanas: a altura é igual em todos os meses */
+      const linhas = seisSemanas ? 6 : Math.ceil((ini + nd) / 7);
+      for (let r = 0; r < linhas; r++) {
+        const d0 = Math.max(1, r * 7 - ini + 1);
+        let linha = "", temHoje = false;
+        for (let c = 0; c < 7; c++) {
+          const d = r * 7 + c - ini + 1;
+          if (d < 1) { linha += '<span></span>'; continue; }
+          if (d > nd) { if (seisSemanas) linha += '<div class="cal-d vazio" aria-hidden="true"><b>&nbsp;</b><i>&nbsp;</i></div>'; continue; }
+          const fds = c >= 5, hoje = (calAno === hA && m === hM && d === hD);
+          if (hoje) temHoje = true;
+          linha += '<div class="cal-d' + (fds ? ' fds' : '') + (hoje ? ' hoje' : '') + '"' + (hoje ? ' aria-current="date" title="Hoje"' : '') + '><b>' + d + '</b><i>' + calPad3(calDiaDoAno(calAno, m, d)) + '</i></div>';
+        }
+        h += d0 > nd ? '<span class="cal-w"></span>' : '<span class="cal-w' + (temHoje ? ' hoje' : '') + '" title="Semana ' + calSemanaISO(calAno, m, d0) + '">' + calSemanaISO(calAno, m, d0) + '</span>';
+        h += linha;
       }
-      /* na janela ampliada preenche até 6 semanas: a altura é igual em todos os meses */
-      if (seisSemanas) for (let i = ini + nd; i < 42; i++) h += '<div class="cal-d vazio" aria-hidden="true"><b>&nbsp;</b><i>&nbsp;</i></div>';
       return h + '</div>';
     }
     function calIntervalo(m){ return calPad3(calDiaDoAno(calAno, m, 1)) + '–' + calPad3(calDiaDoAno(calAno, m, new Date(calAno, m + 1, 0).getDate())); }
@@ -3959,7 +4423,7 @@
       document.getElementById("calAnoTxt").textContent = calAno;
       const dataHoje = hj.toLocaleDateString("pt-PT", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
       document.getElementById("calInfo").textContent = dataHoje.charAt(0).toUpperCase() + dataHoje.slice(1) +
-        " · dia juliano " + calPad3(calDiaDoAno(hA, hM, hD));
+        " · dia juliano " + calPad3(calDiaDoAno(hA, hM, hD)) + " · semana " + calSemanaISO(hA, hM, hD);
       document.getElementById("calAnoDias").textContent = calAno + " tem " + (calBissexto(calAno) ? "366 dias (bissexto)" : "365 dias");
     }
     /* ampliar um mês ao carregar nele (◀ ▶ mudam de mês; Esc, ✕ ou fora da janela fecham) */
@@ -5429,6 +5893,7 @@
       caixaMensagem("Repor o site ao estado original? Apaga tudo o que está guardado neste dispositivo (sessão, zoom, cache) e volta ao início de sessão. A escala guardada no servidor não é afetada.", async function(){
         try { localStorage.clear(); sessionStorage.clear(); } catch (e) {}
         await dnApagarCaches();
+        await escalaCacheApagar();
         try { history.replaceState(null, ""); } catch (e) {}
         location.reload();
       }, null, "Repor tudo");
