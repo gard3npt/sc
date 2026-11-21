@@ -1,13 +1,13 @@
 # SC Lab
 
-Hub de ligações úteis e calculadoras, feito para facilitar o dia a dia. É também a área onde testo ideias novas.
+Hub de ligações úteis e calculadoras, feito para facilitar o dia a dia no Lab, da SC. É também a área onde testo ideias novas.
 
 **Abrir:** https://gard3npt.github.io/sc/
 
 ## O que é
 
-- **Ligações úteis** reunidas num só sítio, para chegar depressa ao que se procura.
-- **Calculadoras** que ajudam a fazer contas e tarefas do dia a dia com menos esforço.
+- **Ligações úteis** reunidas num só sítio, para chegar depressa ao que se procura no Lab.
+- **Calculadoras** que ajudam a fazer as contas e as tarefas do dia a dia no Lab com menos esforço.
 - Um espaço de **testes**, onde experimento ideias novas antes de as passar para outros projetos.
 
 ## Instalar no telemóvel
