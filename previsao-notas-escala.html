@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pré-visualização das notas da escala</title>
+<style>
+  body { margin: 0; padding: 16px; background: #121417; color: #e2e8f0; font-family: Arial, Helvetica, sans-serif; font-size: 12.5px; }
+  h1 { font-size: 1rem; margin: 0 0 4px; }
+  p.intro { margin: 0 0 16px; color: #94a3b8; }
+  .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .caso h2 { font-size: 0.8rem; margin: 0 0 6px; color: #93c5fd; }
+  /* mesmas regras do site */
+  .escala-corpo { padding: 16px; background: #ffffff; text-align: center; border-radius: 12px; }
+  .escala-data { font-size: 0.8rem; color: #64748b; margin: 0 0 8px; }
+  .escala-aviso { margin: 0 0 10px; font-size: 0.85rem; font-weight: 700; color: #dc2626; }
+  .escala-nota { margin: 0 0 10px; padding: 7px 12px; border-radius: 8px; border: 1px solid #bfdbfe; background: #eff6ff; font-size: 0.82rem; font-weight: 700; color: #1d4ed8; }
+  .escala-nota.sem-rede { border-color: #fcd34d; background: #fffbeb; color: #b45309; }
+  .escala-nova { display: inline-block; margin-right: 6px; padding: 2px 8px; border-radius: 999px; background: #16a34a; color: #ffffff; font-size: 0.7rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; vertical-align: 1px; }
+  .estado { padding: 22px 8px; line-height: 1.5; font-weight: 700; color: #dc2626; font-size: 0.95rem; }
+  .estado button { display: block; margin: 14px auto 0; padding: 10px 18px; border: 2px solid #2563eb; background: #ffffff; color: #2563eb; border-radius: 10px; font: inherit; font-weight: 700; }
+  .imagem { height: 120px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f1f5f9; color: #94a3b8; display: flex; align-items: center; justify-content: center; }
+</style>
+</head>
+<body>
+<h1>Pré-visualização das notas da escala</h1>
+<p class="intro">Cada cartão mostra um estado possível, de cima para baixo como no site: data, aviso vermelho, nota e imagem.</p>
+<div class="grade">
+
+  <div class="caso"><h2>1. Normal</h2><div class="escala-corpo">
+    <div class="escala-data">Atualizada em 18 de novembro de 2026, às 23:29, por Helder</div>
+    <div class="imagem">(imagem da escala)</div>
+  </div></div>
+
+  <div class="caso"><h2>2. Escala nova</h2><div class="escala-corpo">
+    <div class="escala-data"><span class="escala-nova">Nova</span>Atualizada em 18 de novembro de 2026, às 23:29, por Helder</div>
+    <div class="imagem">(imagem da escala)</div>
+  </div></div>
+
+  <div class="caso"><h2>3. Com mais de 7 dias</h2><div class="escala-corpo">
+    <div class="escala-data">Atualizada em 5 de novembro de 2026, às 09:10, por Helder</div>
+    <div class="escala-aviso">⚠️ Escala com mais de 7 dias</div>
+    <div class="imagem">(imagem da escala)</div>
+  </div></div>
+
+  <div class="caso"><h2>4. A verificar (cópia guardada)</h2><div class="escala-corpo">
+    <div class="escala-data">Atualizada em 18 de novembro de 2026, às 23:29, por Helder</div>
+    <div class="escala-nota">⏳ A verificar se há uma escala mais recente...</div>
+    <div class="imagem">(imagem da escala)</div>
+  </div></div>
+
+  <div class="caso"><h2>5. Sem ligação</h2><div class="escala-corpo">
+    <div class="escala-data">Atualizada em 18 de novembro de 2026, às 23:29, por Helder</div>
+    <div class="escala-nota sem-rede">📴 Sem ligação ou rede fraca: a mostrar a última escala guardada neste telemóvel.</div>
+    <div class="imagem">(imagem da escala)</div>
+  </div></div>
+
+  <div class="caso"><h2>6. Tudo ao mesmo tempo</h2><div class="escala-corpo">
+    <div class="escala-data"><span class="escala-nova">Nova</span>Atualizada em 5 de novembro de 2026, às 09:10, por Helder</div>
+    <div class="escala-aviso">⚠️ Escala com mais de 7 dias</div>
+    <div class="escala-nota sem-rede">📴 Sem ligação ou rede fraca: a mostrar a última escala guardada neste telemóvel.</div>
+    <div class="imagem">(imagem da escala)</div>
+  </div></div>
+
+  <div class="caso"><h2>7. Erro sem cópia guardada</h2><div class="escala-corpo">
+    <div class="estado">Não foi possível ver a escala. Verifique a ligação à internet.<button type="button">Tentar de novo</button></div>
+  </div></div>
+
+</div>
+</body>
+</html>
