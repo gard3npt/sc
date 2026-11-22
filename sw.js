@@ -1,16 +1,16 @@
 /* Service worker do SC Lab
    - Página (index.html): rede primeiro, para veres sempre a versão mais recente; sem ligação usa a cópia guardada.
-   - Ícones e ficheiros da app: cache primeiro.
+   - Ícones e ficheiros da app: mostra a cópia guardada e atualiza-a em segundo plano.
    - Tipos de letra (Google Fonts): usa a cópia guardada e atualiza em segundo plano.
    - Tudo o resto (base de dados da escala, anúncios, ligações externas…) passa direto, sem ser guardado,
      para os dados da escala estarem sempre atualizados.
-   Quando mudares ficheiros da app (index, ícones, manifesto), sobe o número da VERSAO para limpar caches antigas. */
-const VERSAO = 'v3';
+   Atualiza sozinho: basta substituir o index.html no site (não é preciso mexer neste ficheiro). */
+const VERSAO = 'v4';
 const CACHE_APP = 'sc-app-' + VERSAO;
 const CACHE_EXTRA = 'sc-extra-' + VERSAO;
 const FICHEIROS_APP = [
   './', 'index.html', 'manifest.webmanifest',
-  'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'apple-touch-icon.png', 'favicon.png'
+  'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png', 'icons/favicon.png'
 ];
 const DOMINIOS_EXTRA = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 
@@ -43,7 +43,7 @@ self.addEventListener('fetch', function (e) {
   // Páginas: rede primeiro
   if (req.mode === 'navigate') {
     e.respondWith(
-      fetch(req)
+      fetch(req.url, { cache: 'no-cache' })
         .then(function (r) {
           if (r && r.ok && url.origin === location.origin) {
             const copia = r.clone();
@@ -59,7 +59,7 @@ self.addEventListener('fetch', function (e) {
   // Manifesto: rede primeiro (para alterações ao manifesto chegarem logo), cópia guardada só sem ligação
   if (url.origin === location.origin && /manifest\.webmanifest$/.test(url.pathname)) {
     e.respondWith(
-      fetch(req).then(function (resp) {
+      fetch(req.url, { cache: 'no-cache' }).then(function (resp) {
         if (resp && resp.ok) { const copia = resp.clone(); caches.open(CACHE_APP).then(function (c) { c.put(req, copia); }); }
         return resp;
       }).catch(function () { return caches.match(req); })
@@ -67,17 +67,18 @@ self.addEventListener('fetch', function (e) {
     return;
   }
 
-  // Ficheiros da própria app: cache primeiro
+  // Ficheiros da própria app: mostra a cópia guardada já e atualiza-a em segundo plano
   if (url.origin === location.origin) {
     e.respondWith(
       caches.match(req).then(function (r) {
-        return r || fetch(req).then(function (resp) {
+        const rede = fetch(req.url, { cache: 'no-cache' }).then(function (resp) {
           if (resp && resp.ok) {
             const copia = resp.clone();
             caches.open(CACHE_APP).then(function (c) { c.put(req, copia); });
           }
           return resp;
-        });
+        }).catch(function () { return r; });
+        return r || rede;
       })
     );
     return;
