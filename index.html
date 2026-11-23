@@ -2223,10 +2223,8 @@
 .menu-panel .menu-item.menu-logout { font-weight: 400; }
 .menu-panel .menu-item > svg { width: 22px; height: 22px; }
 
-.login-acoes { display: flex; gap: 10px; }
-.login-acoes .login-button { flex: 1; width: auto; }
-.login-button.login-sair { background: rgba(239,68,68,.16); color: #fecaca; border: 1px solid rgba(248,113,113,.55); box-shadow: none; }
-.login-button.login-sair:hover { background: rgba(239,68,68,.32); color: #fff; }
+.login-info { margin: -8px 0 16px; font-size: .85rem; color: #94a3b8; }
+.login-info[hidden] { display: none; }
 .menu-panel .menu-item .f5 { display: none; }
 @media (hover: hover) and (pointer: fine) { .menu-panel .menu-item .f5 { display: inline; color: #94a3b8; font-weight: 400; } }
 .saida-app { position: fixed; inset: 0; z-index: 100000; display: none; align-items: center; justify-content: center; padding: 24px; background: #121417; color: #fff; }
@@ -2244,11 +2242,9 @@
   <div class="login-screen" id="loginScreen">
     <div class="login-box">
       <h2>Acesso Restrito</h2>
+      <p class="login-info" id="sessaoTerminada" role="status" hidden>Sessão terminada.</p>
       <input type="password" id="passwordInput" class="password-input" placeholder="Introduza a senha">
-      <div class="login-acoes">
-        <button class="login-button" onclick="checkPassword()">Entrar</button>
-        <button type="button" class="login-button login-sair" onclick="sairDaApp()">Sair</button>
-      </div>
+      <button class="login-button" onclick="checkPassword()">Entrar</button>
       <div class="error-message" id="errorMessage" style="color:#ff4d4d; margin-top:15px; display:none; font-weight:700;">Senha incorreta...</div>
     </div>
   </div>
@@ -2908,7 +2904,7 @@
       const d = new Date(ULTIMA_ATUALIZACAO + 'T12:00:00');
       return isNaN(d) ? ULTIMA_ATUALIZACAO : d.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
     }
-    function textoUltimaAtualizacao() { return 'Atualização: ' + dataAtualizacaoTxt(); }
+    function textoUltimaAtualizacao() { return 'Última atualização: ' + dataAtualizacaoTxt(); }
     /* Automática: lê o cabeçalho Last-Modified do index.html no alojamento. Se não conseguir (ficheiro aberto do computador, servidor sem cabeçalho), fica a data de cima. */
     async function dnDetetarDataAuto(){
       try {
@@ -2960,6 +2956,7 @@
       try { history.replaceState(null, ""); } catch (e) {}
       irParaHome();
       renderAppState();
+      var st = document.getElementById("sessaoTerminada"); if (st) st.hidden = false;
     }
 
     function esconderToastAtualizacao() {
@@ -6310,7 +6307,8 @@
     /* Atualizar (igual em todos os sites): pede à rede a versão mais recente e limpa o service worker e as caches.
        A sessão e as definições mantêm-se. Se não houver ligação, não apaga nada. */
     try {
-        const r = await fetch(location.href.split('#')[0], { cache: 'reload' });
+        if (navigator.onLine === false) throw new Error('offline');
+        const r = await fetch(location.href.split('#')[0].split('?')[0] + '?_=' + Date.now(), { cache: 'reload' });   /* com ?_= não é respondido pela cache do service worker */
         if (!r.ok) throw new Error('http ' + r.status);
     } catch (e) {
         window.alert('Sem ligação à internet: não foi possível atualizar. Tente de novo quando estiver ligado.');
